@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>新北市樹林區三多國民小學</title>
+<link rel="icon" href="favicon.ico" />
+
 <link href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
 <link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
@@ -22,16 +24,33 @@
     .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; }
     .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
 
+    /* Navbar CSS */
     .navbar { background-color: #397DB3; }
     .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
     .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+    
+    /* [修正關鍵] 加入 position: relative，讓下拉選單以它為基準 */
+    .nav-item { position: relative; }
+
     .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; }
     .nav-link:hover, .nav-link:focus { background-color: #2c628e; }
-    .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
+    
+    /* 下拉選單 */
+    .dropdown-content { 
+        display: none; 
+        position: absolute; 
+        background-color: #f9f9f9; 
+        min-width: 200px; 
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+        z-index: 1000; 
+        top: 100%; /* 在按鈕正下方 */
+        left: 0;   /* 靠左對齊 */
+    }
     .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; }
     .dropdown-content a:hover { background-color: #ddd; }
     .nav-item:hover .dropdown-content { display: block; }
     .nav-item:focus-within .dropdown-content { display: block; }
+    
     .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
     .mobile-only { display: none; }
 
@@ -85,26 +104,26 @@
 </style>
 </head>
 <body>
-<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/sandwo-logo-2.png" alt="校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn"><span style="color: #1976D2;">新北市樹林區三多國民小學</span></h1><span class="school-title-en"><span style="color: #1976D2;">New Taipei City Shulin Dist Sanduo Elementary School</span></span></div></div><div class="header-right"><a href="./" class="header-btn" title="回首頁">🏠 回首頁</a><a href="javascript:void(0);" onclick="toggleSitemap()" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div><div class="header-right"><a href="./" class="header-btn" title="回首頁">🏠 回首頁</a><a href="javascript:void(0);" onclick="toggleSitemap()" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="./" class="nav-link">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="javascript:void(0);" onclick="toggleSitemap()" class="nav-link">🗺️ 網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
-<a href="https://www.google.com/url?q=https%3A%2F%2Fsites.google.com%2Fsdes.ntpc.edu.tw%2Fintroduction%2F&sa=D&sntz=1&usg=AOvVaw0CrABt0VfzS9R5uf1jSjUR" target="_blank" title="學校簡介(另開新視窗)">學校簡介</a>
-<a href="https://www.google.com/url?q=https%3A%2F%2Fsites.google.com%2Fsdes.ntpc.edu.tw%2Fchu-shi-wang-zhan%2F%25E8%2599%2595%25E5%25AE%25A4%25E4%25BB%258B%25E7%25B4%25B9%3Fauthuser%3D5&sa=D&sntz=1&usg=AOvVaw1u8_gro83ze3a7AFGIPvxv" target="_blank" title="處室介紹(另開新視窗)">處室介紹</a>
+<a href="https://sites.google.com/sdes.ntpc.edu.tw/introduction/" target="_blank" title="學校簡介(另開新視窗)">學校簡介</a>
+<a href="https://sites.google.com/sdes.ntpc.edu.tw/chu-shi-wang-zhan/%E8%99%95%E5%AE%A4%E4%BB%8B%E7%B4%B9?authuser=5" target="_blank" title="處室介紹(另開新視窗)">處室介紹</a>
 </div>
 </li>
 <li class="nav-item">
 <a href="https://www.facebook.com/sanduogood/" target="_blank" title="三多粉絲頁(另開新視窗)" class="nav-link">三多粉絲頁</a>
 </li>
 <li class="nav-item">
-<a href="https://www.google.com/url?q=https%3A%2F%2Fsites.google.com%2Fmail.sdes.ntpc.edu.tw%2Fkids%2F&sa=D&sntz=1&usg=AOvVaw2eGq0WrSqzTMksiwS-kQHW" target="_blank" title="三多附幼(另開新視窗)" class="nav-link">三多附幼</a>
+<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" target="_blank" title="三多附幼(另開新視窗)" class="nav-link">三多附幼</a>
 </li>
 <li class="nav-item">
 <a href="https://www.sdes.ntpc.edu.tw/%E8%A1%8C%E4%BA%8B%E6%9B%86" target="_blank" title="行事曆(另開新視窗)" class="nav-link">行事曆</a>
 </li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">影音相簿 ▼</a><div class="dropdown-content">
-<a href="https://www.google.com/url?q=https%3A%2F%2Fsites.google.com%2Fmail.sdes.ntpc.edu.tw%2Fphotos%2F%25E9%25A6%2596%25E9%25A0%2581&sa=D&sntz=1&usg=AOvVaw3pwl__IkB_GKWtNwt9X9V5" target="_blank" title="三多活動相簿(另開新視窗)">三多活動相簿</a>
+<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" target="_blank" title="三多活動相簿(另開新視窗)">三多活動相簿</a>
 <a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" target="_blank" title="三多活動影片(另開新視窗)">三多活動影片</a>
 </div>
 </li>
@@ -121,16 +140,16 @@
 <a href="https://www.sdes.ntpc.edu.tw/%E6%AA%94%E6%A1%88%E4%B8%8B%E8%BC%89" target="_blank" title="檔案下載(另開新視窗)" class="nav-link">檔案下載</a>
 </li>
 <li class="nav-item">
-<a href="https://www.google.com/url?q=https%3A%2F%2Fesa.ntpc.edu.tw%2Fweb-classmgt%2Ftemplate%2Fpub%2Fpubmain.html%3Fschno%3D014767&sa=D&sntz=1&usg=AOvVaw2elI2cnpJyoZlt06FBZkUy" target="_blank" title="新北市教育局電子書(另開新視窗)" class="nav-link">新北市教育局電子書</a>
+<a href="https://" target="_self" title="新北市教育局電子書" class="nav-link">新北市教育局電子書</a>
 </li>
 <li class="nav-item">
-<a href="https://esa.ntpc.edu.tw/web-maintain/templates/maintain_pub.html?schno=014767" target="_blank" title="設備維修(另開新視窗)" class="nav-link">設備維修</a>
+<a href="https://ebook.ntpc.edu.tw/" target="_blank" title="設備維修(另開新視窗)" class="nav-link">設備維修</a>
 </li>
 <li class="nav-item">
 <a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約(另開新視窗)" class="nav-link">場地預約</a>
 </li>
 </ul></div></nav>
-<div class="banner-container"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/randimg/mobileadv_346_5402040_38689.png" alt="學校首頁" class="banner-img" /></div>
+<div class="banner-container"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/randimg/mobileadv_346_5402040_38689.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="container"><aside class="col-left"><a href="#al" id="al" accesskey="L" title="左方次選單區" class="access-key">:::</a>
 <div class="block-card">
 <h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">公文交辦專區</h2>
@@ -141,7 +160,7 @@
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office130" target="_blank" title="學務處宣導專區(另開新視窗)" class="custom-link">🔗 學務處宣導專區</a>
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/outsiders" target="_blank" title="校外人士協助教學(另開新視窗)" class="custom-link">🔗 校外人士協助教學</a>
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdesfamilyedu" target="_blank" title="家庭教育專區(另開新視窗)" class="custom-link">🔗 家庭教育專區</a>
-<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdes-public-lecture" target="_blank" title="三多國小公開授課專區(另開新視窗)" class="custom-link">🔗 三多國小公開授課專區</a>
+<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdes-public-lecture" target="_blank" title=" 三多國小公開授課專區(另開新視窗)" class="custom-link">🔗  三多國小公開授課專區</a>
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/academic-assessment" target="_blank" title="三多國小成績評量專區(另開新視窗)" class="custom-link">🔗 三多國小成績評量專區</a>
 </div>
 <div class="block-card">
@@ -203,11 +222,11 @@
 <main class="col-center"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="block-card">
 <h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">公告訊息</h2>
-<iframe src="https://www.google.com/url?q=https%3A%2F%2Fesa.ntpc.edu.tw%2Fweb-announce%2Frest%2Fservice%2Fview%2Fpublic%2FOFJQdXFmQXJyaTF1WTR3YytNaC9iQTN4WW1nWWc3UGc3TVk2NFEydkF6VT0&sa=D&sntz=1&usg=AOvVaw2eia5QHhKRSpY_fIur3WOL" title="公告訊息" width="100%" height="800" style="border:none;" loading="lazy"></iframe>
+<iframe src="https://esa.ntpc.edu.tw/web-announce/rest/service/view/public/OFJQdXFmQXJyaTF1WTR3YytNaC9iQTN4WW1nWWc3UGc3TVk2NFEydkF6VT0" title="公告訊息" width="100%" height="800" style="border:none;" loading="lazy"></iframe>
 </div>
 <div class="block-card">
 <h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">榮譽榜</h2>
-<iframe src="https://esa.ntpc.edu.tw/web-heromgt/rest/service/view/public/WVFYTWN4Zy9GRlBrTDlkSEJZUmRnakZFRVBkNlhhUXRXQzgrNmxZeUx4OD0" title="榮譽榜" width="100%" height="800" style="border:none;" loading="lazy"></iframe>
+<iframe src="https://esa.ntpc.edu.tw/web-heromgt/rest/service/view/public/WVFYTWN4Zy9GRlBrTDlkSEJZUmRnakZFRVBkNlhhUXRXQzgrNmxZeUx4OD0" title="榮譽榜" width="100%" height="700" style="border:none;" loading="lazy"></iframe>
 </div>
 </main>
 <aside class="col-right"><a href="#ar" id="ar" accesskey="R" title="右方次選單區" class="access-key">:::</a>
@@ -231,8 +250,8 @@
 <a href="https://exam.tcte.edu.tw/tbt_html/" target="_blank" title="學習扶助科技化評量(另開新視窗)" class="custom-link">🔗 學習扶助科技化評量</a>
 <a href="https://rrcp.ntpc.edu.tw/" target="_blank" title="課程計畫備查網(另開新視窗)" class="custom-link">🔗 課程計畫備查網</a>
 <a href="http://elem.ntpc.edu.tw/" target="_blank" title="新北市國小教育資源網平台(另開新視窗)" class="custom-link">🔗 新北市國小教育資源網平台</a>
-<a href="https://mail.google.com/a/go.edu.tw" target="_blank" title="教育部Gmail(另開新視窗)" class="custom-link">🔗 教育部Gmail</a>
-<a href="https://www.sso.edu.tw/" target="_blank" title="教育體系單一簽入服務 (另開新視窗)" class="custom-link">🔗 教育體系單一簽入服務 </a>
+<a href="教育部Gmail" target="_blank" title="教育部Gmail(另開新視窗)" class="custom-link">🔗 教育部Gmail</a>
+<a href="https://www.sso.edu.tw/" target="_blank" title="教育體系單一簽入服務(另開新視窗)" class="custom-link">🔗 教育體系單一簽入服務</a>
 </div>
 <div class="block-card">
 <h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">學生專區</h2>
@@ -248,13 +267,13 @@
 </div>
 <div class="block-card">
 <h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">新北校園通</h2>
-<a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" title="新北校園通Google Play下載連結(另開新視窗)" class="img-link"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/2560px-Google_Play_Store_badge_EN.svg.png" alt="新北校園通Google Play下載連結" /></a>
-<a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" title="新北校園通App Store下載連結(另開新視窗)" class="img-link"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/appstore..png" alt="新北校園通App Store下載連結" /></a>
+<a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" title="新北校園通Google Play下載(另開新視窗)" class="img-link"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/2560px-Google_Play_Store_badge_EN.svg.png" alt="新北校園通Google Play下載" /></a>
+<a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" title="新北校園通App Store下載(另開新視窗)" class="img-link"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/appstore..png" alt="新北校園通App Store下載" /></a>
 <a href="https://mis.ntpc.edu.tw/p/406-1001-5733,r2.php?Lang=zh-tw" target="_blank" title="APP操作說明與影片(另開新視窗)" class="custom-link">🔗 APP操作說明與影片</a>
 </div>
 <div class="block-card">
 <h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">專線電話</h2>
-<div class="html-content">☎ 教育部反霸凌專線<br><b><span style="color: #D32F2F;">1953</span></b><br>☎ 新北市維護學生受教權檢舉專線<br><b><span style="color: #D32F2F;">(02)2966-7317<br>0800-580-780</span></b><br>☎ 三多國小校園霸凌投訴&學生申訴專線<br><b><span style="color: #D32F2F;">(02)26880698#131</span></b><br>☎ 三多國小校園輔導專線<br><b><span style="color: #D32F2F;">(02)26880698#151</span></b></div>
+<div class="html-content">☎ 教育部反霸凌專線<br><b><span style="color: #D32F2F;">1953</span></b><br>☎ 新北市維護學生受教權檢舉專線<br><b><span style="color: #D32F2F;">(02)2966-7317<br>0800-580-780</span></b><br><b>☎ 三多國小校園霸凌投訴&學生申訴專線<br>(02)<span style="color: #D32F2F;">26880698#131</span></b><br>☎ 三多國小校園輔導專線<br><b><span style="color: #D32F2F;">(02)26880698#151</span></b></div>
 </div>
 </aside></div>
 <div id="sitemap" class="sitemap-section"><div class="sitemap-container"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><h2 class="sitemap-title" id="sitemap-title" tabindex="-1">網站導覽 & Accesskey 設定</h2><div style="margin-bottom: 20px; color: #555;"><p>本網站依照無障礙網頁設計規範，快速鍵 (Accesskey) 設定如下：</p><ul><li><strong>Alt+U</strong>：上方選單區，包含校名、導覽列、回首頁。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li><li><strong>Alt+B</strong>：下方功能區。</li><li><strong>Alt+M</strong>：網站導覽 (本區)。</li></ul></div><div class="sitemap-list"><div class="sitemap-col"><h3>主選單</h3><ul>
@@ -285,5 +304,4 @@
 </ul></div></div><div style="margin-top: 20px; text-align: center;"><button onclick="toggleSitemap()" style="padding: 10px 20px; cursor: pointer; font-size:1em;">關閉導覽</button></div></div></div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
 代表號：(02)26880698（<a href="https://docs.google.com/document/d/11-uxFcW9_WTdHWRoVmbT_mNpGFdwzQOZqMODGyZqbUA/edit?usp=sharing" rel="noopener noreferrer" target="_blank" title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
-Copyright © 新北市樹林區三多國民小學 版權所有<br>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); }); function toggleSitemap() { var sm = document.getElementById('sitemap'); if (sm.style.display === 'block') { sm.style.display = 'none'; } else { sm.style.display = 'block'; sm.scrollIntoView({ behavior: 'smooth' }); var title = document.getElementById('sitemap-title'); if(title) title.focus(); } }</script></body></html>
