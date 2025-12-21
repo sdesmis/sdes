@@ -8,12 +8,10 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
 <link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
 <style>
-    /* 全域設定 */
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
     .access-key { color: #666; text-decoration: none; font-size: 0.8em; padding: 5px; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
     
-    /* Header */
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -24,7 +22,6 @@
     .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; }
     .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
 
-    /* Navbar */
     .navbar { background-color: #397DB3; }
     .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
     .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
@@ -38,36 +35,23 @@
     .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
     .mobile-only { display: none; }
 
-    /* Banner & Layout */
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; }
     .col-left { width: 20%; } .col-center { width: 60%; } .col-right { width: 20%; }
     .block-card { margin-bottom: 10px; background: #fff; padding: 0.5em; border-radius: 5px; }
-    h2.block-title { font-size: 1.5em; color: #333; border-bottom: 2px solid #ccc; padding-bottom: 0.2em; margin-bottom: 0.5em; }
+    h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.2em; margin-bottom: 0.5em; }
     
-    /* Links */
-    a.custom-link { font-size: 1.2em; font-weight: bold; color: #397DB3; text-decoration: none; display: block; margin-bottom: 0.8em; }
+    a.custom-link { font-size: 1.2em; font-weight: normal; color: #397DB3; text-decoration: none; display: block; margin-bottom: 0.8em; }
     a.custom-link:hover { text-decoration: underline; }
     
-    /* 圖片連結 */
-    a.img-link { 
-        display: block; 
-        text-align: center; 
-        margin-bottom: 15px; 
-        text-decoration: none; 
-        border: 1px solid #eee;
-        padding: 5px;
-        border-radius: 5px;
-        transition: transform 0.2s;
-    }
+    a.img-link { display: block; text-align: center; margin-bottom: 15px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; }
     a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
 
     .html-content { font-size: 1.1em; line-height: 1.6; color: #333; }
     .html-content img { max-width: 100%; height: auto; }
     
-    /* Footer & Sitemap */
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
     .sitemap-section { display: none; background: #f9f9f9; padding: 2em; border-top: 10px solid #eee; }
@@ -81,13 +65,10 @@
     .sitemap-col a { text-decoration: none; color: #333; }
     .sitemap-col a:hover { text-decoration: underline; color: #000; }
 
-    /* RWD */
     @media (max-width: 900px) {
         .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
-        .header-left { width: 80%; } 
-        .school-logo { height: 60px; margin-right: 10px; }
-        .header-right { display: none; }
-        .hamburger { display: block; }
+        .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
+        .header-right { display: none; } .hamburger { display: block; }
         .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #2c628e; }
         .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
         .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; }
@@ -104,7 +85,7 @@
 </style>
 </head>
 <body>
-<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/sandwo-logo-2.png" alt="校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div><div class="header-right"><a href="./" class="header-btn" title="回首頁">🏠 回首頁</a><a href="javascript:void(0);" onclick="toggleSitemap()" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/sandwo-logo-2.png" alt="校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn"><span style="color: #1976D2;">新北市樹林區三多國民小學</span></h1><span class="school-title-en"><span style="color: #1976D2;">New Taipei City Shulin Dist Sanduo Elementary School</span></span></div></div><div class="header-right"><a href="./" class="header-btn" title="回首頁">🏠 回首頁</a><a href="javascript:void(0);" onclick="toggleSitemap()" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="./" class="nav-link">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="javascript:void(0);" onclick="toggleSitemap()" class="nav-link">🗺️ 網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
@@ -152,7 +133,7 @@
 <div class="banner-container"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/randimg/mobileadv_346_5402040_38689.png" alt="學校首頁" class="banner-img" /></div>
 <div class="container"><aside class="col-left"><a href="#al" id="al" accesskey="L" title="左方次選單區" class="access-key">:::</a>
 <div class="block-card">
-<h2 class="block-title">公文交辦專區</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">公文交辦專區</h2>
 <a href="https://sites.google.com/member.sdes.ntpc.edu.tw/motherlanguage/" target="_blank" title="臺灣母語日專區(另開新視窗)" class="custom-link">🔗 臺灣母語日專區</a>
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office121/%E9%A6%96%E9%A0%81" target="_blank" title="課程計畫專區(另開新視窗)" class="custom-link">🔗 課程計畫專區</a>
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/english-lohas/" target="_blank" title="英語樂活成果(另開新視窗)" class="custom-link">🔗 英語樂活成果</a>
@@ -164,11 +145,11 @@
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/academic-assessment" target="_blank" title="三多國小成績評量專區(另開新視窗)" class="custom-link">🔗 三多國小成績評量專區</a>
 </div>
 <div class="block-card">
-<h2 class="block-title">政令快訊</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">政令快訊</h2>
 <iframe src="https://web.ntpc.edu.tw/p/426-1000-1.php?Lang=zh-tw" title="政令快訊" width="100%" height="140" style="border:none;" loading="lazy"></iframe>
 </div>
 <div class="block-card">
-<h2 class="block-title">宣導網站</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">宣導網站</h2>
 <a href="https://eliteracy.edu.tw/" target="_blank" title="中小學數位素養教育資源網(另開新視窗)" class="custom-link">🔗 中小學數位素養教育資源網</a>
 <a href="https://antidrug.moj.gov.tw/" target="_blank" title="反毒大本營(另開新視窗)" class="custom-link">🔗 反毒大本營</a>
 <a href="https://165.npa.gov.tw/" target="_blank" title="165全民防騙網(另開新視窗)" class="custom-link">🔗 165全民防騙網</a>
@@ -180,7 +161,7 @@
 <a href="https://ai.gov.tw/" target="_blank" title="禽流感資訊專區(另開新視窗)" class="custom-link">🔗 禽流感資訊專區</a>
 </div>
 <div class="block-card">
-<h2 class="block-title">常用連結</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">常用連結</h2>
 <a href="http://dict.revised.moe.edu.tw/" target="_blank" title="重編國語辭典修訂本(另開新視窗)" class="custom-link">🔗 重編國語辭典修訂本</a>
 <a href="https://dict.mini.moe.edu.tw/" target="_blank" title="國語小字典(另開新視窗)" class="custom-link">🔗 國語小字典</a>
 <a href="http://dict.variants.moe.edu.tw/" target="_blank" title="異體字字典(另開新視窗)" class="custom-link">🔗 異體字字典</a>
@@ -190,7 +171,7 @@
 <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/mold" target="_blank" title="許志文-黴(另開新視窗)" class="custom-link">🔗 許志文-黴</a>
 </div>
 <div class="block-card">
-<h2 class="block-title">空氣品質資訊</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">空氣品質資訊</h2>
 <div class="html-content"><div id="wrap" style="width: 100%; max-width: 320px; font-family: sans-serif;">
     <a href="https://airtw.moenv.gov.tw/AirQuality_APIs/WebWidget.aspx?site=91" 
        target="_blank" 
@@ -221,17 +202,17 @@
 </aside>
 <main class="col-center"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="block-card">
-<h2 class="block-title">公告訊息</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">公告訊息</h2>
 <iframe src="https://www.google.com/url?q=https%3A%2F%2Fesa.ntpc.edu.tw%2Fweb-announce%2Frest%2Fservice%2Fview%2Fpublic%2FOFJQdXFmQXJyaTF1WTR3YytNaC9iQTN4WW1nWWc3UGc3TVk2NFEydkF6VT0&sa=D&sntz=1&usg=AOvVaw2eia5QHhKRSpY_fIur3WOL" title="公告訊息" width="100%" height="800" style="border:none;" loading="lazy"></iframe>
 </div>
 <div class="block-card">
-<h2 class="block-title">榮譽榜</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">榮譽榜</h2>
 <iframe src="https://esa.ntpc.edu.tw/web-heromgt/rest/service/view/public/WVFYTWN4Zy9GRlBrTDlkSEJZUmRnakZFRVBkNlhhUXRXQzgrNmxZeUx4OD0" title="榮譽榜" width="100%" height="800" style="border:none;" loading="lazy"></iframe>
 </div>
 </main>
 <aside class="col-right"><a href="#ar" id="ar" accesskey="R" title="右方次選單區" class="access-key">:::</a>
 <div class="block-card">
-<h2 class="block-title">教師專區</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">教師專區</h2>
 <a href="https://esa.ntpc.edu.tw/" target="_blank" title="校務行政系統(另開新視窗)" class="custom-link">🔗 校務行政系統</a>
 <a href="https://sso.ntpc.edu.tw/" target="_blank" title="教育局單一認證入口(另開新視窗)" class="custom-link">🔗 教育局單一認證入口</a>
 <a href="https://drive.google.com/a/apps.ntpc.edu.tw" target="_blank" title="三多充電站(另開新視窗)" class="custom-link">🔗 三多充電站</a>
@@ -254,7 +235,7 @@
 <a href="https://www.sso.edu.tw/" target="_blank" title="教育體系單一簽入服務 (另開新視窗)" class="custom-link">🔗 教育體系單一簽入服務 </a>
 </div>
 <div class="block-card">
-<h2 class="block-title">學生專區</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">學生專區</h2>
 <a href="https://mail.google.com/a/apps.ntpc.edu.tw" target="_blank" title="學生Gmail(另開新視窗)" class="custom-link">🔗 學生Gmail</a>
 <a href="https://drive.google.com/a/apps.ntpc.edu.tw" target="_blank" title="學生雲端硬碟(另開新視窗)" class="custom-link">🔗 學生雲端硬碟</a>
 <a href="https://sso.ntpc.edu.tw/login.aspx?SAMLRequest=fVJNT9wwEL1X4j9YvudjA4fW2gQtIMRKtI3YwIGb15lNvDgzqcfZtP%2B%2B2SwIeijX5zfvYzzLy9%2BdEwfwbAlzuYhTKQAN1RabXD5Wt9FXeVmcfVmy7lyvVkNo8QF%2BDcBBTJPIan7I5eBRkWbLCnUHrIJRm9X3e5XFqeo9BTLkpFjf5HK7JdOYPba9e9F72uq6IY0vuK%2FJIbQt7Osddb2W4uktVnaMtWYeYI0cNIYJSrMsSr9F6XmVZuo8VenFsxTlq9OVxVODz2JtTyRWd1VVRuXPTTULHGwN%2FsfEzmVD1DiIDXVH%2B1Iz28ME77RjkGLFDD5MAa8JeejAb8AfrIHHh%2FtctiH0rJJkHMf4XSbRCYbexFAPcRgTbVgW82rV3M5%2F2Onn2fWbtyze1ZfJB6ni9cuOTdY3JTlr%2FoiVczRee9BhqhH8MLW4Jd%2Fp8H%2B3RbyYEVtHu5mqBuQejN1ZqKVIipPrv7cxXcxf&RelayState=https%3A%2F%2Fwww.google.com%2Fa%2Fapps.ntpc.edu.tw%2FServiceLogin%3Fcontinue%3Dhttps%253A%252F%252Fclassroom.google.com%252F%26passive%3Dtrue" target="_blank" title="學生Google Classroom(另開新視窗)" class="custom-link">🔗 學生Google Classroom</a>
@@ -266,14 +247,14 @@
 <a href="https://makecode.microbit.org/" target="_blank" title="micro:bit(另開新視窗)" class="custom-link">🔗 micro:bit</a>
 </div>
 <div class="block-card">
-<h2 class="block-title">新北校園通</h2>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">新北校園通</h2>
 <a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" title="新北校園通Google Play下載連結(另開新視窗)" class="img-link"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/2560px-Google_Play_Store_badge_EN.svg.png" alt="新北校園通Google Play下載連結" /></a>
 <a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" title="新北校園通App Store下載連結(另開新視窗)" class="img-link"><img src="https://web.sdes.ntpc.edu.tw/var/file/1/1001/img/appstore..png" alt="新北校園通App Store下載連結" /></a>
 <a href="https://mis.ntpc.edu.tw/p/406-1001-5733,r2.php?Lang=zh-tw" target="_blank" title="APP操作說明與影片(另開新視窗)" class="custom-link">🔗 APP操作說明與影片</a>
 </div>
 <div class="block-card">
-<h2 class="block-title">專線電話</h2>
-<div class="html-content">☎ 教育部反霸凌專線<br>1953<br>☎ 新北市維護學生受教權檢舉專線<br>(02)2966-7317<br>0800-580-780<br>☎ 三多國小校園霸凌投訴&學生申訴專線<br>(02)26880698#131<br>☎ 三多國小校園輔導專線<br>(02)26880698#151</div>
+<h2 class="block-title" style="color: #333333; border-bottom-color: #ccc;">專線電話</h2>
+<div class="html-content">☎ 教育部反霸凌專線<br><b><span style="color: #D32F2F;">1953</span></b><br>☎ 新北市維護學生受教權檢舉專線<br><b><span style="color: #D32F2F;">(02)2966-7317<br>0800-580-780</span></b><br>☎ 三多國小校園霸凌投訴&學生申訴專線<br><b><span style="color: #D32F2F;">(02)26880698#131</span></b><br>☎ 三多國小校園輔導專線<br><b><span style="color: #D32F2F;">(02)26880698#151</span></b></div>
 </div>
 </aside></div>
 <div id="sitemap" class="sitemap-section"><div class="sitemap-container"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><h2 class="sitemap-title" id="sitemap-title" tabindex="-1">網站導覽 & Accesskey 設定</h2><div style="margin-bottom: 20px; color: #555;"><p>本網站依照無障礙網頁設計規範，快速鍵 (Accesskey) 設定如下：</p><ul><li><strong>Alt+U</strong>：上方選單區，包含校名、導覽列、回首頁。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li><li><strong>Alt+B</strong>：下方功能區。</li><li><strong>Alt+M</strong>：網站導覽 (本區)。</li></ul></div><div class="sitemap-list"><div class="sitemap-col"><h3>主選單</h3><ul>
@@ -302,16 +283,7 @@
 <li>新北校園通</li>
 <li>專線電話</li>
 </ul></div></div><div style="margin-top: 20px; text-align: center;"><button onclick="toggleSitemap()" style="padding: 10px 20px; cursor: pointer; font-size:1em;">關閉導覽</button></div></div></div>
-
-<footer class="footer">
-    <a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a>
-    <div style="line-height: 1.8; margin-bottom: 15px;">Copyright © 新北市樹林區三多國民小學 版權所有<br>
+<footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;">Copyright © 新北市樹林區三多國民小學 版權所有<br>
 地址：238035 新北市樹林區三福街52號<br>
 電話：<a href="tel:0226880698" style="color:#fff; text-decoration:underline;">(02)2688-0698</a> | 傳真：(02)2688-6461<br>
-</div>
-</footer>
-<script>
-    document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); }); 
-    function toggleSitemap() { var sm = document.getElementById('sitemap'); if (sm.style.display === 'block') { sm.style.display = 'none'; } else { sm.style.display = 'block'; sm.scrollIntoView({ behavior: 'smooth' }); var title = document.getElementById('sitemap-title'); if(title) title.focus(); } }
-</script>
-</body></html>
+</div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); }); function toggleSitemap() { var sm = document.getElementById('sitemap'); if (sm.style.display === 'block') { sm.style.display = 'none'; } else { sm.style.display = 'block'; sm.scrollIntoView({ behavior: 'smooth' }); var title = document.getElementById('sitemap-title'); if(title) title.focus(); } }</script></body></html>
