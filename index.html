@@ -11,10 +11,9 @@
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
     
-    /* 校徽標題連結 */
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; }
     .logo-link:hover { opacity: 0.8; }
-    
+
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
     .school-text { display: inline-block; vertical-align: middle; }
     .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
@@ -25,7 +24,7 @@
     .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; }
     .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
 
-    /* Search Box */
+    /* Search Box (Header) */
     .search-header { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 20px; padding: 2px 5px; background: #fff; height: 36px; }
     .search-header input { border: none; outline: none; padding: 0 10px; font-size: 1em; width: 150px; background: transparent; }
     .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 8px; display: flex; align-items: center; }
@@ -109,6 +108,15 @@
     .sitemap-col a:hover { text-decoration: none; color: #397DB3; background-color: #f0f8ff; }
     .highlight { background-color: yellow; color: black; }
 
+    /* Inner Page Styles */
+    .inner-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #fff; min-height: 500px; }
+    .inner-title { font-size: 2em; border-bottom: 4px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; color: #333; }
+    .inner-content { line-height: 1.8; font-size: 1.1em; color: #333; }
+    .inner-content h2 { color: #397DB3; margin-top: 30px; border-left: 5px solid #397DB3; padding-left: 10px; }
+    .inner-content p { margin-bottom: 15px; }
+    .inner-content ul { padding-left: 40px; margin-bottom: 15px; }
+    .inner-content li { margin-bottom: 5px; }
+
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
 
@@ -135,7 +143,7 @@
 </head><body>
 <div class="header">
                 <div class="header-left">
-                    <a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a>
+                    <a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a>
                     <a href="index.html" class="logo-link" title="回首頁">
                         <img src="./images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
                         <div class="school-text">
@@ -148,12 +156,13 @@
                 <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
                 <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
                 <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-                    <input type="text" placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字">
-                    <button type="submit" aria-label="搜尋" title="搜尋">🔍</button>
+                    <input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字">
+                    <button type="submit" aria-label="搜尋" title="搜尋" >🔍</button>
                 </form>
             </div>
 <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
-<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="index.html" class="nav-link">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link">🗺️ 網站導覽</a></li>
+
+<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="index.html" class="nav-link" title="回首頁">🏠 回首頁</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
 <a href="./01.html" target="_self" title="學校簡介">學校簡介</a>
@@ -198,11 +207,12 @@
 </li>
 <li class="nav-item mobile-only search-mobile-container">
                 <form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-                    <input type="text" placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字">
-                    <button type="submit" title="搜尋">🔍</button>
+                    <input type="text"  placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字">
+                    <button type="submit" title="搜尋" >🔍</button>
                 </form>
             </li>
 </ul></div></nav>
+
 <div class="banner-container"><img src="./images/banner.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="container"><aside class="col-left"><a href="#al" id="al" accesskey="L" title="左方次選單區" class="access-key">:::</a>
 <div class="block-card">
@@ -345,14 +355,13 @@
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-right-3" style="color: #333333; border-bottom-color: #ccc;" tabindex="-1">專線電話</h2>
-<div class="html-content">☎ 教育部反霸凌專線<br><b><span style="color: #D32F2F;">1953</span></b><br>☎ 新北市維護學生受教權檢舉專線<br><b><span style="color: #D32F2F;">(02)2966-7317<br>0800-580-780</span></b><br><b>☎ 三多國小校園霸凌投訴&學生申訴專線<br><span style="color: #D32F2F;">(02)26880698#131</span></b><br>☎ 三多國小校園輔導專線<br><b><span style="color: #D32F2F;">(02)26880698#151</span></b></div>
+<div class="html-content">☎ 教育部反霸凌專線<br><b><span style="color: #D32F2F;">1953</span></b><br>☎ 新北市維護學生受教權檢舉專線<br><b><span style="color: #D32F2F;">(02)2966-7317<br>0800-580-780</span></b><br>☎ 三多國小校園霸凌投訴&學生申訴專線<br><b><span style="color: #D32F2F;">(02)26880698#131</span></b><br>☎ 三多國小校園輔導專線<br><b><span style="color: #D32F2F;">(02)26880698#151</span></b></div>
 </div>
 </aside></div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
 代表號：(02)26880698（<a href="https://docs.google.com/document/d/11-uxFcW9_WTdHWRoVmbT_mNpGFdwzQOZqMODGyZqbUA/edit?usp=sharing" rel="noopener noreferrer" target="_blank" title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
-</div></footer>
+</div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 <script>
-    document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });
     var carousels = document.querySelectorAll('.carousel-container');
     carousels.forEach(function(container) {
         var slideIndex = 0;
