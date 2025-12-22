@@ -39,11 +39,10 @@
     .block-card { margin-bottom: 10px; background: #fff; padding: 0.5em; border-radius: 5px; }
     h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.2em; margin-bottom: 0.5em; }
     
-    /* 一般文字連結 */
     a.custom-link { font-size: 1.2em; font-weight: normal; color: #397DB3; text-decoration: none; display: block; width: fit-content; margin-bottom: 0.8em; }
     a.custom-link:hover { text-decoration: underline; }
     
-    /* [新增/修改] 圖片連結 (Image Link) 樣式 - 支援文字浮層 */
+    /* 圖片連結 (Image Link) */
     a.img-link { 
         display: block; 
         text-align: center; 
@@ -53,29 +52,29 @@
         padding: 5px; 
         border-radius: 5px; 
         transition: transform 0.2s;
-        position: relative; /* 為了讓 caption 絕對定位 */
-        overflow: hidden;   /* 避免文字跑出去 */
+        position: relative; 
+        overflow: hidden;
     }
     a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
 
-    /* [新增] 圖片連結的文字說明 */
+    /* 圖片連結的文字說明 */
     .img-caption {
         position: absolute; 
         bottom: 0; 
         left: 0; 
         width: 100%; 
-        background: rgba(0, 0, 0, 0.8); /* 黑底 */
+        background: rgba(0, 0, 0, 0.8); 
         color: #fff; 
         padding: 5px; 
         text-align: center; 
         font-size: 1em;
-        opacity: 0;               /* 預設隱藏 */
-        transition: opacity 0.2s; /* 快速顯示 */
-        pointer-events: none;     /* 點擊穿透 */
+        opacity: 0;               
+        transition: opacity 0.2s; 
+        pointer-events: none;     
         z-index: 10;
     }
-    a.img-link:hover .img-caption { opacity: 1; } /* 滑鼠移入顯示 */
+    a.img-link:hover .img-caption { opacity: 1; }
 
     .html-content { font-size: 1.1em; line-height: 1.6; color: #333; }
     .html-content img { max-width: 100%; height: auto; }
@@ -151,40 +150,40 @@
     }
 </style>
 </head><body>
-<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><img src="./images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div><div class="header-right"><a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
-<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="index.html" class="nav-link" title="回首頁">🏠 回首頁</a></li></ul></div></nav>
+<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><img src="./images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div><div class="header-right"><a href="index.html" class="header-btn">🏠 回首頁</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="index.html" class="nav-link">🏠 回首頁</a></li></ul></div></nav>
 <div class="sitemap-container"><h2 class="sitemap-title">網站導覽 (Sitemap) & Accesskey</h2><div style="margin-bottom: 20px; color: #555; line-height:1.6;"><p>本網站依照無障礙網頁設計規範，主要內容分為三個區塊：</p><ul><li><strong>Alt+U</strong>：上方選單區。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li></ul></div><div class="sitemap-list">
 <div class="sitemap-col"><h3>主選單</h3><ul>
-<li><a href="#" title="認識三多">認識三多</a></li>
-<li><a href="https://www.facebook.com/sanduogood/" title="三多粉絲頁">三多粉絲頁</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" title="三多附幼">三多附幼</a></li>
-<li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" title="行事曆">行事曆</a></li>
-<li><a href="#" title="影音相簿">影音相簿</a></li>
-<li><a href="#" title="公務作業">公務作業</a></li>
-<li><a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" title="檔案下載">檔案下載</a></li>
-<li><a href="https://" title="新北市教育局電子書">新北市教育局電子書</a></li>
-<li><a href="https://ebook.ntpc.edu.tw/" title="設備維修">設備維修</a></li>
-<li><a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" title="場地預約">場地預約</a></li>
+<li><a href="#">認識三多</a></li>
+<li><a href="https://www.facebook.com/sanduogood/">三多粉絲頁</a></li>
+<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/">三多附幼</a></li>
+<li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767">行事曆</a></li>
+<li><a href="#">影音相簿</a></li>
+<li><a href="#">公務作業</a></li>
+<li><a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7">檔案下載</a></li>
+<li><a href="https://">新北市教育局電子書</a></li>
+<li><a href="https://ebook.ntpc.edu.tw/">設備維修</a></li>
+<li><a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767">場地預約</a></li>
 </ul></div>
 <div class="sitemap-col"><h3>左方區塊</h3><ul>
-<li><a href="index.html#blk-left-0" title="語文競賽">語文競賽</a></li>
-<li><a href="index.html#blk-left-1" title="公文交辦專區">公文交辦專區</a></li>
-<li><a href="index.html#blk-left-2" title="政令快訊">政令快訊</a></li>
-<li><a href="index.html#blk-left-3" title="宣導網站">宣導網站</a></li>
-<li><a href="index.html#blk-left-4" title="常用連結">常用連結</a></li>
-<li><a href="index.html#blk-left-5" title="空氣品質資訊">空氣品質資訊</a></li>
+<li><a href="index.html#blk-left-0">語文競賽</a></li>
+<li><a href="index.html#blk-left-1">公文交辦專區</a></li>
+<li><a href="index.html#blk-left-2">政令快訊</a></li>
+<li><a href="index.html#blk-left-3">宣導網站</a></li>
+<li><a href="index.html#blk-left-4">常用連結</a></li>
+<li><a href="index.html#blk-left-5">空氣品質資訊</a></li>
 </ul></div>
 <div class="sitemap-col"><h3>中間區塊</h3><ul>
-<li><a href="index.html#blk-center-0" title="三多願景">三多願景</a></li>
-<li><a href="index.html#blk-center-1" title="公告訊息">公告訊息</a></li>
-<li><a href="index.html#blk-center-2" title="榮譽榜">榮譽榜</a></li>
+<li><a href="index.html#blk-center-0">三多願景</a></li>
+<li><a href="index.html#blk-center-1">公告訊息</a></li>
+<li><a href="index.html#blk-center-2">榮譽榜</a></li>
 </ul></div>
 <div class="sitemap-col"><h3>右方區塊</h3><ul>
-<li><a href="index.html#blk-right-0" title="教師專區">教師專區</a></li>
-<li><a href="index.html#blk-right-1" title="學生專區">學生專區</a></li>
-<li><a href="index.html#blk-right-2" title="新北校園通">新北校園通</a></li>
-<li><a href="index.html#blk-right-3" title="專線電話">專線電話</a></li>
-</ul></div></div><div style="text-align:center; margin-top:20px;"><a href="index.html" style="font-size:1.2em; color:#397DB3; font-weight:bold;" title="返回首頁">返回首頁</a></div></div>
+<li><a href="index.html#blk-right-0">教師專區</a></li>
+<li><a href="index.html#blk-right-1">學生專區</a></li>
+<li><a href="index.html#blk-right-2">新北校園通</a></li>
+<li><a href="index.html#blk-right-3">專線電話</a></li>
+</ul></div></div><div style="text-align:center; margin-top:20px;"><a href="index.html" style="font-size:1.2em; color:#397DB3; font-weight:bold;">返回首頁</a></div></div>
 <footer class="footer"><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
 代表號：(02)26880698（<a href="https://docs.google.com/document/d/11-uxFcW9_WTdHWRoVmbT_mNpGFdwzQOZqMODGyZqbUA/edit?usp=sharing" rel="noopener noreferrer" target="_blank" title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script></body></html>

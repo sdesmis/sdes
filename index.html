@@ -39,11 +39,10 @@
     .block-card { margin-bottom: 10px; background: #fff; padding: 0.5em; border-radius: 5px; }
     h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.2em; margin-bottom: 0.5em; }
     
-    /* 一般文字連結 */
     a.custom-link { font-size: 1.2em; font-weight: normal; color: #397DB3; text-decoration: none; display: block; width: fit-content; margin-bottom: 0.8em; }
     a.custom-link:hover { text-decoration: underline; }
     
-    /* [新增/修改] 圖片連結 (Image Link) 樣式 - 支援文字浮層 */
+    /* 圖片連結 (Image Link) */
     a.img-link { 
         display: block; 
         text-align: center; 
@@ -53,29 +52,29 @@
         padding: 5px; 
         border-radius: 5px; 
         transition: transform 0.2s;
-        position: relative; /* 為了讓 caption 絕對定位 */
-        overflow: hidden;   /* 避免文字跑出去 */
+        position: relative; 
+        overflow: hidden;
     }
     a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
 
-    /* [新增] 圖片連結的文字說明 */
+    /* 圖片連結的文字說明 */
     .img-caption {
         position: absolute; 
         bottom: 0; 
         left: 0; 
         width: 100%; 
-        background: rgba(0, 0, 0, 0.8); /* 黑底 */
+        background: rgba(0, 0, 0, 0.8); 
         color: #fff; 
         padding: 5px; 
         text-align: center; 
         font-size: 1em;
-        opacity: 0;               /* 預設隱藏 */
-        transition: opacity 0.2s; /* 快速顯示 */
-        pointer-events: none;     /* 點擊穿透 */
+        opacity: 0;               
+        transition: opacity 0.2s; 
+        pointer-events: none;     
         z-index: 10;
     }
-    a.img-link:hover .img-caption { opacity: 1; } /* 滑鼠移入顯示 */
+    a.img-link:hover .img-caption { opacity: 1; }
 
     .html-content { font-size: 1.1em; line-height: 1.6; color: #333; }
     .html-content img { max-width: 100%; height: auto; }
@@ -201,7 +200,7 @@
 <div class="block-card">
 <h2 class="block-title" id="blk-left-0" style="color: #333333; border-bottom-color: #ccc;" tabindex="-1">語文競賽</h2>
 <a href="https://drive.google.com/drive/folders/1nhMyDMK2eSlGRVzXMCv38cKuIGLJujET?usp=sharing" target="_blank" title="校內語文競賽(另開新視窗)" class="img-link">
-<img src="./images/lc.png" alt="校內語文競賽" />
+<img src="./images/lc.png" alt="" />
 <div class="img-caption">校內語文競賽</div>
 </a>
 </div>
@@ -252,19 +251,19 @@
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #333333; border-bottom-color: #ccc;" tabindex="-1">三多願景</h2>
 <div class="carousel-container">
-<div class="carousel-slide fade">
+<div class="carousel-slide fade" title="有人文的校風">
 <img src="./images/01.有人文的校風.png" alt="有人文的校風" title="有人文的校風" />
 <div class="carousel-caption">有人文的校風</div>
 </div>
-<div class="carousel-slide fade">
+<div class="carousel-slide fade" title="有優質的教育">
 <img src="./images/02.有優質的教育.png" alt="有優質的教育" title="有優質的教育" />
 <div class="carousel-caption">有優質的教育</div>
 </div>
-<div class="carousel-slide fade">
+<div class="carousel-slide fade" title="有活力的校園">
 <img src="./images/03.有活力的校園.png" alt="有活力的校園" title="有活力的校園" />
 <div class="carousel-caption">有活力的校園</div>
 </div>
-<div class="carousel-slide fade">
+<div class="carousel-slide fade" title="有健康的學生">
 <img src="./images/04.有健康的學生.png" alt="有健康的學生" title="有健康的學生" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
@@ -327,11 +326,11 @@
 <div class="block-card">
 <h2 class="block-title" id="blk-right-2" style="color: #333333; border-bottom-color: #ccc;" tabindex="-1">新北校園通</h2>
 <a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" title="新北校園通Google Play下載(另開新視窗)" class="img-link">
-<img src="./images/Google_Play_Store.png" alt="新北校園通Google Play下載" />
+<img src="./images/Google_Play_Store.png" alt="" />
 <div class="img-caption">新北校園通Google Play下載</div>
 </a>
 <a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" title="新北校園通App Store下載(另開新視窗)" class="img-link">
-<img src="./images/appstore.png" alt="新北校園通App Store下載" />
+<img src="./images/appstore.png" alt="" />
 <div class="img-caption">新北校園通App Store下載</div>
 </a>
 <a href="https://mis.ntpc.edu.tw/p/406-1001-5733,r2.php?Lang=zh-tw" target="_blank" title="APP操作說明與影片(另開新視窗)" class="custom-link">🔗 APP操作說明與影片</a>
