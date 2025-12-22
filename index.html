@@ -7,31 +7,49 @@
     .access-key { color: #666; text-decoration: none; font-size: 0.8em; padding: 5px; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
     
-    /* Header & Nav */
+    /* Header */
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
     .school-text { display: inline-block; vertical-align: middle; }
     .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
     .school-title-en { font-size: 1.25em; color: #666; display: block; }
-    .header-right { display: flex; align-items: center; gap: 15px; }
-    .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; }
+    
+    /* [修改] Header 右側區塊：加入 gap 讓按鈕與搜尋框有間距 */
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; }
     .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
 
+    /* [新增] Header 搜尋框樣式 */
+    .search-header { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 20px; padding: 2px 5px; background: #fff; }
+    .search-header input { border: none; outline: none; padding: 5px; font-size: 1em; width: 150px; }
+    .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 5px; }
+    .search-header button:hover { color: #000; }
+
+    /* Navbar */
     .navbar { background-color: #397DB3; }
     .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
     .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     .nav-item { position: relative; }
     .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; }
     .nav-link:hover, .nav-link:focus { background-color: #2c628e; }
+    
+    /* [新增] 手機版選單內的搜尋框 */
+    .search-mobile-container { padding: 10px 20px; background-color: #2c628e; }
+    .search-mobile { display: flex; width: 100%; background: #fff; border-radius: 5px; overflow: hidden; }
+    .search-mobile input { flex: 1; border: none; padding: 8px; outline: none; }
+    .search-mobile button { background: #eee; border: none; padding: 8px 15px; cursor: pointer; color: #333; }
+
     .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
     .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; }
     .dropdown-content a:hover { background-color: #ddd; }
     .nav-item:hover .dropdown-content { display: block; }
     .nav-item:focus-within .dropdown-content { display: block; }
     .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
-    .mobile-only { display: none; }
+    
+    .mobile-only { display: none; } /* 電腦版隱藏 */
 
+    /* Layout Styles */
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; }
@@ -42,38 +60,11 @@
     a.custom-link { font-size: 1.2em; font-weight: normal; color: #397DB3; text-decoration: none; display: block; width: fit-content; margin-bottom: 0.8em; }
     a.custom-link:hover { text-decoration: underline; }
     
-    /* 圖片連結 (Image Link) */
-    a.img-link { 
-        display: block; 
-        text-align: center; 
-        margin-bottom: 15px; 
-        text-decoration: none; 
-        border: 1px solid #eee; 
-        padding: 5px; 
-        border-radius: 5px; 
-        transition: transform 0.2s;
-        position: relative; 
-        overflow: hidden;
-    }
+    a.img-link { display: block; text-align: center; margin-bottom: 15px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
     a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
 
-    /* 圖片連結的文字說明 */
-    .img-caption {
-        position: absolute; 
-        bottom: 0; 
-        left: 0; 
-        width: 100%; 
-        background: rgba(0, 0, 0, 0.8); 
-        color: #fff; 
-        padding: 5px; 
-        text-align: center; 
-        font-size: 1em;
-        opacity: 0;               
-        transition: opacity 0.2s; 
-        pointer-events: none;     
-        z-index: 10;
-    }
+    .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; text-align: center; font-size: 1em; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 10; }
     a.img-link:hover .img-caption { opacity: 1; }
 
     .html-content { font-size: 1.1em; line-height: 1.6; color: #333; }
@@ -83,50 +74,34 @@
     .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; }
     .carousel-slide { display: none; width: 100%; position: relative; }
     .carousel-slide img { width: 100%; height: auto; object-fit: cover; display: block; }
-    
-    /* 輪播圖說明文字 */
-    .carousel-caption { 
-        position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; 
-        background: rgba(0, 0, 0, 0.7); color: #fff; 
-        text-align: center; font-size: 1.2em; font-weight: bold;
-        opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100;
-    }
+    .carousel-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); color: #fff; text-align: center; font-size: 1.2em; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
     .carousel-slide:hover .carousel-caption { opacity: 1; }
 
-    .control-btn {
-        cursor: pointer; position: absolute; top: 50%; width: auto; padding: 10px 15px; margin-top: -22px; 
-        color: white; font-weight: bold; font-size: 1.2em; transition: 0.6s ease; border: none; 
-        user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101;
-    }
+    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 10px 15px; margin-top: -22px; color: white; font-weight: bold; font-size: 1.2em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
     .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
     .prev { left: 0; border-radius: 0 3px 3px 0; }
     .next { right: 0; border-radius: 3px 0 0 3px; }
-    
-    .pause-btn {
-        position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff;
-        border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102;
-    }
+    .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
     .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
-
     .dots-container { text-align: center; padding: 10px; }
-    .dot { 
-        cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; 
-        border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0;
-    }
+    .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0; }
     .dot.active, .dot:hover, .dot:focus { background-color: #717171; outline: 2px solid blue; }
     .fade { animation-name: fade; animation-duration: 1.5s; }
     @keyframes fade { from {opacity: .4} to {opacity: 1} }
 
-    /* Sitemap Styles */
+    /* Sitemap & Filter Highlight */
     .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
     .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
     .sitemap-list { display: flex; flex-wrap: wrap; gap: 30px; }
     .sitemap-col { flex: 1; min-width: 250px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     .sitemap-col h3 { color: #397DB3; border-left: 5px solid #397DB3; padding-left: 10px; font-size: 1.4em; margin-top: 0; }
     .sitemap-col ul { list-style: none; padding-left: 10px; margin: 0; }
-    .sitemap-col li { margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+    .sitemap-col ul ul { padding-left: 20px; border-left: 2px solid #eee; margin-top: 5px; margin-bottom: 10px; }
+    .sitemap-col li { margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px dashed #eee; }
+    .sitemap-col li:last-child { border-bottom: none; }
     .sitemap-col a { text-decoration: none; color: #333; font-size: 1.1em; display: block; }
     .sitemap-col a:hover { text-decoration: underline; color: #397DB3; background-color: #f0f8ff; }
+    .highlight { background-color: yellow; color: black; }
 
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
@@ -134,9 +109,14 @@
     @media (max-width: 900px) {
         .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
         .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
-        .header-right { display: none; } .hamburger { display: block; }
+        
+        /* 手機版隱藏 Header 右側的按鈕與搜尋框 */
+        .header-right { display: none; } 
+        
+        .hamburger { display: block; }
         .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #2c628e; }
         .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
+        
         .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; }
         .nav-menu.active { display: flex; }
         .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
@@ -150,7 +130,16 @@
     }
 </style>
 </head><body>
-<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a><img src="./images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div><div class="header-right"><a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方選單區" class="access-key">:::</a><img src="./images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div>
+<div class="header-right">
+                <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
+                <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+                <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+                    <input type="text" placeholder="搜尋..." aria-label="搜尋網站">
+                    <button type="submit" aria-label="搜尋">🔍</button>
+                </form>
+            </div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="index.html" class="nav-link">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link">🗺️ 網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
@@ -194,6 +183,12 @@
 <li class="nav-item">
 <a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約(另開新視窗)" class="nav-link">場地預約</a>
 </li>
+<li class="nav-item mobile-only search-mobile-container">
+                <form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+                    <input type="text" placeholder="搜尋站內連結..." aria-label="搜尋">
+                    <button type="submit">🔍</button>
+                </form>
+            </li>
 </ul></div></nav>
 <div class="banner-container"><img src="./images/banner.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="container"><aside class="col-left"><a href="#al" id="al" accesskey="L" title="左方次選單區" class="access-key">:::</a>
@@ -267,16 +262,13 @@
 <img src="./images/04.有健康的學生.png" alt="有健康的學生" title="有健康的學生" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
-<button class="control-btn prev" aria-label="上一張圖片">❮</button>
-<button class="control-btn next" aria-label="下一張圖片">❯</button>
-<button class="pause-btn" aria-label="暫停輪播">❚❚ 暫停</button>
+<button class="control-btn prev" aria-label="上一張圖片">❮</button><button class="control-btn next" aria-label="下一張圖片">❯</button><button class="pause-btn" aria-label="暫停輪播">❚❚ 暫停</button>
 <div class="dots-container">
 <button class="dot" aria-label="切換到第 1 張圖片"></button>
 <button class="dot" aria-label="切換到第 2 張圖片"></button>
 <button class="dot" aria-label="切換到第 3 張圖片"></button>
 <button class="dot" aria-label="切換到第 4 張圖片"></button>
-</div>
-</div>
+</div></div>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #333333; border-bottom-color: #ccc;" tabindex="-1">公告訊息</h2>
