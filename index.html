@@ -15,12 +15,12 @@
     .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
     .school-title-en { font-size: 1.25em; color: #666; display: block; }
     
-    /* [修改] Header 右側區塊：加入 gap 讓按鈕與搜尋框有間距 */
+    /* Header Right */
     .header-right { display: flex; align-items: center; gap: 10px; }
     .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; }
     .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
 
-    /* [新增] Header 搜尋框樣式 */
+    /* Header Search */
     .search-header { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 20px; padding: 2px 5px; background: #fff; }
     .search-header input { border: none; outline: none; padding: 5px; font-size: 1em; width: 150px; }
     .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 5px; }
@@ -34,7 +34,7 @@
     .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; }
     .nav-link:hover, .nav-link:focus { background-color: #2c628e; }
     
-    /* [新增] 手機版選單內的搜尋框 */
+    /* Mobile Search */
     .search-mobile-container { padding: 10px 20px; background-color: #2c628e; }
     .search-mobile { display: flex; width: 100%; background: #fff; border-radius: 5px; overflow: hidden; }
     .search-mobile input { flex: 1; border: none; padding: 8px; outline: none; }
@@ -47,7 +47,7 @@
     .nav-item:focus-within .dropdown-content { display: block; }
     .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
     
-    .mobile-only { display: none; } /* 電腦版隱藏 */
+    .mobile-only { display: none; }
 
     /* Layout Styles */
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
@@ -89,7 +89,7 @@
     .fade { animation-name: fade; animation-duration: 1.5s; }
     @keyframes fade { from {opacity: .4} to {opacity: 1} }
 
-    /* Sitemap & Filter Highlight */
+    /* Sitemap Styles */
     .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
     .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
     .sitemap-list { display: flex; flex-wrap: wrap; gap: 30px; }
@@ -103,6 +103,7 @@
     .sitemap-col a:hover { text-decoration: underline; color: #397DB3; background-color: #f0f8ff; }
     .highlight { background-color: yellow; color: black; }
 
+    /* Footer */
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
 
@@ -110,15 +111,16 @@
         .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
         .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
         
-        /* 手機版隱藏 Header 右側的按鈕與搜尋框 */
-        .header-right { display: none; } 
+        .header-right { display: none; } /* Mobile hides header-right */
         
         .hamburger { display: block; }
         .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #2c628e; }
         .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
         
-        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; }
+        .nav-container { flex-wrap: wrap; }
+        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; order: 3; }
         .nav-menu.active { display: flex; }
+        
         .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
         .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #2c628e; top: 0; }
         .dropdown-content a { color: #fff; padding-left: 30px; }
@@ -135,8 +137,8 @@
                 <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
                 <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
                 <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-                    <input type="text" placeholder="搜尋..." aria-label="搜尋網站">
-                    <button type="submit" aria-label="搜尋">🔍</button>
+                    <input type="text" placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字">
+                    <button type="submit" aria-label="搜尋" title="搜尋">🔍</button>
                 </form>
             </div>
 <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
@@ -185,8 +187,8 @@
 </li>
 <li class="nav-item mobile-only search-mobile-container">
                 <form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-                    <input type="text" placeholder="搜尋站內連結..." aria-label="搜尋">
-                    <button type="submit">🔍</button>
+                    <input type="text" placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字">
+                    <button type="submit" title="搜尋">🔍</button>
                 </form>
             </li>
 </ul></div></nav>
@@ -262,13 +264,16 @@
 <img src="./images/04.有健康的學生.png" alt="有健康的學生" title="有健康的學生" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
-<button class="control-btn prev" aria-label="上一張圖片">❮</button><button class="control-btn next" aria-label="下一張圖片">❯</button><button class="pause-btn" aria-label="暫停輪播">❚❚ 暫停</button>
+<button class="control-btn prev" aria-label="上一張圖片">❮</button>
+<button class="control-btn next" aria-label="下一張圖片">❯</button>
+<button class="pause-btn" aria-label="暫停輪播">❚❚ 暫停</button>
 <div class="dots-container">
 <button class="dot" aria-label="切換到第 1 張圖片"></button>
 <button class="dot" aria-label="切換到第 2 張圖片"></button>
 <button class="dot" aria-label="切換到第 3 張圖片"></button>
 <button class="dot" aria-label="切換到第 4 張圖片"></button>
-</div></div>
+</div>
+</div>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #333333; border-bottom-color: #ccc;" tabindex="-1">公告訊息</h2>
