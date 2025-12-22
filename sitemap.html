@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>新北市樹林區三多國民小學 - 網站導覽</title>
+<link rel="icon" href="favicon.ico" />
+<link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
+
+<style>
+    body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+    .access-key { color: #666; text-decoration: none; font-size: 0.8em; padding: 5px; }
+    .access-key:focus { outline: 2px solid blue; color: #000; }
+    
+    /* Header & Nav */
+    .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .header-left { display: flex; align-items: center; flex-wrap: wrap; }
+    .school-logo { height: 80px; width: auto; margin-right: 15px; }
+    .school-text { display: inline-block; vertical-align: middle; }
+    .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
+    .school-title-en { font-size: 1.25em; color: #666; display: block; }
+    .header-right { display: flex; align-items: center; gap: 15px; }
+    .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; }
+    .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
+
+    .navbar { background-color: #397DB3; }
+    .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
+    .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+    .nav-item { position: relative; }
+    .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; }
+    .nav-link:hover, .nav-link:focus { background-color: #2c628e; }
+    .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
+    .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; }
+    .dropdown-content a:hover { background-color: #ddd; }
+    .nav-item:hover .dropdown-content { display: block; }
+    .nav-item:focus-within .dropdown-content { display: block; }
+    .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
+    .mobile-only { display: none; }
+
+    .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
+    .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
+    .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; }
+    .col-left { width: 20%; } .col-center { width: 60%; } .col-right { width: 20%; }
+    .block-card { margin-bottom: 10px; background: #fff; padding: 0.5em; border-radius: 5px; }
+    h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.2em; margin-bottom: 0.5em; }
+    
+    /* 一般文字連結 */
+    a.custom-link { font-size: 1.2em; font-weight: normal; color: #397DB3; text-decoration: none; display: block; width: fit-content; margin-bottom: 0.8em; }
+    a.custom-link:hover { text-decoration: underline; }
+    
+    /* [新增/修改] 圖片連結 (Image Link) 樣式 - 支援文字浮層 */
+    a.img-link { 
+        display: block; 
+        text-align: center; 
+        margin-bottom: 15px; 
+        text-decoration: none; 
+        border: 1px solid #eee; 
+        padding: 5px; 
+        border-radius: 5px; 
+        transition: transform 0.2s;
+        position: relative; /* 為了讓 caption 絕對定位 */
+        overflow: hidden;   /* 避免文字跑出去 */
+    }
+    a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
+    /* [新增] 圖片連結的文字說明 */
+    .img-caption {
+        position: absolute; 
+        bottom: 0; 
+        left: 0; 
+        width: 100%; 
+        background: rgba(0, 0, 0, 0.8); /* 黑底 */
+        color: #fff; 
+        padding: 5px; 
+        text-align: center; 
+        font-size: 1em;
+        opacity: 0;               /* 預設隱藏 */
+        transition: opacity 0.2s; /* 快速顯示 */
+        pointer-events: none;     /* 點擊穿透 */
+        z-index: 10;
+    }
+    a.img-link:hover .img-caption { opacity: 1; } /* 滑鼠移入顯示 */
+
+    .html-content { font-size: 1.1em; line-height: 1.6; color: #333; }
+    .html-content img { max-width: 100%; height: auto; }
+
+    /* Carousel CSS */
+    .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; }
+    .carousel-slide { display: none; width: 100%; position: relative; }
+    .carousel-slide img { width: 100%; height: auto; object-fit: cover; display: block; }
+    
+    /* 輪播圖說明文字 */
+    .carousel-caption { 
+        position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; 
+        background: rgba(0, 0, 0, 0.7); color: #fff; 
+        text-align: center; font-size: 1.2em; font-weight: bold;
+        opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100;
+    }
+    .carousel-slide:hover .carousel-caption { opacity: 1; }
+
+    .control-btn {
+        cursor: pointer; position: absolute; top: 50%; width: auto; padding: 10px 15px; margin-top: -22px; 
+        color: white; font-weight: bold; font-size: 1.2em; transition: 0.6s ease; border: none; 
+        user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101;
+    }
+    .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
+    .prev { left: 0; border-radius: 0 3px 3px 0; }
+    .next { right: 0; border-radius: 3px 0 0 3px; }
+    
+    .pause-btn {
+        position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff;
+        border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102;
+    }
+    .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
+
+    .dots-container { text-align: center; padding: 10px; }
+    .dot { 
+        cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; 
+        border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0;
+    }
+    .dot.active, .dot:hover, .dot:focus { background-color: #717171; outline: 2px solid blue; }
+    .fade { animation-name: fade; animation-duration: 1.5s; }
+    @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+    /* Sitemap Styles */
+    .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
+    .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
+    .sitemap-list { display: flex; flex-wrap: wrap; gap: 30px; }
+    .sitemap-col { flex: 1; min-width: 250px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .sitemap-col h3 { color: #397DB3; border-left: 5px solid #397DB3; padding-left: 10px; font-size: 1.4em; margin-top: 0; }
+    .sitemap-col ul { list-style: none; padding-left: 10px; margin: 0; }
+    .sitemap-col li { margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+    .sitemap-col a { text-decoration: none; color: #333; font-size: 1.1em; display: block; }
+    .sitemap-col a:hover { text-decoration: underline; color: #397DB3; background-color: #f0f8ff; }
+
+    .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
+    .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
+
+    @media (max-width: 900px) {
+        .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
+        .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
+        .header-right { display: none; } .hamburger { display: block; }
+        .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #2c628e; }
+        .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
+        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; }
+        .nav-menu.active { display: flex; }
+        .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #2c628e; top: 0; }
+        .dropdown-content a { color: #fff; padding-left: 30px; }
+        .nav-item:hover .dropdown-content { display: block; }
+        .container { flex-direction: column; }
+        .col-left, .col-center, .col-right { width: 100%; order: 0; }
+        .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
+        .sitemap-list { flex-direction: column; }
+    }
+</style>
+</head><body>
+<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><img src="./images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></div><div class="header-right"><a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu"><li class="nav-item mobile-only"><a href="index.html" class="nav-link" title="回首頁">🏠 回首頁</a></li></ul></div></nav>
+<div class="sitemap-container"><h2 class="sitemap-title">網站導覽 (Sitemap) & Accesskey</h2><div style="margin-bottom: 20px; color: #555; line-height:1.6;"><p>本網站依照無障礙網頁設計規範，主要內容分為三個區塊：</p><ul><li><strong>Alt+U</strong>：上方選單區。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li></ul></div><div class="sitemap-list">
+<div class="sitemap-col"><h3>主選單</h3><ul>
+<li><a href="#" title="認識三多">認識三多</a></li>
+<li><a href="https://www.facebook.com/sanduogood/" title="三多粉絲頁">三多粉絲頁</a></li>
+<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" title="三多附幼">三多附幼</a></li>
+<li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" title="行事曆">行事曆</a></li>
+<li><a href="#" title="影音相簿">影音相簿</a></li>
+<li><a href="#" title="公務作業">公務作業</a></li>
+<li><a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" title="檔案下載">檔案下載</a></li>
+<li><a href="https://" title="新北市教育局電子書">新北市教育局電子書</a></li>
+<li><a href="https://ebook.ntpc.edu.tw/" title="設備維修">設備維修</a></li>
+<li><a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" title="場地預約">場地預約</a></li>
+</ul></div>
+<div class="sitemap-col"><h3>左方區塊</h3><ul>
+<li><a href="index.html#blk-left-0" title="語文競賽">語文競賽</a></li>
+<li><a href="index.html#blk-left-1" title="公文交辦專區">公文交辦專區</a></li>
+<li><a href="index.html#blk-left-2" title="政令快訊">政令快訊</a></li>
+<li><a href="index.html#blk-left-3" title="宣導網站">宣導網站</a></li>
+<li><a href="index.html#blk-left-4" title="常用連結">常用連結</a></li>
+<li><a href="index.html#blk-left-5" title="空氣品質資訊">空氣品質資訊</a></li>
+</ul></div>
+<div class="sitemap-col"><h3>中間區塊</h3><ul>
+<li><a href="index.html#blk-center-0" title="三多願景">三多願景</a></li>
+<li><a href="index.html#blk-center-1" title="公告訊息">公告訊息</a></li>
+<li><a href="index.html#blk-center-2" title="榮譽榜">榮譽榜</a></li>
+</ul></div>
+<div class="sitemap-col"><h3>右方區塊</h3><ul>
+<li><a href="index.html#blk-right-0" title="教師專區">教師專區</a></li>
+<li><a href="index.html#blk-right-1" title="學生專區">學生專區</a></li>
+<li><a href="index.html#blk-right-2" title="新北校園通">新北校園通</a></li>
+<li><a href="index.html#blk-right-3" title="專線電話">專線電話</a></li>
+</ul></div></div><div style="text-align:center; margin-top:20px;"><a href="index.html" style="font-size:1.2em; color:#397DB3; font-weight:bold;" title="返回首頁">返回首頁</a></div></div>
+<footer class="footer"><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
+代表號：(02)26880698（<a href="https://docs.google.com/document/d/11-uxFcW9_WTdHWRoVmbT_mNpGFdwzQOZqMODGyZqbUA/edit?usp=sharing" rel="noopener noreferrer" target="_blank" title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+</div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script></body></html>
