@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>新北市樹林區三多國民小學 - 網站導覽</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>電話分機表 - 新北市樹林區三多國民小學</title>
 <link rel="icon" href="favicon.ico" />
 <link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
 
@@ -176,9 +176,9 @@
 <div class="header-right">
                 <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
                 <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
-                <form class="search-header" onsubmit="return false;">
-                    <input type="text" id="headerSearchInput" onkeyup="filterList(this.value)" placeholder="篩選內容..." aria-label="搜尋網站" title="請輸入關鍵字">
-                    <button type="button" aria-label="搜尋" title="搜尋" onclick="filterList(document.getElementById('headerSearchInput').value)">🔍</button>
+                <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+                    <input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字">
+                    <button type="submit" aria-label="搜尋" title="搜尋" >🔍</button>
                 </form>
             </div>
 <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
@@ -229,194 +229,202 @@
 <a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約(另開新視窗)" class="nav-link">場地預約</a>
 </li>
 <li class="nav-item mobile-only search-mobile-container">
-                <form class="search-mobile" onsubmit="return false;">
-                    <input type="text" id="mobileSearchInput" onkeyup="filterList(this.value)" placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字">
-                    <button type="button" title="搜尋" onclick="filterList(document.getElementById('mobileSearchInput').value)">🔍</button>
+                <form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+                    <input type="text"  placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字">
+                    <button type="submit" title="搜尋" >🔍</button>
                 </form>
             </li>
 </ul></div></nav>
 
 <div class="banner-container"><img src="./images/banner.png" alt="學校橫幅" class="banner-img" /></div>
-<div class="sitemap-container"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><h2 class="sitemap-title">網站導覽 (Sitemap) & Accesskey</h2><div style="margin-bottom: 20px; color: #555; line-height:1.6;"><p>本網站依照無障礙網頁設計規範，主要內容分為五個區塊：</p><ul><li><strong>Alt+U</strong>：上方選單區。</li><li><strong>Alt+T</strong>：上方功能區。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li><li><strong>Alt+B</strong>：下方功能區。</li></ul></div><div class="sitemap-list" id="sitemapList">
-<div class="sitemap-col"><h3>主選單</h3><ul>
-<li><a href="#" title="認識三多">認識三多</a>
-<ul>
-<li><a href="./01.html" title="學校簡介">學校簡介</a></li>
-<li><a href="./02.html" title="處室介紹">處室介紹</a></li>
-</ul>
-</li>
-<li><a href="https://www.facebook.com/sanduogood/" title="三多粉絲頁">三多粉絲頁</a>
-</li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" title="三多附幼">三多附幼</a>
-</li>
-<li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" title="行事曆">行事曆</a>
-</li>
-<li><a href="#" title="影音相簿">影音相簿</a>
-<ul>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" title="三多活動相簿">三多活動相簿</a></li>
-<li><a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" title="三多活動影片">三多活動影片</a></li>
-</ul>
-</li>
-<li><a href="#" title="公務作業">公務作業</a>
-<ul>
-<li><a href="http://cloud.ntpc.gov.tw/" title="新北市政府公務雲">新北市政府公務雲</a></li>
-<li><a href="https://cloud2.ntpc.gov.tw/" title="新北市政府公務雲(新)">新北市政府公務雲(新)</a></li>
-<li><a href="http://doc2.ntpc.gov.tw/" title="新北市二代公文">新北市二代公文</a></li>
-<li><a href="https://esa.ntpc.edu.tw" title="校務行政系統">校務行政系統</a></li>
-<li><a href="https://esa.ntpc.edu.tw/module/elec-bulletin/module/elec-bulletin/ap/newsp" title="教育局教育公告訊息">教育局教育公告訊息</a></li>
-</ul>
-</li>
-<li><a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" title="檔案下載">檔案下載</a>
-</li>
-<li><a href="https://ebook.ntpc.edu.tw/" title="新北市教育局電子書">新北市教育局電子書</a>
-</li>
-<li><a href="https://ebook.ntpc.edu.tw/" title="設備維修">設備維修</a>
-</li>
-<li><a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" title="場地預約">場地預約</a>
-</li>
-</ul></div>
-<div class="sitemap-col"><h3>左方區塊</h3><ul>
-<li><a href="index.html#blk-left-0" title="語文競賽">語文競賽</a>
-<ul>
-<li><a href="https://drive.google.com/drive/folders/1nhMyDMK2eSlGRVzXMCv38cKuIGLJujET?usp=sharing" title="校內語文競賽">校內語文競賽</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-left-1" title="公文交辦專區">公文交辦專區</a>
-<ul>
-<li><a href="https://sites.google.com/member.sdes.ntpc.edu.tw/motherlanguage/" title="臺灣母語日專區">臺灣母語日專區</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office121/%E9%A6%96%E9%A0%81" title="課程計畫專區">課程計畫專區</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/english-lohas/" title="英語樂活成果">英語樂活成果</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office134" title="午餐專區">午餐專區</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office130" title="學務處宣導專區">學務處宣導專區</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/outsiders" title="校外人士協助教學">校外人士協助教學</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdesfamilyedu" title="家庭教育專區">家庭教育專區</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdes-public-lecture" title=" 三多國小公開授課專區"> 三多國小公開授課專區</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/academic-assessment" title="三多國小成績評量專區">三多國小成績評量專區</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-left-2" title="政令快訊">政令快訊</a>
-</li>
-<li><a href="index.html#blk-left-3" title="宣導網站">宣導網站</a>
-<ul>
-<li><a href="https://eliteracy.edu.tw/" title="中小學數位素養教育資源網">中小學數位素養教育資源網</a></li>
-<li><a href="https://antidrug.moj.gov.tw/" title="反毒大本營">反毒大本營</a></li>
-<li><a href="https://165.npa.gov.tw/" title="165全民防騙網">165全民防騙網</a></li>
-<li><a href="https://f4a.tw/" title="新北動健康">新北動健康</a></li>
-<li><a href="https://ntpc.familyedu.moe.gov.tw/" title="新北市政府家庭教育中心">新北市政府家庭教育中心</a></li>
-<li><a href="https://www.greenschool.moe.edu.tw/" title="教育部綠色學校">教育部綠色學校</a></li>
-<li><a href="https://tagv.mohw.gov.tw/" title="TAGV 反性別暴力電子報">TAGV 反性別暴力電子報</a></li>
-<li><a href="https://246.ardswc.gov.tw/" title="土石流防災資訊網">土石流防災資訊網</a></li>
-<li><a href="https://ai.gov.tw/" title="禽流感資訊專區">禽流感資訊專區</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-left-4" title="常用連結">常用連結</a>
-<ul>
-<li><a href="http://dict.revised.moe.edu.tw/" title="重編國語辭典修訂本">重編國語辭典修訂本</a></li>
-<li><a href="https://dict.mini.moe.edu.tw/" title="國語小字典">國語小字典</a></li>
-<li><a href="http://dict.variants.moe.edu.tw/" title="異體字字典">異體字字典</a></li>
-<li><a href="https://www.moedict.tw/" title="萌典">萌典</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLR9-cXLksRCuMf9pdf1BxIDoKXkH9SLww" title="下課花路米(Youtube)">下課花路米(Youtube)</a></li>
-<li><a href="https://www.youtube.com/user/sbbloger/playlists" title="呂聰賢-電腦影音教學">呂聰賢-電腦影音教學</a></li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/mold" title="許志文-黴">許志文-黴</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-left-5" title="空氣品質資訊">空氣品質資訊</a>
-</li>
-</ul></div>
-<div class="sitemap-col"><h3>中間區塊</h3><ul>
-<li><a href="index.html#blk-center-0" title="三多願景">三多願景</a>
-<ul>
-<li><a href="#" title="有人文的校風">有人文的校風</a></li>
-<li><a href="#" title="有優質的教育">有優質的教育</a></li>
-<li><a href="#" title="有活力的校園">有活力的校園</a></li>
-<li><a href="#" title="有健康的學生">有健康的學生</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-center-1" title="公告訊息">公告訊息</a>
-</li>
-<li><a href="index.html#blk-center-2" title="榮譽榜">榮譽榜</a>
-</li>
-</ul></div>
-<div class="sitemap-col"><h3>右方區塊</h3><ul>
-<li><a href="index.html#blk-right-0" title="教師專區">教師專區</a>
-<ul>
-<li><a href="https://esa.ntpc.edu.tw/" title="校務行政系統">校務行政系統</a></li>
-<li><a href="https://sso.ntpc.edu.tw/" title="教育局單一認證入口">教育局單一認證入口</a></li>
-<li><a href="https://drive.google.com/a/apps.ntpc.edu.tw" title="三多充電站">三多充電站</a></li>
-<li><a href="https://pts.ntpc.edu.tw/" title="新北市親師生平台">新北市親師生平台</a></li>
-<li><a href="https://vpn.ntpc.edu.tw/" title="教育局SSL VPN">教育局SSL VPN</a></li>
-<li><a href="http://webmail.ntpc.edu.tw/" title="教育局郵件信箱">教育局郵件信箱</a></li>
-<li><a href="https://mail.google.com/a/mail.sdes.ntpc.edu.tw" title="教師Gmail(mail)">教師Gmail(mail)</a></li>
-<li><a href="https://drive.google.com/a/mail.sdes.ntpc.edu.tw" title="教師雲端硬碟(mail)">教師雲端硬碟(mail)</a></li>
-<li><a href="https://mail.google.com/a/member.sdes.ntpc.edu.tw" title="教師Gmail(member)">教師Gmail(member)</a></li>
-<li><a href="https://drive.google.com/a/member.sdes.ntpc.edu.tw" title="教師雲端硬碟(member)">教師雲端硬碟(member)</a></li>
-<li><a href="https://ceag.ntpc.edu.tw/" title="新北市國教輔導團">新北市國教輔導團</a></li>
-<li><a href="https://scitechvista.nat.gov.tw/" title="科技大觀園">科技大觀園</a></li>
-<li><a href="https://moocs.moe.edu.tw/moocs/" title="教育部磨課師平臺">教育部磨課師平臺</a></li>
-<li><a href="http://estudy.ntpc.edu.tw/" title="新北市數位學習影音網">新北市數位學習影音網</a></li>
-<li><a href="https://www3.inservice.edu.tw/index2-3.aspx" title="全國教師在職進修資訊網">全國教師在職進修資訊網</a></li>
-<li><a href="https://exam.tcte.edu.tw/tbt_html/" title="學習扶助科技化評量">學習扶助科技化評量</a></li>
-<li><a href="https://rrcp.ntpc.edu.tw/" title="課程計畫備查網">課程計畫備查網</a></li>
-<li><a href="http://elem.ntpc.edu.tw/" title="新北市國小教育資源網平台">新北市國小教育資源網平台</a></li>
-<li><a href="https://mail.google.com/a/go.edu.tw" title="教育部Gmail">教育部Gmail</a></li>
-<li><a href="https://www.sso.edu.tw/" title="教育體系單一簽入服務">教育體系單一簽入服務</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-right-1" title="學生專區">學生專區</a>
-<ul>
-<li><a href="https://mail.google.com/a/apps.ntpc.edu.tw" title="學生Gmail">學生Gmail</a></li>
-<li><a href="https://drive.google.com/a/apps.ntpc.edu.tw" title="學生雲端硬碟">學生雲端硬碟</a></li>
-<li><a href="https://sso.ntpc.edu.tw/login.aspx?SAMLRequest=fVJNT9wwEL1X4j9YvudjA4fW2gQtIMRKtI3YwIGb15lNvDgzqcfZtP%2B%2B2SwIeijX5zfvYzzLy9%2BdEwfwbAlzuYhTKQAN1RabXD5Wt9FXeVmcfVmy7lyvVkNo8QF%2BDcBBTJPIan7I5eBRkWbLCnUHrIJRm9X3e5XFqeo9BTLkpFjf5HK7JdOYPba9e9F72uq6IY0vuK%2FJIbQt7Osddb2W4uktVnaMtWYeYI0cNIYJSrMsSr9F6XmVZuo8VenFsxTlq9OVxVODz2JtTyRWd1VVRuXPTTULHGwN%2FsfEzmVD1DiIDXVH%2B1Iz28ME77RjkGLFDD5MAa8JeejAb8AfrIHHh%2FtctiH0rJJkHMf4XSbRCYbexFAPcRgTbVgW82rV3M5%2F2Onn2fWbtyze1ZfJB6ni9cuOTdY3JTlr%2FoiVczRee9BhqhH8MLW4Jd%2Fp8H%2B3RbyYEVtHu5mqBuQejN1ZqKVIipPrv7cxXcxf&RelayState=https%3A%2F%2Fwww.google.com%2Fa%2Fapps.ntpc.edu.tw%2FServiceLogin%3Fcontinue%3Dhttps%253A%252F%252Fclassroom.google.com%252F%26passive%3Dtrue" title="學生Google Classroom">學生Google Classroom</a></li>
-<li><a href="https://contest.hlc.edu.tw/typing/" title="花蓮縣打字練習網">花蓮縣打字練習網</a></li>
-<li><a href="https://exam2.tcte.edu.tw/teac_school/" title="攜手計畫追蹤成長測驗">攜手計畫追蹤成長測驗</a></li>
-<li><a href="https://esa.ntpc.edu.tw/014767/library" title="三多圖書館">三多圖書館</a></li>
-<li><a href="https://scratch.mit.edu/" title="Scratch">Scratch</a></li>
-<li><a href="https://code.org/" title="Code.org">Code.org</a></li>
-<li><a href="https://makecode.microbit.org/" title="micro:bit">micro:bit</a></li>
-<li><a href="https://sites.google.com/apps.ntpc.edu.tw/mis-sdes" title="_">_</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-right-2" title="新北校園通">新北校園通</a>
-<ul>
-<li><a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" title="新北校園通Google Play下載">新北校園通Google Play下載</a></li>
-<li><a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" title="新北校園通App Store下載">新北校園通App Store下載</a></li>
-<li><a href="https://mis.ntpc.edu.tw/p/406-1001-5733,r2.php?Lang=zh-tw" title="APP操作說明與影片">APP操作說明與影片</a></li>
-</ul>
-</li>
-<li><a href="index.html#blk-right-3" title="專線電話">專線電話</a>
-<span style="display:none;">☎ 教育部反霸凌專線1953☎ 新北市維護學生受教權檢舉專線(02)2966-73170800-580-780☎ 三多國小校園霸凌投訴&學生申訴專線(02)26880698#131☎ 三多國小校園輔導專線(02)26880698#151</span>
-</li>
-</ul></div>
-</div><div id="no-result" style="display:none; text-align:center; padding:20px; color:#666;">沒有找到相關內容</div><div style="text-align:center; margin-top:20px;"><a href="index.html" style="font-size:1.2em; color:#397DB3; font-weight:bold;" title="返回首頁">返回首頁</a></div></div>
+<div class="inner-container"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
+<h1 class="inner-title">電話分機表</h1>
+<div class="inner-content"><span style="text-align: center;"><span style="font-size: 1.5em;"><table border="1" style="width:100%; border-collapse:collapse; margin: 10px 0;">
+    <caption style="text-align:left; font-weight:bold; margin-bottom:5px;">電話分機表</caption>
+    <thead>
+        <tr style="background-color:#f2f2f2;">
+            <th scope="col" style="padding:8px; border:1px solid #ddd;">編號</th>
+            <th scope="col" style="padding:8px; border:1px solid #ddd;">處室名稱</th>
+            <th scope="col" style="padding:8px; border:1px solid #ddd;">分機號碼</th>
+            <th scope="col" style="padding:8px; border:1px solid #ddd;">編號</th>
+            <th scope="col" style="padding:8px; border:1px solid #ddd;">處室名稱</th>
+            <th scope="col" style="padding:8px; border:1px solid #ddd;">分機號碼</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">1</td>
+            <td style="padding:8px; border:1px solid #ddd;">校長室</td>
+            <td style="padding:8px; border:1px solid #ddd;">110</td>
+            <td style="padding:8px; border:1px solid #ddd;">22</td>
+            <td style="padding:8px; border:1px solid #ddd;">輔導主任</td>
+            <td style="padding:8px; border:1px solid #ddd;">150</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">2</td>
+            <td style="padding:8px; border:1px solid #ddd;">教務主任</td>
+            <td style="padding:8px; border:1px solid #ddd;">120</td>
+            <td style="padding:8px; border:1px solid #ddd;">23</td>
+            <td style="padding:8px; border:1px solid #ddd;">輔導組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">151</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">3</td>
+            <td style="padding:8px; border:1px solid #ddd;">教學組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">121</td>
+            <td style="padding:8px; border:1px solid #ddd;">24</td>
+            <td style="padding:8px; border:1px solid #ddd;">資料組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">152</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">4</td>
+            <td style="padding:8px; border:1px solid #ddd;">設備組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">122</td>
+            <td style="padding:8px; border:1px solid #ddd;">26</td>
+            <td style="padding:8px; border:1px solid #ddd;">特教組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">155</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">5</td>
+            <td style="padding:8px; border:1px solid #ddd;">註冊組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">123</td>
+            <td style="padding:8px; border:1px solid #ddd;">26</td>
+            <td style="padding:8px; border:1px solid #ddd;">專輔教師1</td>
+            <td style="padding:8px; border:1px solid #ddd;">153</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">6</td>
+            <td style="padding:8px; border:1px solid #ddd;">資訊組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">124</td>
+            <td style="padding:8px; border:1px solid #ddd;">27</td>
+            <td style="padding:8px; border:1px solid #ddd;">專輔教師2</td>
+            <td style="padding:8px; border:1px solid #ddd;">154</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">7</td>
+            <td style="padding:8px; border:1px solid #ddd;">電腦主機房</td>
+            <td style="padding:8px; border:1px solid #ddd;">125</td>
+            <td style="padding:8px; border:1px solid #ddd;">28</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園辦公室</td>
+            <td style="padding:8px; border:1px solid #ddd;">160、168</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">8</td>
+            <td style="padding:8px; border:1px solid #ddd;">學務主任</td>
+            <td style="padding:8px; border:1px solid #ddd;">130</td>
+            <td style="padding:8px; border:1px solid #ddd;">29</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園太陽</td>
+            <td style="padding:8px; border:1px solid #ddd;">161</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">9</td>
+            <td style="padding:8px; border:1px solid #ddd;">生教組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">131</td>
+            <td style="padding:8px; border:1px solid #ddd;">30</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園月亮</td>
+            <td style="padding:8px; border:1px solid #ddd;">162</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">10</td>
+            <td style="padding:8px; border:1px solid #ddd;">訓育組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">132</td>
+            <td style="padding:8px; border:1px solid #ddd;">31</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園彩虹</td>
+            <td style="padding:8px; border:1px solid #ddd;">163</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">11</td>
+            <td style="padding:8px; border:1px solid #ddd;">體育組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">113</td>
+            <td style="padding:8px; border:1px solid #ddd;">32</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園星星</td>
+            <td style="padding:8px; border:1px solid #ddd;">164</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">12</td>
+            <td style="padding:8px; border:1px solid #ddd;">衛生組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">134</td>
+            <td style="padding:8px; border:1px solid #ddd;">165</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園白雲</td>
+            <td style="padding:8px; border:1px solid #ddd;">165</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">13</td>
+            <td style="padding:8px; border:1px solid #ddd;">總務主任</td>
+            <td style="padding:8px; border:1px solid #ddd;">140</td>
+            <td style="padding:8px; border:1px solid #ddd;">34</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園小熊</td>
+            <td style="padding:8px; border:1px solid #ddd;">166</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">14</td>
+            <td style="padding:8px; border:1px solid #ddd;">出納組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">141</td>
+            <td style="padding:8px; border:1px solid #ddd;">35</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園小兔</td>
+            <td style="padding:8px; border:1px solid #ddd;">167</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">15</td>
+            <td style="padding:8px; border:1px solid #ddd;">文書組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">142</td>
+            <td style="padding:8px; border:1px solid #ddd;">36</td>
+            <td style="padding:8px; border:1px solid #ddd;">幼兒園廚房</td>
+            <td style="padding:8px; border:1px solid #ddd;">169</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">16</td>
+            <td style="padding:8px; border:1px solid #ddd;">幹事</td>
+            <td style="padding:8px; border:1px solid #ddd;">143</td>
+            <td style="padding:8px; border:1px solid #ddd;">37</td>
+            <td style="padding:8px; border:1px solid #ddd;">會計主任</td>
+            <td style="padding:8px; border:1px solid #ddd;">112</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">17</td>
+            <td style="padding:8px; border:1px solid #ddd;">事務組長</td>
+            <td style="padding:8px; border:1px solid #ddd;">145</td>
+            <td style="padding:8px; border:1px solid #ddd;">38</td>
+            <td style="padding:8px; border:1px solid #ddd;">人事主任</td>
+            <td style="padding:8px; border:1px solid #ddd;">113</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">18</td>
+            <td style="padding:8px; border:1px solid #ddd;">總務處1</td>
+            <td style="padding:8px; border:1px solid #ddd;">146</td>
+            <td style="padding:8px; border:1px solid #ddd;">39</td>
+            <td style="padding:8px; border:1px solid #ddd;">教師會辦公室</td>
+            <td style="padding:8px; border:1px solid #ddd;">114</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">19</td>
+            <td style="padding:8px; border:1px solid #ddd;">總務處2</td>
+            <td style="padding:8px; border:1px solid #ddd;">147</td>
+            <td style="padding:8px; border:1px solid #ddd;">40</td>
+            <td style="padding:8px; border:1px solid #ddd;">圖書館</td>
+            <td style="padding:8px; border:1px solid #ddd;">115</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">20</td>
+            <td style="padding:8px; border:1px solid #ddd;">警衛室</td>
+            <td style="padding:8px; border:1px solid #ddd;">111</td>
+            <td style="padding:8px; border:1px solid #ddd;">41</td>
+            <td style="padding:8px; border:1px solid #ddd;">健康中心1</td>
+            <td style="padding:8px; border:1px solid #ddd;">116</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">21</td>
+            <td style="padding:8px; border:1px solid #ddd;">學務處學生專用</td>
+            <td style="padding:8px; border:1px solid #ddd;">135</td>
+            <td style="padding:8px; border:1px solid #ddd;">42</td>
+            <td style="padding:8px; border:1px solid #ddd;">健康中心2</td>
+            <td style="padding:8px; border:1px solid #ddd;">117</td>
+        </tr>
+    </tbody>
+</table><br>
+</span></span></div>
+</div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="./ext.html" rel="noopener noreferrer" target="_selg" title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)26880698（<a href="https://docs.google.com/document/d/11-uxFcW9_WTdHWRoVmbT_mNpGFdwzQOZqMODGyZqbUA/edit?usp=sharing" rel="noopener noreferrer" target="_blank" title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
-<script>
-    function filterList(keyword) {
-        keyword = keyword.toLowerCase();
-        var container = document.getElementById('sitemapList');
-        var listItems = container.querySelectorAll('li'); 
-        var hasResult = false;
-        for (var i = 0; i < listItems.length; i++) { listItems[i].style.display = ''; }
-        if(!keyword) return;
-        var topItems = container.querySelectorAll('.sitemap-col > ul > li');
-        var anyVisible = false;
-        for (var i = 0; i < topItems.length; i++) {
-            var item = topItems[i];
-            var text = item.textContent || item.innerText;
-            if (text.toLowerCase().indexOf(keyword) > -1) { item.style.display = ''; anyVisible = true; } else { item.style.display = 'none'; }
-        }
-        document.getElementById('no-result').style.display = anyVisible ? 'none' : 'block';
-    }
-    window.onload = function() {
-        var params = new URLSearchParams(window.location.search);
-        var q = params.get('q');
-        if (q) {
-            var input1 = document.getElementById('headerSearchInput');
-            var input2 = document.getElementById('mobileSearchInput');
-            if(input1) input1.value = q;
-            if(input2) input2.value = q;
-            filterList(q);
-        }
-    };
-</script></body></html>
+</body></html>
