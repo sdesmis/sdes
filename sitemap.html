@@ -4,7 +4,7 @@
 
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-    .access-key { color: #666; text-decoration: none; font-size: 0.8em; padding: 5px; }
+    .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
     
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
@@ -211,7 +211,8 @@
 <div class="header">
                 <div class="header-left">
                     <a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a>
-                    <a href="index.html" class="logo-link">
+                    
+                    <a href="index.html" class="logo-link" title="新北市樹林區三多國民小學">
                         <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
                         <div class="school-text">
                             <h1 class="school-title-cn">新北市樹林區三多國民小學</h1>
@@ -220,7 +221,8 @@
                     </a>
                 </div>
 <div class="header-right">
-                <a href="index.html" class="header-btn">🏠 回首頁</a>
+                <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
+                
                 <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
                 <form class="search-header" onsubmit="return false;">
                     <input type="text" id="headerSearchInput" onkeyup="filterList(this.value)" placeholder="篩選內容..." aria-label="搜尋網站" title="請輸入關鍵字">
@@ -234,8 +236,8 @@
 <li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link">🗺️ 網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
-<a href="01.html" target="_self">學校簡介</a>
-<a href="02.html" target="_self">處室介紹</a>
+<a href="01.html" target="_self" title="學校簡介">學校簡介</a>
+<a href="02.html" target="_self" title="處室介紹">處室介紹</a>
 </div>
 </li>
 <li class="nav-item">
@@ -285,10 +287,10 @@
 <div class="banner-container"><img src="images/banner.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="sitemap-container"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><h2 class="sitemap-title">網站導覽 (Sitemap) & Accesskey</h2><div style="margin-bottom: 20px; color: #555; line-height:1.6;"><p>本網站依照無障礙網頁設計規範，主要內容分為五個區塊：</p><ul><li><strong>Alt+U</strong>：上方選單區。</li><li><strong>Alt+T</strong>：上方功能區。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li><li><strong>Alt+B</strong>：下方功能區。</li></ul></div><div class="sitemap-list" id="sitemapList">
 <div class="sitemap-col"><h3>主選單</h3><ul>
-<li><a href="#" target="_self">認識三多</a>
+<li><a href="#" target="_self" title="認識三多">認識三多</a>
 <ul>
-<li><a href="01.html" target="_self">學校簡介</a></li>
-<li><a href="02.html" target="_self">處室介紹</a></li>
+<li><a href="01.html" target="_self" title="學校簡介">學校簡介</a></li>
+<li><a href="02.html" target="_self" title="處室介紹">處室介紹</a></li>
 </ul>
 </li>
 <li><a href="https://www.facebook.com/sanduogood/" target="_blank" title="三多粉絲頁 (另開新視窗)">三多粉絲頁</a>
@@ -297,13 +299,13 @@
 </li>
 <li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" target="_blank" title="行事曆 (另開新視窗)">行事曆</a>
 </li>
-<li><a href="#" target="_self">影音相簿</a>
+<li><a href="#" target="_self" title="影音相簿">影音相簿</a>
 <ul>
 <li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" target="_blank" title="三多活動相簿 (另開新視窗)">三多活動相簿</a></li>
 <li><a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" target="_blank" title="三多活動影片 (另開新視窗)">三多活動影片</a></li>
 </ul>
 </li>
-<li><a href="#" target="_self">公務作業</a>
+<li><a href="#" target="_self" title="公務作業">公務作業</a>
 <ul>
 <li><a href="http://cloud.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲 (另開新視窗)">新北市政府公務雲</a></li>
 <li><a href="https://cloud2.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲(新) (另開新視窗)">新北市政府公務雲(新)</a></li>
