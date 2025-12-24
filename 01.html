@@ -4,6 +4,7 @@
 
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+    /* Accesskey 樣式 */
     .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
     
@@ -212,7 +213,7 @@
                 <div class="header-left">
                     <a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a>
                     
-                    <a href="index.html" class="logo-link" title="新北市樹林區三多國民小學">
+                    <a href="index.html" class="logo-link">
                         <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
                         <div class="school-text">
                             <h1 class="school-title-cn">新北市樹林區三多國民小學</h1>
@@ -221,7 +222,7 @@
                     </a>
                 </div>
 <div class="header-right">
-                <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
+                <a href="index.html" class="header-btn">🏠 回首頁</a>
                 
                 <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
                 <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
@@ -236,8 +237,8 @@
 <li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link">🗺️ 網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
-<a href="01.html" target="_self" title="學校簡介">學校簡介</a>
-<a href="02.html" target="_self" title="處室介紹">處室介紹</a>
+<a href="01.html" target="_self">學校簡介</a>
+<a href="02.html" target="_self">處室介紹</a>
 </div>
 </li>
 <li class="nav-item">
@@ -283,7 +284,6 @@
                 </form>
             </li>
 </ul></div></nav>
-
 <div class="banner-container"><img src="images/banner.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="inner-container"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <h1 class="inner-title">學校簡介</h1>
