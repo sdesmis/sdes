@@ -86,27 +86,26 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [修改] 連結列表樣式：純淨方框版 (無左側色條) */
+    /* 連結列表樣式 (清爽版) */
     .link-list-item {
         display: block;
         text-decoration: none;
         color: #333;
         background-color: #fff;
-        border: 1px solid #ddd;      /* 統一的淺灰色邊框 */
-        /* border-left: 4px solid #397DB3;  <-- 移除這行藍色線條 */
-        padding: 10px 15px;          /* 稍微增加內距讓它看起來更像按鈕 */
+        border: 1px solid #ddd;
+        padding: 10px 15px;
         margin-bottom: 5px;
-        border-radius: 5px;          /* 圓角稍微大一點 */
+        border-radius: 5px;
         transition: all 0.2s ease;
         font-size: 1.1em;
         line-height: 1.4;
     }
     .link-list-item:hover {
-        background-color: #f9f9f9;   /* 滑鼠移上去變極淡灰色 (不要藍色背景) */
-        border-color: #bbb;          /* 邊框稍微變深一點點灰色 */
-        color: #397DB3;         /* 文字變色還是保留，提示它是連結 */
+        background-color: #f9f9f9;
+        border-color: #bbb;
+        color: #397DB3;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transform: translateY(-1px); /* 微幅上浮效果 */
+        transform: translateY(-1px);
     }
     
     a.img-link { display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
@@ -139,8 +138,21 @@
 
     .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
     .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
-    .sitemap-list { display: flex; flex-wrap: wrap; gap: 30px; }
-    .sitemap-col { flex: 1; min-width: 250px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    
+    .sitemap-list { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 20px; 
+    }
+    .sitemap-col { 
+        flex: 1; 
+        min-width: 180px;
+        background: #fff; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    }
+    
     .sitemap-col h3 { color: #397DB3; border-left: 5px solid #397DB3; padding-left: 10px; font-size: 1.4em; margin-top: 0; }
     .sitemap-col ul { list-style: none; padding-left: 10px; margin: 0; }
     .sitemap-col ul ul { padding-left: 20px; border-left: 2px solid #eee; margin-top: 5px; margin-bottom: 10px; }
@@ -323,7 +335,7 @@
 <main class="col-center"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C0d5964c4">
+<div class="carousel-container" id="carousel-Cbbd680b6">
 <div class="carousel-slide fade">
 <img src="images/01.有人文的校風.png" alt="有人文的校風" />
 <div class="carousel-caption">有人文的校風</div>
@@ -340,16 +352,16 @@
 <img src="images/04.有健康的學生.png" alt="有健康的學生" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
-<a class="control-btn prev" onclick="plusSlides(-1, 'C0d5964c4')">❮</a>
-<a class="control-btn next" onclick="plusSlides(1, 'C0d5964c4')">❯</a>
-<button class="pause-btn" onclick="togglePause('C0d5964c4')">II 暫停</button>
+<a class="control-btn prev" onclick="plusSlides(-1, 'Cbbd680b6')">❮</a>
+<a class="control-btn next" onclick="plusSlides(1, 'Cbbd680b6')">❯</a>
+<button class="pause-btn" onclick="togglePause('Cbbd680b6')">II 暫停</button>
 <div class="dots-container">
-<span class="dot" onclick="currentSlide(1, 'C0d5964c4')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
-<span class="dot" onclick="currentSlide(2, 'C0d5964c4')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
-<span class="dot" onclick="currentSlide(3, 'C0d5964c4')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
-<span class="dot" onclick="currentSlide(4, 'C0d5964c4')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
+<span class="dot" onclick="currentSlide(1, 'Cbbd680b6')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
+<span class="dot" onclick="currentSlide(2, 'Cbbd680b6')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
+<span class="dot" onclick="currentSlide(3, 'Cbbd680b6')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
+<span class="dot" onclick="currentSlide(4, 'Cbbd680b6')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
 </div></div>
-<script>initCarousel('C0d5964c4');</script>
+<script>initCarousel('Cbbd680b6');</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>

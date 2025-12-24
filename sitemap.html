@@ -86,27 +86,26 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [修改] 連結列表樣式：純淨方框版 (無左側色條) */
+    /* 連結列表樣式 (清爽版) */
     .link-list-item {
         display: block;
         text-decoration: none;
         color: #333;
         background-color: #fff;
-        border: 1px solid #ddd;      /* 統一的淺灰色邊框 */
-        /* border-left: 4px solid #397DB3;  <-- 移除這行藍色線條 */
-        padding: 10px 15px;          /* 稍微增加內距讓它看起來更像按鈕 */
+        border: 1px solid #ddd;
+        padding: 10px 15px;
         margin-bottom: 5px;
-        border-radius: 5px;          /* 圓角稍微大一點 */
+        border-radius: 5px;
         transition: all 0.2s ease;
         font-size: 1.1em;
         line-height: 1.4;
     }
     .link-list-item:hover {
-        background-color: #f9f9f9;   /* 滑鼠移上去變極淡灰色 (不要藍色背景) */
-        border-color: #bbb;          /* 邊框稍微變深一點點灰色 */
-        color: #397DB3;         /* 文字變色還是保留，提示它是連結 */
+        background-color: #f9f9f9;
+        border-color: #bbb;
+        color: #397DB3;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transform: translateY(-1px); /* 微幅上浮效果 */
+        transform: translateY(-1px);
     }
     
     a.img-link { display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
@@ -139,8 +138,21 @@
 
     .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
     .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
-    .sitemap-list { display: flex; flex-wrap: wrap; gap: 30px; }
-    .sitemap-col { flex: 1; min-width: 250px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    
+    .sitemap-list { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 20px; 
+    }
+    .sitemap-col { 
+        flex: 1; 
+        min-width: 180px;
+        background: #fff; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    }
+    
     .sitemap-col h3 { color: #397DB3; border-left: 5px solid #397DB3; padding-left: 10px; font-size: 1.4em; margin-top: 0; }
     .sitemap-col ul { list-style: none; padding-left: 10px; margin: 0; }
     .sitemap-col ul ul { padding-left: 20px; border-left: 2px solid #eee; margin-top: 5px; margin-bottom: 10px; }
@@ -273,25 +285,25 @@
 <div class="banner-container"><img src="images/banner.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="sitemap-container"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><h2 class="sitemap-title">網站導覽 (Sitemap) & Accesskey</h2><div style="margin-bottom: 20px; color: #555; line-height:1.6;"><p>本網站依照無障礙網頁設計規範，主要內容分為五個區塊：</p><ul><li><strong>Alt+U</strong>：上方選單區。</li><li><strong>Alt+T</strong>：上方功能區。</li><li><strong>Alt+L</strong>：左方選單區。</li><li><strong>Alt+C</strong>：中間主要內容區。</li><li><strong>Alt+R</strong>：右方選單區。</li><li><strong>Alt+B</strong>：下方功能區。</li></ul></div><div class="sitemap-list" id="sitemapList">
 <div class="sitemap-col"><h3>主選單</h3><ul>
-<li><a href="#">認識三多</a>
+<li><a href="#" target="_self">認識三多</a>
 <ul>
 <li><a href="01.html" target="_self">學校簡介</a></li>
 <li><a href="02.html" target="_self">處室介紹</a></li>
 </ul>
 </li>
-<li><a href="https://www.facebook.com/sanduogood/">三多粉絲頁</a>
+<li><a href="https://www.facebook.com/sanduogood/" target="_blank" title="三多粉絲頁 (另開新視窗)">三多粉絲頁</a>
 </li>
-<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/">三多附幼</a>
+<li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" target="_blank" title="三多附幼 (另開新視窗)">三多附幼</a>
 </li>
-<li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767">行事曆</a>
+<li><a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" target="_blank" title="行事曆 (另開新視窗)">行事曆</a>
 </li>
-<li><a href="#">影音相簿</a>
+<li><a href="#" target="_self">影音相簿</a>
 <ul>
 <li><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" target="_blank" title="三多活動相簿 (另開新視窗)">三多活動相簿</a></li>
 <li><a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" target="_blank" title="三多活動影片 (另開新視窗)">三多活動影片</a></li>
 </ul>
 </li>
-<li><a href="#">公務作業</a>
+<li><a href="#" target="_self">公務作業</a>
 <ul>
 <li><a href="http://cloud.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲 (另開新視窗)">新北市政府公務雲</a></li>
 <li><a href="https://cloud2.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲(新) (另開新視窗)">新北市政府公務雲(新)</a></li>
@@ -300,13 +312,13 @@
 <li><a href="https://esa.ntpc.edu.tw/module/elec-bulletin/module/elec-bulletin/ap/newsp" target="_blank" title="教育局教育公告訊息 (另開新視窗)">教育局教育公告訊息</a></li>
 </ul>
 </li>
-<li><a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7">檔案下載</a>
+<li><a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" target="_blank" title="檔案下載 (另開新視窗)">檔案下載</a>
 </li>
-<li><a href="https://ebook.ntpc.edu.tw/">新北市教育局電子書</a>
+<li><a href="https://ebook.ntpc.edu.tw/" target="_blank" title="新北市教育局電子書 (另開新視窗)">新北市教育局電子書</a>
 </li>
-<li><a href="https://ebook.ntpc.edu.tw/">設備維修</a>
+<li><a href="https://ebook.ntpc.edu.tw/" target="_blank" title="設備維修 (另開新視窗)">設備維修</a>
 </li>
-<li><a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767">場地預約</a>
+<li><a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約 (另開新視窗)">場地預約</a>
 </li>
 </ul></div>
 <div class="sitemap-col"><h3>左方區塊</h3><ul>
