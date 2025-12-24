@@ -4,7 +4,8 @@
 
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-    .access-key { color: #666; text-decoration: none; font-size: 0.8em; padding: 5px; }
+    /* Accesskey 樣式 */
+    .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
     
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
@@ -47,17 +48,7 @@
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     
-    .container { 
-        display: flex; 
-        padding: 1.25em; 
-        gap: 1.5em; 
-        max-width: 100%; 
-        margin: 0 auto; 
-        width: 100%; 
-        box-sizing: border-box; 
-        flex: 1; 
-        justify-content: center;
-    }
+    .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; justify-content: center; }
     .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
     .col-center { width: 60%; flex: 0 1 60%; }
     
@@ -65,29 +56,68 @@
     .col-row-item { flex: 1; min-width: 0; display: flex; flex-direction: column; }
     .col-row-item .block-card { height: 100%; box-sizing: border-box; }
 
-    .block-card { margin-bottom: 10px; background: #fff; padding: 0.5em; border-radius: 5px; }
-    h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.2em; margin-bottom: 0.5em; }
+    .block-card { 
+        margin-bottom: 10px; 
+        background: #fff; 
+        padding: 10px 10px 5px 10px; 
+        border-radius: 5px; 
+    }
     
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+    .block-card > *:last-child {
+        margin-bottom: 0 !important;
     }
 
-    a.custom-link { font-size: 1.2em; font-weight: normal; color: #397DB3; text-decoration: none; display: block; width: fit-content; margin-bottom: 0.8em; }
+    h2.block-title { 
+        font-size: 1.5em; 
+        border-bottom: 2px solid #ccc; 
+        padding-bottom: 0.1em; 
+        margin-bottom: 8px;
+        margin-top: 0; 
+    }
+    
+    a.custom-link { 
+        font-size: 1.2em; 
+        font-weight: normal; 
+        color: #397DB3; 
+        text-decoration: none; 
+        display: block; 
+        width: fit-content; 
+        margin-bottom: 5px; 
+        line-height: 1.3;
+    }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
-    a.img-link { display: block; text-align: center; margin-bottom: 15px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
+
+    /* 連結列表樣式 (清爽版) */
+    .link-list-item {
+        display: block;
+        text-decoration: none;
+        color: #333;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        transition: all 0.2s ease;
+        font-size: 1.1em;
+        line-height: 1.4;
+    }
+    .link-list-item:hover {
+        background-color: #f9f9f9;
+        border-color: #bbb;
+        color: #397DB3;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+    }
+    
+    a.img-link { display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
     a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
     .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; text-align: center; font-size: 1em; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 10; }
     a.img-link:hover .img-caption { opacity: 1; }
-    .html-content { font-size: 1.1em; line-height: 1.6; color: #333; }
+
+    .html-content { font-size: 1.1em; line-height: 1.5; color: #333; }
+    .html-content p { margin: 0 0 0.5em 0; }
     .html-content img { max-width: 100%; height: auto; }
 
     .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; }
@@ -109,8 +139,21 @@
 
     .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
     .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
-    .sitemap-list { display: flex; flex-wrap: wrap; gap: 30px; }
-    .sitemap-col { flex: 1; min-width: 250px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    
+    .sitemap-list { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 20px; 
+    }
+    .sitemap-col { 
+        flex: 1; 
+        min-width: 180px;
+        background: #fff; 
+        padding: 20px; 
+        border-radius: 8px; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    }
+    
     .sitemap-col h3 { color: #397DB3; border-left: 5px solid #397DB3; padding-left: 10px; font-size: 1.4em; margin-top: 0; }
     .sitemap-col ul { list-style: none; padding-left: 10px; margin: 0; }
     .sitemap-col ul ul { padding-left: 20px; border-left: 2px solid #eee; margin-top: 5px; margin-bottom: 10px; }
@@ -130,6 +173,18 @@
 
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
+    
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
 
     @media (max-width: 900px) {
         .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
@@ -157,6 +212,7 @@
 <div class="header">
                 <div class="header-left">
                     <a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a>
+                    
                     <a href="index.html" class="logo-link">
                         <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
                         <div class="school-text">
@@ -167,6 +223,7 @@
                 </div>
 <div class="header-right">
                 <a href="index.html" class="header-btn">🏠 回首頁</a>
+                
                 <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
                 <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
                     <input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字">
@@ -215,7 +272,7 @@
 <a href="https://ebook.ntpc.edu.tw/" target="_blank" title="新北市教育局電子書 (另開新視窗)" class="nav-link">新北市教育局電子書</a>
 </li>
 <li class="nav-item">
-<a href="https://ebook.ntpc.edu.tw/" target="_blank" title="設備維修 (另開新視窗)" class="nav-link">設備維修</a>
+<a href="https://esa.ntpc.edu.tw/web-maintain/templates/maintain_pub.html?schno=014767" target="_blank" title="設備維修 (另開新視窗)" class="nav-link">設備維修</a>
 </li>
 <li class="nav-item">
 <a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約 (另開新視窗)" class="nav-link">場地預約</a>
@@ -417,6 +474,6 @@
 </span></span></div>
 </div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="ext.html" target="_self">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)26880698（<a href="../ext.html" target="_self">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 </body></html>
