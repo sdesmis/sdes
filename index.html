@@ -9,7 +9,7 @@
     
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
-    /* [修正] 確保父層 relative，讓 tooltip 定位準確 */
+    /* 確保父層 relative，讓 tooltip 定位準確 */
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
     .logo-link:hover { opacity: 0.8; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -88,7 +88,7 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [關鍵] CSS 提示框 (取代原生的 title) */
+    /* CSS 提示框 (取代原生的 title) */
     [data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
@@ -107,7 +107,6 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         border: 1px solid #555;
     }
-    /* 小箭頭 */
     [data-title]:hover::before {
         content: '';
         position: absolute;
@@ -160,10 +159,29 @@
     .carousel-slide img { width: 100%; height: auto; object-fit: cover; display: block; }
     .carousel-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); color: #fff; text-align: center; font-size: 1.2em; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
     .carousel-slide:hover .carousel-caption { opacity: 1; }
-    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 10px 15px; margin-top: -22px; color: white; font-weight: bold; font-size: 1.2em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
+    
+    /* [修改] 輪播控制按鈕：縮小尺寸 */
+    .control-btn { 
+        cursor: pointer; 
+        position: absolute; 
+        top: 50%; 
+        width: auto; 
+        padding: 6px 12px; /* 縮小內距 */
+        margin-top: -20px; /* 調整垂直位置 */
+        color: white; 
+        font-weight: bold; 
+        font-size: 1em;    /* 縮小字體 (箭頭) */
+        transition: 0.6s ease; 
+        border: none; 
+        user-select: none; 
+        background-color: rgba(0,0,0,0.3); 
+        text-decoration: none; 
+        z-index: 101; 
+    }
     .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
     .prev { left: 0; border-radius: 0 3px 3px 0; }
     .next { right: 0; border-radius: 3px 0 0 3px; }
+    
     .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
     .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
     .dots-container { text-align: center; padding: 10px; }
@@ -373,7 +391,7 @@
 <main class="col-center"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-Cc8f74719">
+<div class="carousel-container" id="carousel-Cd5960df9">
 <div class="carousel-slide fade">
 <img src="images/01.有人文的校風.png" alt="" />
 <div class="carousel-caption">有人文的校風</div>
@@ -390,16 +408,16 @@
 <img src="images/04.有健康的學生.png" alt="" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
-<a class="control-btn prev" onclick="plusSlides(-1, 'Cc8f74719')">❮</a>
-<a class="control-btn next" onclick="plusSlides(1, 'Cc8f74719')">❯</a>
-<button class="pause-btn" onclick="togglePause('Cc8f74719')">II 暫停</button>
+<a class="control-btn prev" onclick="plusSlides(-1, 'Cd5960df9')">❮</a>
+<a class="control-btn next" onclick="plusSlides(1, 'Cd5960df9')">❯</a>
+<button class="pause-btn" onclick="togglePause('Cd5960df9')">II 暫停</button>
 <div class="dots-container">
-<span class="dot" onclick="currentSlide(1, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
-<span class="dot" onclick="currentSlide(2, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
-<span class="dot" onclick="currentSlide(3, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
-<span class="dot" onclick="currentSlide(4, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
+<span class="dot" onclick="currentSlide(1, 'Cd5960df9')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
+<span class="dot" onclick="currentSlide(2, 'Cd5960df9')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
+<span class="dot" onclick="currentSlide(3, 'Cd5960df9')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
+<span class="dot" onclick="currentSlide(4, 'Cd5960df9')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
 </div></div>
-<script>initCarousel('Cc8f74719');</script>
+<script>initCarousel('Cd5960df9');</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
