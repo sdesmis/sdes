@@ -44,9 +44,19 @@
     .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; justify-content: center; }
     .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
     
-    /* [重要] 中欄改為 Flex 容器，支援自動換行 */
-    .col-center { width: 60%; flex: 0 1 60%; display: flex; flex-wrap: wrap; gap: 1.5em; align-content: flex-start; }
+    /* [修正 1] 中欄改回標準區塊，避免 Flex 影響到導盲磚連結 */
+    .col-center { width: 60%; flex: 0 1 60%; }
     
+    /* [修正 2] 真正的內容容器：負責 Flex 排版 */
+    .center-content-wrapper {
+        display: flex; 
+        flex-wrap: wrap; 
+        column-gap: 1.5em; /* 水平間距維持寬鬆 */
+        row-gap: 10px;     /* [關鍵] 垂直間距設為 10px，與左右欄 margin-bottom 一致 */
+        align-content: flex-start;
+        width: 100%;
+    }
+
     .col-row { display: flex; justify-content: space-between; gap: 1.5em; width: 100%; max-width: 100%; margin: 10px auto; box-sizing: border-box; padding: 0 1.25em; }
     .col-row-item { flex: 1; min-width: 0; display: flex; flex-direction: column; }
     .col-row-item .block-card { height: 100%; box-sizing: border-box; }
@@ -56,13 +66,18 @@
         background: #fff; 
         padding: 10px 10px 5px 10px; 
         border-radius: 5px; 
-        width: 100%; /* 預設佔滿寬度 */
+        width: 100%;
         box-sizing: border-box;
     }
     
-    /* [重要] 半寬區塊樣式：扣除間距 */
+    /* [修正 3] 移除 wrapper 內卡片的下方邊距，完全由 row-gap 控制，確保間距精準 */
+    .center-content-wrapper .block-card {
+        margin-bottom: 0 !important;
+    }
+
+    /* 半寬區塊計算：扣除中間的 gap */
     .block-card.half-width {
-        width: calc(50% - 0.75em); /* 50% 減去 gap 的一半 */
+        width: calc(50% - 0.75em); 
     }
 
     .block-card > *:last-child { margin-bottom: 0 !important; }
@@ -236,9 +251,10 @@
 </div>
 </aside>
 <main class="col-center"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
+<div class="center-content-wrapper">
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C28a204f3">
+<div class="carousel-container" id="carousel-Cdf39f11c">
 <div class="carousel-slide fade">
 <img src="images/01.有人文的校風.png" alt="" />
 <div class="carousel-caption">有人文的校風</div>
@@ -255,12 +271,12 @@
 <img src="images/04.有健康的學生.png" alt="" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
-<a class="control-btn prev" onclick="plusSlides(-1, 'C28a204f3')">❮</a><a class="control-btn next" onclick="plusSlides(1, 'C28a204f3')">❯</a><button class="pause-btn" onclick="togglePause('C28a204f3')">II 暫停</button><div class="dots-container">
-<span class="dot" onclick="currentSlide(1, 'C28a204f3')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
-<span class="dot" onclick="currentSlide(2, 'C28a204f3')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
-<span class="dot" onclick="currentSlide(3, 'C28a204f3')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
-<span class="dot" onclick="currentSlide(4, 'C28a204f3')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
-</div></div><script>initCarousel('C28a204f3');</script>
+<a class="control-btn prev" onclick="plusSlides(-1, 'Cdf39f11c')">❮</a><a class="control-btn next" onclick="plusSlides(1, 'Cdf39f11c')">❯</a><button class="pause-btn" onclick="togglePause('Cdf39f11c')">II 暫停</button><div class="dots-container">
+<span class="dot" onclick="currentSlide(1, 'Cdf39f11c')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
+<span class="dot" onclick="currentSlide(2, 'Cdf39f11c')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
+<span class="dot" onclick="currentSlide(3, 'Cdf39f11c')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
+<span class="dot" onclick="currentSlide(4, 'Cdf39f11c')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
+</div></div><script>initCarousel('Cdf39f11c');</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
@@ -269,6 +285,7 @@
 <div class="block-card">
 <h2 class="block-title" id="blk-center-2" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">榮譽榜</h2>
 <iframe src="https://esa.ntpc.edu.tw/web-heromgt/rest/service/view/public/WVFYTWN4Zy9GRlBrTDlkSEJZUmRnakZFRVBkNlhhUXRXQzgrNmxZeUx4OD0" title="新北市教育局校務行政校務榮譽榜公告，由教育局維護，若需無障礙協助請洽教育局資訊單位" width="100%" height="700" style="border:none;" loading="lazy"></iframe>
+</div>
 </div>
 </main>
 <aside class="col-right"><a href="#ar" id="ar" accesskey="R" title="右方次選單區" class="access-key">:::</a>
