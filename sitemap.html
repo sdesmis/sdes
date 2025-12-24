@@ -9,7 +9,6 @@
     
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
-    /* 確保父層 relative，讓 tooltip 定位準確 */
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
     .logo-link:hover { opacity: 0.8; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -88,15 +87,22 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* CSS 提示框 (取代原生的 title) */
+    /* [關鍵修正] 全域設定：只要有 data-title 的元素，強制加上相對定位 */
+    [data-title] {
+        position: relative;
+    }
+
+    /* CSS 提示框 (白底黑字) */
     [data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
         top: 100%; 
         left: 50%;
         transform: translateX(-50%);
-        background-color: #333;
-        color: #fff;
+        background-color: #fff; 
+        color: #333; 
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         padding: 6px 12px;
         border-radius: 4px;
         white-space: nowrap;
@@ -104,8 +110,6 @@
         z-index: 99999;
         pointer-events: none;
         margin-top: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        border: 1px solid #555;
     }
     [data-title]:hover::before {
         content: '';
@@ -116,7 +120,7 @@
         margin-top: -4px;
         border-width: 6px;
         border-style: solid;
-        border-color: transparent transparent #333 transparent;
+        border-color: transparent transparent #fff transparent;
         z-index: 99999;
     }
 
@@ -160,17 +164,17 @@
     .carousel-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); color: #fff; text-align: center; font-size: 1.2em; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
     .carousel-slide:hover .carousel-caption { opacity: 1; }
     
-    /* [修改] 輪播控制按鈕：縮小尺寸 */
+    /* 輪播控制按鈕：縮小尺寸 */
     .control-btn { 
         cursor: pointer; 
         position: absolute; 
         top: 50%; 
         width: auto; 
-        padding: 6px 12px; /* 縮小內距 */
-        margin-top: -20px; /* 調整垂直位置 */
+        padding: 6px 12px; 
+        margin-top: -20px; 
         color: white; 
         font-weight: bold; 
-        font-size: 1em;    /* 縮小字體 (箭頭) */
+        font-size: 1em;    
         transition: 0.6s ease; 
         border: none; 
         user-select: none; 
@@ -491,7 +495,7 @@
 </ul></div>
 </div><div id="no-result" style="display:none; text-align:center; padding:20px; color:#666;">沒有找到相關內容</div><div style="text-align:center; margin-top:20px;"><a href="index.html" style="font-size:1.2em; color:#397DB3; font-weight:bold;">返回首頁</a></div></div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="../ext.html" target="_self">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)26880698（<a href="../ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 <script>
     function filterList(keyword) {
