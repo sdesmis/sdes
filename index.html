@@ -9,6 +9,7 @@
     
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
+    /* [修正] 確保父層 relative，讓 tooltip 定位準確 */
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
     .logo-link:hover { opacity: 0.8; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -87,27 +88,40 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [關鍵新增] CSS 提示框 (取代原生的 title，只給眼睛看，不給機器讀) */
-    /* 適用於有 data-title 屬性的元素 */
+    /* [關鍵] CSS 提示框 (取代原生的 title) */
     [data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
-        top: 100%; /* 改為顯示在下方，避免遮擋 */
+        top: 100%; 
         left: 50%;
         transform: translateX(-50%);
         background-color: #333;
         color: #fff;
-        padding: 5px 10px;
+        padding: 6px 12px;
         border-radius: 4px;
         white-space: nowrap;
-        font-size: 0.8em;
-        z-index: 9999;
+        font-size: 0.9em;
+        z-index: 99999;
         pointer-events: none;
-        margin-top: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        border: 1px solid #555;
+    }
+    /* 小箭頭 */
+    [data-title]:hover::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -6px;
+        margin-top: -4px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #333 transparent;
+        z-index: 99999;
     }
 
-    /* 連結列表樣式 (清爽版) */
+    /* 連結列表樣式 */
     .link-list-item {
         display: block;
         text-decoration: none;
@@ -359,33 +373,33 @@
 <main class="col-center"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C769b13b1">
+<div class="carousel-container" id="carousel-Cc8f74719">
 <div class="carousel-slide fade">
-<img src="images/01.有人文的校風.png" alt="有人文的校風" />
+<img src="images/01.有人文的校風.png" alt="" />
 <div class="carousel-caption">有人文的校風</div>
 </div>
 <div class="carousel-slide fade">
-<img src="images/02.有優質的教育.png" alt="有優質的教育" />
+<img src="images/02.有優質的教育.png" alt="" />
 <div class="carousel-caption">有優質的教育</div>
 </div>
 <div class="carousel-slide fade">
-<img src="images/03.有活力的校園.png" alt="有活力的校園" />
+<img src="images/03.有活力的校園.png" alt="" />
 <div class="carousel-caption">有活力的校園</div>
 </div>
 <div class="carousel-slide fade">
-<img src="images/04.有健康的學生.png" alt="有健康的學生" />
+<img src="images/04.有健康的學生.png" alt="" />
 <div class="carousel-caption">有健康的學生</div>
 </div>
-<a class="control-btn prev" onclick="plusSlides(-1, 'C769b13b1')">❮</a>
-<a class="control-btn next" onclick="plusSlides(1, 'C769b13b1')">❯</a>
-<button class="pause-btn" onclick="togglePause('C769b13b1')">II 暫停</button>
+<a class="control-btn prev" onclick="plusSlides(-1, 'Cc8f74719')">❮</a>
+<a class="control-btn next" onclick="plusSlides(1, 'Cc8f74719')">❯</a>
+<button class="pause-btn" onclick="togglePause('Cc8f74719')">II 暫停</button>
 <div class="dots-container">
-<span class="dot" onclick="currentSlide(1, 'C769b13b1')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
-<span class="dot" onclick="currentSlide(2, 'C769b13b1')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
-<span class="dot" onclick="currentSlide(3, 'C769b13b1')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
-<span class="dot" onclick="currentSlide(4, 'C769b13b1')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
+<span class="dot" onclick="currentSlide(1, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 1 張圖片"></span>
+<span class="dot" onclick="currentSlide(2, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 2 張圖片"></span>
+<span class="dot" onclick="currentSlide(3, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 3 張圖片"></span>
+<span class="dot" onclick="currentSlide(4, 'Cc8f74719')" tabindex="0" role="button" aria-label="切換到第 4 張圖片"></span>
 </div></div>
-<script>initCarousel('C769b13b1');</script>
+<script>initCarousel('Cc8f74719');</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
@@ -437,11 +451,11 @@
 <h2 class="block-title" id="blk-right-2" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">新北校園通</h2>
 <a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" title="新北校園通Google Play下載 (另開新視窗)" class="img-link">
 <img src="images/Google_Play_Store.png" alt="" />
-<div class="img-caption">新北校園通Google Play下載</div>
+<div class="img-caption" aria-hidden="true">新北校園通Google Play下載</div>
 </a>
 <a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" title="新北校園通App Store下載 (另開新視窗)" class="img-link">
 <img src="images/appstore.png" alt="" />
-<div class="img-caption">新北校園通App Store下載</div>
+<div class="img-caption" aria-hidden="true">新北校園通App Store下載</div>
 </a>
 <a href="https://mis.ntpc.edu.tw/p/406-1001-5733,r2.php?Lang=zh-tw" target="_blank" title="APP操作說明與影片 (另開新視窗)" class="link-list-item">APP操作說明與影片</a>
 </div>

@@ -9,6 +9,7 @@
     
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
+    /* [修正] 確保父層 relative，讓 tooltip 定位準確 */
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
     .logo-link:hover { opacity: 0.8; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -87,27 +88,40 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [關鍵新增] CSS 提示框 (取代原生的 title，只給眼睛看，不給機器讀) */
-    /* 適用於有 data-title 屬性的元素 */
+    /* [關鍵] CSS 提示框 (取代原生的 title) */
     [data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
-        top: 100%; /* 改為顯示在下方，避免遮擋 */
+        top: 100%; 
         left: 50%;
         transform: translateX(-50%);
         background-color: #333;
         color: #fff;
-        padding: 5px 10px;
+        padding: 6px 12px;
         border-radius: 4px;
         white-space: nowrap;
-        font-size: 0.8em;
-        z-index: 9999;
+        font-size: 0.9em;
+        z-index: 99999;
         pointer-events: none;
-        margin-top: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        border: 1px solid #555;
+    }
+    /* 小箭頭 */
+    [data-title]:hover::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -6px;
+        margin-top: -4px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #333 transparent;
+        z-index: 99999;
     }
 
-    /* 連結列表樣式 (清爽版) */
+    /* 連結列表樣式 */
     .link-list-item {
         display: block;
         text-decoration: none;
