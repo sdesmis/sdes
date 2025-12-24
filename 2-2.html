@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>新北市樹林區三多國民小學</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>電話分機表 - 新北市樹林區三多國民小學</title>
 <link rel="icon" href="favicon.ico" />
 <link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
 
@@ -87,27 +87,44 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [關鍵新增] CSS 提示框 (取代原生的 title，只給眼睛看，不給機器讀) */
-    /* 適用於有 data-title 屬性的元素 */
+    /* [關鍵修正] 全域設定：只要有 data-title 的元素，強制加上相對定位 */
+    [data-title] {
+        position: relative;
+    }
+
+    /* CSS 提示框 (白底黑字) */
     [data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
-        top: 100%; /* 改為顯示在下方，避免遮擋 */
+        top: 100%; 
         left: 50%;
         transform: translateX(-50%);
-        background-color: #333;
-        color: #fff;
-        padding: 5px 10px;
+        background-color: #fff; 
+        color: #333; 
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        padding: 6px 12px;
         border-radius: 4px;
         white-space: nowrap;
-        font-size: 0.8em;
-        z-index: 9999;
+        font-size: 0.9em;
+        z-index: 99999;
         pointer-events: none;
-        margin-top: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 8px;
+    }
+    [data-title]:hover::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -6px;
+        margin-top: -4px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #fff transparent;
+        z-index: 99999;
     }
 
-    /* 連結列表樣式 (清爽版) */
+    /* 連結列表樣式 */
     .link-list-item {
         display: block;
         text-decoration: none;
@@ -146,10 +163,29 @@
     .carousel-slide img { width: 100%; height: auto; object-fit: cover; display: block; }
     .carousel-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); color: #fff; text-align: center; font-size: 1.2em; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
     .carousel-slide:hover .carousel-caption { opacity: 1; }
-    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 10px 15px; margin-top: -22px; color: white; font-weight: bold; font-size: 1.2em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
+    
+    /* 輪播控制按鈕：縮小尺寸 */
+    .control-btn { 
+        cursor: pointer; 
+        position: absolute; 
+        top: 50%; 
+        width: auto; 
+        padding: 6px 12px; 
+        margin-top: -20px; 
+        color: white; 
+        font-weight: bold; 
+        font-size: 1em;    
+        transition: 0.6s ease; 
+        border: none; 
+        user-select: none; 
+        background-color: rgba(0,0,0,0.3); 
+        text-decoration: none; 
+        z-index: 101; 
+    }
     .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
     .prev { left: 0; border-radius: 0 3px 3px 0; }
     .next { right: 0; border-radius: 3px 0 0 3px; }
+    
     .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
     .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
     .dots-container { text-align: center; padding: 10px; }
@@ -313,6 +349,6 @@
 <div class="inner-content"><span style="text-align: center;">教務主任:蔡主任<br>學校總機:26880698<br>電話分機:120<br>工作職掌：<br>1. 綜理教務行政業務。<br>2. 統籌規劃教務之專案工作及執行監督。<br>3. 辦理校園巡堂業務並追蹤改善情事。<br>4. 臨時人員之甄選、管理事宜。<br>5. 職級務編排事宜。<br>6. 辦理教師員額控管及甄補事宜<br>7. 規劃辦理教師專業成長事宜(社群、共備、領域)。<br>8. 遴報特殊優良教師事宜。<br>9. 辦理代理代課教師服務績效評量事宜。<br>10.  辦理公開觀課事宜及評鑑事宜。<br>11.  實設班級數之報請核定事宜。<br>12.  彙辦校務評鑑工作。<br>13.  彙辦行政工作。<br>14.  新聞發言人。<br> <br>教學組長:譚組長<br>學校總機:26880698<br>電話分機:121<br>工作職掌：<br>1. 辦理教師專業成長及教師進修研究等事宜<br>2. 推行課程發展委員會及學習領域課程小組事宜<br>3. 辦理學校課程計畫備查。<br>4. 排編日課表及教師授課表。<br>5. 教師差假管理及調、代、補課事宜。<br>6. 教師鐘點費請領。<br>7. 教師缺額統計及填報。<br>8. 教學支援人員進用及管理事項。<br>9. 協辦教師甄選工作。<br>10.  辦理校內語文競賽及參加語文競賽事宜。<br>11.  推動教學相關之活動與比賽。<br>12.  辦理各項能力檢測及後續改善追蹤事宜。<br>13.  辦理定期評量業務。<br>14.  辦理學生作業及家庭聯絡簿調閱事宜。<br>15.  學生假期(寒暑假)作業彙辦事宜。<br>16.  辦理鄉土教育及語言相關事宜。<br>17.  規劃辦理教學觀摩等相關事宜。<br>18.  策劃及督導班級教學環境布置事宜。<br>19.  辦理學生作業調閱事宜。<br>20.  其他臨時交辦業務 。 <br> <br>設備組長:廖組長<br>學校總機:26880698<br>電話分機:122<br>工作職掌：<br>    1.專科教室、圖書室、教具室之規劃與管理。<br>    2.教學設備採購規劃及維護。<br>    3.教科書評選業務及訂購核銷事宜。<br>    4.簿本及美勞教材的評選及訂購事宜。<br>    5.辦理校內學生美展及優良作文展覽事宜。<br>    6.教科書(含教具)分發及回收管理事宜<br>    7.圖書館業務管理及推動學生閱讀活動業務。<br>    8.辦理校外作文及硬筆書法等競賽。<br>    9.辦理校內書法及童軍社團等相關業務。<br>    10.校外作文及硬筆書法等競賽活動。<br>    11.充實各項教學環境事項<br>    12.其他臨時交辦業務。<br> <br>註冊組長:江組長<br>學校總機:26880698<br>電話分機:123<br>工作職掌：<br>1. 學生學籍資料管理。<br>2. 辦理新生入學報到。<br>3. 辦理學生轉出/入業務。<br>4. 辦理學生編班及公開抽籤之相關業務。<br>5. 辦理學生在學(成績)證明書、畢業證明書申請。<br>6. 學生成績處理、獎勵及學期成績單之核閱。<br>7. 辦理學生各項獎(助)學金申請及就學補助事宜。<br>8. 辦理中輟生通報。<br>9. 辦理畢業生升學作業流程。<br>10.  畢業典禮籌辦。<br>11.  學生社福補助資料彙整。<br>12.  其他臨時交辦業務。<br> <br>資訊組長:許組長<br>學校總機:26880698<br>電話分機:125(主機房)、124(教務處辦公室)<br>工作職掌：<br>1. 電腦教室、班級及科任教室電腦管理及維護。<br>2. 學校網站建置、管理、維護事宜。<br>3. 規劃設計有關學生資訊教育課程。<br>4. 校內網路線路配置及維護。<br>5. 其他與資訊教育相關事宜。<br>6. 其他臨時交辦業務。</span></div>
 </div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="../ext.html" target="_self">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)26880698（<a href="../ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 </body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>新北市樹林區三多國民小學</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>電話分機表 - 新北市樹林區三多國民小學</title>
 <link rel="icon" href="favicon.ico" />
 <link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
 
@@ -87,27 +87,44 @@
     }
     a.custom-link:hover { text-decoration: none; color: #235d91; }
 
-    /* [關鍵新增] CSS 提示框 (取代原生的 title，只給眼睛看，不給機器讀) */
-    /* 適用於有 data-title 屬性的元素 */
+    /* [關鍵修正] 全域設定：只要有 data-title 的元素，強制加上相對定位 */
+    [data-title] {
+        position: relative;
+    }
+
+    /* CSS 提示框 (白底黑字) */
     [data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
-        top: 100%; /* 改為顯示在下方，避免遮擋 */
+        top: 100%; 
         left: 50%;
         transform: translateX(-50%);
-        background-color: #333;
-        color: #fff;
-        padding: 5px 10px;
+        background-color: #fff; 
+        color: #333; 
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        padding: 6px 12px;
         border-radius: 4px;
         white-space: nowrap;
-        font-size: 0.8em;
-        z-index: 9999;
+        font-size: 0.9em;
+        z-index: 99999;
         pointer-events: none;
-        margin-top: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        margin-top: 8px;
+    }
+    [data-title]:hover::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -6px;
+        margin-top: -4px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent #fff transparent;
+        z-index: 99999;
     }
 
-    /* 連結列表樣式 (清爽版) */
+    /* 連結列表樣式 */
     .link-list-item {
         display: block;
         text-decoration: none;
@@ -146,10 +163,29 @@
     .carousel-slide img { width: 100%; height: auto; object-fit: cover; display: block; }
     .carousel-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); color: #fff; text-align: center; font-size: 1.2em; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
     .carousel-slide:hover .carousel-caption { opacity: 1; }
-    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 10px 15px; margin-top: -22px; color: white; font-weight: bold; font-size: 1.2em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
+    
+    /* 輪播控制按鈕：縮小尺寸 */
+    .control-btn { 
+        cursor: pointer; 
+        position: absolute; 
+        top: 50%; 
+        width: auto; 
+        padding: 6px 12px; 
+        margin-top: -20px; 
+        color: white; 
+        font-weight: bold; 
+        font-size: 1em;    
+        transition: 0.6s ease; 
+        border: none; 
+        user-select: none; 
+        background-color: rgba(0,0,0,0.3); 
+        text-decoration: none; 
+        z-index: 101; 
+    }
     .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
     .prev { left: 0; border-radius: 0 3px 3px 0; }
     .next { right: 0; border-radius: 3px 0 0 3px; }
+    
     .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
     .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
     .dots-container { text-align: center; padding: 10px; }
@@ -313,6 +349,6 @@
 <div class="inner-content"><span style="text-align: center;">輔導主任:黃主任<br>學校總機:26880698<br>電話分機:150<br>工作職掌：<br>(一)綜理輔導處各項業務。<br>(二)彙整辦理原住民族重點暨特色學校計畫（太陽計畫）。<br>(三)辦理國際教育相關業務。<br> <br>輔導組長:詹組長<br>學校總機:26880698<br>電話分機:151(輔導處辦公室)<br>工作職掌：<br>(一) 辦理學生個案研究與輔導並建立相關資料。<br>(二) 處理輔導信箱函件並策劃輔導專欄之建置。<br>(三) 辦理中途輟學學生之追蹤輔導。<br>(四) 辦理兒少保護、憂鬱自傷、家暴等之防治通報與追蹤輔導事宜。<br>(五) 規劃及辦理認輔工作事宜。<br>(六) 辦理團體、新生始業及休閒生活輔導等事項。<br>(七) 協助教師規劃班級輔導策略及執行。<br>(八) 提供輔導諮詢服務及相關協助。<br>(九) 學生輔導成效之追蹤。<br>(十) 彙辦友善校園-學生事務與輔導工作事宜。<br>(十一) 推展性別平等教育與生命教育之教學及輔導活動。<br>(十二) 辦理學生補救教學事宜。<br>(十三)辦理幸福保衛站相關業務。<br>(十四)其他臨時交辦業務。<br> <br>資料組長:潘組長<br>學校總機:26880698<br>電話分機:152<br>工作職掌：<br>(一) 協助級任教師建立及管理學生輔導資料。<br>(二) 管理輔導室相關資料、書籍及教材教具。<br>(三) 蒐集各種學生輔導測驗工具並協助教師應用。<br>(四) 辦理各項輔導測驗及結果之分析、製表與運用。<br>(五) 辦理生涯發展教育之教學及輔導活動。<br>(六) 建立畢業生追蹤輔導資料。<br>(七) 辦理小一新生迎生活動、家長日活動、認識師長活動。<br>(八) 辦理家庭訪視及親職教育有關活動並提供相關資訊。<br>(九) 辦理終身學習等社會教育推動事宜。<br>(十) 爭取並連繫家庭及社會資源並建構完整輔導資源網絡。<br>(十一)辦理家庭教育相關業務。<br>(十二)辦理志工服務推廣工作。<br>(十三)辦理新住民教育及外籍配偶華語學習專班相關業務。<br>(十四)規劃與辦理「多元文化教育」事項<br>(十五)辦理課後照顧班相關業務。<br>(十六)辦理教育優先區相關業務。<br>(十七)其他臨時交辦業務。<br> <br>特教組長:丁組長<br>學校總機:26880698<br>電話分機:155<br>工作職掌：<br>(一)特殊教育計畫及章則之擬訂。<br>(二)特殊教育計畫及章則之擬訂。<br>(三)身心障礙學生之教學輔導及個案管理事項。<br>(四)鑑定及安置各類資賦優異班學生之事項。<br>(五)辦理特殊教育教師之教學研究及輔導工作事項。<br>(六)督導個別化教育計畫或方案實施事項。<br>(七)辦理特殊教育班學生個案研究與輔導事項。<br>(八)協助教師從事各班特殊學生之教育與輔導之事項。<br>(九)辦理特殊教育學生之親職教育。<br>(十)辦理資賦優異學生縮短修業年限及資優教育方案事宜。<br>(十一)特殊教育活動宣導事項。<br>(十二)組織及運作特殊教育推行委員會事項。<br>(十三)視障學生課本及教材購置與製作事項。<br>(十四)辦理特殊教育學生教學輔具事項。<br>(十五)辦理無法自行上下學學生交通車接送及交通補助費事宜。<br>(十六)申請身心障礙學生各項獎助學金、教育代金補助等事項。<br>(十七)辦理特殊教育學生通報事項。<br>(十八)辦理特殊教育學生之調查及就學輔導事項。<br>(十九)辦理特殊教育畢業學生之追蹤輔導事項。<br>(二十)推動特殊教育實施方案。<br>(二十一)其他臨時交辦業務。<br> <br>專輔教師:黃老師、王老師<br>學校總機:26880698<br>電話分機:153<br>工作職掌：<br>(一)發展性輔導<br> 每週授課班級輔導。<br> 心理測驗的實施、結果解釋與運用。<br>  提供親師生輔導相關資訊。<br>  主講教師輔導知能講座。<br>  規劃並執行學生輔導相關講座。<br>  依學生需求設計輔導相關議題團體輔導教案提供教師參考運用。<br>  全校學生個案服務之管理工作。<br>  輔導資源網絡的聯繫與運用。<br>(二)介入性輔導<br> 參與學生個案相關會議。<br>  個案輔導與記錄。<br>  小團體輔導與記錄。<br> 特殊個案學生之家庭訪視。<br> 因應突發與危機事件進行相關人員之團體輔導。<br>(三)親師諮詢<br> 提供親師生輔導相關專業知能之諮詢服務。<br>(四)專業成長<br> 參加教育局辦理之督導課程。<br> 參加教育局辦理之輔導專業在職訓練課程。<br>(五) 執行學校交辦之相關輔導工作。</span></div>
 </div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="../ext.html" target="_self">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)26880698（<a href="../ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 </body></html>
