@@ -182,6 +182,47 @@
         .sitemap-list { flex-direction: column; }
     }
 </style>
+<style>
+                /* 佈局容器：維持 75em (約1200px) 限制，置中 */
+                .inner-layout { max-width: 75em; margin: 20px auto; padding: 0 20px; box-sizing: border-box; }
+                
+                /* 主要內容區：佔滿 100% */
+                .inner-main { width: 100%; background: #fff; padding: 40px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eee; min-height: 600px; box-sizing: border-box; }
+                
+                /* 麵包屑 */
+                .breadcrumb { margin-bottom: 20px; font-size: 0.95em; color: #666; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
+                .breadcrumb a { text-decoration: none; color: #397DB3; } 
+                .breadcrumb a:hover { text-decoration: underline; }
+                
+                /* 文章標題 */
+                .page-title { font-size: 2.2em; color: #333; margin: 0 0 30px 0; padding-bottom: 15px; border-bottom: 3px solid #397DB3; line-height: 1.3; }
+                
+                /* 文章內容排版 */
+                .article-body { font-size: 1.25em; line-height: 1.8; color: #333; }
+                .article-body p { margin-bottom: 1.5em; text-align: justify; }
+                
+                .article-body h2 { font-size: 1.5em; color: #0056b3; margin-top: 1.5em; margin-bottom: 0.8em; border-left: 5px solid #0056b3; padding-left: 10px; }
+                .article-body h3 { font-size: 1.3em; color: #333; margin-top: 1.2em; margin-bottom: 0.6em; font-weight: bold; }
+                .article-body ul, .article-body ol { margin-bottom: 1.5em; padding-left: 2em; }
+                .article-body li { margin-bottom: 0.5em; }
+                .article-body img { max-width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 10px 0; }
+                
+                /* 表格美化 */
+                .article-body table { width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #ddd; }
+                .article-body th { background-color: #f2f2f2; color: #333; font-weight: bold; padding: 12px; border: 1px solid #ddd; text-align: center; white-space: nowrap; }
+                .article-body td { padding: 10px; border: 1px solid #ddd; }
+                .article-body tr:nth-child(even) { background-color: #fafafa; }
+                .article-body tr:hover { background-color: #f0f8ff; }
+
+                .article-body a { color: #007bff; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
+                .article-body a:hover { color: #0056b3; border-bottom-color: #0056b3; }
+
+                @media (max-width: 900px) {
+                    .inner-layout { padding: 0 10px; }
+                    .inner-main { padding: 20px; }
+                    .page-title { font-size: 1.8em; }
+                }
+            </style>
 </head><body>
 <div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
 <div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="submit" aria-label="搜尋" title="搜尋" >🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
@@ -232,12 +273,24 @@
 </li>
 <li class="nav-item mobile-only search-mobile-container"><form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字"><button type="submit" title="搜尋" >🔍</button></form></li></ul></div></nav>
 
-<div class="inner-wrapper">
-<div class="breadcrumb"><a href="index.html">首頁</a> &gt; <span>處室介紹</span></div>
+
+                <div class="banner-container" style="width:100%; max-width:100%;">
+                    <img src="images/banner.png" alt="學校橫幅" class="banner-img" style="width:100%; height:auto; display:block; object-fit:cover; max-height:400px;" />
+                </div>
+<div class="inner-layout">
+<main class="inner-main">
+<a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
+<div class="breadcrumb">
+                <a href="index.html">🏠 首頁</a> 
+                &gt; 
+                <span>處室介紹</span>
+            </div>
 <h1 class="page-title">處室介紹</h1>
-<div class="page-content">
-<FONT size=5><A title="前往 校長室" href="2-1.html">校長室</A><BR><A title="前往 教務處" href="2-2.html">教務處</A><BR><A title="前往 學務處" href="2-3.html">學務處</A><BR><A title="前往 總務處" href="2-4.html">總務處</A><BR><A title="前往 輔導處" href="2-5.html">輔導處</A><BR><A title="前往 人事室" href="2-6.html">人事室</A><BR><A title="前往 會計室" href="2-7.html">會計室</A></FONT>
-</div></div>
+<div class="article-body">
+<P style="text-align: center;"><FONT size=6><A title="前往 校長室" href="2-1.html">校長室</A><BR><A title="前往 教務處" href="2-2.html">教務處</A><BR><A title="前往 學務處" href="2-3.html">學務處</A><BR><A title="前往 總務處" href="2-4.html">總務處</A><BR><A title="前往 輔導處" href="2-5.html">輔導處</A><BR><A title="前往 人事室" href="2-6.html">人事室</A><BR><A title="前往 會計室" href="2-7.html">會計室</A></FONT></P>
+</div>
+</main>
+</div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
 代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>

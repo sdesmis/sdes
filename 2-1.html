@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>電話分機表 - 新北市樹林區三多國民小學</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>校長室 - 新北市樹林區三多國民小學</title>
 <link rel="icon" href="favicon.ico" />
 <link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
 
@@ -6,7 +6,6 @@
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
     .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
-    
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
@@ -18,24 +17,21 @@
     .header-right { display: flex; align-items: center; gap: 10px; }
     .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; position: relative; }
     .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
-
     .search-header { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 20px; padding: 2px 5px; background: #fff; height: 36px; }
     .search-header input { border: none; outline: none; padding: 0 10px; font-size: 1em; width: 150px; background: transparent; }
     .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 8px; display: flex; align-items: center; }
     .search-header button:hover { color: #000; }
-
     .navbar { background-color: #397DB3; }
     .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
     .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     .nav-item { position: relative; }
     .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; position: relative; }
     .nav-link:hover, .nav-link:focus { background-color: rgba(0,0,0,0.2); }
-    
     .search-mobile-container { padding: 10px 20px; background-color: rgba(0,0,0,0.1); }
     .search-mobile { display: flex; width: 100%; background: #fff; border-radius: 5px; overflow: hidden; }
     .search-mobile input { flex: 1; border: none; padding: 10px; outline: none; font-size: 1em; }
     .search-mobile button { background: #eee; border: none; padding: 0 15px; cursor: pointer; color: #333; font-size: 1.1em; }
-
+    .search-mobile button:hover { color: #000; }
     .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
     .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; position: relative; }
     .dropdown-content a:hover { background-color: #ddd; }
@@ -43,7 +39,6 @@
     .nav-item:focus-within .dropdown-content { display: block; }
     .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
     .mobile-only { display: none; }
-    
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     
@@ -51,247 +46,189 @@
     .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
     .col-center { width: 60%; flex: 0 1 60%; }
     
+    .center-content-wrapper { display: flex; flex-wrap: wrap; column-gap: 1.5em; row-gap: 10px; align-content: flex-start; width: 100%; }
     .col-row { display: flex; justify-content: space-between; gap: 1.5em; width: 100%; max-width: 100%; margin: 10px auto; box-sizing: border-box; padding: 0 1.25em; }
     .col-row-item { flex: 1; min-width: 0; display: flex; flex-direction: column; }
     .col-row-item .block-card { height: 100%; box-sizing: border-box; }
 
-    .block-card { 
-        margin-bottom: 10px; 
-        background: #fff; 
-        padding: 10px 10px 5px 10px; 
-        border-radius: 5px; 
-    }
+    .block-card { margin-bottom: 10px; background: #fff; padding: 10px 10px 5px 10px; border-radius: 5px; width: 100%; box-sizing: border-box; }
+    .center-content-wrapper .block-card { margin-bottom: 0 !important; }
+    .block-card.half-width { width: calc(50% - 0.75em); }
+    .block-card > *:last-child { margin-bottom: 0 !important; }
+    h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.1em; margin-bottom: 8px; margin-top: 0; }
     
-    .block-card > *:last-child {
-        margin-bottom: 0 !important;
-    }
-
-    h2.block-title { 
-        font-size: 1.5em; 
-        border-bottom: 2px solid #ccc; 
-        padding-bottom: 0.1em; 
-        margin-bottom: 8px;
-        margin-top: 0; 
-    }
+    [data-title] { position: relative; }
+    [data-title]:hover::after { content: attr(data-title); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; color: #333; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; white-space: nowrap; font-size: 0.9em; z-index: 99999; pointer-events: none; margin-top: 8px; }
+    [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
     
-    a.custom-link { 
-        font-size: 1.2em; 
-        font-weight: normal; 
-        color: #397DB3; 
-        text-decoration: none; 
-        display: block; 
-        width: fit-content; 
-        margin-bottom: 5px; 
-        line-height: 1.3;
-        position: relative;
-    }
-    a.custom-link:hover { text-decoration: none; color: #235d91; }
-
-    /* [關鍵修正] 全域設定：只要有 data-title 的元素，強制加上相對定位 */
-    [data-title] {
-        position: relative;
-    }
-
-    /* CSS 提示框 (白底黑字) */
-    [data-title]:hover::after {
-        content: attr(data-title);
-        position: absolute;
-        top: 100%; 
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #fff; 
-        color: #333; 
-        border: 1px solid #ccc;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        padding: 6px 12px;
-        border-radius: 4px;
-        white-space: nowrap;
-        font-size: 0.9em;
-        z-index: 99999;
-        pointer-events: none;
-        margin-top: 8px;
-    }
-    [data-title]:hover::before {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -6px;
-        margin-top: -4px;
-        border-width: 6px;
-        border-style: solid;
-        border-color: transparent transparent #fff transparent;
-        z-index: 99999;
-    }
-
-    /* 連結列表樣式 */
-    .link-list-item {
-        display: block;
-        text-decoration: none;
-        color: #333;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        padding: 10px 15px;
-        margin-bottom: 5px;
-        border-radius: 5px;
-        transition: all 0.2s ease;
-        font-size: 1.1em;
-        line-height: 1.4;
-        position: relative;
-    }
-    .link-list-item:hover {
-        background-color: #f9f9f9;
-        border-color: #bbb;
-        color: #397DB3;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transform: translateY(-1px);
-    }
+    .link-list-item { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 10px 15px; margin-bottom: 5px; border-radius: 5px; transition: all 0.2s ease; font-size: 1.1em; line-height: 1.4; position: relative; }
+    .link-list-item:hover { background-color: #f9f9f9; border-color: #bbb; color: #397DB3; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transform: translateY(-1px); }
     
     a.img-link { display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
     a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-
     .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; text-align: center; font-size: 1em; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 10; }
     a.img-link:hover .img-caption { opacity: 1; }
-
+    
     .html-content { font-size: 1.1em; line-height: 1.5; color: #333; }
     .html-content p { margin: 0 0 0.5em 0; }
     .html-content img { max-width: 100%; height: auto; }
-
-    .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; }
-    .carousel-slide { display: none; width: 100%; position: relative; }
-    .carousel-slide img { width: 100%; height: auto; object-fit: cover; display: block; }
-    .carousel-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.7); color: #fff; text-align: center; font-size: 1.2em; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
-    .carousel-slide:hover .carousel-caption { opacity: 1; }
     
-    /* 輪播控制按鈕：縮小尺寸 */
-    .control-btn { 
-        cursor: pointer; 
-        position: absolute; 
-        top: 50%; 
-        width: auto; 
-        padding: 6px 12px; 
-        margin-top: -20px; 
-        color: white; 
-        font-weight: bold; 
-        font-size: 1em;    
-        transition: 0.6s ease; 
-        border: none; 
-        user-select: none; 
-        background-color: rgba(0,0,0,0.3); 
-        text-decoration: none; 
-        z-index: 101; 
+    /* Carousel (RWD 修正版 V3 - 解決壓扁與堆疊問題) */
+    .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; min-height: 200px; }
+    .carousel-inner { display: flex; width: 100%; justify-content: center; }
+    
+    /* 預設樣式 (適用於單欄或手機) */
+    .carousel-item { 
+        display: none; 
+        width: 100%; 
+        max-width: 100%;
+        flex: 0 0 100%; /* 強制佔滿一行 */
+        min-height: 200px; 
+        flex-shrink: 0; 
+        animation-name: fade; 
+        animation-duration: 1.5s; 
+        box-sizing: border-box; 
+        text-align: center; 
     }
-    .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
-    .prev { left: 0; border-radius: 0 3px 3px 0; }
-    .next { right: 0; border-radius: 3px 0 0 3px; }
+    .carousel-item.active { display: block; }
+    .carousel-item img { width: 100%; height: 200px; object-fit: contain; border-radius: 3px; }
+    .carousel-item iframe { width: 100%; height: 200px; object-fit: cover; border-radius: 3px; }
+    .carousel-caption { color: #333; padding: 5px 0; font-size: 1em; }
     
+    /* 電腦版 3 欄樣式 (使用 class .cols-3 控制，更穩定) */
+    @media (min-width: 901px) {
+        .carousel-container.cols-3 .carousel-item { 
+            width: 33.333%; 
+            flex: 0 0 33.333%; 
+            max-width: 33.333%;
+            margin: 0 5px; 
+        }
+        .carousel-container.cols-3 .carousel-item:first-child { margin-left:0; }
+        .carousel-container.cols-3 .carousel-item:last-child { margin-right:0; }
+    }
+
+    /* 控制按鈕 */
+    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 6px 12px; margin-top: -20px; color: white; font-weight: bold; font-size: 1em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
+    .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
+    .prev { left: 0; border-radius: 0 3px 3px 0; } .next { right: 0; border-radius: 3px 0 0 3px; }
     .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
     .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
     .dots-container { text-align: center; padding: 10px; }
     .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0; }
     .dot.active, .dot:hover, .dot:focus { background-color: #717171; outline: 2px solid blue; }
-    .fade { animation-name: fade; animation-duration: 1.5s; }
-    @keyframes fade { from {opacity: .4} to {opacity: 1} }
+    .fade { animation-name: fade; animation-duration: 1.5s; } @keyframes fade { from {opacity: .4} to {opacity: 1} }
 
-    .sitemap-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #f9f9f9; border-radius: 10px; }
-    .sitemap-title { font-size: 1.8em; border-bottom: 3px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; text-align: center; color: #333; }
-    
-    .sitemap-list { 
-        display: flex; 
-        flex-wrap: wrap; 
-        gap: 20px; 
-    }
-    .sitemap-col { 
-        flex: 1; 
-        min-width: 180px;
-        background: #fff; 
-        padding: 20px; 
-        border-radius: 8px; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-    }
-    
-    .sitemap-col h3 { color: #397DB3; border-left: 5px solid #397DB3; padding-left: 10px; font-size: 1.4em; margin-top: 0; }
-    .sitemap-col ul { list-style: none; padding-left: 10px; margin: 0; }
-    .sitemap-col ul ul { padding-left: 20px; border-left: 2px solid #eee; margin-top: 5px; margin-bottom: 10px; }
-    .sitemap-col li { margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px dashed #eee; }
-    .sitemap-col li:last-child { border-bottom: none; }
-    .sitemap-col a { text-decoration: none; color: #333; font-size: 1.1em; display: block; }
-    .sitemap-col a:hover { text-decoration: none; color: #397DB3; background-color: #f0f8ff; }
-    .highlight { background-color: yellow; color: black; }
+    /* Marquee */
+    .marquee-container { position: relative; overflow: hidden; background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 5px 5px 5px 90px; display: flex; align-items: center; height: 40px; }
+    .marquee-controls { position: absolute; left: 0; top: 0; bottom: 0; width: 85px; background: #fff; color: #397DB3; z-index: 10; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; border-right: 1px solid #eee; }
+    .marquee-btn { background: #fff; border: 1px solid #397DB3; color: #397DB3; cursor: pointer; font-size: 0.8em; padding: 2px 5px; margin-left: 5px; border-radius: 3px; }
+    .marquee-btn:hover, .marquee-btn:focus { background: #397DB3; color: #fff; outline: 2px solid yellow; }
+    .marquee-content-wrapper { width: 100%; overflow: hidden; }
+    .marquee-track { white-space: nowrap; display: inline-block; animation: marquee-scroll 25s linear infinite; padding-left: 100%; }
+    .marquee-paused .marquee-track, .marquee-track:hover, .marquee-track:focus-within { animation-play-state: paused; }
+    .marquee-item { display: inline-block; margin-right: 40px; font-size: 1.1em; color: #333; text-decoration: none; vertical-align: middle; position: relative; }
+    .marquee-item:hover, .marquee-item:focus { color: #397DB3; text-decoration: underline; outline: 2px solid blue; }
+    .marquee-item::before { content: '📢 '; margin-right: 3px; }
+    @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-    .inner-container { max-width: 1200px; margin: 2em auto; padding: 20px; background: #fff; min-height: 500px; }
-    .inner-title { font-size: 2em; border-bottom: 4px solid #397DB3; padding-bottom: 15px; margin-bottom: 30px; color: #333; }
-    .inner-content { line-height: 1.8; font-size: 1.1em; color: #333; }
-    .inner-content h2 { color: #397DB3; margin-top: 30px; border-left: 5px solid #397DB3; padding-left: 10px; }
-    .inner-content p { margin-bottom: 15px; }
-    .inner-content ul { padding-left: 40px; margin-bottom: 15px; }
-    .inner-content li { margin-bottom: 5px; }
+    /* Accordion */
+    .link-list-container { list-style: none; padding: 0; margin: 0; }
+    .link-list-entry { margin-bottom: 5px; }
+    .single-link { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 12px 15px; border-radius: 5px; transition: all 0.2s; }
+    .single-link:hover { background-color: #f9f9f9; color: #397DB3; border-color: #397DB3; }
+    .accordion-btn { width: 100%; background-color: #fff; color: #333; cursor: pointer; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; text-align: left; outline: none; font-size: 1.1em; font-family: inherit; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+    .accordion-btn:hover, .accordion-btn:focus { background-color: #f0f8ff; color: #397DB3; border-color: #397DB3; outline: 2px solid yellow; }
+    .accordion-btn[aria-expanded="true"] { background-color: #397DB3; color: #fff; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .accordion-btn[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
+    .acc-icon { transition: transform 0.3s ease; font-size: 0.8em; }
+    .accordion-panel { padding: 0; background-color: #fafafa; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; list-style: none; margin: 0; }
+    .accordion-panel[hidden] { display: none; }
+    .sub-link-item a { display: block; padding: 10px 15px 10px 30px; text-decoration: none; color: #555; border-bottom: 1px dashed #eee; transition: 0.2s; position: relative; }
+    .sub-link-item a:hover, .sub-link-item a:focus { background-color: #eee; color: #397DB3; padding-left: 35px; outline: 2px solid yellow; }
+    .sub-link-item a::before { content: '↳'; position: absolute; left: 15px; color: #999; font-size: 0.9em; }
+    .sub-link-item:last-child a { border-bottom: none; }
+
+    /* 內頁專用 CSS */
+    .inner-wrapper { max-width: 1200px; margin: 2em auto; padding: 20px; background: #fff; min-height: 500px; display: flex; flex-direction: column; }
+    .breadcrumb { padding: 10px 0; margin-bottom: 20px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666; }
+    .breadcrumb a { color: #397DB3; text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; }
+    .page-title { font-size: 2em; color: #333; margin: 0 0 20px 0; border-left: 5px solid #397DB3; padding-left: 15px; line-height: 1.2; }
+    .page-content { font-size: 1.1em; line-height: 1.8; color: #333; }
+    .page-content img { max-width: 100%; height: auto; }
+    .page-content table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    .page-content th, .page-content td { border: 1px solid #ddd; padding: 8px; }
+    .page-content th { background-color: #f2f2f2; color: #333; text-align: center; }
 
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
-    
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
-
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
     @media (max-width: 900px) {
         .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
         .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
-        .header-right { display: none; } 
-        .hamburger { display: block; }
+        .header-right { display: none; } .hamburger { display: block; }
         .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #397DB3; }
         .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
         .nav-container { flex-wrap: wrap; }
         .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; order: 3; }
-        .nav-menu.active { display: flex; }
-        .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .nav-menu.active { display: flex; } .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
         .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #397DB3; top: 0; }
-        .dropdown-content a { color: #fff; padding-left: 30px; }
-        .nav-item:hover .dropdown-content { display: block; }
+        .dropdown-content a { color: #fff; padding-left: 30px; } .nav-item:hover .dropdown-content { display: block; }
         .container { flex-direction: column; }
         .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
         .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
-        .col-row { flex-direction: column; padding: 10px; }
-        .col-row-item { width: 100%; margin-bottom: 10px; }
+        .col-row { flex-direction: column; padding: 10px; } .col-row-item { width: 100%; margin-bottom: 10px; }
+        .block-card.half-width { width: 100%; }
         .sitemap-list { flex-direction: column; }
     }
 </style>
-</head><body>
-<div class="header">
-                <div class="header-left">
-                    <a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a>
-                    
-                    <a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學">
-                        <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
-                        <div class="school-text">
-                            <h1 class="school-title-cn">新北市樹林區三多國民小學</h1>
-                            <span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span>
-                        </div>
-                    </a>
-                </div>
-<div class="header-right">
-                <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+<style>
+                /* 佈局容器：維持 75em (約1200px) 限制，置中 */
+                .inner-layout { max-width: 75em; margin: 20px auto; padding: 0 20px; box-sizing: border-box; }
                 
-                <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
-                <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-                    <input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字">
-                    <button type="submit" aria-label="搜尋" title="搜尋" >🔍</button>
-                </form>
-            </div>
-<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+                /* 主要內容區：佔滿 100% */
+                .inner-main { width: 100%; background: #fff; padding: 40px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eee; min-height: 600px; box-sizing: border-box; }
+                
+                /* 麵包屑 */
+                .breadcrumb { margin-bottom: 20px; font-size: 0.95em; color: #666; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
+                .breadcrumb a { text-decoration: none; color: #397DB3; } 
+                .breadcrumb a:hover { text-decoration: underline; }
+                
+                /* 文章標題 */
+                .page-title { font-size: 2.2em; color: #333; margin: 0 0 30px 0; padding-bottom: 15px; border-bottom: 3px solid #397DB3; line-height: 1.3; }
+                
+                /* 文章內容排版 */
+                .article-body { font-size: 1.25em; line-height: 1.8; color: #333; }
+                .article-body p { margin-bottom: 1.5em; text-align: justify; }
+                
+                .article-body h2 { font-size: 1.5em; color: #0056b3; margin-top: 1.5em; margin-bottom: 0.8em; border-left: 5px solid #0056b3; padding-left: 10px; }
+                .article-body h3 { font-size: 1.3em; color: #333; margin-top: 1.2em; margin-bottom: 0.6em; font-weight: bold; }
+                .article-body ul, .article-body ol { margin-bottom: 1.5em; padding-left: 2em; }
+                .article-body li { margin-bottom: 0.5em; }
+                .article-body img { max-width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 10px 0; }
+                
+                /* 表格美化 */
+                .article-body table { width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #ddd; }
+                .article-body th { background-color: #f2f2f2; color: #333; font-weight: bold; padding: 12px; border: 1px solid #ddd; text-align: center; white-space: nowrap; }
+                .article-body td { padding: 10px; border: 1px solid #ddd; }
+                .article-body tr:nth-child(even) { background-color: #fafafa; }
+                .article-body tr:hover { background-color: #f0f8ff; }
+
+                .article-body a { color: #007bff; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
+                .article-body a:hover { color: #0056b3; border-bottom-color: #0056b3; }
+
+                @media (max-width: 900px) {
+                    .inner-layout { padding: 0 10px; }
+                    .inner-main { padding: 20px; }
+                    .page-title { font-size: 1.8em; }
+                }
+            </style>
+</head><body>
+<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
+<div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="submit" aria-label="搜尋" title="搜尋" >🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
-<li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li>
-<li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
+<li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
 <a href="01.html" target="_self" data-title="學校簡介">學校簡介</a>
@@ -334,21 +271,90 @@
 <li class="nav-item">
 <a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約 (另開新視窗)" class="nav-link">場地預約</a>
 </li>
-<li class="nav-item mobile-only search-mobile-container">
-                <form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-                    <input type="text"  placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字">
-                    <button type="submit" title="搜尋" >🔍</button>
-                </form>
-            </li>
-</ul></div></nav>
+<li class="nav-item mobile-only search-mobile-container"><form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字"><button type="submit" title="搜尋" >🔍</button></form></li></ul></div></nav>
 
 
-<div class="banner-container"><img src="../images/banner.png" alt="學校橫幅" class="banner-img" /></div>
-<div class="inner-container"><a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
-<h1 class="inner-title">校長室</h1>
-<div class="inner-content"><b><span style="font-size: 1.5em;"><span style="color: #0000FF;">校長:洪珮瑀校長<br>學校總機:26880698<br>電話分機:110</span></span></b><br> <br> <br>締造一個陽光普照的小學<br> <br>壹、前言<br> <br>  在三多國小，我們一直有一個願望，就是希望締造「三多成為一個陽光普照的小學」。我們都知道陽光把她的「光與熱」大公無私的照耀在大地上，讓大地的所有生物得以各自生長，並且欣欣向榮。我們三多的老師們，也正猶如陽光般的散發「愛的光與熱」，並且讓每一個孩子都能在充滿「愛的光與熱」的照耀下，每天一早起床，就很樂意的想快快上學，在學校裡，能夠快樂的生活，快樂的學習。因此，我們期盼透過各種的教育活動學習，讓三多的孩子們每一天都過得好充實，每一天內心裡都充滿著希望……。<br> <br>貳、一個陽光普照的小學<br> <br>一個陽光普照的小學會是什麼樣的學校呢？我們期盼的一個陽光普照的小學風貌是：<br> <br>       一、有人文的校風<br> <br>學校裡充滿著人文的氣息，和諧的情境，歡樂的笑聲，每一個人都有一顆善良的心，懂得愛人、關懷人與感受人家給與的恩惠；並且擁有誠懇的心，熱情的心，以及身體力行的行動力，有禮貌，愛整潔，講道理，守秩序。<br> <br>      二、有優質的教育<br> <br>學校教育的內容與目標，著重啟發孩子們個人的學習潛能，培養學習的態度，強調探究與建構式的學習過程，培養學習興趣，養成基本能力。<br> <br>      三、有活力的校園<br> <br>校園裡有良好的師生互動，以及密切的親師合作，行政能充分提供最好的教學資源與支援，讓教學活動在溫馨的情境中，可以順暢實現目標，使學校天天都充滿著活力與朝氣，老師教得快樂，學生學得也快樂。<br> <br>      四、有健康的學生<br> <br>學校裡的每一個學生，都能夠受到老師們最周全的照顧，充分享受老師所給與的陽光般的愛，以及個別化的教學與生活輔導，個個身心健康，人格發展健全。<br> <br>參、締造一個陽光小學的策略<br> <br>締造一個陽光普照的小學有幾個實施的策略：<br> <br>      一、推動有效率的行政目標管理<br> <br>學校行政的目標，其實就是要實現學校教育的目標，因此所有的學校行政措施，都應該符合教育的價值性、認知性與自願性為依歸，以充分發揮行政目標管理的高效率，實現學校願景。<br> <br>● 訂定校務發展計劃：依據學校歷史背景、現況及未來社區發展趨向，讓行政人員、 老師與家長參與共同研訂學校發展的短中長期計劃。<br> <br>● 行政目標明確：依據校務發展計劃，訂定學校各處室具有教育價值性的、明確的、可以執行的行政計劃與目標。<br> <br>● 行政組織健全：依據學校行政編制以及任務需要，安排適當人員擔任各項行政業務，並特別強調組織設置的必要性與組織結構的合理性、健全性。<br> <br>● 職掌分工合理明確：學校裡的每一位教職員工，都有明確的、合理的、適才適所的職掌分工。<br> <br>● 分層負責、團隊合作：特別強調其所扮演的角色職責，依法各司其職，分層負責，同時可以相互協調溝通，發揮團隊合作的行政效率。<br> <br>● 廣徵民意、誠懇行政：平時即以誠懇態度行政，要求做到公開、公正、合理、廉明，並建立民主機制，廣納家長及教職員工、學生意見，作為擬定行政方針與教學目標的參據。<br> <br>     二、倡導有品質的專業教學<br> <br>有品質的專業教學，就是有受過教育專業培養的老師，運用專業的知能，表現在其教學活動的過程與內涵裡，讓學生很願意學，很快樂學，而且能夠依照教學計劃達到教學的目標。<br> <br>● 專業自主的班級經營：級任導師於新學年開始，即須研訂自己班級的經營計劃，經行政與同儕教師、家長共同討論審定後，則作為老師班級經營之依據，老師可以在班級經營與教學上充分發揮專業自主性，同時 也可以受到絕對的行政尊重。<br> <br>● 自我專業發展的創意教學：每一位教師都有其自我專業的專長領域，讓老師自我發揮其專業與專長，融合在教學活動中，發展出具創意的、活潑的、多元的教學，使班級教學更具生命力。<br> <br>● 教學群的協同合作教學：整合所有教職員工的專長能力，組織教學群實施協同合作教學，學生可以在學有專精的老師指導下，獲得更精緻化的學習成果。<br> <br>● 運用電腦輔助教學：學校裡有電腦教室以外，期望每班也都有兩部或三部電腦，不久的未來能從一年級開始全校即實施電腦教學，不僅教孩子們如何使用電腦，更重要的是運用電腦的科技性與蒐集資訊的便利性，作為各科教學的輔助工具，使學生的學習更寬廣、更豐富。<br> <br>● 建立班級網站實施補充教學：我們期盼建置學校以及班級的網站，讓學生與家長都能夠透過這個網站，與學校和老師互動，建立親師合作的夥伴關係，為孩子實施個別化、適性化的補充教學。<br> <br>● 外聘專長師資支援教學：由於學校師資的專長可能有所不足，所以我們希望規劃外聘一些專長師資，到學校為孩子教學授課，課程的安排非常多元活潑，學生可以同樣的獲得更豐富且多元的學習活動，並且還可以讓孩子的學習更多采多姿。<br> <br>     三、實施有樂趣的多元教學活動<br> <br>學校的教學活動必須是多樣化的、有樂趣的，學生的學習才會有高昂的興趣，與期盼學習的動力。因此學校設計出多元的、有樂趣的各種學習活動，有些是教學的內容富有吸引力，有些則是教學活動的方式或教學的場所、情境，因不同的設計安排，而提高了學習的樂趣，增加了學習的效果。<br> <br>● 課堂教學：指一般在教室裡的教學活動，由於班級師生可以非常親近的互動，老師真正可以做到有教無類、因材施教的個別化與適性化的教學。<br> <br>● 戶外教學：把學習的場所擴大到教室外面，也許是在學校的校園裡，也許是在學校外的社區裡，以及所有可供學習的場所。學生可以藉由戶外實地觀察、探索等教學活動，擴大學習視野，增加學習成效。<br> <br>● 學藝活動：配合學習目標與學生的學習潛能、興趣、需求等，辦理各項學藝活動，讓學生融入在活動中學到各種的才藝、技能以及情意態度的涵養。<br> <br>● 體能活動：除了體育科的課程教學活動以外，期盼學年或班級在每天早晨七點半到八點的晨間時段，可以安排體育總動員活動，讓學生自願選擇自己喜歡的運動，由老師陪著一起活動，不僅可大大提高了學生上學的樂趣，也因為這短短的半小時體能活動，帶給師生一天充沛的活力，並在不知不覺中培養了運動的習慣，鍛鍊出健康的體能。<br> <br>● 主題單元活動與節令活動：配合時令節慶等，設計學習的單元主題活動，將學校各科課程與生活課程統整結合，讓學習活動更具有完整性的概念，組織性的認知，以及技能學習與情意涵養。<br> <br>● 兒童才藝發表：配合每個月的慶生會，由各班學生分組設計表演節目，讓兒童可以充分展現自己與團體合作的才藝，並從大家的掌聲中獲得自信心、成就感與歸屬感。<br> <br>● 兒童說故事：運用晨間學生朝會時間，每週安排一天為學生說故事的時間，讓學生把閱讀過的故事書，練習說給全班師生聽，不僅可以訓練學生的閱讀能力，同時可以訓練學生的組織能力、說話能力、表達能力。<br> <br>● 培養一人一技與一人一藝：期望全校每一個學生都要學會吹奏直笛、口風琴或是畫畫、捏陶，還要學會一種生活技能，如製作小點心、小蛋糕、餅乾，或是墾土種菜、種植花木等，以豐富孩子們的生活內涵，並增添生活的樂趣。<br> <br>● 社區服務：定期安排高年段師生到社區做街道清潔服務，一方面培養學生的服務觀念與熱忱，另方面也培養學生的愛鄉情懷與環保觀念。<br> <br>    四、發揮經濟效益的教學資源運用<br> <br>學校可運用的教育資源，包括社區內的古蹟文物、自然景物，以及學校裡的校園景觀、建築設施、教學設備等。我們期盼這些教育資源，都能充分的被使用在各科的教學活動裡，讓它們都可以發揮最有效的教育功能，而且發揮最大的經濟效益。<br> <br>● 建立教學資源檔案與目錄：運用電腦建立學校各種教學資源檔案與分類目錄，方便老師快速檢索運用，減少老師做教學準備時，搜尋教學資源的時間。<br> <br>● 訂定教學資源管理與借用辦法：科學化的管理辦法讓老師借用方便，而激發老師樂意使用各科教學媒體資源，提昇教學內容品質。<br> <br>● 公開教學設備經費並鼓勵申購所需：公開教學設備經費，讓老師討論需求的項目，並鼓勵主動申購建置，以充實教學設備，發揮最大的教學經濟效益。<br> <br>● 鼓勵編擬補充教材與自製教具：鼓勵老師合作編擬補充教材與自製教具，讓教材、教具具有本土化、多樣化，學習更豐富。<br> <br>    五、敞開校門，提供學校教育資源予社區分享<br> <br>學校裡有很豐富而且很新穎的教育資源，白天讓孩子使用，晚上則提供給社區民眾分享，不僅可以使教育資源發揮最大的經濟效益，同時可以藉由社區教育的推展，而滿足社區民眾的求知欲，培養社區民眾終身學習的精神，引導社區向上發展。<br> <br>● 辦理各項成人教育班：配合社區民眾的需求，辦理成人基本教育班、成人英語班、成人電腦班、成人技能、才藝班，讓學校成為社區民眾終身學習的場所。<br> <br>● 提供學校場地做為社區活動的場所：學校是社區的文教中心與精神堡壘，因此學校配合社區活動提供可使用的場地，推動學校社區化，使學校成為社區的重要資源，推動社區學校化，也讓社區成為學校珍貴的教育資源。<br> <br>● 提供學校人力資源為社區服務：學校有組織嚴密的人力資源，可以依照專長加以分工整合，主動參與社區活動，為社區奉獻服務，建立學校與社區的良好互動關係，使社區與學校共同成長。<br> <br>● 有效組織家長義工，服務學校與社區：鼓勵家長依自己專長、能力與時間組織義工隊，到學校指導學生非正式的課程學習，或是協助學校推展有教育意義的社區服務課程，讓家長成為孩子的學習楷模，孩子也能跟著家長、老師一起為學校與社區服務、奉獻。<br> <br>    六、營造美麗的校園教學環境<br> <br>學校是孩子學習成長過程中一個主要的學習場所，必須是整潔的、舒適的、美麗的、清幽的環境，學生在這樣的校園裡學習，心靈自然清淨無邪，其知能學習與品德涵養亦自然可獲得事半功倍的教育成效。因此校園的教學環境，應該有整體的規劃設計，所有的建築設施，花草樹木等都應具有境教價值的教育功能性。<br> <br>● 教材園的規劃：配合學校課程學習內容，校園環境規劃成教材園，使學校處處都是學習的教學資源，隨時隨地都可以提供教學的材料。<br> <br>● 學習步道的設計：運用校園空間佈置學習步道，讓孩子漫步在學習步道中，便學習到一些正式或非正式的課程內容，進而激發孩子們的學習動力。<br> <br>● 校園景觀設計：強調美麗、舒適、清朗、明亮的校園景觀設計，以蘊含溫馨、朝氣、活力、希望的校園情境，讓老師學生都孕育在這樣的情境中，而涵養高尚的品格情操與人文氣質。<br> <br>● 校園空間的設計與運用：強調空間的開闊性以及視野的遠大性，讓孩子們能夠在開闊的空間盡情的活動，也讓孩子們能夠看得遠，以涵養孩子們開闊的胸襟，健全的人格以及遠大的抱負。<br> <br>● 校園環境的維護與安全管理措施：校園環境的維護與安全管理，除了有總務處訂定管理與維護辦法以外，讓全校的師生共同認養維護與整理，以培養學生愛護學校、愛護大自然的情懷，並建構師生對環境安全的認知與緊急應變的能力。<br> <br>肆、結語<br> <br>「締造一個陽光普照的學校」，這是我們為三多國小描繪的願景，我們期望能在這樣一個充滿著陽光、充滿著愛的學校環境中，不僅培養孩子們良好的基礎教育與基本能力，更期望能培養孩子們善良的心靈與情意，讓孩子們能夠從心靈深處去感受人世間的「真與善、愛與美」，同時也感受大自然的情意與事物間的道理，以涵養「愛人惜物」與「尊天敬地」的感恩情懷，學會「尊重、關懷與感恩」，「誠懇、熱心與力行」的善良品德，與高尚的人格情操，並且讓每一個孩子都能夠各自發展潛能，適性成長與茁壯，成為快樂活潑、充滿信心、積極樂觀、向善向上發展的二十一世紀新世代，並進而能奉獻自己，服務鄉里與社會，成為國家未來的主人翁。</span></span></div>
+                <div class="banner-container" style="width:100%; max-width:100%;">
+                    <img src="images/banner.png" alt="學校橫幅" class="banner-img" style="width:100%; height:auto; display:block; object-fit:cover; max-height:400px;" />
+                </div>
+<div class="inner-layout">
+<main class="inner-main">
+<a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
+<div class="breadcrumb">
+                <a href="index.html">🏠 首頁</a> 
+                &gt; 
+                <span>校長室</span>
+            </div>
+<h1 class="page-title">校長室</h1>
+<div class="article-body">
+<P><FONT size=5>校長:洪珮瑀校長<BR>學校總機:26880698<BR>電話分機:110</FONT></P>
+<P><BR>締造一個陽光普照的小學</P>
+<P>壹、前言</P>
+<P>在三多國小，我們一直有一個願望，就是希望締造「三多成為一個陽光普照的小學」。我們都知道陽光把她的「光與熱」大公無私的照耀在大地上，讓大地的所有生物得以各自生長，並且欣欣向榮。我們三多的老師們，也正猶如陽光般的散發「愛的光與熱」，並且讓每一個孩子都能在充滿「愛的光與熱」的照耀下，每天一早起床，就很樂意的想快快上學，在學校裡，能夠快樂的生活，快樂的學習。因此，我們期盼透過各種的教育活動學習，讓三多的孩子們每一天都過得好充實，每一天內心裡都充滿著希望……。</P>
+<P>貳、一個陽光普照的小學</P>
+<P>一個陽光普照的小學會是什麼樣的學校呢？我們期盼的一個陽光普照的小學風貌是：</P>
+<P>一、有人文的校風</P>
+<P>學校裡充滿著人文的氣息，和諧的情境，歡樂的笑聲，每一個人都有一顆善良的心，懂得愛人、關懷人與感受人家給與的恩惠；並且擁有誠懇的心，熱情的心，以及身體力行的行動力，有禮貌，愛整潔，講道理，守秩序。</P>
+<P>二、有優質的教育</P>
+<P>學校教育的內容與目標，著重啟發孩子們個人的學習潛能，培養學習的態度，強調探究與建構式的學習過程，培養學習興趣，養成基本能力。</P>
+<P>三、有活力的校園</P>
+<P>校園裡有良好的師生互動，以及密切的親師合作，行政能充分提供最好的教學資源與支援，讓教學活動在溫馨的情境中，可以順暢實現目標，使學校天天都充滿著活力與朝氣，老師教得快樂，學生學得也快樂。</P>
+<P>四、有健康的學生</P>
+<P>學校裡的每一個學生，都能夠受到老師們最周全的照顧，充分享受老師所給與的陽光般的愛，以及個別化的教學與生活輔導，個個身心健康，人格發展健全。</P>
+<P>參、締造一個陽光小學的策略</P>
+<P>締造一個陽光普照的小學有幾個實施的策略：</P>
+<P>一、推動有效率的行政目標管理</P>
+<P>學校行政的目標，其實就是要實現學校教育的目標，因此所有的學校行政措施，都應該符合教育的價值性、認知性與自願性為依歸，以充分發揮行政目標管理的高效率，實現學校願景。</P>
+<P>● 訂定校務發展計劃：依據學校歷史背景、現況及未來社區發展趨向，讓行政人員、 老師與家長參與共同研訂學校發展的短中長期計劃。</P>
+<P>● 行政目標明確：依據校務發展計劃，訂定學校各處室具有教育價值性的、明確的、可以執行的行政計劃與目標。</P>
+<P>● 行政組織健全：依據學校行政編制以及任務需要，安排適當人員擔任各項行政業務，並特別強調組織設置的必要性與組織結構的合理性、健全性。</P>
+<P>● 職掌分工合理明確：學校裡的每一位教職員工，都有明確的、合理的、適才適所的職掌分工。</P>
+<P>● 分層負責、團隊合作：特別強調其所扮演的角色職責，依法各司其職，分層負責，同時可以相互協調溝通，發揮團隊合作的行政效率。</P>
+<P>● 廣徵民意、誠懇行政：平時即以誠懇態度行政，要求做到公開、公正、合理、廉明，並建立民主機制，廣納家長及教職員工、學生意見，作為擬定行政方針與教學目標的參據。</P>
+<P>二、倡導有品質的專業教學</P>
+<P>有品質的專業教學，就是有受過教育專業培養的老師，運用專業的知能，表現在其教學活動的過程與內涵裡，讓學生很願意學，很快樂學，而且能夠依照教學計劃達到教學的目標。</P>
+<P>● 專業自主的班級經營：級任導師於新學年開始，即須研訂自己班級的經營計劃，經行政與同儕教師、家長共同討論審定後，則作為老師班級經營之依據，老師可以在班級經營與教學上充分發揮專業自主性，同時 也可以受到絕對的行政尊重。</P>
+<P>● 自我專業發展的創意教學：每一位教師都有其自我專業的專長領域，讓老師自我發揮其專業與專長，融合在教學活動中，發展出具創意的、活潑的、多元的教學，使班級教學更具生命力。</P>
+<P>● 教學群的協同合作教學：整合所有教職員工的專長能力，組織教學群實施協同合作教學，學生可以在學有專精的老師指導下，獲得更精緻化的學習成果。</P>
+<P>● 運用電腦輔助教學：學校裡有電腦教室以外，期望每班也都有兩部或三部電腦，不久的未來能從一年級開始全校即實施電腦教學，不僅教孩子們如何使用電腦，更重要的是運用電腦的科技性與蒐集資訊的便利性，作為各科教學的輔助工具，使學生的學習更寬廣、更豐富。</P>
+<P>● 建立班級網站實施補充教學：我們期盼建置學校以及班級的網站，讓學生與家長都能夠透過這個網站，與學校和老師互動，建立親師合作的夥伴關係，為孩子實施個別化、適性化的補充教學。</P>
+<P>● 外聘專長師資支援教學：由於學校師資的專長可能有所不足，所以我們希望規劃外聘一些專長師資，到學校為孩子教學授課，課程的安排非常多元活潑，學生可以同樣的獲得更豐富且多元的學習活動，並且還可以讓孩子的學習更多采多姿。</P>
+<P>三、實施有樂趣的多元教學活動</P>
+<P>學校的教學活動必須是多樣化的、有樂趣的，學生的學習才會有高昂的興趣，與期盼學習的動力。因此學校設計出多元的、有樂趣的各種學習活動，有些是教學的內容富有吸引力，有些則是教學活動的方式或教學的場所、情境，因不同的設計安排，而提高了學習的樂趣，增加了學習的效果。</P>
+<P>● 課堂教學：指一般在教室裡的教學活動，由於班級師生可以非常親近的互動，老師真正可以做到有教無類、因材施教的個別化與適性化的教學。</P>
+<P>● 戶外教學：把學習的場所擴大到教室外面，也許是在學校的校園裡，也許是在學校外的社區裡，以及所有可供學習的場所。學生可以藉由戶外實地觀察、探索等教學活動，擴大學習視野，增加學習成效。</P>
+<P>● 學藝活動：配合學習目標與學生的學習潛能、興趣、需求等，辦理各項學藝活動，讓學生融入在活動中學到各種的才藝、技能以及情意態度的涵養。</P>
+<P>● 體能活動：除了體育科的課程教學活動以外，期盼學年或班級在每天早晨七點半到八點的晨間時段，可以安排體育總動員活動，讓學生自願選擇自己喜歡的運動，由老師陪著一起活動，不僅可大大提高了學生上學的樂趣，也因為這短短的半小時體能活動，帶給師生一天充沛的活力，並在不知不覺中培養了運動的習慣，鍛鍊出健康的體能。</P>
+<P>● 主題單元活動與節令活動：配合時令節慶等，設計學習的單元主題活動，將學校各科課程與生活課程統整結合，讓學習活動更具有完整性的概念，組織性的認知，以及技能學習與情意涵養。</P>
+<P>● 兒童才藝發表：配合每個月的慶生會，由各班學生分組設計表演節目，讓兒童可以充分展現自己與團體合作的才藝，並從大家的掌聲中獲得自信心、成就感與歸屬感。</P>
+<P>● 兒童說故事：運用晨間學生朝會時間，每週安排一天為學生說故事的時間，讓學生把閱讀過的故事書，練習說給全班師生聽，不僅可以訓練學生的閱讀能力，同時可以訓練學生的組織能力、說話能力、表達能力。</P>
+<P>● 培養一人一技與一人一藝：期望全校每一個學生都要學會吹奏直笛、口風琴或是畫畫、捏陶，還要學會一種生活技能，如製作小點心、小蛋糕、餅乾，或是墾土種菜、種植花木等，以豐富孩子們的生活內涵，並增添生活的樂趣。</P>
+<P>● 社區服務：定期安排高年段師生到社區做街道清潔服務，一方面培養學生的服務觀念與熱忱，另方面也培養學生的愛鄉情懷與環保觀念。</P>
+<P>四、發揮經濟效益的教學資源運用</P>
+<P>學校可運用的教育資源，包括社區內的古蹟文物、自然景物，以及學校裡的校園景觀、建築設施、教學設備等。我們期盼這些教育資源，都能充分的被使用在各科的教學活動裡，讓它們都可以發揮最有效的教育功能，而且發揮最大的經濟效益。</P>
+<P>● 建立教學資源檔案與目錄：運用電腦建立學校各種教學資源檔案與分類目錄，方便老師快速檢索運用，減少老師做教學準備時，搜尋教學資源的時間。</P>
+<P>● 訂定教學資源管理與借用辦法：科學化的管理辦法讓老師借用方便，而激發老師樂意使用各科教學媒體資源，提昇教學內容品質。</P>
+<P>● 公開教學設備經費並鼓勵申購所需：公開教學設備經費，讓老師討論需求的項目，並鼓勵主動申購建置，以充實教學設備，發揮最大的教學經濟效益。</P>
+<P>● 鼓勵編擬補充教材與自製教具：鼓勵老師合作編擬補充教材與自製教具，讓教材、教具具有本土化、多樣化，學習更豐富。</P>
+<P>五、敞開校門，提供學校教育資源予社區分享</P>
+<P>學校裡有很豐富而且很新穎的教育資源，白天讓孩子使用，晚上則提供給社區民眾分享，不僅可以使教育資源發揮最大的經濟效益，同時可以藉由社區教育的推展，而滿足社區民眾的求知欲，培養社區民眾終身學習的精神，引導社區向上發展。</P>
+<P>● 辦理各項成人教育班：配合社區民眾的需求，辦理成人基本教育班、成人英語班、成人電腦班、成人技能、才藝班，讓學校成為社區民眾終身學習的場所。</P>
+<P>● 提供學校場地做為社區活動的場所：學校是社區的文教中心與精神堡壘，因此學校配合社區活動提供可使用的場地，推動學校社區化，使學校成為社區的重要資源，推動社區學校化，也讓社區成為學校珍貴的教育資源。</P>
+<P>● 提供學校人力資源為社區服務：學校有組織嚴密的人力資源，可以依照專長加以分工整合，主動參與社區活動，為社區奉獻服務，建立學校與社區的良好互動關係，使社區與學校共同成長。</P>
+<P>● 有效組織家長義工，服務學校與社區：鼓勵家長依自己專長、能力與時間組織義工隊，到學校指導學生非正式的課程學習，或是協助學校推展有教育意義的社區服務課程，讓家長成為孩子的學習楷模，孩子也能跟著家長、老師一起為學校與社區服務、奉獻。</P>
+<P>六、營造美麗的校園教學環境</P>
+<P>學校是孩子學習成長過程中一個主要的學習場所，必須是整潔的、舒適的、美麗的、清幽的環境，學生在這樣的校園裡學習，心靈自然清淨無邪，其知能學習與品德涵養亦自然可獲得事半功倍的教育成效。因此校園的教學環境，應該有整體的規劃設計，所有的建築設施，花草樹木等都應具有境教價值的教育功能性。</P>
+<P>● 教材園的規劃：配合學校課程學習內容，校園環境規劃成教材園，使學校處處都是學習的教學資源，隨時隨地都可以提供教學的材料。</P>
+<P>● 學習步道的設計：運用校園空間佈置學習步道，讓孩子漫步在學習步道中，便學習到一些正式或非正式的課程內容，進而激發孩子們的學習動力。</P>
+<P>● 校園景觀設計：強調美麗、舒適、清朗、明亮的校園景觀設計，以蘊含溫馨、朝氣、活力、希望的校園情境，讓老師學生都孕育在這樣的情境中，而涵養高尚的品格情操與人文氣質。</P>
+<P>● 校園空間的設計與運用：強調空間的開闊性以及視野的遠大性，讓孩子們能夠在開闊的空間盡情的活動，也讓孩子們能夠看得遠，以涵養孩子們開闊的胸襟，健全的人格以及遠大的抱負。</P>
+<P>● 校園環境的維護與安全管理措施：校園環境的維護與安全管理，除了有總務處訂定管理與維護辦法以外，讓全校的師生共同認養維護與整理，以培養學生愛護學校、愛護大自然的情懷，並建構師生對環境安全的認知與緊急應變的能力。</P>
+<P>肆、結語</P>
+<P>「締造一個陽光普照的學校」，這是我們為三多國小描繪的願景，我們期望能在這樣一個充滿著陽光、充滿著愛的學校環境中，不僅培養孩子們良好的基礎教育與基本能力，更期望能培養孩子們善良的心靈與情意，讓孩子們能夠從心靈深處去感受人世間的「真與善、愛與美」，同時也感受大自然的情意與事物間的道理，以涵養「愛人惜物」與「尊天敬地」的感恩情懷，學會「尊重、關懷與感恩」，「誠懇、熱心與力行」的善良品德，與高尚的人格情操，並且讓每一個孩子都能夠各自發展潛能，適性成長與茁壯，成為快樂活潑、充滿信心、積極樂觀、向善向上發展的二十一世紀新世代，並進而能奉獻自己，服務鄉里與社會，成為國家未來的主人翁。</P>
+</div>
+</main>
 </div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="../ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 </body></html>
