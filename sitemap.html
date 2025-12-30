@@ -313,7 +313,25 @@
             </style>
 </head><body>
 <div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
-<div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="return false;"><input type="text" id="headerSearchInput" onkeyup="filterList(this.value)" placeholder="篩選內容..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="button" aria-label="搜尋" title="搜尋" onclick="filterList(document.getElementById('headerSearchInput').value)">🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header-right">
+    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+    
+    <form class="search-header" onsubmit="performLocalSearch(); return false;">
+        <input type="text" 
+               id="siteSearch" 
+               onkeyup="performLocalSearch()" 
+               placeholder="搜尋本頁內容..." 
+               aria-label="搜尋網站" 
+               title="請輸入關鍵字">
+        <button type="button" 
+                aria-label="搜尋" 
+                title="搜尋" 
+                onclick="performLocalSearch()">🔍</button>
+    </form>
+</div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+</div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
 <li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
@@ -364,7 +382,14 @@
 <div class="banner-container"><img src="images/banner.png" alt="學校橫幅" class="banner-img" /></div>
 <div class="sitemap-wrapper">
 <div class="breadcrumb"><a href="index.html" title="回到首頁">首頁</a> &gt; <span>網站導覽</span></div>
-<h1>網站導覽 (Sitemap)</h1>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <h1>網站導覽 (Sitemap)</h1>
+
+    </div>
+    <div id="noResults" style="display:none; padding: 20px; text-align: center; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 5px; margin: 20px 0; font-weight: bold;">
+        ⚠️ 找不到與「<span id="searchKeyword"></span>」相關的區塊內容，請嘗試其他關鍵字。
+    </div>
 <div class="sitemap-intro">
 <p>本網站依無障礙網頁設計原則建置。快速鍵 (Accesskey)：<strong>Alt+M</strong> 上方導覽 | <strong>Alt+L</strong> 左側 | <strong>Alt+C</strong> 中間 | <strong>Alt+R</strong> 右側 | <strong>Alt+B</strong> 下方頁尾。</p>
 <p>※ 提示：主要選單採用橫向排列，您可以點擊標題旁的 ▶ 按鈕來開啟子選單。</p>
@@ -625,40 +650,61 @@
 代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 <script>
-            function toggleCard(header) {
-                if(!header) return;
-                var card = header.closest('li');
-                var content = card.querySelector('.card-content');
-                var btn = card.querySelector('.card-toggle-btn');
+function performLocalSearch() {
+    var input = document.getElementById('siteSearch');
+    var filter = input.value.toUpperCase();
+    var keywordSpan = document.getElementById('searchKeyword');
+    var noResultsDiv = document.getElementById('noResults');
+    var cards = document.querySelectorAll('.card-item'); 
+    var zones = document.querySelectorAll('.zone-container'); 
+    var foundAny = false;
 
-                if (content) {
-                    var isHidden = content.style.display === 'none';
-                    if (card.classList.contains('sitemap-nav-item')) {
-                        document.querySelectorAll('.sitemap-nav-item .card-content').forEach(function(el) {
-                            el.style.display = 'none';
-                        });
-                        document.querySelectorAll('.sitemap-nav-item .card-toggle-btn').forEach(function(el) {
-                            el.classList.add('collapsed');
-                        });
-                    }
-                    if (isHidden) {
-                        content.style.display = 'block';
-                        if(btn) btn.classList.remove('collapsed');
-                    } else {
-                        content.style.display = 'none';
-                        if(btn) btn.classList.add('collapsed');
-                    }
-                }
-            }
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.sitemap-nav-item')) {
-                    document.querySelectorAll('.sitemap-nav-item .card-content').forEach(function(el) {
-                        el.style.display = 'none';
-                    });
-                    document.querySelectorAll('.sitemap-nav-item .card-toggle-btn').forEach(function(el) {
-                        el.classList.add('collapsed');
-                    });
-                }
-            });
-            </script>
+    keywordSpan.innerText = input.value;
+
+    cards.forEach(function(card) {
+        var text = card.innerText || card.textContent;
+        if (text.toUpperCase().indexOf(filter) > -1) {
+            card.style.display = ''; 
+            foundAny = true;
+        } else {
+            card.style.display = 'none'; 
+        }
+    });
+
+    zones.forEach(function(zone) {
+        var visibleCards = zone.querySelectorAll('.card-item:not([style*="display: none"])');
+        zone.style.display = (visibleCards.length > 0 || filter === '') ? '' : 'none';
+    });
+
+    noResultsDiv.style.display = (foundAny || filter === '') ? 'none' : 'block';
+}
+
+window.addEventListener('load', function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var q = urlParams.get('q');
+    if (q) {
+        var searchInput = document.getElementById('siteSearch');
+        if(searchInput) {
+            searchInput.value = decodeURIComponent(q);
+            performLocalSearch();
+        }
+    }
+});
+
+function toggleCard(header) {
+    if(!header) return;
+    var card = header.closest('li');
+    var content = card.querySelector('.card-content');
+    var btn = card.querySelector('.card-toggle-btn');
+    if (content) {
+        var isHidden = content.style.display === 'none';
+        if (card.classList.contains('sitemap-nav-item')) {
+            document.querySelectorAll('.sitemap-nav-item .card-content').forEach(function(el) { el.style.display = 'none'; });
+            document.querySelectorAll('.sitemap-nav-item .card-toggle-btn').forEach(function(el) { el.classList.add('collapsed'); });
+        }
+        if (isHidden) { content.style.display = 'block'; if(btn) btn.classList.remove('collapsed'); }
+        else { content.style.display = 'none'; if(btn) btn.classList.add('collapsed'); }
+    }
+}
+</script>
 </body></html>

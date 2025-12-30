@@ -169,6 +169,21 @@
     .page-content th, .page-content td { border: 1px solid #ddd; padding: 8px; }
     .page-content th { background-color: #f2f2f2; color: #333; text-align: center; }
 
+/* 處室介紹專用樣式 */
+.dept-nav { margin-bottom: 20px; text-align: center; }
+.dept-buttons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.dept-btn { 
+    padding: 10px 20px; background-color: #004080; color: white; border: none; 
+    border-radius: 5px; cursor: pointer; min-width: 120px; font-size: 1.1em;
+}
+.dept-btn.active { background-color: #b30000; }
+.dept-content { 
+    display: none; background: #fff; padding: 20px; border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 20px; 
+}
+.dept-content.active { display: block; animation: deptFadeIn 0.5s; }
+@keyframes deptFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -193,7 +208,25 @@
 </style>
 </head><body>
 <div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
-<div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="submit" aria-label="搜尋" title="搜尋" >🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header-right">
+    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+    
+    <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+        <input type="text" 
+               id="headerSearchInput" 
+               onkeyup="" 
+               placeholder="搜尋本站..." 
+               aria-label="搜尋網站" 
+               title="請輸入關鍵字">
+        <button type="submit" 
+                aria-label="搜尋" 
+                title="搜尋" 
+                >🔍</button>
+    </form>
+</div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+</div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
 <li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
@@ -355,7 +388,7 @@
 <div class="center-content-wrapper">
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C2595c947" data-cols="1">
+<div class="carousel-container" id="carousel-C9c67a263" data-cols="1">
 <div class="carousel-inner">
 <div class="carousel-item active">
 <img src="images/01.有人文的校風.png" alt="有人文的校風" />
@@ -374,10 +407,10 @@
 <div class="carousel-caption">有健康的學生</div>
 </div>
 </div>
-<a class="control-btn prev" onclick="moveSlide(-1, 'C2595c947')" role="button" aria-label="上一組內容">❮</a><a class="control-btn next" onclick="moveSlide(1, 'C2595c947')" role="button" aria-label="下一組內容">❯</a><button class="pause-btn" onclick="togglePause('C2595c947')" aria-label="暫停輪播">II 暫停</button>
+<a class="control-btn prev" onclick="moveSlide(-1, 'C9c67a263')" role="button" aria-label="上一組內容">❮</a><a class="control-btn next" onclick="moveSlide(1, 'C9c67a263')" role="button" aria-label="下一組內容">❯</a><button class="pause-btn" onclick="togglePause('C9c67a263')" aria-label="暫停輪播">II 暫停</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C2595c947'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C9c67a263'); });</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
