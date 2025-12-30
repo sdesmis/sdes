@@ -645,20 +645,21 @@
 </ul>
 </div></div>
 </div>
+<div id="innerPageSection" style="display: none;">
 <h2 class="sitemap-section-title">3. 內頁導覽 (Inner Pages)</h2>
 <div class="zone-container zone-bottom" style="border-color: #9B59B6; background-color: #F3E5F5;">
-<span class="zone-header" style="color: #8E44AD;">📄 專題內容</span>
+<span class="zone-header" style="color: #8E44AD;">📄 內容</span>
 <ul class="card-list" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px;">
-<li class="card-item type-HtmlText">
+<li class="card-item type-HtmlText" style="display: none;">
 <div class="card-header"><div class="card-title-group"><span class="card-title">學校簡介</span><span class="card-type-tag">內容</span></div></div>
 <div class="card-content"><ul class="card-links"><li><div class="acc-row">🔗 <a href="01.html">點擊查看學校簡介</a></div></li></ul></div></li>
-<li class="card-item type-HtmlText">
+<li class="card-item type-HtmlText" style="display: none;">
 <div class="card-header"><div class="card-title-group"><span class="card-title">處室介紹</span><span class="card-type-tag">內容</span></div></div>
 <div class="card-content"><ul class="card-links"><li><div class="acc-row">🔗 <a href="02.html">點擊查看各處室職掌與介紹</a></div></li></ul></div></li>
-<li class="card-item type-HtmlText">
+<li class="card-item type-HtmlText" style="display: none;">
 <div class="card-header"><div class="card-title-group"><span class="card-title">分機表</span><span class="card-type-tag">內容</span></div></div>
 <div class="card-content"><ul class="card-links"><li><div class="acc-row">🔗 <a href="ext.html">點擊查看全校分機表</a></div></li></ul></div></li>
-</ul></div>
+</ul></div></div>
 </div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
 代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
@@ -685,9 +686,19 @@ function performLocalSearch() {
         }
     });
 
+// 處理區域顯示（包含原本的五大區與新的內頁區）
+    var innerSection = document.getElementById('innerPageSection');
+    var visibleInnerCards = innerSection.querySelectorAll('.card-item:not([style*="display: none"])');
+    
+    // 如果有搜到內頁，就顯示第三區，否則隱藏
+    if (innerSection) {
+        innerSection.style.display = (visibleInnerCards.length > 0) ? "" : "none";
+    }
+
+    // 原本處理五大區域的邏輯
     zones.forEach(function(zone) {
         var visibleCards = zone.querySelectorAll('.card-item:not([style*="display: none"])');
-        zone.style.display = (visibleCards.length > 0 || filter === '') ? '' : 'none';
+        zone.style.display = (visibleCards.length > 0 || filter === "") ? "" : "none";
     });
 
     noResultsDiv.style.display = (foundAny || filter === '') ? 'none' : 'block';
