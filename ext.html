@@ -74,38 +74,47 @@
     .html-content p { margin: 0 0 0.5em 0; }
     .html-content img { max-width: 100%; height: auto; }
     
-    /* Carousel (RWD 修正版 V3 - 解決壓扁與堆疊問題) */
+/* Carousel (RWD 修正版 V3 - 強力 Hover 隱藏版) */
     .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; min-height: 200px; }
     .carousel-inner { display: flex; width: 100%; justify-content: center; }
     
-    /* 預設樣式 (適用於單欄或手機) */
     .carousel-item { 
         display: none; 
         width: 100%; 
         max-width: 100%;
-        flex: 0 0 100%; /* 強制佔滿一行 */
+        flex: 0 0 100%; 
         min-height: 200px; 
         flex-shrink: 0; 
         animation-name: fade; 
         animation-duration: 1.5s; 
         box-sizing: border-box; 
-        text-align: center; 
+        text-align: center;
+        position: relative; /* 必須為 relative 以便文字絕對定位 */
     }
     .carousel-item.active { display: block; }
-    .carousel-item img { width: 100%; height: 200px; object-fit: contain; border-radius: 3px; }
-    .carousel-item iframe { width: 100%; height: 200px; object-fit: cover; border-radius: 3px; }
-    .carousel-caption { color: #333; padding: 5px 0; font-size: 1em; }
-    
-    /* 電腦版 3 欄樣式 (使用 class .cols-3 控制，更穩定) */
-    @media (min-width: 901px) {
-        .carousel-container.cols-3 .carousel-item { 
-            width: 33.333%; 
-            flex: 0 0 33.333%; 
-            max-width: 33.333%;
-            margin: 0 5px; 
-        }
-        .carousel-container.cols-3 .carousel-item:first-child { margin-left:0; }
-        .carousel-container.cols-3 .carousel-item:last-child { margin-right:0; }
+    .carousel-item img { width: 100%; height: 200px; object-fit: contain; border-radius: 3px; display: block; margin: 0 auto; }
+
+    /* --- 修改重點：強制隱藏並在 Hover 時顯示 --- */
+    .carousel-item .carousel-caption { 
+        position: absolute !important; 
+        bottom: 0 !important; 
+        left: 0 !important; 
+        width: 100% !important; 
+        background: rgba(0, 0, 0, 0.7) !important; 
+        color: #fff !important; 
+        padding: 10px !important; 
+        font-size: 1.1em !important; 
+        margin: 0 !important;
+        opacity: 0 !important; /* 強制預設透明度為 0 */
+        transition: opacity 0.3s ease-in-out !important; 
+        pointer-events: none; 
+        z-index: 10;
+    }
+
+    /* 當滑鼠移到圖片或項目上時，文字強制浮現 */
+    .carousel-item:hover .carousel-caption,
+    .carousel-item:focus-within .carousel-caption { 
+        opacity: 1 !important; 
     }
 
     /* 控制按鈕 */
@@ -159,6 +168,21 @@
     .page-content table { width: 100%; border-collapse: collapse; margin: 15px 0; }
     .page-content th, .page-content td { border: 1px solid #ddd; padding: 8px; }
     .page-content th { background-color: #f2f2f2; color: #333; text-align: center; }
+
+/* 處室介紹專用樣式 */
+.dept-nav { margin-bottom: 20px; text-align: center; }
+.dept-buttons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.dept-btn { 
+    padding: 10px 20px; background-color: #004080; color: white; border: none; 
+    border-radius: 5px; cursor: pointer; min-width: 120px; font-size: 1.1em;
+}
+.dept-btn.active { background-color: #b30000; }
+.dept-content { 
+    display: none; background: #fff; padding: 20px; border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 20px; 
+}
+.dept-content.active { display: block; animation: deptFadeIn 0.5s; }
+@keyframes deptFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
     .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
@@ -225,7 +249,25 @@
             </style>
 </head><body>
 <div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
-<div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="submit" aria-label="搜尋" title="搜尋" >🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header-right">
+    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+    
+    <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+        <input type="text" 
+               id="headerSearchInput" 
+               onkeyup="" 
+               placeholder="搜尋本站..." 
+               aria-label="搜尋網站" 
+               title="請輸入關鍵字">
+        <button type="submit" 
+                aria-label="搜尋" 
+                title="搜尋" 
+                >🔍</button>
+    </form>
+</div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+</div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
 <li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
@@ -287,8 +329,7 @@
             </div>
 <h1 class="page-title">電話分機表</h1>
 <div class="article-body">
-<DIV style="text-align: center;">
-<TABLE style="WIDTH: 100%; BORDER-COLLAPSE: collapse; MARGIN: 10px 0px" style="text-align: center;" border=1>
+<TABLE style="WIDTH: 100%; BORDER-COLLAPSE: collapse; MARGIN: 10px 0px" border=1>
 <CAPTION style="MARGIN-BOTTOM: 5px; FONT-WEIGHT: bold; TEXT-ALIGN: left"><FONT size=5></FONT></CAPTION>
 <THEAD>
 <TR style="BACKGROUND-COLOR: #f2f2f2">
@@ -571,8 +612,7 @@
 <TD style="BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid; BORDER-BOTTOM: #ddd 1px solid; PADDING-BOTTOM: 8px; PADDING-TOP: 8px; PADDING-LEFT: 8px; BORDER-LEFT: #ddd 1px solid; PADDING-RIGHT: 8px">
 <P style="text-align: center;"><FONT size=5>健康中心2</FONT></P></TD>
 <TD style="BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid; BORDER-BOTTOM: #ddd 1px solid; PADDING-BOTTOM: 8px; PADDING-TOP: 8px; PADDING-LEFT: 8px; BORDER-LEFT: #ddd 1px solid; PADDING-RIGHT: 8px">
-<P style="text-align: center;"><FONT size=5>117</FONT></P></TD></TR></TBODY></TABLE></DIV>
-<P style="text-align: center;"><BR></P>
+<P style="text-align: center;"><FONT size=5>117</FONT></P></TD></TR></TBODY></TABLE><BR>
 </div>
 </main>
 </div>

@@ -249,7 +249,25 @@
             </style>
 </head><body>
 <div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
-<div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="submit" aria-label="搜尋" title="搜尋" >🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header-right">
+    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+    
+    <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+        <input type="text" 
+               id="headerSearchInput" 
+               onkeyup="" 
+               placeholder="搜尋本站..." 
+               aria-label="搜尋網站" 
+               title="請輸入關鍵字">
+        <button type="submit" 
+                aria-label="搜尋" 
+                title="搜尋" 
+                >🔍</button>
+    </form>
+</div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+</div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
 <li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
@@ -311,17 +329,8 @@
             </div>
 <h1 class="page-title">處室介紹</h1>
 <div class="article-body">
-<div class="dept-nav">
-    <div class="dept-buttons">
-        <button type="button" onclick="showDept('principal', this)" class="dept-btn active" title="點擊顯示校長室介紹">校長室</button>
-        <button type="button" onclick="showDept('academic', this)" class="dept-btn" title="點擊顯示教務處介紹">教務處</button>
-        <button type="button" onclick="showDept('student', this)" class="dept-btn" title="點擊顯示學務處介紹">學務處</button>
-        <button type="button" onclick="showDept('general', this)" class="dept-btn" title="點擊顯示總務處介紹">總務處</button>
-        <button type="button" onclick="showDept('counseling', this)" class="dept-btn" title="點擊顯示輔導處介紹">輔導處</button>
-        <button type="button" onclick="showDept('accounting', this)" class="dept-btn" title="點擊顯示會計室介紹">會計室</button>
-        <button type="button" onclick="showDept('personnel', this)" class="dept-btn" title="點擊顯示人事室介紹">人事室</button>
-    </div>
-</div>
+<DIV class=dept-nav>
+<DIV class=dept-buttons><BUTTON onclick="showDept('principal', this)" title=點擊顯示校長室介紹 class="dept-btn active">校長室</BUTTON><BUTTON onclick="showDept('academic', this)" title=點擊顯示教務處介紹 class=dept-btn>教務處</BUTTON><BUTTON onclick="showDept('student', this)" title=點擊顯示學務處介紹 class=dept-btn>學務處</BUTTON><BUTTON onclick="showDept('general', this)" title=點擊顯示總務處介紹 class=dept-btn>總務處</BUTTON><BUTTON onclick="showDept('counseling', this)" title=點擊顯示輔導處介紹 class=dept-btn>輔導處</BUTTON><BUTTON onclick="showDept('accounting', this)" title=點擊顯示會計室介紹 class=dept-btn>會計室</BUTTON><BUTTON onclick="showDept('personnel', this)" title=點擊顯示人事室介紹 class=dept-btn>人事室</BUTTON> </DIV></DIV>
 <DIV id=principal class="dept-content active">
 <H2>校長室</H2>
 <P><STRONG><FONT size=5>校長:洪珮瑀校長<BR>學校總機:26880698<BR>電話分機:110</FONT></STRONG></P><STRONG><FONT size=5>

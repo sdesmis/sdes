@@ -249,7 +249,25 @@
             </style>
 </head><body>
 <div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
-<div class="header-right"><a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a><a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a><form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋..." aria-label="搜尋網站" title="請輸入關鍵字"><button type="submit" aria-label="搜尋" title="搜尋" >🔍</button></form></div><button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button></div>
+<div class="header-right">
+    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+    
+    <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
+        <input type="text" 
+               id="headerSearchInput" 
+               onkeyup="" 
+               placeholder="搜尋本站..." 
+               aria-label="搜尋網站" 
+               title="請輸入關鍵字">
+        <button type="submit" 
+                aria-label="搜尋" 
+                title="搜尋" 
+                >🔍</button>
+    </form>
+</div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+</div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
 <li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
