@@ -1,0 +1,703 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>網站導覽 - 新北市樹林區三多國民小學</title>
+<link rel="icon" href="favicon.ico" />
+<link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
+
+<style>
+    body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+    .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
+    .access-key:focus { outline: 2px solid blue; color: #000; }
+    .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .header-left { display: flex; align-items: center; flex-wrap: wrap; }
+    .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
+    .logo-link:hover { opacity: 0.8; }
+    .school-logo { height: 80px; width: auto; margin-right: 15px; }
+    .school-text { display: inline-block; vertical-align: middle; }
+    .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
+    .school-title-en { font-size: 1.25em; color: #666; display: block; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; position: relative; }
+    .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
+    .search-header { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 20px; padding: 2px 5px; background: #fff; height: 36px; }
+    .search-header input { border: none; outline: none; padding: 0 10px; font-size: 1em; width: 150px; background: transparent; }
+    .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 8px; display: flex; align-items: center; }
+    .search-header button:hover { color: #000; }
+    .navbar { background-color: #397DB3; }
+    .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
+    .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+    .nav-item { position: relative; }
+    .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; position: relative; }
+    .nav-link:hover, .nav-link:focus { background-color: rgba(0,0,0,0.2); }
+    .search-mobile-container { padding: 10px 20px; background-color: rgba(0,0,0,0.1); }
+    .search-mobile { display: flex; width: 100%; background: #fff; border-radius: 5px; overflow: hidden; }
+    .search-mobile input { flex: 1; border: none; padding: 10px; outline: none; font-size: 1em; }
+    .search-mobile button { background: #eee; border: none; padding: 0 15px; cursor: pointer; color: #333; font-size: 1.1em; }
+    .search-mobile button:hover { color: #000; }
+    .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
+    .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; position: relative; }
+    .dropdown-content a:hover { background-color: #ddd; }
+    .nav-item:hover .dropdown-content { display: block; }
+    .nav-item:focus-within .dropdown-content { display: block; }
+    .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
+    .mobile-only { display: none; }
+    .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
+    .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
+    
+    .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; justify-content: center; }
+    .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
+    .col-center { width: 60%; flex: 0 1 60%; }
+    
+    .center-content-wrapper { display: flex; flex-wrap: wrap; column-gap: 1.5em; row-gap: 10px; align-content: flex-start; width: 100%; }
+    .col-row { display: flex; justify-content: space-between; gap: 1.5em; width: 100%; max-width: 100%; margin: 10px auto; box-sizing: border-box; padding: 0 1.25em; }
+    .col-row-item { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .col-row-item .block-card { height: 100%; box-sizing: border-box; }
+
+.full-width-row { 
+    display: block !important; 
+    width: 100% !important; 
+    clear: both !important; 
+    padding: 0 1.25em !important; 
+    box-sizing: border-box !important; 
+}
+.full-width-row .col-row-item { 
+    display: block !important; 
+    width: 100% !important; 
+    flex: none !important; /* 重要：取消 flex 的均分特性 */
+}
+
+    .block-card { margin-bottom: 10px; background: #fff; padding: 10px 10px 5px 10px; border-radius: 5px; width: 100%; box-sizing: border-box; }
+    .center-content-wrapper .block-card { margin-bottom: 0 !important; }
+    .block-card.half-width { width: calc(50% - 0.75em); }
+    .block-card > *:last-child { margin-bottom: 0 !important; }
+    h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.1em; margin-bottom: 8px; margin-top: 0; }
+    
+    /* 提示文字 Tooltip 樣式 */
+    [data-title] { position: relative; }
+    [data-title]:hover::after { content: attr(data-title); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; color: #333; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; white-space: nowrap; font-size: 0.9em; z-index: 99999; pointer-events: none; margin-top: 8px; }
+    [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
+    
+    /* ★★★ 修改重點：針對文字連結的層級修正 ★★★ */
+    .link-list-item { 
+        display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; 
+        padding: 10px 15px; margin-bottom: 5px; border-radius: 5px; transition: all 0.2s ease; 
+        font-size: 1.1em; line-height: 1.4; position: relative; 
+    }
+    .link-list-item:hover { 
+        background-color: #f9f9f9; border-color: #bbb; color: #397DB3; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); transform: translateY(-1px);
+        z-index: 1000; /* 新增：讓文字連結在滑鼠移入時浮到最上層，避免提示文字被遮擋 */
+    }
+    
+    .single-link { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 12px 15px; border-radius: 5px; transition: all 0.2s; }
+    .single-link:hover { background-color: #f9f9f9; color: #397DB3; border-color: #397DB3; }
+    
+    a.img-link { 
+        display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; 
+        transition: transform 0.2s; position: relative; overflow: visible; 
+    }
+    a.img-link:hover { 
+        transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        z-index: 1000; /* 讓圖片連結也能浮到最上層 */
+    }
+    
+    a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; text-align: center; font-size: 1em; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 10; }
+    a.img-link:hover .img-caption { opacity: 1; }
+    
+    .html-content { font-size: 1.1em; line-height: 1.5; color: #333; }
+    .html-content p { margin: 0 0 0.5em 0; }
+    .html-content img { max-width: 100%; height: auto; }
+    
+/* Carousel (RWD 修正版 V3 - 強力 Hover 隱藏版) */
+    .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; min-height: 200px; }
+    .carousel-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none; padding: 0; margin: 0; scrollbar-width: none; -ms-overflow-style: none; }
+    .carousel-list::-webkit-scrollbar { display: none; }
+
+    .carousel-item { flex: 0 0 100%; width: 100%; scroll-snap-align: start; box-sizing: border-box; padding: 5px; position: relative; }
+
+    @media (min-width: 901px) { .carousel-container.cols-3 .carousel-item { flex: 0 0 33.2%; width: 33.2%; } }
+
+    .carousel-item .carousel-caption { 
+        position: absolute !important; bottom: 0 !important; left: 0 !important; width: 100% !important; 
+        background: rgba(0, 0, 0, 0.7) !important; color: #fff !important; padding: 10px !important; 
+        font-size: 1.1em !important; margin: 0 !important; opacity: 0 !important; 
+        transition: opacity 0.3s ease-in-out !important; pointer-events: none; z-index: 10; box-sizing: border-box; text-align: center !important;
+    }
+
+    .carousel-item:hover .carousel-caption, .carousel-item:focus-within .carousel-caption { opacity: 1 !important; }
+
+    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 6px 12px; margin-top: -20px; color: white; font-weight: bold; font-size: 1em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
+    .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
+    .prev { left: 0; border-radius: 0 3px 3px 0; } .next { right: 0; border-radius: 3px 0 0 3px; }
+    .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
+    .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
+    
+    .dots-container { text-align: center; padding: 10px; }
+    .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0; }
+    .dot.active, .dot:hover, .dot:focus { background-color: #717171; outline: 2px solid blue; }
+
+    /* Marquee & Accordion (保留不變) */
+    .marquee-container { position: relative; overflow: hidden; background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 5px 5px 5px 90px; display: flex; align-items: center; height: 40px; }
+    .marquee-controls { position: absolute; left: 0; top: 0; bottom: 0; width: 85px; background: #fff; color: #397DB3; z-index: 10; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; border-right: 1px solid #eee; }
+    .marquee-btn { background: #fff; border: 1px solid #397DB3; color: #397DB3; cursor: pointer; font-size: 0.8em; padding: 2px 5px; margin-left: 5px; border-radius: 3px; }
+    .marquee-btn:hover, .marquee-btn:focus { background: #397DB3; color: #fff; outline: 2px solid yellow; }
+    .marquee-content-wrapper { width: 100%; overflow: hidden; }
+    .marquee-track { white-space: nowrap; display: inline-block; animation: marquee-scroll 25s linear infinite; padding-left: 100%; }
+    .marquee-paused .marquee-track, .marquee-track:hover, .marquee-track:focus-within { animation-play-state: paused; }
+    .marquee-item { display: inline-block; margin-right: 40px; font-size: 1.1em; color: #333; text-decoration: none; vertical-align: middle; position: relative; }
+    .marquee-item:hover, .marquee-item:focus { color: #397DB3; text-decoration: underline; outline: 2px solid blue; }
+    .marquee-item::before { content: '📢 '; margin-right: 3px; }
+    @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+    .link-list-container { list-style: none; padding: 0; margin: 0; }
+    .link-list-entry { margin-bottom: 5px; }
+    .accordion-btn { width: 100%; background-color: #fff; color: #333; cursor: pointer; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; text-align: left; outline: none; font-size: 1.1em; font-family: inherit; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+    .accordion-btn:hover, .accordion-btn:focus { background-color: #f0f8ff; color: #397DB3; border-color: #397DB3; outline: 2px solid yellow; }
+    .accordion-btn[aria-expanded="true"] { background-color: #397DB3; color: #fff; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .accordion-btn[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
+    .acc-icon { transition: transform 0.3s ease; font-size: 0.8em; }
+    .accordion-panel { padding: 0; background-color: #fafafa; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; list-style: none; margin: 0; }
+    .accordion-panel[hidden] { display: none; }
+    .sub-link-item a { display: block; padding: 10px 15px 10px 30px; text-decoration: none; color: #555; border-bottom: 1px dashed #eee; transition: 0.2s; position: relative; }
+    .sub-link-item a:hover, .sub-link-item a:focus { background-color: #eee; color: #397DB3; padding-left: 35px; outline: 2px solid yellow; }
+    .sub-link-item a::before { content: '↳'; position: absolute; left: 15px; color: #999; font-size: 0.9em; }
+    .sub-link-item:last-child a { border-bottom: none; }
+
+    .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
+    .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    
+    @media (max-width: 900px) {
+        .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
+        .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
+        .header-right { display: none; } .hamburger { display: block; }
+        .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #397DB3; }
+        .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
+        .nav-container { flex-wrap: wrap; }
+        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; order: 3; }
+        .nav-menu.active { display: flex; } .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #397DB3; top: 0; }
+        .dropdown-content a { color: #fff; padding-left: 30px; } .nav-item:hover .dropdown-content { display: block; }
+        .container { flex-direction: column; }
+        .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
+        .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
+        .sitemap-list { flex-direction: column; }
+    }
+</style>
+<style>
+                .sitemap-wrapper { max-width: 75em; width: 95%; margin: 2em auto; padding: 20px; background: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+                .sitemap-intro { background: #f9f9f9; padding: 15px; border-left: 5px solid #397DB3; margin-bottom: 30px; line-height: 1.8; }
+                .sitemap-section-title { font-size: 1.5em; border-bottom: 2px solid #eee; padding-bottom: 10px; margin: 40px 0 20px 0; color: #333; font-weight:bold; }
+                
+                /* 區域容器 */
+                .zone-container { border: 2px solid #eee; border-radius: 5px; padding: 15px; margin-bottom: 15px; background-color: #fafafa; }
+                .zone-header { font-weight: bold; margin-bottom: 10px; display: block; color: #555; text-align: center; background: rgba(0,0,0,0.03); padding: 5px; border-radius: 3px; }
+                
+                /* 區域顏色 */
+                .zone-top { border-color: #E57373; background-color: #FFF5F5; } .zone-top .zone-header { color: #C0392B; }
+                .zone-left { border-color: #3498DB; background-color: #F0F8FF; } .zone-left .zone-header { color: #2980B9; }
+                .zone-center { border-color: #F1C40F; background-color: #FEF9E7; } .zone-center .zone-header { color: #D4AC0D; }
+                .zone-right { border-color: #2ECC71; background-color: #F0FFF4; } .zone-right .zone-header { color: #27AE60; }
+                .zone-bottom { border-color: #9B59B6; background-color: #F3E5F5; } .zone-bottom .zone-header { color: #8E44AD; }
+
+                /* Grid 佈局 */
+                .layout-row { width: 100%; margin-bottom: 15px; }
+                .layout-middle { display: flex; gap: 15px; }
+                .layout-col { flex: 1; display: flex; flex-direction: column; }
+                .layout-col-center { flex: 2; }
+
+                /* 卡片樣式 */
+                .card-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+                .card-item { flex: 1 1 100%; border: 1px solid #ccc; border-radius: 5px; padding: 10px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.2s; min-width: 200px; display: flex; flex-direction: column; }
+                .card-item:hover { transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+                
+                .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 5px; }
+                .card-title-group { display: flex; align-items: center; overflow: hidden; }
+                .card-title { font-weight: bold; font-size: 1.1em; color: #333; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+                .card-type-tag { font-size: 0.8em; padding: 2px 6px; border-radius: 3px; background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.1); margin-left: 5px; color: #666; }
+
+                /* 水平導覽列樣式 */
+                .sitemap-navbar { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+                
+                .sitemap-nav-item {
+                    position: relative;
+                    background: #fff;
+                    border: 1px solid #3498DB;
+                    border-radius: 4px;
+                    flex: 0 1 auto;
+                }
+                
+                .sitemap-nav-item .card-header {
+                    margin: 0; border: none; padding: 8px 12px;
+                    cursor: pointer;
+                    white-space: nowrap;
+                }
+                
+                .sitemap-nav-item .card-header:hover {
+                    background-color: #f0f8ff;
+                }
+
+                .sitemap-nav-item .card-title {
+                    color: #2874A6;
+                    font-size: 1em;
+                }
+
+                /* 導覽列的下拉選單 (浮動顯示) */
+                .sitemap-nav-item .card-content {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    z-index: 100;
+                    min-width: 200px;
+                    background: #fff;
+                    border: 1px solid #ccc;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                    padding: 10px;
+                    border-radius: 4px;
+                }
+
+                /* 類型配色 */
+                .type-LinkList { background-color: #D6EAF8; border-color: #3498DB; } .type-LinkList .card-title { color: #2874A6; }
+                .type-Carousel { background-color: #FDEBD0; border-color: #E67E22; } .type-Carousel .card-title { color: #A04000; }
+                .type-Marquee { background-color: #FADBD8; border-color: #E74C3C; } .type-Marquee .card-title { color: #922B21; }
+                .type-Iframe { background-color: #D5F5E3; border-color: #2ECC71; } .type-Iframe .card-title { color: #1E8449; }
+                .type-HtmlText { background-color: #E8DAEF; border-color: #9B59B6; } .type-HtmlText .card-title { color: #6C3483; }
+
+                /* 卡片收合按鈕 */
+                .card-toggle-btn { background: none; border: none; font-size: 0.9em; color: #777; cursor: pointer; padding: 0 0 0 5px; transition: transform 0.2s; }
+                .card-toggle-btn.collapsed { transform: rotate(-90deg); } /* 旋轉後變為 ▶ */
+
+                /* 列表項目行 (無底線) */
+                .acc-row { display: flex; justify-content: space-between; align-items: center; }
+                .acc-row a { text-decoration: none; color: #444; transition: 0.2s; flex-grow: 1; }
+                .acc-row a:hover { color: #000; font-weight: bold; }
+                
+                /* 子選單樣式 (無底線) */
+                .sub-links { display: none; margin-left: 10px; border-left: 2px solid rgba(0,0,0,0.1); padding-left: 10px; margin-top: 5px; }
+                .sub-links li { margin: 5px 0; font-size: 0.95em; }
+                .sub-links a { color: #666; text-decoration: none; }
+                .sub-links a:hover { color: #333; font-weight: bold; }
+
+                .card-links { list-style: none; padding: 0; margin: 0; }
+                .card-links > li { margin: 5px 0; padding-left: 5px; }
+
+                /* 內部子選單按鈕 */
+                .acc-btn { background: none; border: 1px solid rgba(0,0,0,0.2); border-radius: 3px; cursor: pointer; color: #555; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.8em; transition: 0.2s; margin-left: 5px; padding: 0; }
+                .acc-btn:hover { background-color: rgba(255,255,255,0.5); color: #000; font-weight: bold; }
+                .acc-btn.active { transform: rotate(180deg); background-color: #fff; }
+
+                @media (max-width: 900px) { .layout-middle { flex-direction: column; } .layout-col { width: 100%; } }
+            </style>
+</head><body>
+<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
+<div class="header-right">
+    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
+    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+    
+    <form class="search-header" onsubmit="performLocalSearch(); return false;">
+        <input type="text" 
+               id="siteSearch" 
+               onkeyup="performLocalSearch()" 
+               placeholder="搜尋本頁內容..." 
+               aria-label="搜尋網站" 
+               title="請輸入關鍵字">
+        <button type="button" 
+                aria-label="搜尋" 
+                title="搜尋" 
+                onclick="performLocalSearch()">🔍</button>
+    </form>
+</div>
+<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+</div>
+
+<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
+<li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
+<li class="nav-item">
+<a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
+<a href="01.html" target="_self" data-title="學校簡介">學校簡介</a>
+<a href="02.html" target="_self" data-title="處室介紹">處室介紹</a>
+</div>
+</li>
+<li class="nav-item">
+<a href="https://www.facebook.com/sanduogood/" target="_blank" title="三多粉絲頁 (另開新視窗)" class="nav-link">三多粉絲頁</a>
+</li>
+<li class="nav-item">
+<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" target="_blank" title="三多附幼 (另開新視窗)" class="nav-link">三多附幼</a>
+</li>
+<li class="nav-item">
+<a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" target="_blank" title="行事曆 (另開新視窗)" class="nav-link">行事曆</a>
+</li>
+<li class="nav-item">
+<a href="#" class="nav-link" aria-haspopup="true">影音相簿 ▼</a><div class="dropdown-content">
+<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" target="_blank" title="三多活動相簿 (另開新視窗)">三多活動相簿</a>
+<a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" target="_blank" title="三多活動影片 (另開新視窗)">三多活動影片</a>
+</div>
+</li>
+<li class="nav-item">
+<a href="#" class="nav-link" aria-haspopup="true">公務作業 ▼</a><div class="dropdown-content">
+<a href="http://cloud.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲 (另開新視窗)">新北市政府公務雲</a>
+<a href="https://cloud2.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲(新) (另開新視窗)">新北市政府公務雲(新)</a>
+<a href="http://doc2.ntpc.gov.tw/" target="_blank" title="新北市二代公文 (另開新視窗)">新北市二代公文</a>
+<a href="https://esa.ntpc.edu.tw" target="_blank" title="校務行政系統 (另開新視窗)">校務行政系統</a>
+<a href="https://esa.ntpc.edu.tw/module/elec-bulletin/module/elec-bulletin/ap/newsp" target="_blank" title="教育局教育公告訊息 (另開新視窗)">教育局教育公告訊息</a>
+</div>
+</li>
+<li class="nav-item">
+<a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" target="_blank" title="檔案下載 (另開新視窗)" class="nav-link">檔案下載</a>
+</li>
+<li class="nav-item">
+<a href="https://ebook.ntpc.edu.tw/" target="_blank" title="新北市教育局電子書 (另開新視窗)" class="nav-link">新北市教育局電子書</a>
+</li>
+<li class="nav-item">
+<a href="https://esa.ntpc.edu.tw/web-maintain/templates/maintain_pub.html?schno=014767" target="_blank" title="設備維修 (另開新視窗)" class="nav-link">設備維修</a>
+</li>
+<li class="nav-item">
+<a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約 (另開新視窗)" class="nav-link">場地預約</a>
+</li>
+<li class="nav-item mobile-only search-mobile-container"><form class="search-mobile" onsubmit="return false;"><input type="text" id="mobileSearchInput" onkeyup="filterList(this.value)" placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字"><button type="button" title="搜尋" onclick="filterList(document.getElementById('mobileSearchInput').value)">🔍</button></form></li></ul></div></nav>
+
+<div class="banner-container"><img src="images/banner.png" alt="學校橫幅" class="banner-img" /></div>
+<div class="sitemap-wrapper">
+<div class="breadcrumb"><a href="index.html" title="回到首頁">首頁</a> &gt; <span>網站導覽</span></div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <h1>網站導覽 (Sitemap)</h1>
+
+    </div>
+    <div id="noResults" style="display:none; padding: 20px; text-align: center; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 5px; margin: 20px 0; font-weight: bold;">
+        ⚠️ 找不到與「<span id="searchKeyword"></span>」相關的區塊內容，請嘗試其他關鍵字。
+    </div>
+<div class="sitemap-intro">
+<p>本網站依無障礙網頁設計原則建置。快速鍵 (Accesskey)：<strong>Alt+M</strong> 上方導覽 | <strong>Alt+L</strong> 左側 | <strong>Alt+C</strong> 中間 | <strong>Alt+R</strong> 右側 | <strong>Alt+B</strong> 下方頁尾。</p>
+<p>※ 提示：主要選單採用橫向排列，您可以點擊標題旁的 ▶ 按鈕來開啟子選單。</p>
+</div>
+<h2 class="sitemap-section-title">1. 主要選單 (Main Navigation)</h2>
+<div class="zone-container zone-left" style="background:#fff; border-color:#ddd; padding:10px;">
+<ul class="sitemap-navbar">
+<li class="sitemap-nav-item">
+<div class="card-header" onclick="toggleCard(this)">
+                    <a href="#" target="_self" data-title="認識三多" class="card-title" onclick="event.stopPropagation()">認識三多</a>
+                    <button class="card-toggle-btn collapsed" aria-label="收合/展開">▼</button>
+                </div>
+<div class="card-content" style="display:none;"><ul class="card-links">
+<li><div class="acc-row"><a href="01.html" target="_self" data-title="學校簡介">學校簡介</a></div></li>
+<li><div class="acc-row"><a href="02.html" target="_self" data-title="處室介紹">處室介紹</a></div></li>
+</ul></div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://www.facebook.com/sanduogood/" target="_blank" title="三多粉絲頁 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">三多粉絲頁</a>
+                    
+                </div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" target="_blank" title="三多附幼 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">三多附幼</a>
+                    
+                </div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" target="_blank" title="行事曆 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">行事曆</a>
+                    
+                </div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" onclick="toggleCard(this)">
+                    <a href="#" target="_self" data-title="影音相簿" class="card-title" onclick="event.stopPropagation()">影音相簿</a>
+                    <button class="card-toggle-btn collapsed" aria-label="收合/展開">▼</button>
+                </div>
+<div class="card-content" style="display:none;"><ul class="card-links">
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" target="_blank" title="三多活動相簿 (另開新視窗)">三多活動相簿</a></div></li>
+<li><div class="acc-row"><a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" target="_blank" title="三多活動影片 (另開新視窗)">三多活動影片</a></div></li>
+</ul></div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" onclick="toggleCard(this)">
+                    <a href="#" target="_self" data-title="公務作業" class="card-title" onclick="event.stopPropagation()">公務作業</a>
+                    <button class="card-toggle-btn collapsed" aria-label="收合/展開">▼</button>
+                </div>
+<div class="card-content" style="display:none;"><ul class="card-links">
+<li><div class="acc-row"><a href="http://cloud.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲 (另開新視窗)">新北市政府公務雲</a></div></li>
+<li><div class="acc-row"><a href="https://cloud2.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲(新) (另開新視窗)">新北市政府公務雲(新)</a></div></li>
+<li><div class="acc-row"><a href="http://doc2.ntpc.gov.tw/" target="_blank" title="新北市二代公文 (另開新視窗)">新北市二代公文</a></div></li>
+<li><div class="acc-row"><a href="https://esa.ntpc.edu.tw" target="_blank" title="校務行政系統 (另開新視窗)">校務行政系統</a></div></li>
+<li><div class="acc-row"><a href="https://esa.ntpc.edu.tw/module/elec-bulletin/module/elec-bulletin/ap/newsp" target="_blank" title="教育局教育公告訊息 (另開新視窗)">教育局教育公告訊息</a></div></li>
+</ul></div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" target="_blank" title="檔案下載 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">檔案下載</a>
+                    
+                </div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://ebook.ntpc.edu.tw/" target="_blank" title="新北市教育局電子書 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">新北市教育局電子書</a>
+                    
+                </div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://esa.ntpc.edu.tw/web-maintain/templates/maintain_pub.html?schno=014767" target="_blank" title="設備維修 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">設備維修</a>
+                    
+                </div>
+</li>
+<li class="sitemap-nav-item">
+<div class="card-header" >
+                    <a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約 (另開新視窗)" class="card-title" onclick="event.stopPropagation()">場地預約</a>
+                    
+                </div>
+</li>
+</ul></div>
+<h2 class="sitemap-section-title">2. 頁面內容區塊 (Page Layout)</h2>
+<div class="layout-middle">
+<div class="layout-col"><div class="zone-container zone-left" style="height:100%;"><span class="zone-header">⬅ 左側 (Left)</span><ul class="card-list">
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">語文競賽</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://drive.google.com/drive/folders/1nhMyDMK2eSlGRVzXMCv38cKuIGLJujET?usp=sharing" target="_blank" title="校內語文競賽 (另開新視窗)">校內語文競賽</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">公文交辦專區</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://sites.google.com/member.sdes.ntpc.edu.tw/motherlanguage/" target="_blank" title="臺灣母語日專區 (另開新視窗)">臺灣母語日專區</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office121/%E9%A6%96%E9%A0%81" target="_blank" title="課程計畫專區 (另開新視窗)">課程計畫專區</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/english-lohas/" target="_blank" title="英語樂活成果 (另開新視窗)">英語樂活成果</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office134" target="_blank" title="午餐專區 (另開新視窗)">午餐專區</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/office130" target="_blank" title="學務處宣導專區 (另開新視窗)">學務處宣導專區</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/outsiders" target="_blank" title="校外人士協助教學 (另開新視窗)">校外人士協助教學</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdesfamilyedu" target="_blank" title="家庭教育專區 (另開新視窗)">家庭教育專區</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/sdes-public-lecture" target="_blank" title=" 三多國小公開授課專區 (另開新視窗)"> 三多國小公開授課專區</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/academic-assessment" target="_blank" title="三多國小成績評量專區 (另開新視窗)">三多國小成績評量專區</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-HtmlText"><div class="card-header"><div class="card-title-group"><span class="card-title">活動宣導</span><span class="card-type-tag">內容</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row" style="color:#666; font-size:0.9em; line-height:1.6; word-break:break-all; padding:5px 0;">
+        <div style='margin-bottom:8px;'><div class="acc-row"><a href="https://web.ntpc.edu.tw/p/426-1000-1.php?Lang=zh-tw" target="_blank" style="color:#0056b3; font-weight:bold;">🔗 開啟嵌入內容</a></div></div>
+        
+    </div></li>
+</ul></div></li>
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">宣導網站</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://eliteracy.edu.tw/" target="_blank" title="中小學數位素養教育資源網 (另開新視窗)">中小學數位素養教育資源網</a></div>
+</li>
+<li><div class="acc-row"><a href="https://antidrug.moj.gov.tw/" target="_blank" title="反毒大本營 (另開新視窗)">反毒大本營</a></div>
+</li>
+<li><div class="acc-row"><a href="https://165.npa.gov.tw/" target="_blank" title="165全民防騙網 (另開新視窗)">165全民防騙網</a></div>
+</li>
+<li><div class="acc-row"><a href="https://f4a.tw/" target="_blank" title="新北動健康 (另開新視窗)">新北動健康</a></div>
+</li>
+<li><div class="acc-row"><a href="https://ntpc.familyedu.moe.gov.tw/" target="_blank" title="新北市政府家庭教育中心 (另開新視窗)">新北市政府家庭教育中心</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www.greenschool.moe.edu.tw/" target="_blank" title="教育部綠色學校 (另開新視窗)">教育部綠色學校</a></div>
+</li>
+<li><div class="acc-row"><a href="https://tagv.mohw.gov.tw/" target="_blank" title="TAGV 反性別暴力電子報 (另開新視窗)">TAGV 反性別暴力電子報</a></div>
+</li>
+<li><div class="acc-row"><a href="https://246.ardswc.gov.tw/" target="_blank" title="土石流防災資訊網 (另開新視窗)">土石流防災資訊網</a></div>
+</li>
+<li><div class="acc-row"><a href="https://ai.gov.tw/" target="_blank" title="禽流感資訊專區 (另開新視窗)">禽流感資訊專區</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">常用連結</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="http://dict.revised.moe.edu.tw/" target="_blank" title="重編國語辭典修訂本 (另開新視窗)">重編國語辭典修訂本</a></div>
+</li>
+<li><div class="acc-row"><a href="https://dict.mini.moe.edu.tw/" target="_blank" title="國語小字典 (另開新視窗)">國語小字典</a></div>
+</li>
+<li><div class="acc-row"><a href="http://dict.variants.moe.edu.tw/" target="_blank" title="異體字字典 (另開新視窗)">異體字字典</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www.moedict.tw/" target="_blank" title="萌典 (另開新視窗)">萌典</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www.youtube.com/playlist?list=PLR9-cXLksRCuMf9pdf1BxIDoKXkH9SLww" target="_blank" title="下課花路米(Youtube) (另開新視窗)">下課花路米(Youtube)</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www.youtube.com/user/sbbloger/playlists" target="_blank" title="呂聰賢-電腦影音教學 (另開新視窗)">呂聰賢-電腦影音教學</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/mold" target="_blank" title="許志文-黴 (另開新視窗)">許志文-黴</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-Iframe"><div class="card-header"><div class="card-title-group"><span class="card-title">空氣品質資訊</span><span class="card-type-tag">嵌入</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://airtw.moenv.gov.tw/AirQuality_APIs/WebWidget.aspx?site=91" target="_blank">開啟: 空氣品質資訊</a></div></li>
+</ul></div></li>
+</ul>
+</div></div>
+<div class="layout-col layout-col-center"><div class="zone-container zone-center" style="height:100%;"><span class="zone-header">⬛ 中間 (Center)</span><ul class="card-list">
+<li class="card-item type-Carousel"><div class="card-header"><div class="card-title-group"><span class="card-title">三多願景</span><span class="card-type-tag">輪播</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row" style="color:#888; font-style:italic; margin-bottom:5px;">（此區塊為圖片展示，包含以下內容：）</div></li>
+<li><div class="acc-row" style="padding-left:15px; color:#555;">○ 有人文的校風</div></li>
+<li><div class="acc-row" style="padding-left:15px; color:#555;">○ 有優質的教育</div></li>
+<li><div class="acc-row" style="padding-left:15px; color:#555;">○ 有活力的校園</div></li>
+<li><div class="acc-row" style="padding-left:15px; color:#555;">○ 有健康的學生</div></li>
+</ul></div></li>
+<li class="card-item type-Iframe"><div class="card-header"><div class="card-title-group"><span class="card-title">公告訊息</span><span class="card-type-tag">嵌入</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://esa.ntpc.edu.tw/web-announce/rest/service/view/public/OFJQdXFmQXJyaTF1WTR3YytNaC9iQTN4WW1nWWc3UGc3TVk2NFEydkF6VT0" target="_blank">開啟: 公告訊息-新北市教育局校務行政校務訊息公告，由教育局維護，若需無障礙協助請洽教育局資訊單位</a></div></li>
+</ul></div></li>
+<li class="card-item type-Iframe"><div class="card-header"><div class="card-title-group"><span class="card-title">榮譽榜</span><span class="card-type-tag">嵌入</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://esa.ntpc.edu.tw/web-heromgt/rest/service/view/public/WVFYTWN4Zy9GRlBrTDlkSEJZUmRnakZFRVBkNlhhUXRXQzgrNmxZeUx4OD0" target="_blank">開啟: 榮譽榜-新北市教育局校務行政校務榮譽榜公告，由教育局維護，若需無障礙協助請洽教育局資訊單位</a></div></li>
+</ul></div></li>
+</ul>
+</div></div>
+<div class="layout-col"><div class="zone-container zone-right" style="height:100%;"><span class="zone-header">➡ 右側 (Right)</span><ul class="card-list">
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">教師專區</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://esa.ntpc.edu.tw/" target="_blank" title="校務行政系統 (另開新視窗)">校務行政系統</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sso.ntpc.edu.tw/" target="_blank" title="教育局單一認證入口 (另開新視窗)">教育局單一認證入口</a></div>
+</li>
+<li><div class="acc-row"><a href="https://drive.google.com/a/apps.ntpc.edu.tw" target="_blank" title="三多充電站 (另開新視窗)">三多充電站</a></div>
+</li>
+<li><div class="acc-row"><a href="https://pts.ntpc.edu.tw/" target="_blank" title="新北市親師生平台 (另開新視窗)">新北市親師生平台</a></div>
+</li>
+<li><div class="acc-row"><a href="https://vpn.ntpc.edu.tw/" target="_blank" title="教育局SSL VPN (另開新視窗)">教育局SSL VPN</a></div>
+</li>
+<li><div class="acc-row"><a href="http://webmail.ntpc.edu.tw/" target="_blank" title="教育局郵件信箱 (另開新視窗)">教育局郵件信箱</a></div>
+</li>
+<li><div class="acc-row"><a href="https://mail.google.com/a/mail.sdes.ntpc.edu.tw" target="_blank" title="教師Gmail(mail) (另開新視窗)">教師Gmail(mail)</a></div>
+</li>
+<li><div class="acc-row"><a href="https://drive.google.com/a/mail.sdes.ntpc.edu.tw" target="_blank" title="教師雲端硬碟(mail) (另開新視窗)">教師雲端硬碟(mail)</a></div>
+</li>
+<li><div class="acc-row"><a href="https://mail.google.com/a/member.sdes.ntpc.edu.tw" target="_blank" title="教師Gmail(member) (另開新視窗)">教師Gmail(member)</a></div>
+</li>
+<li><div class="acc-row"><a href="https://drive.google.com/a/member.sdes.ntpc.edu.tw" target="_blank" title="教師雲端硬碟(member) (另開新視窗)">教師雲端硬碟(member)</a></div>
+</li>
+<li><div class="acc-row"><a href="https://ceag.ntpc.edu.tw/" target="_blank" title="新北市國教輔導團 (另開新視窗)">新北市國教輔導團</a></div>
+</li>
+<li><div class="acc-row"><a href="https://scitechvista.nat.gov.tw/" target="_blank" title="科技大觀園 (另開新視窗)">科技大觀園</a></div>
+</li>
+<li><div class="acc-row"><a href="https://moocs.moe.edu.tw/moocs/" target="_blank" title="教育部磨課師平臺 (另開新視窗)">教育部磨課師平臺</a></div>
+</li>
+<li><div class="acc-row"><a href="http://estudy.ntpc.edu.tw/" target="_blank" title="新北市數位學習影音網 (另開新視窗)">新北市數位學習影音網</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www3.inservice.edu.tw/index2-3.aspx" target="_blank" title="全國教師在職進修資訊網 (另開新視窗)">全國教師在職進修資訊網</a></div>
+</li>
+<li><div class="acc-row"><a href="https://exam.tcte.edu.tw/tbt_html/" target="_blank" title="學習扶助科技化評量 (另開新視窗)">學習扶助科技化評量</a></div>
+</li>
+<li><div class="acc-row"><a href="https://rrcp.ntpc.edu.tw/" target="_blank" title="課程計畫備查網 (另開新視窗)">課程計畫備查網</a></div>
+</li>
+<li><div class="acc-row"><a href="http://elem.ntpc.edu.tw/" target="_blank" title="新北市國小教育資源網平台 (另開新視窗)">新北市國小教育資源網平台</a></div>
+</li>
+<li><div class="acc-row"><a href="https://mail.google.com/a/go.edu.tw" target="_blank" title="教育部Gmail (另開新視窗)">教育部Gmail</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www.sso.edu.tw/" target="_blank" title="教育體系單一簽入服務 (另開新視窗)">教育體系單一簽入服務</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">學生專區</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://mail.google.com/a/apps.ntpc.edu.tw" target="_blank" title="學生Gmail (另開新視窗)">學生Gmail</a></div>
+</li>
+<li><div class="acc-row"><a href="https://drive.google.com/a/apps.ntpc.edu.tw" target="_blank" title="學生雲端硬碟 (另開新視窗)">學生雲端硬碟</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sso.ntpc.edu.tw/login.aspx?SAMLRequest=fVJNT9wwEL1X4j9YvudjA4fW2gQtIMRKtI3YwIGb15lNvDgzqcfZtP%2B%2B2SwIeijX5zfvYzzLy9%2BdEwfwbAlzuYhTKQAN1RabXD5Wt9FXeVmcfVmy7lyvVkNo8QF%2BDcBBTJPIan7I5eBRkWbLCnUHrIJRm9X3e5XFqeo9BTLkpFjf5HK7JdOYPba9e9F72uq6IY0vuK%2FJIbQt7Osddb2W4uktVnaMtWYeYI0cNIYJSrMsSr9F6XmVZuo8VenFsxTlq9OVxVODz2JtTyRWd1VVRuXPTTULHGwN%2FsfEzmVD1DiIDXVH%2B1Iz28ME77RjkGLFDD5MAa8JeejAb8AfrIHHh%2FtctiH0rJJkHMf4XSbRCYbexFAPcRgTbVgW82rV3M5%2F2Onn2fWbtyze1ZfJB6ni9cuOTdY3JTlr%2FoiVczRee9BhqhH8MLW4Jd%2Fp8H%2B3RbyYEVtHu5mqBuQejN1ZqKVIipPrv7cxXcxf&RelayState=https%3A%2F%2Fwww.google.com%2Fa%2Fapps.ntpc.edu.tw%2FServiceLogin%3Fcontinue%3Dhttps%253A%252F%252Fclassroom.google.com%252F%26passive%3Dtrue" target="_blank" title="學生Google Classroom (另開新視窗)">學生Google Classroom</a></div>
+</li>
+<li><div class="acc-row"><a href="https://contest.hlc.edu.tw/typing/" target="_blank" title="花蓮縣打字練習網 (另開新視窗)">花蓮縣打字練習網</a></div>
+</li>
+<li><div class="acc-row"><a href="https://exam2.tcte.edu.tw/teac_school/" target="_blank" title="攜手計畫追蹤成長測驗 (另開新視窗)">攜手計畫追蹤成長測驗</a></div>
+</li>
+<li><div class="acc-row"><a href="https://esa.ntpc.edu.tw/014767/library" target="_blank" title="三多圖書館 (另開新視窗)">三多圖書館</a></div>
+</li>
+<li><div class="acc-row"><a href="https://scratch.mit.edu/" target="_blank" title="Scratch (另開新視窗)">Scratch</a></div>
+</li>
+<li><div class="acc-row"><a href="https://code.org/" target="_blank" title="Code.org (另開新視窗)">Code.org</a></div>
+</li>
+<li><div class="acc-row"><a href="https://makecode.microbit.org/" target="_blank" title="micro:bit (另開新視窗)">micro:bit</a></div>
+</li>
+<li><div class="acc-row"><a href="https://sites.google.com/apps.ntpc.edu.tw/mis-sdes" target="_blank" title="電子書 (另開新視窗)">電子書</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-LinkList"><div class="card-header"><div class="card-title-group"><span class="card-title">新北校園通</span><span class="card-type-tag">連結</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row"><a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" title="新北校園通Google Play下載 (另開新視窗)">新北校園通Google Play下載</a></div>
+</li>
+<li><div class="acc-row"><a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" title="新北校園通App Store下載 (另開新視窗)">新北校園通App Store下載</a></div>
+</li>
+<li><div class="acc-row"><a href="https://mis.ntpc.edu.tw/p/406-1001-5733,r2.php?Lang=zh-tw" target="_blank" title="APP操作說明與影片 (另開新視窗)">APP操作說明與影片</a></div>
+</li>
+</ul></div></li>
+<li class="card-item type-HtmlText"><div class="card-header"><div class="card-title-group"><span class="card-title">專線電話</span><span class="card-type-tag">內容</span></div></div><div class="card-content"><ul class="card-links">
+<li><div class="acc-row" style="color:#666; font-size:0.9em; line-height:1.6; word-break:break-all; padding:5px 0;">
+        
+        ☎ 教育部反霸凌專線<br/>1953<br/>☎ 新北市維護學生受教權檢舉專線<br/>(02)2966-7317<br/>0800-580-780<br/>☎ 三多國小校園霸凌投訴&學生申訴專線<br/>(02)26880698#131<br/>☎ 三多國小校園輔導專線<br/>(02)26880698#151
+    </div></li>
+</ul></div></li>
+</ul>
+</div></div>
+</div>
+<div id="innerPageSection" style="display: none;">
+<h2 class="sitemap-section-title">3. 內頁導覽 (Inner Pages)</h2>
+<div class="zone-container zone-bottom" style="border-color: #9B59B6; background-color: #F3E5F5;">
+<span class="zone-header" style="color: #8E44AD;">📄 內容</span>
+<ul class="card-list" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px;">
+</ul></div></div>
+</div>
+<footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
+代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+</div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
+<script>
+function performLocalSearch() {
+    var input = document.getElementById('siteSearch');
+    var filter = input.value.toUpperCase();
+    var keywordSpan = document.getElementById('searchKeyword');
+    var noResultsDiv = document.getElementById('noResults');
+    var cards = document.querySelectorAll('.card-item'); 
+    var zones = document.querySelectorAll('.zone-container'); 
+    var foundAny = false;
+
+    keywordSpan.innerText = input.value;
+
+    cards.forEach(function(card) {
+        var text = card.innerText || card.textContent;
+        if (text.toUpperCase().indexOf(filter) > -1) {
+            card.style.display = ''; 
+            foundAny = true;
+        } else {
+            card.style.display = 'none'; 
+        }
+    });
+
+// 處理區域顯示（包含原本的五大區與新的內頁區）
+    var innerSection = document.getElementById('innerPageSection');
+    var visibleInnerCards = innerSection.querySelectorAll('.card-item:not([style*="display: none"])');
+    
+    // 如果有搜到內頁，就顯示第三區，否則隱藏
+    if (innerSection) {
+        innerSection.style.display = (visibleInnerCards.length > 0) ? "" : "none";
+    }
+
+    // 原本處理五大區域的邏輯
+    zones.forEach(function(zone) {
+        var visibleCards = zone.querySelectorAll('.card-item:not([style*="display: none"])');
+        zone.style.display = (visibleCards.length > 0 || filter === "") ? "" : "none";
+    });
+
+    noResultsDiv.style.display = (foundAny || filter === '') ? 'none' : 'block';
+}
+
+window.addEventListener('load', function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var q = urlParams.get('q');
+    if (q) {
+        var searchInput = document.getElementById('siteSearch');
+        if(searchInput) {
+            searchInput.value = decodeURIComponent(q);
+            performLocalSearch();
+        }
+    }
+});
+
+function toggleCard(header) {
+    if(!header) return;
+    var card = header.closest('li');
+    var content = card.querySelector('.card-content');
+    var btn = card.querySelector('.card-toggle-btn');
+    if (content) {
+        var isHidden = content.style.display === 'none';
+        if (card.classList.contains('sitemap-nav-item')) {
+            document.querySelectorAll('.sitemap-nav-item .card-content').forEach(function(el) { el.style.display = 'none'; });
+            document.querySelectorAll('.sitemap-nav-item .card-toggle-btn').forEach(function(el) { el.classList.add('collapsed'); });
+        }
+        if (isHidden) { content.style.display = 'block'; if(btn) btn.classList.remove('collapsed'); }
+        else { content.style.display = 'none'; if(btn) btn.classList.add('collapsed'); }
+    }
+}
+</script>
+</body></html>
