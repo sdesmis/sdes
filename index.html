@@ -4,6 +4,24 @@
 
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+    
+    /* ★★★ 新增：跳到主要內容區塊 (Skip Link) 樣式 ★★★ */
+    .skip-link {
+        position: absolute;
+        top: -9999px;
+        left: 0;
+        background: #000;
+        color: #fff;
+        padding: 10px;
+        z-index: 99999;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 0 0 5px 0;
+    }
+    .skip-link:focus {
+        top: 0; /* 獲取焦點時顯示在最上方 */
+    }
+
     .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
     .access-key:focus { outline: 2px solid blue; color: #000; }
     .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
@@ -70,12 +88,10 @@
     .block-card > *:last-child { margin-bottom: 0 !important; }
     h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.1em; margin-bottom: 8px; margin-top: 0; }
     
-    /* 提示文字 Tooltip 樣式 */
     [data-title] { position: relative; }
     [data-title]:hover::after { content: attr(data-title); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; color: #333; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; white-space: nowrap; font-size: 0.9em; z-index: 99999; pointer-events: none; margin-top: 8px; }
     [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
     
-    /* ★★★ 修改重點：針對文字連結的層級修正 ★★★ */
     .link-list-item { 
         display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; 
         padding: 10px 15px; margin-bottom: 5px; border-radius: 5px; transition: all 0.2s ease; 
@@ -84,7 +100,7 @@
     .link-list-item:hover { 
         background-color: #f9f9f9; border-color: #bbb; color: #397DB3; 
         box-shadow: 0 2px 5px rgba(0,0,0,0.1); transform: translateY(-1px);
-        z-index: 1000; /* 新增：讓文字連結在滑鼠移入時浮到最上層，避免提示文字被遮擋 */
+        z-index: 1000; 
     }
     
     .single-link { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 12px 15px; border-radius: 5px; transition: all 0.2s; }
@@ -96,7 +112,7 @@
     }
     a.img-link:hover { 
         transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        z-index: 1000; /* 讓圖片連結也能浮到最上層 */
+        z-index: 1000; 
     }
     
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
@@ -107,7 +123,6 @@
     .html-content p { margin: 0 0 0.5em 0; }
     .html-content img { max-width: 100%; height: auto; }
     
-/* Carousel (RWD 修正版 V3 - 強力 Hover 隱藏版) */
     .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; min-height: 200px; }
     .carousel-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none; padding: 0; margin: 0; scrollbar-width: none; -ms-overflow-style: none; }
     .carousel-list::-webkit-scrollbar { display: none; }
@@ -184,7 +199,8 @@
     }
 </style>
 </head><body>
-<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
+<a href="#ac" class="skip-link" title="跳到主要內容區塊">跳到主要內容區塊</a>
+<div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方功能區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
 <div class="header-right">
     <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
     <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
@@ -365,7 +381,7 @@
 <div class="center-content-wrapper">
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-Caabfb475" data-cols="1">
+<div class="carousel-container" id="carousel-C23590b3d" data-cols="1">
 <ul class="carousel-list">
 <li class="carousel-item">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: inherit; height: 100%;">
@@ -392,10 +408,12 @@
 </div>
 </li>
 </ul>
-<a class="control-btn prev" onclick="moveSlide(-1, 'Caabfb475')" role="button" aria-label="上一組內容">❮</a><a class="control-btn next" onclick="moveSlide(1, 'Caabfb475')" role="button" aria-label="下一組內容">❯</a><button class="pause-btn" onclick="togglePause('Caabfb475')" aria-label="暫停輪播">II 暫停</button>
+<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'C23590b3d')" aria-label="上一組內容">❮</button>
+<button type="button" class="control-btn next" onclick="moveSlide(1, 'C23590b3d')" aria-label="下一組內容">❯</button>
+<button type="button" class="pause-btn" onclick="togglePause('C23590b3d')" aria-label="暫停輪播">II 暫停</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Caabfb475'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C23590b3d'); });</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
