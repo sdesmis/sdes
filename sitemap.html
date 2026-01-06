@@ -161,10 +161,9 @@
     @media (max-width: 900px) { .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; } }
 </style>
 <style>
-                /* ★★★ 修正：max-width 改用 em (相對單位)，符合 AAA 規範 (CS3140801C) ★★★ */
                 .sitemap-wrapper { 
                     width: 95%;
-                    max-width: 62em; /* 約 1000px */
+                    max-width: 62em; 
                     margin: 2em auto; 
                     padding: 40px; 
                     background: #fff; 
@@ -172,42 +171,27 @@
                     box-shadow: 0 0 15px rgba(0,0,0,0.05); 
                     border-radius: 8px; 
                 }
-                
                 .sitemap-title { font-size: 2em; color: #333; margin-bottom: 20px; border-bottom: 2px solid #397DB3; padding-bottom: 10px; font-weight: bold; }
-                
                 .accesskey-info { background-color: #f8f9fa; border: 1px solid #e9ecef; border-left: 5px solid #397DB3; padding: 20px; margin-bottom: 30px; border-radius: 4px; line-height: 1.8; color: #555; }
                 .accesskey-info h2 { margin-top: 0; font-size: 1.2em; color: #333; margin-bottom: 10px; }
                 .accesskey-list { list-style: none; padding: 0; margin: 0; }
                 .accesskey-list li { margin-bottom: 5px; }
                 .accesskey-code { font-weight: bold; color: #0056b3; background: #e7f1ff; padding: 2px 6px; border-radius: 3px; margin-right: 5px; }
-
                 .sitemap-tree { counter-reset: main-counter; list-style: none; padding: 0; margin: 0; }
                 .sitemap-tree > li { counter-increment: main-counter; margin-bottom: 20px; }
-                
                 .node-h1 { font-size: 1.4em; font-weight: bold; color: #333; display: block; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px dashed #ccc; }
                 .node-h1::before { content: counter(main-counter) ' . '; color: #397DB3; }
-
                 .sitemap-sub-tree { counter-reset: sub-counter; list-style: none; padding-left: 0; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; }
                 .sitemap-sub-tree > li { counter-increment: sub-counter; width: 100%; box-sizing: border-box; }
-                
                 @media (min-width: 768px) { .sitemap-sub-tree > li { width: 48%; } }
-                
                 .node-link { text-decoration: none; color: #444; font-size: 1.1em; display: block; padding: 8px 10px; border-radius: 4px; transition: all 0.2s; border: 1px solid transparent; }
                 .node-link:hover { background-color: #f0f8ff; color: #0056b3; border-color: #bcdff1; }
-                .node-link::before { 
-                    content: counter(main-counter) '-' counter(sub-counter) ' . '; 
-                    color: #397DB3; font-weight: bold; margin-right: 5px; 
-                }
-
+                .node-link::before { content: counter(main-counter) '-' counter(sub-counter) ' . '; color: #397DB3; font-weight: bold; margin-right: 5px; }
                 .sitemap-third-tree { counter-reset: third-counter; list-style: none; padding-left: 20px; margin-top: 5px; border-left: 2px solid #eee; margin-left: 15px; }
                 .sitemap-third-tree li { counter-increment: third-counter; margin: 5px 0; }
                 .node-sub-link { text-decoration: none; color: #666; font-size: 0.95em; display: block; padding: 3px 5px; }
                 .node-sub-link:hover { color: #d63031; text-decoration: underline; }
-                .node-sub-link::before {
-                    content: counter(main-counter) '-' counter(sub-counter) '-' counter(third-counter) ' . ';
-                    color: #888; font-size: 0.9em;
-                }
-
+                .node-sub-link::before { content: counter(main-counter) '-' counter(sub-counter) '-' counter(third-counter) ' . '; color: #888; font-size: 0.9em; }
                 @media (max-width: 600px) { .sitemap-wrapper { padding: 15px; } .sitemap-sub-tree > li { width: 100%; } }
             </style>
 </head><body>
@@ -285,11 +269,9 @@
 </li>
 <li class="nav-item mobile-only search-mobile-container"><form class="search-mobile" onsubmit="return false;"><input type="text" id="mobileSearchInput" onkeyup="filterList(this.value)" placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字"><button type="button" title="搜尋" onclick="filterList(document.getElementById('mobileSearchInput').value)">🔍</button></form></li></ul></div></nav>
 
-
-                <div class="banner-container" style="width:100%; max-width:100%;">
-                    <img src="images/banner.png" alt="學校橫幅" class="banner-img" style="width:100%; height:auto; display:block; object-fit:cover; max-height:400px;" />
-                </div>
+<div class="banner-container" style="width:100%; max-width:100%;"><img src="images/banner.png" alt="學校橫幅" class="banner-img" style="width:100%; height:auto; display:block; object-fit:cover; max-height:400px;" /></div>
 <div class="sitemap-wrapper">
+<a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="breadcrumb" style="margin-bottom:20px; color:#666;"><a href="index.html" title="回到首頁">首頁</a> &gt; <span aria-current="page">網站導覽</span></div>
 <h1 class="sitemap-title">網站導覽</h1>
 <div class="accesskey-info">
