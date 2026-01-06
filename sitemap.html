@@ -161,7 +161,7 @@
     @media (max-width: 900px) { .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; } }
 </style>
 <style>
-                /* max-width 改用 em 符合 AAA 規範 */
+                /* ★★★ 修正：max-width 改用 em (相對單位)，符合 AAA 規範 (CS3140801C) ★★★ */
                 .sitemap-wrapper { 
                     width: 95%;
                     max-width: 62em; /* 約 1000px */
@@ -285,6 +285,10 @@
 </li>
 <li class="nav-item mobile-only search-mobile-container"><form class="search-mobile" onsubmit="return false;"><input type="text" id="mobileSearchInput" onkeyup="filterList(this.value)" placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字"><button type="button" title="搜尋" onclick="filterList(document.getElementById('mobileSearchInput').value)">🔍</button></form></li></ul></div></nav>
 
+
+                <div class="banner-container" style="width:100%; max-width:100%;">
+                    <img src="images/banner.png" alt="學校橫幅" class="banner-img" style="width:100%; height:auto; display:block; object-fit:cover; max-height:400px;" />
+                </div>
 <div class="sitemap-wrapper">
 <div class="breadcrumb" style="margin-bottom:20px; color:#666;"><a href="index.html" title="回到首頁">首頁</a> &gt; <span aria-current="page">網站導覽</span></div>
 <h1 class="sitemap-title">網站導覽</h1>
@@ -298,7 +302,7 @@
 <li><span class="accesskey-code">Alt + R</span>：右側區塊，呈現相關連結選單。</li>
 <li><span class="accesskey-code">Alt + B</span>：下方功能區，此區塊呈現聯絡方式等資訊。</li>
 </ul>
-<p style="margin-top:10px; font-size:0.9em; color:#666;">※ 註：Firefox 請搭配 Alt+Shift 使用。</p>
+<p style="margin-top:10px; font-size:0.9em; color:#666;">※ 註：IE AccessKey 請搭配 Alt 使用；Firefox 請搭配 Alt+Shift 使用。</p>
 </div>
 <div class="sitemap-content">
 <ul class="sitemap-tree">
