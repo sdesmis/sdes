@@ -199,9 +199,18 @@
     }
 </style>
 <style>
-                .sitemap-wrapper { max-width: 1000px; margin: 2em auto; padding: 40px; background: #fff; min-height: 600px; box-shadow: 0 0 15px rgba(0,0,0,0.05); border-radius: 8px; }
+                /* ★★★ 修正：max-width 改用 em (相對單位)，符合 AAA 規範 (CS3140801C) ★★★ */
+                .sitemap-wrapper { 
+                    width: 95%;
+                    max-width: 62em; /* 約 1000px */
+                    margin: 2em auto; 
+                    padding: 40px; 
+                    background: #fff; 
+                    min-height: 600px; 
+                    box-shadow: 0 0 15px rgba(0,0,0,0.05); 
+                    border-radius: 8px; 
+                }
                 
-                /* 標題與說明區塊 */
                 .sitemap-title { font-size: 2em; color: #333; margin-bottom: 20px; border-bottom: 2px solid #397DB3; padding-bottom: 10px; font-weight: bold; }
                 
                 .accesskey-info { background-color: #f8f9fa; border: 1px solid #e9ecef; border-left: 5px solid #397DB3; padding: 20px; margin-bottom: 30px; border-radius: 4px; line-height: 1.8; color: #555; }
@@ -210,39 +219,28 @@
                 .accesskey-list li { margin-bottom: 5px; }
                 .accesskey-code { font-weight: bold; color: #0056b3; background: #e7f1ff; padding: 2px 6px; border-radius: 3px; margin-right: 5px; }
 
-                /* --- CSS 自動編號核心 --- */
                 .sitemap-tree { counter-reset: main-counter; list-style: none; padding: 0; margin: 0; }
                 .sitemap-tree > li { counter-increment: main-counter; margin-bottom: 20px; }
                 
-                /* 第一層 (1., 2., 3...) */
                 .node-h1 { font-size: 1.4em; font-weight: bold; color: #333; display: block; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px dashed #ccc; }
                 .node-h1::before { content: counter(main-counter) ' . '; color: #397DB3; }
 
-                /* 第二層容器 */
                 .sitemap-sub-tree { counter-reset: sub-counter; list-style: none; padding-left: 0; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; }
-                
-                /* 第二層項目 (1-1, 1-2...) */
                 .sitemap-sub-tree > li { counter-increment: sub-counter; width: 100%; box-sizing: border-box; }
                 
-                /* 寬度控制：電腦版分兩欄或三欄，手機版單欄 */
                 @media (min-width: 768px) { .sitemap-sub-tree > li { width: 48%; } }
                 
                 .node-link { text-decoration: none; color: #444; font-size: 1.1em; display: block; padding: 8px 10px; border-radius: 4px; transition: all 0.2s; border: 1px solid transparent; }
                 .node-link:hover { background-color: #f0f8ff; color: #0056b3; border-color: #bcdff1; }
-                
-                /* 自動產生 1-1, 1-2 編號 */
                 .node-link::before { 
                     content: counter(main-counter) '-' counter(sub-counter) ' . '; 
                     color: #397DB3; font-weight: bold; margin-right: 5px; 
                 }
 
-                /* 第三層 (子選單) (1-1-1...) */
                 .sitemap-third-tree { counter-reset: third-counter; list-style: none; padding-left: 20px; margin-top: 5px; border-left: 2px solid #eee; margin-left: 15px; }
                 .sitemap-third-tree li { counter-increment: third-counter; margin: 5px 0; }
                 .node-sub-link { text-decoration: none; color: #666; font-size: 0.95em; display: block; padding: 3px 5px; }
                 .node-sub-link:hover { color: #d63031; text-decoration: underline; }
-                
-                /* 自動產生 1-1-1 編號 */
                 .node-sub-link::before {
                     content: counter(main-counter) '-' counter(sub-counter) '-' counter(third-counter) ' . ';
                     color: #888; font-size: 0.9em;
@@ -251,7 +249,7 @@
                 @media (max-width: 600px) { .sitemap-wrapper { padding: 15px; } .sitemap-sub-tree > li { width: 100%; } }
             </style>
 </head><body>
-<a href="#ac" class="skip-link" title="跳到主要內容區塊">跳到主要內容區塊</a>
+<a href="#ac" class="skip-link">跳到主要內容區塊</a>
 <div class="header"><div class="header-left"><a href="#au" id="au" accesskey="U" title="上方功能區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
 <div class="header-right">
     <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
@@ -332,7 +330,7 @@
 <li><span class="accesskey-code">Alt + R</span>：右側區塊，呈現相關連結選單。</li>
 <li><span class="accesskey-code">Alt + B</span>：下方功能區，此區塊呈現聯絡方式等資訊。</li>
 </ul>
-<p style="margin-top:10px; font-size:0.9em; color:#666;">※ 註：Firefox 請搭配 Alt+Shift 使用。</p>
+<p style="margin-top:10px; font-size:0.9em; color:#666;">※ 註：IE AccessKey 請搭配 Alt 使用；Firefox 請搭配 Alt+Shift 使用。</p>
 </div>
 <div class="sitemap-content">
 <ul class="sitemap-tree">
