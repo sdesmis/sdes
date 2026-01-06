@@ -1,445 +1,316 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>處室介紹 - 新北市樹林區三多國民小學</title>
-<link rel="icon" href="favicon.ico" />
-<link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&amp;display=swap" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>處室介紹 - 新北市樹林區三多國民小學</title>
+    <link rel="icon" href="favicon.ico" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet" />
 
-<style>
-    body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-    .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
-    .access-key:focus { outline: 2px solid blue; color: #000; }
-    .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
-    .header-left { display: flex; align-items: center; flex-wrap: wrap; }
-    .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
-    .logo-link:hover { opacity: 0.8; }
-    .school-logo { height: 80px; width: auto; margin-right: 15px; }
-    .school-text { display: inline-block; vertical-align: middle; }
-    .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
-    .school-title-en { font-size: 1.25em; color: #666; display: block; }
-    .header-right { display: flex; align-items: center; gap: 10px; }
-    .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; position: relative; }
-    .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
-    .search-header { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 20px; padding: 2px 5px; background: #fff; height: 36px; }
-    .search-header input { border: none; outline: none; padding: 0 10px; font-size: 1em; width: 150px; background: transparent; }
-    .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 8px; display: flex; align-items: center; }
-    .search-header button:hover { color: #000; }
-    .navbar { background-color: #397DB3; }
-    .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
-    .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
-    .nav-item { position: relative; }
-    .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; position: relative; }
-    .nav-link:hover, .nav-link:focus { background-color: rgba(0,0,0,0.2); }
-    .search-mobile-container { padding: 10px 20px; background-color: rgba(0,0,0,0.1); }
-    .search-mobile { display: flex; width: 100%; background: #fff; border-radius: 5px; overflow: hidden; }
-    .search-mobile input { flex: 1; border: none; padding: 10px; outline: none; font-size: 1em; }
-    .search-mobile button { background: #eee; border: none; padding: 0 15px; cursor: pointer; color: #333; font-size: 1.1em; }
-    .search-mobile button:hover { color: #000; }
-    .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
-    .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; position: relative; }
-    .dropdown-content a:hover { background-color: #ddd; }
-    .nav-item:hover .dropdown-content { display: block; }
-    .nav-item:focus-within .dropdown-content { display: block; }
-    .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
-    .mobile-only { display: none; }
-    .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
-    .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
-    
-    .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; justify-content: center; }
-    .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
-    .col-center { width: 60%; flex: 0 1 60%; }
-    
-    .center-content-wrapper { display: flex; flex-wrap: wrap; column-gap: 1.5em; row-gap: 10px; align-content: flex-start; width: 100%; }
-    .col-row { display: flex; justify-content: space-between; gap: 1.5em; width: 100%; max-width: 100%; margin: 10px auto; box-sizing: border-box; padding: 0 1.25em; }
-    .col-row-item { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-    .col-row-item .block-card { height: 100%; box-sizing: border-box; }
+    <style>
+        body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f9f9f9; }
+        
+        /* 基礎樣式 (與首頁一致) */
+        .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
+        .access-key:focus { outline: 2px solid blue; color: #000; }
+        .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .header-left { display: flex; align-items: center; flex-wrap: wrap; }
+        .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
+        .logo-link:hover { opacity: 0.8; }
+        .school-logo { height: 80px; width: auto; margin-right: 15px; }
+        .school-text { display: inline-block; vertical-align: middle; }
+        .school-title-cn { font-size: 2.25em; font-weight: normal; color: #333; margin: 0; line-height: 1.2; }
+        .school-title-en { font-size: 1.25em; color: #666; display: block; }
+        .header-right { display: flex; align-items: center; gap: 10px; }
+        .header-btn { text-decoration: none; color: #555; font-weight: bold; font-size: 1.1em; display: flex; align-items: center; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; cursor: pointer; white-space: nowrap; position: relative; }
+        .header-btn:hover { background-color: #f0f8ff; color: #397DB3; }
+        .navbar { background-color: #397DB3; }
+        .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
+        .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+        .nav-item { position: relative; }
+        .nav-link { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 1.1em; position: relative; }
+        .nav-link:hover, .nav-link:focus { background-color: rgba(0,0,0,0.2); }
+        .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; top: 100%; left: 0; }
+        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; position: relative; }
+        .dropdown-content a:hover { background-color: #ddd; }
+        .nav-item:hover .dropdown-content { display: block; }
+        .nav-item:focus-within .dropdown-content { display: block; }
+        .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
+        .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
+        .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
+        
+        /* 跳過區塊 */
+        .skip-link { position: absolute; top: -9999px; left: 0; background: #000; color: #fff; padding: 10px; z-index: 99999; text-decoration: none; font-weight: bold; border-radius: 0 0 5px 0; }
+        .skip-link:focus { top: 0; }
 
-    .block-card { margin-bottom: 10px; background: #fff; padding: 10px 10px 5px 10px; border-radius: 5px; width: 100%; box-sizing: border-box; }
-    .center-content-wrapper .block-card { margin-bottom: 0 !important; }
-    .block-card.half-width { width: calc(50% - 0.75em); }
-    .block-card > *:last-child { margin-bottom: 0 !important; }
-    h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.1em; margin-bottom: 8px; margin-top: 0; }
-    
-    [data-title] { position: relative; }
-    [data-title]:hover::after { content: attr(data-title); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; color: #333; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; white-space: nowrap; font-size: 0.9em; z-index: 99999; pointer-events: none; margin-top: 8px; }
-    [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
-    
-    .link-list-item { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 10px 15px; margin-bottom: 5px; border-radius: 5px; transition: all 0.2s ease; font-size: 1.1em; line-height: 1.4; position: relative; }
-    .link-list-item:hover { background-color: #f9f9f9; border-color: #bbb; color: #397DB3; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transform: translateY(-1px); }
-    
-    a.img-link { display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: hidden; }
-    a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-    .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; text-align: center; font-size: 1em; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 10; }
-    a.img-link:hover .img-caption { opacity: 1; }
-    
-    .html-content { font-size: 1.1em; line-height: 1.5; color: #333; }
-    .html-content p { margin: 0 0 0.5em 0; }
-    .html-content img { max-width: 100%; height: auto; }
-    
-/* Carousel (RWD 修正版 V3 - 強力 Hover 隱藏版) */
-    .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; min-height: 200px; }
-    .carousel-inner { display: flex; width: 100%; justify-content: center; }
-    
-    .carousel-item { 
-        display: none; 
-        width: 100%; 
-        max-width: 100%;
-        flex: 0 0 100%; 
-        min-height: 200px; 
-        flex-shrink: 0; 
-        animation-name: fade; 
-        animation-duration: 1.5s; 
-        box-sizing: border-box; 
-        text-align: center;
-        position: relative; /* 必須為 relative 以便文字絕對定位 */
-    }
-    .carousel-item.active { display: block; }
-    .carousel-item img { width: 100%; height: 200px; object-fit: contain; border-radius: 3px; display: block; margin: 0 auto; }
+        /* 內頁佈局 */
+        .inner-layout { max-width: 1200px; margin: 20px auto; padding: 0 20px; box-sizing: border-box; }
+        .inner-main { width: 100%; background: #fff; padding: 40px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eee; min-height: 600px; box-sizing: border-box; }
+        .breadcrumb { margin-bottom: 20px; font-size: 0.95em; color: #666; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
+        .breadcrumb a { text-decoration: none; color: #397DB3; } 
+        .page-title { font-size: 2.2em; color: #333; margin: 0 0 30px 0; padding-bottom: 15px; border-bottom: 3px solid #397DB3; line-height: 1.3; }
 
-    /* --- 修改重點：強制隱藏並在 Hover 時顯示 --- */
-    .carousel-item .carousel-caption { 
-        position: absolute !important; 
-        bottom: 0 !important; 
-        left: 0 !important; 
-        width: 100% !important; 
-        background: rgba(0, 0, 0, 0.7) !important; 
-        color: #fff !important; 
-        padding: 10px !important; 
-        font-size: 1.1em !important; 
-        margin: 0 !important;
-        opacity: 0 !important; /* 強制預設透明度為 0 */
-        transition: opacity 0.3s ease-in-out !important; 
-        pointer-events: none; 
-        z-index: 10;
-    }
+        /* ★★★ 處室介紹按鈕樣式 (優化版) ★★★ */
+        .dept-nav { 
+            margin-bottom: 30px; 
+        }
+        .dept-buttons { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            justify-content: center; 
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .dept-btn { 
+            padding: 10px 25px; 
+            background-color: #fff; 
+            color: #555; 
+            border: 1px solid #ccc; 
+            border-radius: 50px; /* 圓角膠囊造型 */
+            cursor: pointer; 
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-weight: bold;
+            min-width: 100px;
+        }
 
-    /* 當滑鼠移到圖片或項目上時，文字強制浮現 */
-    .carousel-item:hover .carousel-caption,
-    .carousel-item:focus-within .carousel-caption { 
-        opacity: 1 !important; 
-    }
+        /* 滑鼠移入效果 */
+        .dept-btn:hover, .dept-btn:focus {
+            border-color: #397DB3;
+            color: #397DB3;
+            background-color: #f0f8ff;
+            outline: 2px solid #397DB3; /* 鍵盤焦點 */
+            outline-offset: 2px;
+        }
 
-    /* 控制按鈕 */
-    .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 6px 12px; margin-top: -20px; color: white; font-weight: bold; font-size: 1em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
-    .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
-    .prev { left: 0; border-radius: 0 3px 3px 0; } .next { right: 0; border-radius: 3px 0 0 3px; }
-    .pause-btn { position: absolute; bottom: 10px; right: 10px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 0.9em; z-index: 102; }
-    .pause-btn:hover, .pause-btn:focus { background-color: #000; outline: 2px solid yellow; }
-    .dots-container { text-align: center; padding: 10px; }
-    .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0; }
-    .dot.active, .dot:hover, .dot:focus { background-color: #717171; outline: 2px solid blue; }
-    .fade { animation-name: fade; animation-duration: 1.5s; } @keyframes fade { from {opacity: .4} to {opacity: 1} }
+        /* 被選中狀態 */
+        .dept-btn.active { 
+            background-color: #397DB3; 
+            color: #fff; 
+            border-color: #397DB3;
+            box-shadow: 0 4px 6px rgba(57, 125, 179, 0.3); /* 增加立體感 */
+            transform: translateY(-1px);
+        }
 
-    /* Marquee */
-    .marquee-container { position: relative; overflow: hidden; background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 5px 5px 5px 90px; display: flex; align-items: center; height: 40px; }
-    .marquee-controls { position: absolute; left: 0; top: 0; bottom: 0; width: 85px; background: #fff; color: #397DB3; z-index: 10; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; border-right: 1px solid #eee; }
-    .marquee-btn { background: #fff; border: 1px solid #397DB3; color: #397DB3; cursor: pointer; font-size: 0.8em; padding: 2px 5px; margin-left: 5px; border-radius: 3px; }
-    .marquee-btn:hover, .marquee-btn:focus { background: #397DB3; color: #fff; outline: 2px solid yellow; }
-    .marquee-content-wrapper { width: 100%; overflow: hidden; }
-    .marquee-track { white-space: nowrap; display: inline-block; animation: marquee-scroll 25s linear infinite; padding-left: 100%; }
-    .marquee-paused .marquee-track, .marquee-track:hover, .marquee-track:focus-within { animation-play-state: paused; }
-    .marquee-item { display: inline-block; margin-right: 40px; font-size: 1.1em; color: #333; text-decoration: none; vertical-align: middle; position: relative; }
-    .marquee-item:hover, .marquee-item:focus { color: #397DB3; text-decoration: underline; outline: 2px solid blue; }
-    .marquee-item::before { content: '📢 '; margin-right: 3px; }
-    @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        /* 內容區塊樣式 */
+        .dept-content { 
+            display: none; 
+            line-height: 1.8; 
+            font-size: 1.15em; 
+            color: #333;
+            animation: fadeIn 0.5s; 
+            padding: 10px;
+        }
+        .dept-content.active { display: block; }
+        
+        .dept-content h2 { 
+            color: #397DB3; 
+            border-left: 5px solid #397DB3; 
+            padding-left: 10px; 
+            margin-bottom: 20px; 
+        }
+        
+        .dept-content strong { color: #000; }
+        .dept-content a { color: #0056b3; text-decoration: none; }
+        .dept-content a:hover { text-decoration: underline; }
 
-    /* Accordion */
-    .link-list-container { list-style: none; padding: 0; margin: 0; }
-    .link-list-entry { margin-bottom: 5px; }
-    .single-link { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 12px 15px; border-radius: 5px; transition: all 0.2s; }
-    .single-link:hover { background-color: #f9f9f9; color: #397DB3; border-color: #397DB3; }
-    .accordion-btn { width: 100%; background-color: #fff; color: #333; cursor: pointer; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; text-align: left; outline: none; font-size: 1.1em; font-family: inherit; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
-    .accordion-btn:hover, .accordion-btn:focus { background-color: #f0f8ff; color: #397DB3; border-color: #397DB3; outline: 2px solid yellow; }
-    .accordion-btn[aria-expanded="true"] { background-color: #397DB3; color: #fff; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-    .accordion-btn[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
-    .acc-icon { transition: transform 0.3s ease; font-size: 0.8em; }
-    .accordion-panel { padding: 0; background-color: #fafafa; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; list-style: none; margin: 0; }
-    .accordion-panel[hidden] { display: none; }
-    .sub-link-item a { display: block; padding: 10px 15px 10px 30px; text-decoration: none; color: #555; border-bottom: 1px dashed #eee; transition: 0.2s; position: relative; }
-    .sub-link-item a:hover, .sub-link-item a:focus { background-color: #eee; color: #397DB3; padding-left: 35px; outline: 2px solid yellow; }
-    .sub-link-item a::before { content: '↳'; position: absolute; left: 15px; color: #999; font-size: 0.9em; }
-    .sub-link-item:last-child a { border-bottom: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 內頁專用 CSS */
-    .inner-wrapper { max-width: 1200px; margin: 2em auto; padding: 20px; background: #fff; min-height: 500px; display: flex; flex-direction: column; }
-    .breadcrumb { padding: 10px 0; margin-bottom: 20px; border-bottom: 1px solid #eee; font-size: 0.9em; color: #666; }
-    .breadcrumb a { color: #397DB3; text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; }
-    .page-title { font-size: 2em; color: #333; margin: 0 0 20px 0; border-left: 5px solid #397DB3; padding-left: 15px; line-height: 1.2; }
-    .page-content { font-size: 1.1em; line-height: 1.8; color: #333; }
-    .page-content img { max-width: 100%; height: auto; }
-    .page-content table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-    .page-content th, .page-content td { border: 1px solid #ddd; padding: 8px; }
-    .page-content th { background-color: #f2f2f2; color: #333; text-align: center; }
+        @media (max-width: 900px) {
+            .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
+            .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
+            .header-right { display: none; } .hamburger { display: block; }
+            .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
+            .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; }
+            .nav-menu.active { display: flex; } .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+            .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #397DB3; top: 0; }
+            .dropdown-content a { color: #fff; padding-left: 30px; }
+            .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; } /* 手機版改回方角並自動填滿 */
+        }
+    </style>
+</head>
+<body>
 
-/* 處室介紹專用樣式 */
-.dept-nav { margin-bottom: 20px; text-align: center; }
-.dept-buttons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.dept-btn { 
-    padding: 10px 20px; background-color: #004080; color: white; border: none; 
-    border-radius: 5px; cursor: pointer; min-width: 120px; font-size: 1.1em;
-}
-.dept-btn.active { background-color: #b30000; }
-.dept-content { 
-    display: none; background: #fff; padding: 20px; border-radius: 10px; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 20px; 
-}
-.dept-content.active { display: block; animation: deptFadeIn 0.5s; }
-@keyframes deptFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    <a href="#ac" class="skip-link" title="跳到主要內容區塊">跳到主要內容區塊</a>
 
-    .footer { background: #333; color: #fff; text-align: center; padding: 2em; margin-top: auto; }
-    .footer a { color: #fff; text-decoration: underline; } .footer a:hover { color: #ccc; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    @media (max-width: 900px) {
-        .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
-        .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
-        .header-right { display: none; } .hamburger { display: block; }
-        .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #397DB3; }
-        .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
-        .nav-container { flex-wrap: wrap; }
-        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; order: 3; }
-        .nav-menu.active { display: flex; } .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
-        .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #397DB3; top: 0; }
-        .dropdown-content a { color: #fff; padding-left: 30px; } .nav-item:hover .dropdown-content { display: block; }
-        .container { flex-direction: column; }
-        .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
-        .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
-        .col-row { flex-direction: column; padding: 10px; } .col-row-item { width: 100%; margin-bottom: 10px; }
-        .block-card.half-width { width: 100%; }
-        .sitemap-list { flex-direction: column; }
-    }
-</style>
-<style>
-                /* 佈局容器：維持 75em (約1200px) 限制，置中 */
-                .inner-layout { max-width: 75em; margin: 20px auto; padding: 0 20px; box-sizing: border-box; }
-                
-                /* 主要內容區：佔滿 100% */
-                .inner-main { width: 100%; background: #fff; padding: 40px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #eee; min-height: 600px; box-sizing: border-box; }
-                
-                /* 麵包屑 */
-                .breadcrumb { margin-bottom: 20px; font-size: 0.95em; color: #666; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
-                .breadcrumb a { text-decoration: none; color: #397DB3; } 
-                .breadcrumb a:hover { text-decoration: underline; }
-                
-                /* 文章標題 */
-                .page-title { font-size: 2.2em; color: #333; margin: 0 0 30px 0; padding-bottom: 15px; border-bottom: 3px solid #397DB3; line-height: 1.3; }
-                
-                /* 文章內容排版 */
-                .article-body { font-size: 1.25em; line-height: 1.8; color: #333; }
-                .article-body p { margin-bottom: 1.5em; text-align: justify; }
-                
-                .article-body h2 { font-size: 1.5em; color: #0056b3; margin-top: 1.5em; margin-bottom: 0.8em; border-left: 5px solid #0056b3; padding-left: 10px; }
-                .article-body h3 { font-size: 1.3em; color: #333; margin-top: 1.2em; margin-bottom: 0.6em; font-weight: bold; }
-                .article-body ul, .article-body ol { margin-bottom: 1.5em; padding-left: 2em; }
-                .article-body li { margin-bottom: 0.5em; }
-                .article-body img { max-width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 10px 0; }
-                
-                /* 表格美化 */
-                .article-body table { width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #ddd; }
-                .article-body th { background-color: #f2f2f2; color: #333; font-weight: bold; padding: 12px; border: 1px solid #ddd; text-align: center; white-space: nowrap; }
-                .article-body td { padding: 10px; border: 1px solid #ddd; }
-                .article-body tr:nth-child(even) { background-color: #fafafa; }
-                .article-body tr:hover { background-color: #f0f8ff; }
-
-                .article-body a { color: #007bff; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.2s; }
-                .article-body a:hover { color: #0056b3; border-bottom-color: #0056b3; }
-
-                @media (max-width: 900px) {
-                    .inner-layout { padding: 0 10px; }
-                    .inner-main { padding: 20px; }
-                    .page-title { font-size: 1.8em; }
-                }
-            </style>
-</head><body>
-<div class="header"><div class="header-left"><a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a><a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學"><img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" /><div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div></a></div>
-<div class="header-right">
-    <a href="index.html" class="header-btn" data-title="回首頁">🏠 回首頁</a>
-    <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
-    
-    <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
-        <input type="text" 
-               id="headerSearchInput" 
-               onkeyup="" 
-               placeholder="搜尋本站..." 
-               aria-label="搜尋網站" 
-               title="請輸入關鍵字">
-        <button type="submit" 
-                aria-label="搜尋" 
-                title="搜尋" 
-                >🔍</button>
-    </form>
-</div>
-<button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
-</div>
-
-<nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
-<li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">🏠 回首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
-<li class="nav-item">
-<a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
-<a href="01.html" target="_self" data-title="學校簡介">學校簡介</a>
-<a href="02.html" target="_self" data-title="處室介紹">處室介紹</a>
-</div>
-</li>
-<li class="nav-item">
-<a href="https://www.facebook.com/sanduogood/" target="_blank" title="三多粉絲頁 (另開新視窗)" class="nav-link">三多粉絲頁</a>
-</li>
-<li class="nav-item">
-<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/kids/" target="_blank" title="三多附幼 (另開新視窗)" class="nav-link">三多附幼</a>
-</li>
-<li class="nav-item">
-<a href="https://esa.ntpc.edu.tw/jsp/dailymgt/dailymgt.do?method=dal_Index&schno=014767" target="_blank" title="行事曆 (另開新視窗)" class="nav-link">行事曆</a>
-</li>
-<li class="nav-item">
-<a href="#" class="nav-link" aria-haspopup="true">影音相簿 ▼</a><div class="dropdown-content">
-<a href="https://sites.google.com/mail.sdes.ntpc.edu.tw/photos/%E9%A6%96%E9%A0%81" target="_blank" title="三多活動相簿 (另開新視窗)">三多活動相簿</a>
-<a href="https://www.youtube.com/channel/UCJ-ndH7KnIVFk1KoORtBfFw/playlists" target="_blank" title="三多活動影片 (另開新視窗)">三多活動影片</a>
-</div>
-</li>
-<li class="nav-item">
-<a href="#" class="nav-link" aria-haspopup="true">公務作業 ▼</a><div class="dropdown-content">
-<a href="http://cloud.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲 (另開新視窗)">新北市政府公務雲</a>
-<a href="https://cloud2.ntpc.gov.tw/" target="_blank" title="新北市政府公務雲(新) (另開新視窗)">新北市政府公務雲(新)</a>
-<a href="http://doc2.ntpc.gov.tw/" target="_blank" title="新北市二代公文 (另開新視窗)">新北市二代公文</a>
-<a href="https://esa.ntpc.edu.tw" target="_blank" title="校務行政系統 (另開新視窗)">校務行政系統</a>
-<a href="https://esa.ntpc.edu.tw/module/elec-bulletin/module/elec-bulletin/ap/newsp" target="_blank" title="教育局教育公告訊息 (另開新視窗)">教育局教育公告訊息</a>
-</div>
-</li>
-<li class="nav-item">
-<a href="https://drive.google.com/drive/u/0/folders/14FEFpXOjwmwuKz3RC_TipA-9bD07wVs7" target="_blank" title="檔案下載 (另開新視窗)" class="nav-link">檔案下載</a>
-</li>
-<li class="nav-item">
-<a href="https://ebook.ntpc.edu.tw/" target="_blank" title="新北市教育局電子書 (另開新視窗)" class="nav-link">新北市教育局電子書</a>
-</li>
-<li class="nav-item">
-<a href="https://esa.ntpc.edu.tw/web-maintain/templates/maintain_pub.html?schno=014767" target="_blank" title="設備維修 (另開新視窗)" class="nav-link">設備維修</a>
-</li>
-<li class="nav-item">
-<a href="https://esa.ntpc.edu.tw/web-classmgt/template/pub/pubmain.html?schno=014767" target="_blank" title="場地預約 (另開新視窗)" class="nav-link">場地預約</a>
-</li>
-<li class="nav-item mobile-only search-mobile-container"><form class="search-mobile" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;"><input type="text"  placeholder="搜尋站內連結..." aria-label="搜尋" title="請輸入關鍵字"><button type="submit" title="搜尋" >🔍</button></form></li></ul></div></nav>
-
-
-                <div class="banner-container" style="width:100%; max-width:100%;">
-                    <img src="images/banner.png" alt="學校橫幅" class="banner-img" style="width:100%; height:auto; display:block; object-fit:cover; max-height:400px;" />
+    <div class="header">
+        <div class="header-left">
+            <a href="#au" id="au" accesskey="U" title="上方功能區" class="access-key">:::</a>
+            <a href="index.html" class="logo-link" title="回首頁">
+                <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
+                <div class="school-text">
+                    <h1 class="school-title-cn">新北市樹林區三多國民小學</h1>
+                    <span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span>
                 </div>
-<div class="inner-layout">
-<main class="inner-main">
-<a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
-<div class="breadcrumb">
-                <a href="index.html">🏠 首頁</a> 
-                &gt; 
-                <span>處室介紹</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <a href="index.html" class="header-btn" title="回首頁">🏠 回首頁</a>
+            <a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">🗺️ 網站導覽</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">回首頁</a></li>
+                <li class="nav-item"><a href="01.html" class="nav-link">學校簡介</a></li>
+                <li class="nav-item"><a href="02.html" class="nav-link">處室介紹</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="inner-layout">
+        <main class="inner-main">
+            <a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
+            
+            <div class="breadcrumb">
+                <a href="index.html">🏠 首頁</a> &gt; <span aria-current="page">處室介紹</span>
             </div>
-<h1 class="page-title">處室介紹</h1>
-<div class="article-body">
-<DIV class=dept-nav>
-<DIV class=dept-buttons><BUTTON onclick="showDept('principal', this)" title=點擊顯示校長室介紹 class="dept-btn active">校長室</BUTTON><BUTTON onclick="showDept('academic', this)" title=點擊顯示教務處介紹 class=dept-btn>教務處</BUTTON><BUTTON onclick="showDept('student', this)" title=點擊顯示學務處介紹 class=dept-btn>學務處</BUTTON><BUTTON onclick="showDept('general', this)" title=點擊顯示總務處介紹 class=dept-btn>總務處</BUTTON><BUTTON onclick="showDept('counseling', this)" title=點擊顯示輔導處介紹 class=dept-btn>輔導處</BUTTON><BUTTON onclick="showDept('accounting', this)" title=點擊顯示會計室介紹 class=dept-btn>會計室</BUTTON><BUTTON onclick="showDept('personnel', this)" title=點擊顯示人事室介紹 class=dept-btn>人事室</BUTTON> </DIV></DIV>
-<DIV id=principal class="dept-content active">
-<H2>校長室</H2>
-<P><STRONG><FONT size=5>校長:洪珮瑀校長<BR>學校總機:26880698<BR>電話分機:110</FONT></STRONG></P><STRONG><FONT size=5>
-<P><BR>締造一個陽光普照的小學</P>
-<P>壹、前言</P>
-<P>在三多國小，我們一直有一個願望，就是希望締造「三多成為一個陽光普照的小學」。我們都知道陽光把她的「光與熱」大公無私的照耀在大地上，讓大地的所有生物得以各自生長，並且欣欣向榮。我們三多的老師們，也正猶如陽光般的散發「愛的光與熱」，並且讓每一個孩子都能在充滿「愛的光與熱」的照耀下，每天一早起床，就很樂意的想快快上學，在學校裡，能夠快樂的生活，快樂的學習。因此，我們期盼透過各種的教育活動學習，讓三多的孩子們每一天都過得好充實，每一天內心裡都充滿著希望……。</P>
-<P>貳、一個陽光普照的小學</P>
-<P>一個陽光普照的小學會是什麼樣的學校呢？我們期盼的一個陽光普照的小學風貌是：</P>
-<P>一、有人文的校風</P>
-<P>學校裡充滿著人文的氣息，和諧的情境，歡樂的笑聲，每一個人都有一顆善良的心，懂得愛人、關懷人與感受人家給與的恩惠；並且擁有誠懇的心，熱情的心，以及身體力行的行動力，有禮貌，愛整潔，講道理，守秩序。</P>
-<P>二、有優質的教育</P>
-<P>學校教育的內容與目標，著重啟發孩子們個人的學習潛能，培養學習的態度，強調探究與建構式的學習過程，培養學習興趣，養成基本能力。</P>
-<P>三、有活力的校園</P>
-<P>校園裡有良好的師生互動，以及密切的親師合作，行政能充分提供最好的教學資源與支援，讓教學活動在溫馨的情境中，可以順暢實現目標，使學校天天都充滿著活力與朝氣，老師教得快樂，學生學得也快樂。</P>
-<P>四、有健康的學生</P>
-<P>學校裡的每一個學生，都能夠受到老師們最周全的照顧，充分享受老師所給與的陽光般的愛，以及個別化的教學與生活輔導，個個身心健康，人格發展健全。</P>
-<P>參、締造一個陽光小學的策略</P>
-<P>締造一個陽光普照的小學有幾個實施的策略：</P>
-<P>一、推動有效率的行政目標管理</P>
-<P>學校行政的目標，其實就是要實現學校教育的目標，因此所有的學校行政措施，都應該符合教育的價值性、認知性與自願性為依歸，以充分發揮行政目標管理的高效率，實現學校願景。</P>
-<P>● 訂定校務發展計劃：依據學校歷史背景、現況及未來社區發展趨向，讓行政人員、 老師與家長參與共同研訂學校發展的短中長期計劃。</P>
-<P>● 行政目標明確：依據校務發展計劃，訂定學校各處室具有教育價值性的、明確的、可以執行的行政計劃與目標。</P>
-<P>● 行政組織健全：依據學校行政編制以及任務需要，安排適當人員擔任各項行政業務，並特別強調組織設置的必要性與組織結構的合理性、健全性。</P>
-<P>● 職掌分工合理明確：學校裡的每一位教職員工，都有明確的、合理的、適才適所的職掌分工。</P>
-<P>● 分層負責、團隊合作：特別強調其所扮演的角色職責，依法各司其職，分層負責，同時可以相互協調溝通，發揮團隊合作的行政效率。</P>
-<P>● 廣徵民意、誠懇行政：平時即以誠懇態度行政，要求做到公開、公正、合理、廉明，並建立民主機制，廣納家長及教職員工、學生意見，作為擬定行政方針與教學目標的參據。</P>
-<P>二、倡導有品質的專業教學</P>
-<P>有品質的專業教學，就是有受過教育專業培養的老師，運用專業的知能，表現在其教學活動的過程與內涵裡，讓學生很願意學，很快樂學，而且能夠依照教學計劃達到教學的目標。</P>
-<P>● 專業自主的班級經營：級任導師於新學年開始，即須研訂自己班級的經營計劃，經行政與同儕教師、家長共同討論審定後，則作為老師班級經營之依據，老師可以在班級經營與教學上充分發揮專業自主性，同時 也可以受到絕對的行政尊重。</P>
-<P>● 自我專業發展的創意教學：每一位教師都有其自我專業的專長領域，讓老師自我發揮其專業與專長，融合在教學活動中，發展出具創意的、活潑的、多元的教學，使班級教學更具生命力。</P>
-<P>● 教學群的協同合作教學：整合所有教職員工的專長能力，組織教學群實施協同合作教學，學生可以在學有專精的老師指導下，獲得更精緻化的學習成果。</P>
-<P>● 運用電腦輔助教學：學校裡有電腦教室以外，期望每班也都有兩部或三部電腦，不久的未來能從一年級開始全校即實施電腦教學，不僅教孩子們如何使用電腦，更重要的是運用電腦的科技性與蒐集資訊的便利性，作為各科教學的輔助工具，使學生的學習更寬廣、更豐富。</P>
-<P>● 建立班級網站實施補充教學：我們期盼建置學校以及班級的網站，讓學生與家長都能夠透過這個網站，與學校和老師互動，建立親師合作的夥伴關係，為孩子實施個別化、適性化的補充教學。</P>
-<P>● 外聘專長師資支援教學：由於學校師資的專長可能有所不足，所以我們希望規劃外聘一些專長師資，到學校為孩子教學授課，課程的安排非常多元活潑，學生可以同樣的獲得更豐富且多元的學習活動，並且還可以讓孩子的學習更多采多姿。</P>
-<P>三、實施有樂趣的多元教學活動</P>
-<P>學校的教學活動必須是多樣化的、有樂趣的，學生的學習才會有高昂的興趣，與期盼學習的動力。因此學校設計出多元的、有樂趣的各種學習活動，有些是教學的內容富有吸引力，有些則是教學活動的方式或教學的場所、情境，因不同的設計安排，而提高了學習的樂趣，增加了學習的效果。</P>
-<P>● 課堂教學：指一般在教室裡的教學活動，由於班級師生可以非常親近的互動，老師真正可以做到有教無類、因材施教的個別化與適性化的教學。</P>
-<P>● 戶外教學：把學習的場所擴大到教室外面，也許是在學校的校園裡，也許是在學校外的社區裡，以及所有可供學習的場所。學生可以藉由戶外實地觀察、探索等教學活動，擴大學習視野，增加學習成效。</P>
-<P>● 學藝活動：配合學習目標與學生的學習潛能、興趣、需求等，辦理各項學藝活動，讓學生融入在活動中學到各種的才藝、技能以及情意態度的涵養。</P>
-<P>● 體能活動：除了體育科的課程教學活動以外，期盼學年或班級在每天早晨七點半到八點的晨間時段，可以安排體育總動員活動，讓學生自願選擇自己喜歡的運動，由老師陪著一起活動，不僅可大大提高了學生上學的樂趣，也因為這短短的半小時體能活動，帶給師生一天充沛的活力，並在不知不覺中培養了運動的習慣，鍛鍊出健康的體能。</P>
-<P>● 主題單元活動與節令活動：配合時令節慶等，設計學習的單元主題活動，將學校各科課程與生活課程統整結合，讓學習活動更具有完整性的概念，組織性的認知，以及技能學習與情意涵養。</P>
-<P>● 兒童才藝發表：配合每個月的慶生會，由各班學生分組設計表演節目，讓兒童可以充分展現自己與團體合作的才藝，並從大家的掌聲中獲得自信心、成就感與歸屬感。</P>
-<P>● 兒童說故事：運用晨間學生朝會時間，每週安排一天為學生說故事的時間，讓學生把閱讀過的故事書，練習說給全班師生聽，不僅可以訓練學生的閱讀能力，同時可以訓練學生的組織能力、說話能力、表達能力。</P>
-<P>● 培養一人一技與一人一藝：期望全校每一個學生都要學會吹奏直笛、口風琴或是畫畫、捏陶，還要學會一種生活技能，如製作小點心、小蛋糕、餅乾，或是墾土種菜、種植花木等，以豐富孩子們的生活內涵，並增添生活的樂趣。</P>
-<P>● 社區服務：定期安排高年段師生到社區做街道清潔服務，一方面培養學生的服務觀念與熱忱，另方面也培養學生的愛鄉情懷與環保觀念。</P>
-<P>四、發揮經濟效益的教學資源運用</P>
-<P>學校可運用的教育資源，包括社區內的古蹟文物、自然景物，以及學校裡的校園景觀、建築設施、教學設備等。我們期盼這些教育資源，都能充分的被使用在各科的教學活動裡，讓它們都可以發揮最有效的教育功能，而且發揮最大的經濟效益。</P>
-<P>● 建立教學資源檔案與目錄：運用電腦建立學校各種教學資源檔案與分類目錄，方便老師快速檢索運用，減少老師做教學準備時，搜尋教學資源的時間。</P>
-<P>● 訂定教學資源管理與借用辦法：科學化的管理辦法讓老師借用方便，而激發老師樂意使用各科教學媒體資源，提昇教學內容品質。</P>
-<P>● 公開教學設備經費並鼓勵申購所需：公開教學設備經費，讓老師討論需求的項目，並鼓勵主動申購建置，以充實教學設備，發揮最大的教學經濟效益。</P>
-<P>● 鼓勵編擬補充教材與自製教具：鼓勵老師合作編擬補充教材與自製教具，讓教材、教具具有本土化、多樣化，學習更豐富。</P>
-<P>五、敞開校門，提供學校教育資源予社區分享</P>
-<P>學校裡有很豐富而且很新穎的教育資源，白天讓孩子使用，晚上則提供給社區民眾分享，不僅可以使教育資源發揮最大的經濟效益，同時可以藉由社區教育的推展，而滿足社區民眾的求知欲，培養社區民眾終身學習的精神，引導社區向上發展。</P>
-<P>● 辦理各項成人教育班：配合社區民眾的需求，辦理成人基本教育班、成人英語班、成人電腦班、成人技能、才藝班，讓學校成為社區民眾終身學習的場所。</P>
-<P>● 提供學校場地做為社區活動的場所：學校是社區的文教中心與精神堡壘，因此學校配合社區活動提供可使用的場地，推動學校社區化，使學校成為社區的重要資源，推動社區學校化，也讓社區成為學校珍貴的教育資源。</P>
-<P>● 提供學校人力資源為社區服務：學校有組織嚴密的人力資源，可以依照專長加以分工整合，主動參與社區活動，為社區奉獻服務，建立學校與社區的良好互動關係，使社區與學校共同成長。</P>
-<P>● 有效組織家長義工，服務學校與社區：鼓勵家長依自己專長、能力與時間組織義工隊，到學校指導學生非正式的課程學習，或是協助學校推展有教育意義的社區服務課程，讓家長成為孩子的學習楷模，孩子也能跟著家長、老師一起為學校與社區服務、奉獻。</P>
-<P>六、營造美麗的校園教學環境</P>
-<P>學校是孩子學習成長過程中一個主要的學習場所，必須是整潔的、舒適的、美麗的、清幽的環境，學生在這樣的校園裡學習，心靈自然清淨無邪，其知能學習與品德涵養亦自然可獲得事半功倍的教育成效。因此校園的教學環境，應該有整體的規劃設計，所有的建築設施，花草樹木等都應具有境教價值的教育功能性。</P>
-<P>● 教材園的規劃：配合學校課程學習內容，校園環境規劃成教材園，使學校處處都是學習的教學資源，隨時隨地都可以提供教學的材料。</P>
-<P>● 學習步道的設計：運用校園空間佈置學習步道，讓孩子漫步在學習步道中，便學習到一些正式或非正式的課程內容，進而激發孩子們的學習動力。</P>
-<P>● 校園景觀設計：強調美麗、舒適、清朗、明亮的校園景觀設計，以蘊含溫馨、朝氣、活力、希望的校園情境，讓老師學生都孕育在這樣的情境中，而涵養高尚的品格情操與人文氣質。</P>
-<P>● 校園空間的設計與運用：強調空間的開闊性以及視野的遠大性，讓孩子們能夠在開闊的空間盡情的活動，也讓孩子們能夠看得遠，以涵養孩子們開闊的胸襟，健全的人格以及遠大的抱負。</P>
-<P>● 校園環境的維護與安全管理措施：校園環境的維護與安全管理，除了有總務處訂定管理與維護辦法以外，讓全校的師生共同認養維護與整理，以培養學生愛護學校、愛護大自然的情懷，並建構師生對環境安全的認知與緊急應變的能力。</P>
-<P>肆、結語</P>
-<P>「締造一個陽光普照的學校」，這是我們為三多國小描繪的願景，我們期望能在這樣一個充滿著陽光、充滿著愛的學校環境中，不僅培養孩子們良好的基礎教育與基本能力，更期望能培養孩子們善良的心靈與情意，讓孩子們能夠從心靈深處去感受人世間的「真與善、愛與美」，同時也感受大自然的情意與事物間的道理，以涵養「愛人惜物」與「尊天敬地」的感恩情懷，學會「尊重、關懷與感恩」，「誠懇、熱心與力行」的善良品德，與高尚的人格情操，並且讓每一個孩子都能夠各自發展潛能，適性成長與茁壯，成為快樂活潑、充滿信心、積極樂觀、向善向上發展的二十一世紀新世代，並進而能奉獻自己，服務鄉里與社會，成為國家未來的主人翁。</FONT></STRONG></P></DIV>
-<DIV id=academic class=dept-content>
-<H2>教務處</H2>
-<P><STRONG><FONT size=5>教務主任:蔡主任<BR>學校總機:26880698<BR>電話分機:120<BR>工作職掌：<BR>1. 綜理教務行政業務。<BR>2. 統籌規劃教務之專案工作及執行監督。<BR>3. 辦理校園巡堂業務並追蹤改善情事。<BR>4. 臨時人員之甄選、管理事宜。<BR>5. 職級務編排事宜。<BR>6. 辦理教師員額控管及甄補事宜<BR>7. 規劃辦理教師專業成長事宜(社群、共備、領域)。<BR>8. 遴報特殊優良教師事宜。<BR>9. 辦理代理代課教師服務績效評量事宜。<BR>10. 辦理公開觀課事宜及評鑑事宜。<BR>11. 實設班級數之報請核定事宜。<BR>12. 彙辦校務評鑑工作。<BR>13. 彙辦行政工作。<BR>14. 新聞發言人。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>教學組長:譚組長<BR>學校總機:26880698<BR>電話分機:121<BR>工作職掌：<BR>1. 辦理教師專業成長及教師進修研究等事宜<BR>2. 推行課程發展委員會及學習領域課程小組事宜<BR>3. 辦理學校課程計畫備查。<BR>4. 排編日課表及教師授課表。<BR>5. 教師差假管理及調、代、補課事宜。<BR>6. 教師鐘點費請領。<BR>7. 教師缺額統計及填報。<BR>8. 教學支援人員進用及管理事項。<BR>9. 協辦教師甄選工作。<BR>10. 辦理校內語文競賽及參加語文競賽事宜。<BR>11. 推動教學相關之活動與比賽。<BR>12. 辦理各項能力檢測及後續改善追蹤事宜。<BR>13. 辦理定期評量業務。<BR>14. 辦理學生作業及家庭聯絡簿調閱事宜。<BR>15. 學生假期(寒暑假)作業彙辦事宜。<BR>16. 辦理鄉土教育及語言相關事宜。<BR>17. 規劃辦理教學觀摩等相關事宜。<BR>18. 策劃及督導班級教學環境布置事宜。<BR>19. 辦理學生作業調閱事宜。<BR>20. 其他臨時交辦業務 。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>設備組長:廖組長<BR>學校總機:26880698<BR>電話分機:122<BR>工作職掌：<BR>1.專科教室、圖書室、教具室之規劃與管理。<BR>2.教學設備採購規劃及維護。<BR>3.教科書評選業務及訂購核銷事宜。<BR>4.簿本及美勞教材的評選及訂購事宜。<BR>5.辦理校內學生美展及優良作文展覽事宜。<BR>6.教科書(含教具)分發及回收管理事宜<BR>7.圖書館業務管理及推動學生閱讀活動業務。<BR>8.辦理校外作文及硬筆書法等競賽。<BR>9.辦理校內書法及童軍社團等相關業務。<BR>10.校外作文及硬筆書法等競賽活動。<BR>11.充實各項教學環境事項<BR>12.其他臨時交辦業務。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>註冊組長:江組長<BR>學校總機:26880698<BR>電話分機:123<BR>工作職掌：<BR>1. 學生學籍資料管理。<BR>2. 辦理新生入學報到。<BR>3. 辦理學生轉出/入業務。<BR>4. 辦理學生編班及公開抽籤之相關業務。<BR>5. 辦理學生在學(成績)證明書、畢業證明書申請。<BR>6. 學生成績處理、獎勵及學期成績單之核閱。<BR>7. 辦理學生各項獎(助)學金申請及就學補助事宜。<BR>8. 辦理中輟生通報。<BR>9. 辦理畢業生升學作業流程。<BR>10. 畢業典禮籌辦。<BR>11. 學生社福補助資料彙整。<BR>12. 其他臨時交辦業務。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>資訊組長:許組長<BR>學校總機:26880698<BR>電話分機:125(主機房)、124(教務處辦公室)<BR>工作職掌：<BR>1. 電腦教室、班級及科任教室電腦管理及維護。<BR>2. 學校網站建置、管理、維護事宜。<BR>3. 規劃設計有關學生資訊教育課程。<BR>4. 校內網路線路配置及維護。<BR>5. 其他與資訊教育相關事宜。<BR>6. 其他臨時交辦業務。</FONT></STRONG></P></DIV>
-<DIV id=student class=dept-content>
-<H2>學務處</H2>
-<P><STRONG><FONT size=5>學務主任:陳主任<BR>學校總機:26880698<BR>電話分機:130<BR>工作職掌：<BR>1.綜理學務處業務。<BR>2.擬訂學務工作計畫、行事曆、整編及執行學務經費預算。<BR>3.籌辦各項慶典、活動、校際活動事宜。<BR>4.督導與執行學生輔導管教辦法。<BR>5.督導與執行校園安全事件處理事項。<BR>6.督導與執行學生偶發事件處理。<BR>7.其他臨時交辦事項。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>生教組長:張組長<BR>學校總機:26880698<BR>電話分機:131<BR>工作職掌：<BR>1.擬訂及推行各項生活教育計畫事項。<BR>2.辦理防範犯罪、防制學生濫用藥物、消除菸害及防制校園暴力、維護校園安全等工作事宜。<BR>3.擬訂處理學生請假、缺課、中輟、生活常規問題事項。<BR>4.辦理學生儀典活動、組訓司儀隊事項。<BR>5.辦理交通安全教育、學校導護工作及編排導護輪值、組訓學生糾察隊事項。<BR>6.校內各項防震、防汛、防災演習等學生防護工作及緊急避難訓練。<BR>7.執行學生輔導管教辦法、校園安全事件處理事項及處理學生偶發事件。<BR>8.各項補助業務:仁愛基金、教育儲蓄專戶等。<BR>9.其他臨時交辦事項。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>衛生組長:李組長<BR>學校總機:26880698<BR>電話分機:134<BR>工作職掌：<BR>1.擬訂各項環境及衛生教育工作章則。<BR>2.辦理學校環境衛生及整潔活動教育事項。<BR>3.辦理學生視力保健、口腔衛生等健康促進工作及健康檢查及協助預防接接種事項。<BR>4.辦理衛生保健宣導、比賽測驗及衛生保健資料統計、分析及彙報事項。<BR>5.學校餐飲衛生管理。<BR>6.辦理垃圾分類、資源回收及環保教育事項。<BR>7.辦理弱勢學生早午餐補助事項。<BR>8.其他臨時交辦事項。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>訓育組長:莊組長<BR>學校總機:26880698<BR>電話分機:132<BR>工作職掌：<BR>1.辦理校內外學生各項才藝競賽及表演活動。<BR>2.辦理品德教育及宣導。<BR>3.規劃童軍團活動。<BR>4.辦理民主法治教育、兩公約宣導。<BR>5.推行服務學習、校園服務活動。<BR>6.計畫推展各項社團之組訓、活動與參賽工作。<BR>7.規劃敬師活動、兒童節活動及禮品選購。<BR>8.選拔孝悌楷模、模範兒童及其他優良事蹟兒童之表揚。<BR>9.辦理感恩音樂會、感恩游藝會等活動。<BR>10.規劃寒暑期學生營隊活動等事項。<BR>11.其他臨時交辦事項。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>體育組長:王組長<BR>學校總機:26880698<BR>電話分機:133<BR>工作職掌：<BR>1.辦理各項體育活動與競賽。<BR>2.計畫與辦理學校暨社區聯合運動會。<BR>3.辦理學生體適能測驗及學生體育成績之考查、統計與報告。<BR>4.計畫推展各項體育性團隊、社團之組訓、活動與參賽工作。<BR>5.運動場所及體育設備之管理與維護事項。<BR>6.辦理健康操及課間活動事項。<BR>7.推展重點運動項目協辦事宜。<BR>8.辦理學生課後運動社團活動。<BR>9.其他臨時交辦事項。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>護理師:陳小姐<BR>學校總機:26880698<BR>電話分機:116<BR>護士:羅唯恕<BR>學校總機:26880698<BR>電話分機:117<BR>工作職掌：<BR>1.推動健康中心事務。<BR>2.辦理健康檢查及預防接種事宜。<BR>3.定期實施學生身高體重測量、視力保健、口腔衛生、尿液篩檢及缺點矯治、複查等衛保工作。<BR>4.新生預防接種卡查卡、登錄統計，臨時疫苗接種事宜。<BR>5.辦理事故傷害、緊急救護、聯繫、監測與照護事宜。<BR>6.辦理特殊疾病個案管理工作。<BR>7.辦理各項傳染病防制宣導、防疫工作及上傳報表等相關事宜。<BR>8.協助推展健康促進學校衛生保健之工作。<BR>9.辦理學生平安保險事宜。<BR>10.辦理健康資料記錄、管理、統計、呈報事宜。<BR>11.衛生保健器材、藥品之使用維護與整備事宜。<BR>12.其他臨時交辦事項。</FONT></STRONG></P></DIV>
-<DIV id=general class=dept-content>
-<H2>總務處</H2>
-<P><STRONG><FONT size=5>總務主任:蔡主任<BR>學校總機:26880698<BR>電話分機:140<BR>工作職掌：<BR>&nbsp;<BR>事務組長:鐘先生<BR>校總機:26880698<BR>電話分機:145<BR>工作職掌：<BR>&nbsp;<BR>出納組長:林小姐<BR>學校總機:26880698<BR>電話分機:141<BR>工作職掌：<BR>&nbsp;<BR>文書組長:王組長<BR>學校總機:26880698<BR>電話分機:142<BR>工作職掌：<BR>&nbsp;<BR>幹事:林小姐<BR>學校總機:26880698<BR>電話分機:143<BR>工作職掌：<BR>&nbsp;<BR>學校總機:26880698<BR>李小姐<BR>電話分機:146<BR>工作職掌：<BR>李小姐<BR>電話分機:115<BR>工作職掌：<BR>&nbsp;<BR>警衛:王先生、劉先生<BR>學校總機:26880698<BR>電話分機:111</FONT></STRONG></P></DIV>
-<DIV id=counseling class=dept-content>
-<H2>輔導處</H2>
-<P><STRONG><FONT size=5>輔導主任:黃主任<BR>學校總機:26880698<BR>電話分機:150<BR>工作職掌：<BR>(一)綜理輔導處各項業務。<BR>(二)彙整辦理原住民族重點暨特色學校計畫（太陽計畫）。<BR>(三)辦理國際教育相關業務。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>輔導組長:詹組長<BR>學校總機:26880698<BR>電話分機:151(輔導處辦公室)<BR>工作職掌：<BR>(一) 辦理學生個案研究與輔導並建立相關資料。<BR>(二) 處理輔導信箱函件並策劃輔導專欄之建置。<BR>(三) 辦理中途輟學學生之追蹤輔導。<BR>(四) 辦理兒少保護、憂鬱自傷、家暴等之防治通報與追蹤輔導事宜。<BR>(五) 規劃及辦理認輔工作事宜。<BR>(六) 辦理團體、新生始業及休閒生活輔導等事項。<BR>(七) 協助教師規劃班級輔導策略及執行。<BR>(八) 提供輔導諮詢服務及相關協助。<BR>(九) 學生輔導成效之追蹤。<BR>(十) 彙辦友善校園-學生事務與輔導工作事宜。<BR>(十一) 推展性別平等教育與生命教育之教學及輔導活動。<BR>(十二) 辦理學生補救教學事宜。<BR>(十三)辦理幸福保衛站相關業務。<BR>(十四)其他臨時交辦業務。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>資料組長:潘組長<BR>學校總機:26880698<BR>電話分機:152<BR>工作職掌：<BR>(一) 協助級任教師建立及管理學生輔導資料。<BR>(二) 管理輔導室相關資料、書籍及教材教具。<BR>(三) 蒐集各種學生輔導測驗工具並協助教師應用。<BR>(四) 辦理各項輔導測驗及結果之分析、製表與運用。<BR>(五) 辦理生涯發展教育之教學及輔導活動。<BR>(六) 建立畢業生追蹤輔導資料。<BR>(七) 辦理小一新生迎生活動、家長日活動、認識師長活動。<BR>(八) 辦理家庭訪視及親職教育有關活動並提供相關資訊。<BR>(九) 辦理終身學習等社會教育推動事宜。<BR>(十) 爭取並連繫家庭及社會資源並建構完整輔導資源網絡。<BR>(十一)辦理家庭教育相關業務。<BR>(十二)辦理志工服務推廣工作。<BR>(十三)辦理新住民教育及外籍配偶華語學習專班相關業務。<BR>(十四)規劃與辦理「多元文化教育」事項<BR>(十五)辦理課後照顧班相關業務。<BR>(十六)辦理教育優先區相關業務。<BR>(十七)其他臨時交辦業務。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>特教組長:丁組長<BR>學校總機:26880698<BR>電話分機:155<BR>工作職掌：<BR>(一)特殊教育計畫及章則之擬訂。<BR>(二)特殊教育計畫及章則之擬訂。<BR>(三)身心障礙學生之教學輔導及個案管理事項。<BR>(四)鑑定及安置各類資賦優異班學生之事項。<BR>(五)辦理特殊教育教師之教學研究及輔導工作事項。<BR>(六)督導個別化教育計畫或方案實施事項。<BR>(七)辦理特殊教育班學生個案研究與輔導事項。<BR>(八)協助教師從事各班特殊學生之教育與輔導之事項。<BR>(九)辦理特殊教育學生之親職教育。<BR>(十)辦理資賦優異學生縮短修業年限及資優教育方案事宜。<BR>(十一)特殊教育活動宣導事項。<BR>(十二)組織及運作特殊教育推行委員會事項。<BR>(十三)視障學生課本及教材購置與製作事項。<BR>(十四)辦理特殊教育學生教學輔具事項。<BR>(十五)辦理無法自行上下學學生交通車接送及交通補助費事宜。<BR>(十六)申請身心障礙學生各項獎助學金、教育代金補助等事項。<BR>(十七)辦理特殊教育學生通報事項。<BR>(十八)辦理特殊教育學生之調查及就學輔導事項。<BR>(十九)辦理特殊教育畢業學生之追蹤輔導事項。<BR>(二十)推動特殊教育實施方案。<BR>(二十一)其他臨時交辦業務。</FONT></STRONG></P>
-<P><STRONG><FONT size=5>專輔教師:黃老師、王老師<BR>學校總機:26880698<BR>電話分機:153<BR>工作職掌：<BR>(一)發展性輔導<BR>每週授課班級輔導。<BR>心理測驗的實施、結果解釋與運用。<BR>提供親師生輔導相關資訊。<BR>主講教師輔導知能講座。<BR>規劃並執行學生輔導相關講座。<BR>依學生需求設計輔導相關議題團體輔導教案提供教師參考運用。<BR>全校學生個案服務之管理工作。<BR>輔導資源網絡的聯繫與運用。<BR>(二)介入性輔導<BR>參與學生個案相關會議。<BR>個案輔導與記錄。<BR>小團體輔導與記錄。<BR>特殊個案學生之家庭訪視。<BR>因應突發與危機事件進行相關人員之團體輔導。<BR>(三)親師諮詢<BR>提供親師生輔導相關專業知能之諮詢服務。<BR>(四)專業成長<BR>參加教育局辦理之督導課程。<BR>參加教育局辦理之輔導專業在職訓練課程。<BR>(五) 執行學校交辦之相關輔導工作。</FONT></STRONG></P></DIV>
-<DIV id=accounting class=dept-content>
-<H2>會計室</H2>
-<P><STRONG><FONT size=5>會計主任:羅小姐<BR>聯絡電話:26880698#112</FONT></STRONG></P></DIV>
-<DIV id=personnel class=dept-content>
-<H2>人事室</H2>
-<P><STRONG><FONT size=5>人事室主任:陳小姐<BR>電話：02-26880698#113<BR>電子郵件：</FONT></STRONG><A href="mailto:aa3418@ntpc.gov.tw"><STRONG><FONT size=5>aa3418@ntpc.gov.tw</FONT></STRONG></A></P></DIV>
-<SCRIPT>
-function showDept(id, btn) {
-    document.querySelectorAll('.dept-content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.dept-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-}
-</SCRIPT>
-</div>
-</main>
-</div>
-<footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
-</div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
-</body></html>
+
+            <h1 class="page-title">處室介紹</h1>
+
+            <div class="dept-nav">
+                <div class="dept-buttons">
+                    <button type="button" class="dept-btn active" onclick="showDept('principal', this)">校長室</button>
+                    <button type="button" class="dept-btn" onclick="showDept('academic', this)">教務處</button>
+                    <button type="button" class="dept-btn" onclick="showDept('student', this)">學務處</button>
+                    <button type="button" class="dept-btn" onclick="showDept('general', this)">總務處</button>
+                    <button type="button" class="dept-btn" onclick="showDept('counseling', this)">輔導處</button>
+                    <button type="button" class="dept-btn" onclick="showDept('accounting', this)">會計室</button>
+                    <button type="button" class="dept-btn" onclick="showDept('personnel', this)">人事室</button>
+                </div>
+            </div>
+
+            <div id="principal" class="dept-content active">
+                <h2>校長室</h2>
+                <p><strong>校長: 洪珮瑀校長</strong><br>學校總機: 26880698<br>電話分機: 110</p>
+                <hr style="border:0; border-top:1px dashed #ccc; margin:20px 0;">
+                <p><strong>締造一個陽光普照的小學</strong></p>
+                <p>在三多國小，我們一直有一個願望，就是希望締造「三多成為一個陽光普照的小學」。我們都知道陽光把她的「光與熱」大公無私的照耀在大地上，讓大地的所有生物得以各自生長，並且欣欣向榮。</p>
+                <p>我們三多的老師們，也正猶如陽光般的散發「愛的光與熱」，並且讓每一個孩子都能在充滿「愛的光與熱」的照耀下，每天一早起床，就很樂意的想快快上學，在學校裡，能夠快樂的生活，快樂的學習。</p>
+                <p><strong>願景目標：</strong></p>
+                <ul>
+                    <li>有人文的校風</li>
+                    <li>有優質的教育</li>
+                    <li>有活力的校園</li>
+                    <li>有健康的學生</li>
+                </ul>
+            </div>
+
+            <div id="academic" class="dept-content">
+                <h2>教務處</h2>
+                <p><strong>教務主任: 蔡主任</strong><br>電話分機: 120<br>工作職掌：綜理教務行政業務、統籌規劃教務之專案工作及執行監督、新聞發言人。</p>
+                <br>
+                <p><strong>教學組長: 譚組長</strong><br>電話分機: 121<br>工作職掌：辦理教師專業成長、排編日課表、辦理語文競賽、定期評量業務、調閱作業等。</p>
+                <br>
+                <p><strong>設備組長: 廖組長</strong><br>電話分機: 122<br>工作職掌：專科教室及圖書室管理、教學設備採購、教科書評選、推動閱讀活動。</p>
+                <br>
+                <p><strong>註冊組長: 江組長</strong><br>電話分機: 123<br>工作職掌：學生學籍管理、新生入學、轉出入、成績證明、獎助學金申請。</p>
+                <br>
+                <p><strong>資訊組長: 許組長</strong><br>電話分機: 125(主機房)、124(辦公室)<br>工作職掌：電腦教室管理、學校網站維護、校內網路維護、資訊教育推動。</p>
+            </div>
+
+            <div id="student" class="dept-content">
+                <h2>學務處</h2>
+                <p><strong>學務主任: 陳主任</strong><br>電話分機: 130<br>工作職掌：綜理學務處業務、籌辦各項慶典活動、督導學生輔導管教及校園安全。</p>
+                <br>
+                <p><strong>生教組長: 張組長</strong><br>電話分機: 131<br>工作職掌：生活教育、防制霸凌、校園安全、交通導護、學生請假及偶發事件處理。</p>
+                <br>
+                <p><strong>訓育組長: 莊組長</strong><br>電話分機: 132<br>工作職掌：社團活動、才藝競賽、品德教育、模範生選拔、寒暑期營隊。</p>
+                <br>
+                <p><strong>體育組長: 王組長</strong><br>電話分機: 133<br>工作職掌：體育活動競賽、運動會、體適能測驗、運動場所及設備管理。</p>
+                <br>
+                <p><strong>衛生組長: 李組長</strong><br>電話分機: 134<br>工作職掌：環境衛生、資源回收、傳染病防治、健康檢查、學校午餐衛生管理。</p>
+                <br>
+                <p><strong>健康中心 (護理師/護士)</strong><br>電話分機: 116 / 117<br>工作職掌：學生傷病處理、健康檢查、預防接種、傳染病通報。</p>
+            </div>
+
+            <div id="general" class="dept-content">
+                <h2>總務處</h2>
+                <p><strong>總務主任: 蔡主任</strong><br>電話分機: 140<br>工作職掌：綜理總務處業務、校園規劃、營繕工程督導。</p>
+                <br>
+                <p><strong>事務組長: 鐘先生</strong><br>電話分機: 145<br>工作職掌：校舍修繕、財產管理、物品採購、校園綠美化、工友管理。</p>
+                <br>
+                <p><strong>出納組長: 林小姐</strong><br>電話分機: 141<br>工作職掌：現金出納、薪資發放、註冊費收繳、憑證編製。</p>
+                <br>
+                <p><strong>文書組長: 王組長</strong><br>電話分機: 142<br>工作職掌：公文收發、檔案管理、校務會議記錄、印信典守。</p>
+                <br>
+                <p><strong>警衛室</strong><br>電話分機: 111<br>工作職掌：門禁管制、校園安全巡邏。</p>
+            </div>
+
+            <div id="counseling" class="dept-content">
+                <h2>輔導處</h2>
+                <p><strong>輔導主任: 黃主任</strong><br>電話分機: 150<br>工作職掌：綜理輔導處業務、原住民族重點學校計畫、國際教育。</p>
+                <br>
+                <p><strong>輔導組長: 詹組長</strong><br>電話分機: 151<br>工作職掌：學生個案輔導、中輟生追蹤、性平教育、生命教育、親師諮詢。</p>
+                <br>
+                <p><strong>資料組長: 潘組長</strong><br>電話分機: 152<br>工作職掌：學生輔導資料、特教業務、親職教育、志工推廣、多元文化教育。</p>
+                <br>
+                <p><strong>特教組長: 丁組長</strong><br>電話分機: 155<br>工作職掌：身心障礙學生安置、資優教育、個別化教育計畫(IEP)、特教通報。</p>
+                <br>
+                <p><strong>專輔教師: 黃老師、王老師</strong><br>電話分機: 153<br>工作職掌：個別輔導、小團體輔導、心理測驗解釋、危機事件安心服務。</p>
+            </div>
+
+            <div id="accounting" class="dept-content">
+                <h2>會計室</h2>
+                <p><strong>會計主任: 羅小姐</strong><br>聯絡電話: 26880698 #112</p>
+                <p>業務執掌：辦理歲計、會計及統計事項。</p>
+            </div>
+
+            <div id="personnel" class="dept-content">
+                <h2>人事室</h2>
+                <p><strong>人事主任: 陳小姐</strong><br>電話：02-26880698 #113<br>電子郵件：<a href="mailto:aa3418@ntpc.gov.tw">aa3418@ntpc.gov.tw</a></p>
+                <p>業務執掌：辦理教職員工任免、敘薪、遷調、考核、獎懲、退休、撫卹、保險、訓練進修及其他人事管理事項。</p>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a>
+        <div style="line-height: 1.8; margin-bottom: 15px;">
+            <div class="address">地址：238035 新北市樹林區三福街52號<br />
+            代表號：(02)26880698（<a href="ext.html" target="_self" style="color:#fff;">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+        </div>
+    </footer>
+
+    <script>
+        // 手機版選單切換
+        document.getElementById('hamburger').addEventListener('click', function() { 
+            var menu = document.getElementById('nav-menu'); 
+            menu.classList.toggle('active'); 
+        });
+
+        // 處室切換邏輯
+        function showDept(id, btn) {
+            // 1. 隱藏所有內容
+            document.querySelectorAll('.dept-content').forEach(function(content) {
+                content.classList.remove('active');
+            });
+
+            // 2. 移除所有按鈕的 active 狀態
+            document.querySelectorAll('.dept-btn').forEach(function(button) {
+                button.classList.remove('active');
+            });
+
+            // 3. 顯示目標內容
+            var target = document.getElementById(id);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // 4. 設定按鈕為 active
+            if (btn) {
+                btn.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
