@@ -212,6 +212,11 @@
                 .node-sub-link { text-decoration: none; color: #666; font-size: 0.95em; display: block; padding: 3px 5px; }
                 .node-sub-link:hover { color: #d63031; text-decoration: underline; }
                 .node-sub-link::before { content: counter(main-counter) '-' counter(sub-counter) '-' counter(third-counter) ' . '; color: #888; font-size: 0.9em; }
+                
+                /* 搜尋高亮與提示 */
+                .highlight { background-color: yellow; color: black; }
+                #no-result-msg { display: none; color: #d63031; font-size: 1.2em; font-weight: bold; text-align: center; padding: 30px; border: 2px dashed #ff7675; background: #fff0f0; margin-top: 20px; border-radius: 8px; }
+
                 @media (max-width: 600px) { .sitemap-wrapper { padding: 15px; } .sitemap-sub-tree > li { width: 100%; } }
             </style>
 </head><body>
@@ -307,7 +312,8 @@
 <p style="margin-top:10px; font-size:0.9em; color:#666;">※ 註：Firefox 請搭配 Alt+Shift 使用。</p>
 </div>
 <div class="sitemap-content">
-<ul class="sitemap-tree">
+<div id="no-result-msg">查無相關資料，請嘗試其他關鍵字。</div>
+<ul class="sitemap-tree" id="sitemapTree">
 <li>
 <span class="node-h1">主要選單</span>
 <ul class="sitemap-sub-tree">
@@ -475,4 +481,84 @@
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
 代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
+<script>
+            function performLocalSearch() {
+                var input = document.getElementById('siteSearch') || document.getElementById('mobileSearchInput');
+                if(!input) return;
+                var filter = input.value.trim().toLowerCase();
+                var tree = document.getElementById('sitemapTree');
+                var lis = tree.getElementsByTagName('li');
+                var msg = document.getElementById('no-result-msg');
+                var foundCount = 0;
+
+                // 1. 先全部隱藏
+                for (var i = 0; i < lis.length; i++) {
+                    lis[i].style.display = 'none';
+                }
+
+                if (filter === '') {
+                    // 空值：全部顯示
+                    for (var i = 0; i < lis.length; i++) lis[i].style.display = 'block';
+                    msg.style.display = 'none';
+                    return;
+                }
+
+                // 2. 搜尋符合的連結
+                var links = tree.getElementsByTagName('a');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    var txt = link.textContent || link.innerText;
+                    if (txt.toLowerCase().indexOf(filter) > -1) {
+                        // 找到符合的連結，將其所有父層 li 顯示出來
+                        var p = link.parentElement; // li
+                        while (p && p !== tree) {
+                            if (p.tagName === 'LI') {
+                                p.style.display = 'block';
+                                // 讓該 li 下的直接子 ul 也顯示 (如果有的話)
+                                var childUl = p.querySelector('ul');
+                                if(childUl) {
+                                    // 這裡可以選擇是否展開所有子層，目前邏輯是只要父層顯示，子層結構會在
+                                }
+                            }
+                            p = p.parentElement;
+                        }
+                        foundCount++;
+                    }
+                }
+                
+                // 3. 處理純文字節點 (如區塊標題 span)
+                var spans = tree.getElementsByTagName('span');
+                for (var i = 0; i < spans.length; i++) {
+                    var txt = spans[i].textContent || spans[i].innerText;
+                    if (txt.toLowerCase().indexOf(filter) > -1) {
+                        var p = spans[i].parentElement;
+                        while (p && p !== tree) {
+                            if (p.tagName === 'LI') p.style.display = 'block';
+                            p = p.parentElement;
+                        }
+                        foundCount++;
+                    }
+                }
+
+                // 4. 顯示/隱藏 無資料訊息
+                if (foundCount === 0) {
+                    msg.style.display = 'block';
+                } else {
+                    msg.style.display = 'none';
+                }
+            }
+
+            // 初始化：檢查網址參數 ?q=...
+            window.onload = function() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var q = urlParams.get('q');
+                if (q) {
+                    var input = document.getElementById('siteSearch');
+                    if(input) {
+                        input.value = q;
+                        performLocalSearch();
+                    }
+                }
+            };
+            </script>
 </body></html>
