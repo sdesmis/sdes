@@ -245,20 +245,23 @@
                    aria-label="搜尋網站" 
                    title="請輸入關鍵字">
 <button type="submit" 
-                    aria-label="搜尋" 
-                    title="搜尋" 
-                    >🔍</button>
+        aria-label="搜尋" 
+        title="搜尋" 
+        >
+        <span aria-hidden="true">🔍</span>
+</button>
 </form>
 </div>
 <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
 </div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
-<li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">🗺️ 網站導覽</a></li>
+<li class="nav-item mobile-only"><a href="index.html" class="nav-link" data-title="回首頁">首頁</a></li><li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" data-title="網站導覽">網站導覽</a></li>
 <li class="nav-item">
 <a href="#" class="nav-link" aria-haspopup="true">認識三多 ▼</a><div class="dropdown-content">
 <a href="01.html" target="_self" data-title="學校簡介">學校簡介</a>
 <a href="02.html" target="_self" data-title="處室介紹">處室介紹</a>
+<a href="ext.html" target="_self" data-title="電話分機表">電話分機表</a>
 </div>
 </li>
 <li class="nav-item">
@@ -307,7 +310,7 @@
 <main class="inner-main">
 <a href="#ac" id="ac" accesskey="C" title="主要內容區" class="access-key">:::</a>
 <div class="breadcrumb">
-                <a href="index.html">首頁</a> 
+                <a href="index.html"> 首頁</a> 
                 > 
                 <span aria-current="page">學校簡介</span>
             </div>
@@ -323,7 +326,7 @@
 </main>
 </div>
 <footer class="footer"><a href="#ab" id="ab" accesskey="B" title="下方功能區" class="access-key" style="color:#ccc;">:::</a><div style="line-height: 1.8; margin-bottom: 15px;"><div class="address">地址：238035 新北市樹林區三福街52號<br />
-代表號：(02)26880698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)26886461｜學生請假專線：(02)2689-5230</div>
+代表號：(02)2688-0698（<a href="ext.html" target="_self" data-title="分機表">分機表</a>）｜傳真：(02)2688-6461｜學生請假專線：(02)2689-5230</div>
 </div></footer><script>document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });</script>
 <script>
             function showDept(id, btn) {
