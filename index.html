@@ -5,39 +5,16 @@
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f9f9f9; }
     
-    /* 無障礙跳過區塊 */
+    /* 無障礙跳過區塊 (符合 AAA 規範) */
     .skip-link { position: absolute; top: -9999px; left: 0; background: #000; color: #fff; padding: 10px; z-index: 99999; text-decoration: none; font-weight: bold; border-radius: 0 0 5px 0; }
     .skip-link:focus { top: 0; }
 
-    /* 通用 AccessKey 樣式 */
-    .access-key { color: #fff; text-decoration: none; font-size: 0.9em; padding: 0 5px; cursor: help; }
-    .access-key:focus { outline: 2px solid yellow; color: #fff; }
+    .access-key { color: #666; text-decoration: none; font-size: 0.9em; padding: 5px; cursor: help; }
+    .access-key:focus { outline: 2px solid blue; color: #000; }
     
-    /* ★★★ 修改：最上方導覽列 (Top Nav) - 靠右對齊 ★★★ */
-    .top-nav { 
-        background-color: #397DB3; 
-        color: #fff; 
-        padding: 5px 20px; 
-        display: flex; 
-        justify-content: flex-end; /* 全部內容靠右 */
-        align-items: center; 
-        font-size: 0.95em; 
-    }
-    
-    /* 導覽列連結群組 */
-    .top-nav-items { 
-        display: flex; 
-        gap: 15px; /* 項目之間的間距 */
-        align-items: center; 
-    }
-    
-    .top-nav a { color: #fff; text-decoration: none; transition: opacity 0.2s; }
-    .top-nav a:hover { text-decoration: underline; opacity: 0.9; }
-    
-    /* 頁首 Header (Logo區塊) */
-    .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; border-bottom: 1px solid #eee; }
+    /* 頁首 Header */
+    .header { background: #fff; padding: 10px 20px; border-bottom: 5px solid #397DB3; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
-    
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
     .logo-link:hover { opacity: 0.8; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -73,7 +50,7 @@
     .mobile-only { display: none; }
     
     /* 橫幅 Banner */
-    .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 0; }
+    .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 10px; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     
     /* 頁尾 Footer */
@@ -99,15 +76,31 @@
     [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
     
     /* 連結列表 LinkList */
-    .link-list-container { list-style: none; padding: 0; margin: 0; }
-    .link-list-entry { list-style: none; margin-bottom: 5px; }
+    /* ★★★ 修正：確保文字連結在最上層，且無圓點 ★★★ */
+    .link-list-item { 
+        display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; 
+        padding: 10px 15px; margin-bottom: 5px; border-radius: 5px; transition: all 0.2s ease; 
+        font-size: 1.1em; line-height: 1.4; position: relative; 
+    }
+    .link-list-item:hover { 
+        background-color: #f9f9f9; border-color: #bbb; color: #397DB3; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); transform: translateY(-1px);
+        z-index: 1000;
+    }
     
     .single-link { display: block; text-decoration: none; color: #333; background-color: #fff; border: 1px solid #ddd; padding: 12px 15px; border-radius: 5px; transition: all 0.2s; }
     .single-link:hover { background-color: #f9f9f9; color: #397DB3; border-color: #397DB3; }
     
-    /* 圖片連結 */
-    a.img-link { display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; transition: transform 0.2s; position: relative; overflow: visible; }
-    a.img-link:hover { transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1000; }
+    /* 圖片連結 (Image Link) */
+    a.img-link { 
+        display: block; text-align: center; margin-bottom: 5px; text-decoration: none; border: 1px solid #eee; padding: 5px; border-radius: 5px; 
+        transition: transform 0.2s; position: relative; overflow: visible; 
+    }
+    a.img-link:hover { 
+        transform: scale(1.02); box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        z-index: 1000; 
+    }
+    
     a.img-link img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
     .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: #fff; padding: 5px; text-align: center; font-size: 1em; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 10; }
     a.img-link:hover .img-caption { opacity: 1; }
@@ -116,7 +109,6 @@
     .html-content p { margin: 0 0 0.5em 0; }
     .html-content img { max-width: 100%; height: auto; }
     
-    /* 輪播與跑馬燈 */
     .carousel-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; border-radius: 5px; min-height: 200px; }
     .carousel-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; list-style: none; padding: 0; margin: 0; scrollbar-width: none; -ms-overflow-style: none; }
     .carousel-list::-webkit-scrollbar { display: none; }
@@ -124,6 +116,7 @@
     @media (min-width: 901px) { .carousel-container.cols-3 .carousel-item { flex: 0 0 33.2%; width: 33.2%; } }
     .carousel-item .carousel-caption { position: absolute !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background: rgba(0, 0, 0, 0.7) !important; color: #fff !important; padding: 10px !important; font-size: 1.1em !important; margin: 0 !important; opacity: 0 !important; transition: opacity 0.3s ease-in-out !important; pointer-events: none; z-index: 10; box-sizing: border-box; text-align: center !important; }
     .carousel-item:hover .carousel-caption, .carousel-item:focus-within .carousel-caption { opacity: 1 !important; }
+    
     .control-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 6px 12px; margin-top: -20px; color: white; font-weight: bold; font-size: 1em; transition: 0.6s ease; border: none; user-select: none; background-color: rgba(0,0,0,0.3); text-decoration: none; z-index: 101; }
     .control-btn:hover, .control-btn:focus { background-color: rgba(0,0,0,0.8); outline: 2px solid yellow; }
     .prev { left: 0; border-radius: 0 3px 3px 0; } .next { right: 0; border-radius: 3px 0 0 3px; }
@@ -133,6 +126,7 @@
     .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; border: none; display: inline-block; transition: background-color 0.6s ease; padding: 0; }
     .dot.active, .dot:hover, .dot:focus { background-color: #717171; outline: 2px solid blue; }
 
+    /* Marquee & Accordion */
     .marquee-container { position: relative; overflow: hidden; background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 5px 5px 5px 90px; display: flex; align-items: center; height: 40px; }
     .marquee-controls { position: absolute; left: 0; top: 0; bottom: 0; width: 85px; background: #fff; color: #397DB3; z-index: 10; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; border-right: 1px solid #eee; }
     .marquee-btn { background: #fff; border: 1px solid #397DB3; color: #397DB3; cursor: pointer; font-size: 0.8em; padding: 2px 5px; margin-left: 5px; border-radius: 3px; }
@@ -145,6 +139,11 @@
     .marquee-item::before { content: '📢 '; margin-right: 3px; }
     @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
+    .link-list-container { list-style: none; padding: 0; margin: 0; }
+    
+    /* ★★★ 修正重點：強制列表項目無樣式 (去除黑點) ★★★ */
+    .link-list-entry { list-style: none; margin-bottom: 5px; }
+    
     .accordion-btn { width: 100%; background-color: #fff; color: #333; cursor: pointer; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; text-align: left; outline: none; font-size: 1.1em; font-family: inherit; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
     .accordion-btn:hover, .accordion-btn:focus { background-color: #f0f8ff; color: #397DB3; border-color: #397DB3; outline: 2px solid yellow; }
     .accordion-btn[aria-expanded="true"] { background-color: #397DB3; color: #fff; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
@@ -173,7 +172,6 @@
         .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
         .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
         .sitemap-list { flex-direction: column; }
-        .top-nav { display: none; } /* 手機版隱藏上方條，節省空間 */
     }
 
     /* 處室介紹按鈕與內容樣式 */
@@ -193,20 +191,16 @@
 </style>
 </head><body>
 <a href="#ac" class="skip-link">跳到主要內容區塊</a>
-<div class="top-nav">
-<div class="top-nav-items">
-<a href="#au" id="au" accesskey="U" title="上方功能區" class="access-key">:::</a>
-<a href="index.html" title="回首頁">首頁</a>
-<a href="sitemap.html" title="網站導覽">網站導覽</a>
-</div>
-</div>
 <div class="header">
 <div class="header-left">
+<a href="#am" id="am" accesskey="M" title="網站導覽區" class="access-key">:::</a>
 <a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學">
 <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
 <div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div>
 </a></div>
 <div class="header-right">
+<a href="index.html" class="header-btn" data-title="回首頁">首頁</a>
+<a href="sitemap.html" class="header-btn" title="網站導覽 (Alt+M)" accesskey="M">網站導覽</a>
 <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
 <label for="headerSearchInput" class="sr-only">搜尋關鍵字</label>
 <input type="text" 
@@ -216,11 +210,11 @@
                    aria-label="搜尋網站" 
                    title="請輸入關鍵字">
 <button type="submit" 
-                    aria-label="搜尋" 
-                    title="搜尋" 
-                    >
-                    <span aria-hidden="true">🔍</span>
-            </button>
+        aria-label="搜尋" 
+        title="搜尋" 
+        >
+        <span aria-hidden="true">🔍</span>
+</button>
 </form>
 </div>
 <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
@@ -386,8 +380,8 @@
 <div class="center-content-wrapper">
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-Cd807f13c" data-cols="1">
-<button type="button" class="pause-btn" onclick="togglePause('Cd807f13c')" aria-label="暫停輪播">II 暫停</button>
+<div class="carousel-container" id="carousel-Cc8a16c34" data-cols="1">
+<button type="button" class="pause-btn" onclick="togglePause('Cc8a16c34')" aria-label="暫停輪播">II 暫停</button>
 <ul class="carousel-list">
 <li class="carousel-item">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: inherit; height: 100%;">
@@ -414,11 +408,11 @@
 </div>
 </li>
 </ul>
-<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'Cd807f13c')" aria-label="上一組內容">❮</button>
-<button type="button" class="control-btn next" onclick="moveSlide(1, 'Cd807f13c')" aria-label="下一組內容">❯</button>
+<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'Cc8a16c34')" aria-label="上一組內容">❮</button>
+<button type="button" class="control-btn next" onclick="moveSlide(1, 'Cc8a16c34')" aria-label="下一組內容">❯</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Cd807f13c'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Cc8a16c34'); });</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
