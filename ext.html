@@ -13,13 +13,13 @@
     .access-key { color: #fff; text-decoration: none; font-size: 0.9em; padding: 0 5px; cursor: help; }
     .access-key:focus { outline: 2px solid yellow; color: #fff; }
     
-    /* ★★★ 修改：最上方導覽列 (Top Nav) - 靠右對齊 ★★★ */
+    /* 上方導覽列 (Top Nav) - 靠右對齊 */
     .top-nav { 
         background-color: #397DB3; 
         color: #fff; 
         padding: 5px 20px; 
         display: flex; 
-        justify-content: flex-end; /* 全部內容靠右 */
+        justify-content: flex-end; 
         align-items: center; 
         font-size: 0.95em; 
     }
@@ -27,7 +27,7 @@
     /* 導覽列連結群組 */
     .top-nav-items { 
         display: flex; 
-        gap: 15px; /* 項目之間的間距 */
+        gap: 15px; 
         align-items: center; 
     }
     
@@ -93,8 +93,9 @@
     .block-card > *:last-child { margin-bottom: 0 !important; }
     h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.1em; margin-bottom: 8px; margin-top: 0; }
     
-    /* 提示文字 Tooltip 樣式 */
+    /* ★★★ 修正重點：提示文字 Tooltip 樣式 ★★★ */
     [data-title] { position: relative; }
+    [data-title]:hover { z-index: 1000; } /* 新增這行：讓被滑過的連結浮到最上層，避免被下方內容遮住 */
     [data-title]:hover::after { content: attr(data-title); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; color: #333; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; white-space: nowrap; font-size: 0.9em; z-index: 99999; pointer-events: none; margin-top: 8px; }
     [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
     
@@ -173,7 +174,7 @@
         .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
         .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
         .sitemap-list { flex-direction: column; }
-        .top-nav { display: none; } /* 手機版隱藏上方條，節省空間 */
+        .top-nav { display: none; } 
     }
 
     /* 處室介紹按鈕與內容樣式 */
@@ -236,7 +237,7 @@
 </div>
 <div class="header">
 <div class="header-left">
-<a href="index.html" class="logo-link" data-title="新北市樹林區三多國民小學">
+<a href="index.html" class="logo-link" data-title="返回首頁">
 <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
 <div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div>
 </a></div>
