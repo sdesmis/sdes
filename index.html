@@ -13,13 +13,13 @@
     .access-key { color: #fff; text-decoration: none; font-size: 0.9em; padding: 0 5px; cursor: help; }
     .access-key:focus { outline: 2px solid yellow; color: #fff; }
     
-    /* ★★★ 修改：最上方導覽列 (Top Nav) - 靠右對齊 ★★★ */
+    /* 上方導覽列 (Top Nav) - 靠右對齊 */
     .top-nav { 
         background-color: #397DB3; 
         color: #fff; 
         padding: 5px 20px; 
         display: flex; 
-        justify-content: flex-end; /* 全部內容靠右 */
+        justify-content: flex-end; 
         align-items: center; 
         font-size: 0.95em; 
     }
@@ -27,7 +27,7 @@
     /* 導覽列連結群組 */
     .top-nav-items { 
         display: flex; 
-        gap: 15px; /* 項目之間的間距 */
+        gap: 15px; 
         align-items: center; 
     }
     
@@ -93,8 +93,9 @@
     .block-card > *:last-child { margin-bottom: 0 !important; }
     h2.block-title { font-size: 1.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.1em; margin-bottom: 8px; margin-top: 0; }
     
-    /* 提示文字 Tooltip 樣式 */
+    /* ★★★ 修正重點：提示文字 Tooltip 樣式 ★★★ */
     [data-title] { position: relative; }
+    [data-title]:hover { z-index: 1000; } /* 新增這行：讓被滑過的連結浮到最上層，避免被下方內容遮住 */
     [data-title]:hover::after { content: attr(data-title); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; color: #333; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 4px; white-space: nowrap; font-size: 0.9em; z-index: 99999; pointer-events: none; margin-top: 8px; }
     [data-title]:hover::before { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; margin-top: -4px; border-width: 6px; border-style: solid; border-color: transparent transparent #fff transparent; z-index: 99999; }
     
@@ -173,7 +174,7 @@
         .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
         .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
         .sitemap-list { flex-direction: column; }
-        .top-nav { display: none; } /* 手機版隱藏上方條，節省空間 */
+        .top-nav { display: none; } 
     }
 
     /* 處室介紹按鈕與內容樣式 */
@@ -385,8 +386,8 @@
 <div class="center-content-wrapper">
 <div class="block-card">
 <h2 class="block-title" id="blk-center-0" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C7475167c" data-cols="1">
-<button type="button" class="pause-btn" onclick="togglePause('C7475167c')" aria-label="暫停輪播">II 暫停</button>
+<div class="carousel-container" id="carousel-Ce6de4b02" data-cols="1">
+<button type="button" class="pause-btn" onclick="togglePause('Ce6de4b02')" aria-label="暫停輪播">II 暫停</button>
 <ul class="carousel-list">
 <li class="carousel-item">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: inherit; height: 100%;">
@@ -413,11 +414,11 @@
 </div>
 </li>
 </ul>
-<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'C7475167c')" aria-label="上一組內容">❮</button>
-<button type="button" class="control-btn next" onclick="moveSlide(1, 'C7475167c')" aria-label="下一組內容">❯</button>
+<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'Ce6de4b02')" aria-label="上一組內容">❮</button>
+<button type="button" class="control-btn next" onclick="moveSlide(1, 'Ce6de4b02')" aria-label="下一組內容">❯</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C7475167c'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Ce6de4b02'); });</script>
 </div>
 <div class="block-card">
 <h2 class="block-title" id="blk-center-1" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
