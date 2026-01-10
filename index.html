@@ -405,8 +405,8 @@
 <div class="center-content-wrapper">
 <div class="block-card" id="blk-center-0">
 <h2 class="block-title" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-Cb125efe9" data-cols="1">
-<button type="button" class="pause-btn" onclick="togglePause('Cb125efe9')" aria-label="暫停輪播">II 暫停</button>
+<div class="carousel-container" id="carousel-Cf90a5971" data-cols="1">
+<button type="button" class="pause-btn" onclick="togglePause('Cf90a5971')" aria-label="暫停輪播">II 暫停</button>
 <ul class="carousel-list">
 <li class="carousel-item">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: inherit; height: 100%;">
@@ -433,11 +433,11 @@
 </div>
 </li>
 </ul>
-<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'Cb125efe9')" aria-label="上一組內容">❮</button>
-<button type="button" class="control-btn next" onclick="moveSlide(1, 'Cb125efe9')" aria-label="下一組內容">❯</button>
+<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'Cf90a5971')" aria-label="上一組內容">❮</button>
+<button type="button" class="control-btn next" onclick="moveSlide(1, 'Cf90a5971')" aria-label="下一組內容">❯</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Cb125efe9'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Cf90a5971'); });</script>
 </div>
 <div class="block-card" id="blk-center-1">
 <h2 class="block-title" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
@@ -615,6 +615,15 @@
                 mybutton.addEventListener('click', function(e) {
                     e.preventDefault(); 
                     window.scrollTo({top: 0, behavior: 'smooth'}); 
+                    
+                    // 點擊後將焦點移回最上方的 Skip Link，讓使用者知道已回到頂部
+                    var skipLink = document.querySelector('.skip-link');
+                    if (skipLink) {
+                        skipLink.focus();
+                    } else {
+                        document.body.tabIndex = -1;
+                        document.body.focus();
+                    }
                 });
             </script>
 <script> 

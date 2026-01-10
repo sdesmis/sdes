@@ -547,10 +547,8 @@
                 </div>
             </footer>
             
-            <a href="#" id="backToTop" class="back-to-top" title="回到頁首">
+            <a href="#" id="backToTop" class="back-to-top" title="回到頁首" aria-label="回到頁首">
                 <span aria-hidden="true">▲</span>
-                
-                <span class="sr-only">回到頁首</span>
             </a>
 
             <script>
@@ -572,10 +570,19 @@
                     }
                 };
                 
-                // 點擊事件：平滑捲動回頂部
+                // 點擊事件
                 mybutton.addEventListener('click', function(e) {
                     e.preventDefault(); 
                     window.scrollTo({top: 0, behavior: 'smooth'}); 
+                    
+                    // 點擊後將焦點移回最上方的 Skip Link，讓使用者知道已回到頂部
+                    var skipLink = document.querySelector('.skip-link');
+                    if (skipLink) {
+                        skipLink.focus();
+                    } else {
+                        document.body.tabIndex = -1;
+                        document.body.focus();
+                    }
                 });
             </script>
 <script>

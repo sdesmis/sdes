@@ -360,9 +360,8 @@
                 </div>
             </footer>
             
-            <a href="#" id="backToTop" class="back-to-top" title="回到頁首">
+            <a href="#" id="backToTop" class="back-to-top" title="回到頁首" aria-label="回到頁首">
                 <span aria-hidden="true">▲</span>
-                <span class="sr-only">回到頁首</span>
             </a>
 
             <script>
@@ -374,16 +373,30 @@
 
                 // 回到頂部按鈕控制
                 var mybutton = document.getElementById("backToTop");
-                window.onscroll = function() { scrollFunction() };
-
-                function scrollFunction() {
-                    // 當捲動超過 300px 時顯示按鈕
+                
+                // 監聽捲動：超過 300px 才顯示
+                window.onscroll = function() { 
                     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                         mybutton.style.display = "block";
                     } else {
                         mybutton.style.display = "none";
                     }
-                }
+                };
+                
+                // 點擊事件
+                mybutton.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    window.scrollTo({top: 0, behavior: 'smooth'}); 
+                    
+                    // 點擊後將焦點移回最上方的 Skip Link，讓使用者知道已回到頂部
+                    var skipLink = document.querySelector('.skip-link');
+                    if (skipLink) {
+                        skipLink.focus();
+                    } else {
+                        document.body.tabIndex = -1;
+                        document.body.focus();
+                    }
+                });
             </script>
 <script>
             function showDept(id, btn) {
