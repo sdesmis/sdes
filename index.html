@@ -405,8 +405,8 @@
 <div class="center-content-wrapper">
 <div class="block-card" id="blk-center-0">
 <h2 class="block-title" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C110110db" data-cols="1">
-<button type="button" class="pause-btn" onclick="togglePause('C110110db')" aria-label="暫停輪播">II 暫停</button>
+<div class="carousel-container" id="carousel-Cc8d2eeec" data-cols="1">
+<button type="button" class="pause-btn" onclick="togglePause('Cc8d2eeec')" aria-label="暫停輪播">II 暫停</button>
 <ul class="carousel-list">
 <li class="carousel-item">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: inherit; height: 100%;">
@@ -433,11 +433,11 @@
 </div>
 </li>
 </ul>
-<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'C110110db')" aria-label="上一組內容">❮</button>
-<button type="button" class="control-btn next" onclick="moveSlide(1, 'C110110db')" aria-label="下一組內容">❯</button>
+<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'Cc8d2eeec')" aria-label="上一組內容">❮</button>
+<button type="button" class="control-btn next" onclick="moveSlide(1, 'Cc8d2eeec')" aria-label="下一組內容">❯</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C110110db'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('Cc8d2eeec'); });</script>
 </div>
 <div class="block-card" id="blk-center-1">
 <h2 class="block-title" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
@@ -588,9 +588,8 @@
                 </div>
             </footer>
             
-            <a href="#" id="backToTop" class="back-to-top" title="回到頁首">
+            <a href="#" id="backToTop" class="back-to-top" title="回到頁首" aria-label="回到頁首">
                 <span aria-hidden="true">▲</span>
-                <span class="sr-only">回到頁首</span>
             </a>
 
             <script>
@@ -600,18 +599,33 @@
                     menu.classList.toggle('active'); 
                 });
 
-                // 回到頂部按鈕控制
                 var mybutton = document.getElementById("backToTop");
-                window.onscroll = function() { scrollFunction() };
 
-                function scrollFunction() {
-                    // 當捲動超過 300px 時顯示按鈕
+                // 監聽捲動：超過 300px 才顯示
+                window.onscroll = function() { 
                     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                         mybutton.style.display = "block";
                     } else {
                         mybutton.style.display = "none";
                     }
-                }
+                };
+
+                // ★★★ 點擊後的無障礙處理 ★★★
+                mybutton.addEventListener('click', function(e) {
+                    e.preventDefault(); // 防止網址列多出 #
+                    window.scrollTo({top: 0, behavior: 'smooth'}); // 平滑捲動
+                    
+                    // 關鍵：捲動後，將焦點 (Focus) 移回頁面最上方的 Skip Link
+                    // 這樣報讀軟體會接著唸「跳到主要內容區塊」，使用者就知道真的回到上面了
+                    var skipLink = document.querySelector('.skip-link');
+                    if (skipLink) {
+                        skipLink.focus();
+                    } else {
+                        // 如果找不到 skip-link，就聚焦在 body
+                        document.body.tabIndex = -1;
+                        document.body.focus();
+                    }
+                });
             </script>
 <script> 
 var carouselState = {};
