@@ -5,18 +5,29 @@
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f9f9f9; scroll-behavior: smooth; }
     
-    /* ... (中間省略，保持原本的 skip-link, nav, header 等樣式) ... */
-    
+    /* 無障礙跳過區塊 */
     .skip-link { position: absolute; top: -9999px; left: 0; background: #000; color: #fff; padding: 10px; z-index: 99999; text-decoration: none; font-weight: bold; border-radius: 0 0 5px 0; }
     .skip-link:focus { top: 0; }
+
+    /* 通用 AccessKey 樣式 */
     .access-key { color: #fff; text-decoration: none; font-size: 0.9em; padding: 0 5px; cursor: help; }
     .access-key:focus { outline: 2px solid yellow; color: #fff; }
     
-    .top-nav { background-color: #397DB3; color: #fff; padding: 5px 20px; display: flex; justify-content: flex-end; align-items: center; font-size: 0.95em; }
+    /* 上方導覽列 (Top Nav) */
+    .top-nav { 
+        background-color: #397DB3; 
+        color: #fff; 
+        padding: 5px 20px; 
+        display: flex; 
+        justify-content: flex-end; 
+        align-items: center; 
+        font-size: 0.95em; 
+    }
     .top-nav-items { display: flex; gap: 15px; align-items: center; }
     .top-nav a { color: #fff; text-decoration: none; transition: opacity 0.2s; }
     .top-nav a:hover { text-decoration: underline; opacity: 0.9; }
     
+    /* Header 與 Logo */
     .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; border-bottom: 1px solid #eee; }
     .header-left { display: flex; align-items: center; flex-wrap: wrap; }
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; }
@@ -31,6 +42,7 @@
     .search-header input { border: none; outline: none; padding: 0 10px; font-size: 1em; width: 150px; background: transparent; }
     .search-header button { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #397DB3; padding: 0 8px; display: flex; align-items: center; }
     
+    /* 導覽列 Navbar */
     .navbar { background-color: #397DB3; }
     .nav-container { max-width: 100%; margin: 0 auto; padding: 0 10px; }
     .nav-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
@@ -46,31 +58,29 @@
     .hamburger { display: none; background: none; border: none; color: #397DB3; font-size: 2.5em; cursor: pointer; position: absolute; top: 15px; right: 20px; }
     .mobile-only { display: none; }
     
+    /* 橫幅 Banner */
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 0; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     
-    /* 頁尾基本樣式 */
-    .footer { background: #333; color: #fff; margin-top: auto; width: 100%; }
-    .footer a { color: #fff; text-decoration: underline; } 
-    .footer a:hover { color: #ccc; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-
-    /* ★★★ 這裡插入判斷好的 Footer CSS (原本樣式 vs 自訂樣式) ★★★ */
-    
+    /* 頁尾 Footer */
+    .footer { 
+        background: #333; 
+        color: #fff; 
+        margin-top: auto; 
+        width: 100%; 
+    }
     .footer-container { 
         width: 98%;          
         margin: 0 auto;      
         padding: 2em 0;      
-        text-align: left;  /* ★ 直接依照選單設定對齊 (left/center/right) */
+        text-align: left;    
         box-sizing: border-box;
     }
+    .footer a { color: #fff; text-decoration: underline; } 
+    .footer a:hover { color: #ccc; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
     
-    /* 標章區塊與上方文字保持一點距離 */
-    .footer-badge { margin-top: 15px; }
-    .footer-badge img { max-height: 50px; width: auto; }
-    
-
-    /* 其他區塊樣式 */
+    /* 其他樣式 */
     .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; justify-content: center; }
     .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
     .col-center { width: 60%; flex: 0 1 60%; }
@@ -129,6 +139,38 @@
     .marquee-item::before { content: '📢 '; margin-right: 3px; }
     @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
+    .accordion-btn { width: 100%; background-color: #fff; color: #333; cursor: pointer; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; text-align: left; outline: none; font-size: 1.1em; font-family: inherit; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+    .accordion-btn:hover, .accordion-btn:focus { background-color: #f0f8ff; color: #397DB3; border-color: #397DB3; outline: 2px solid yellow; }
+    .accordion-btn[aria-expanded="true"] { background-color: #397DB3; color: #fff; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .accordion-btn[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
+    .acc-icon { transition: transform 0.3s ease; font-size: 0.8em; }
+    .accordion-panel { padding: 0; background-color: #fafafa; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; list-style: none; margin: 0; }
+    .accordion-panel[hidden] { display: none; }
+    .sub-link-item a { display: block; padding: 10px 15px 10px 30px; text-decoration: none; color: #555; border-bottom: 1px dashed #eee; transition: 0.2s; position: relative; }
+    .sub-link-item a:hover, .sub-link-item a:focus { background-color: #eee; color: #397DB3; padding-left: 35px; outline: 2px solid yellow; }
+    .sub-link-item a::before { content: '↳'; position: absolute; left: 15px; color: #999; font-size: 0.9em; }
+    .sub-link-item:last-child a { border-bottom: none; }
+
+    /* RWD */
+    @media (max-width: 900px) {
+        .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
+        .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
+        .header-right { display: none; } .hamburger { display: block; }
+        .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #397DB3; }
+        .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
+        .nav-container { flex-wrap: wrap; }
+        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; order: 3; }
+        .nav-menu.active { display: flex; } .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #397DB3; top: 0; }
+        .dropdown-content a { color: #fff; padding-left: 30px; } .nav-item:hover .dropdown-content { display: block; }
+        .container { flex-direction: column; }
+        .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
+        .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
+        .sitemap-list { flex-direction: column; }
+        .top-nav { display: none; } 
+    }
+
+    /* 處室介紹按鈕與內容樣式 */
     .dept-nav { margin-bottom: 30px; }
     .dept-buttons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; border-bottom: 1px solid #eee; padding-bottom: 20px; }
     .dept-btn { padding: 10px 25px; background-color: #fff; color: #555; border: 1px solid #ccc; border-radius: 50px; cursor: pointer; font-size: 1.1em; transition: all 0.3s ease; font-family: inherit; font-weight: bold; min-width: 100px; }
@@ -143,8 +185,9 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 900px) { .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; } }
 
+    /* ★★★ 回到頂部按鈕 (AAA 規範) ★★★ */
     .back-to-top {
-        display: none; 
+        display: none; /* 預設隱藏，透過 JS 控制顯示 */
         position: fixed;
         bottom: 30px;
         right: 30px;
@@ -152,18 +195,18 @@
         font-size: 1.5em;
         border: none;
         outline: none;
-        background-color: #000; 
-        color: #fff;            
+        background-color: #000; /* 純黑背景，對比度最高 */
+        color: #fff;            /* 純白文字 */
         cursor: pointer;
         padding: 10px 15px;
-        border-radius: 50%;     
+        border-radius: 50%;     /* 圓形 */
         text-decoration: none;
         box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         opacity: 0.8;
         transition: opacity 0.3s, background-color 0.3s;
     }
     .back-to-top:hover { opacity: 1; background-color: #397DB3; }
-    .back-to-top:focus { outline: 3px solid yellow; opacity: 1; background-color: #397DB3; } 
+    .back-to-top:focus { outline: 3px solid yellow; opacity: 1; background-color: #397DB3; } /* 鍵盤焦點 */
 </style>
 <style>
                 /* ★★★ 修正：max-width 改用 em (相對單位)，符合 AAA 規範 (CS3140801C) ★★★ */
@@ -305,7 +348,6 @@
 </div>
 <footer class="footer">
                 <div class="footer-container">
-                    
                     <div style="margin-bottom: 5px;">
                         <a href="#ah" id="ah" accesskey="H" title="下方功能區" class="access-key" style="color:#ccc;">:::</a>
                     </div>
@@ -315,11 +357,6 @@
 電話：<a href="tel:0226880698" data-title="撥打電話">(02)2688-0698</a> (<a href="ext.html" target="_self" data-title="分機表">分機表</a>) | 傳真：(02)2688-6461<br>
 統一編號：01973620 | 機關代碼：382089400Y
                     </div>
-
-                    <div class="footer-badge">
-                        
-                    </div>
-                
                 </div>
             </footer>
             
@@ -328,10 +365,38 @@
             </a>
 
             <script>
-                document.getElementById('hamburger').addEventListener('click', function() { var menu = document.getElementById('nav-menu'); menu.classList.toggle('active'); });
+                // 漢堡選單控制
+                document.getElementById('hamburger').addEventListener('click', function() { 
+                    var menu = document.getElementById('nav-menu'); 
+                    menu.classList.toggle('active'); 
+                });
+
+                // 回到頂部按鈕控制
                 var mybutton = document.getElementById("backToTop");
-                window.onscroll = function() { if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) mybutton.style.display = "block"; else mybutton.style.display = "none"; };
-                mybutton.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); var skipLink = document.querySelector('.skip-link'); if (skipLink) skipLink.focus(); else { document.body.tabIndex = -1; document.body.focus(); } });
+                
+                // 監聽捲動：超過 300px 才顯示
+                window.onscroll = function() { 
+                    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                        mybutton.style.display = "block";
+                    } else {
+                        mybutton.style.display = "none";
+                    }
+                };
+                
+                // 點擊事件
+                mybutton.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    window.scrollTo({top: 0, behavior: 'smooth'}); 
+                    
+                    // 點擊後將焦點移回最上方的 Skip Link，讓使用者知道已回到頂部
+                    var skipLink = document.querySelector('.skip-link');
+                    if (skipLink) {
+                        skipLink.focus();
+                    } else {
+                        document.body.tabIndex = -1;
+                        document.body.focus();
+                    }
+                });
             </script>
 <script>
             function showDept(id, btn) {
