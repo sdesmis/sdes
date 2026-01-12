@@ -1,11 +1,9 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>學校簡介 - 新北市樹林區三多國民小學</title>
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>學校篤介 - 新北市樹林區三多國民小學</title>
 <link rel="icon" href="favicon.ico" />
 <link href="https://fonts.googleapis.com" rel="preconnect" /><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" /><link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet" />
 
 <style>
     body { font-family: 'Iansui', 'Microsoft JhengHei', sans-serif; font-size: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f9f9f9; scroll-behavior: smooth; }
-    
-    /* ... (中間省略，保持原本的 skip-link, nav, header 等樣式) ... */
     
     .skip-link { position: absolute; top: -9999px; left: 0; background: #000; color: #fff; padding: 10px; z-index: 99999; text-decoration: none; font-weight: bold; border-radius: 0 0 5px 0; }
     .skip-link:focus { top: 0; }
@@ -49,28 +47,23 @@
     .banner-container { width: 100%; max-width: 100%; margin: 0 auto; padding-top: 0; }
     .banner-img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 400px; }
     
-    /* 頁尾基本樣式 */
     .footer { background: #333; color: #fff; margin-top: auto; width: 100%; }
     .footer a { color: #fff; text-decoration: underline; } 
     .footer a:hover { color: #ccc; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
-    /* ★★★ 這裡插入判斷好的 Footer CSS (原本樣式 vs 自訂樣式) ★★★ */
     
     .footer-container { 
         width: 98%;          
         margin: 0 auto;      
         padding: 2em 0;      
-        text-align: left;  /* ★ 直接依照選單設定對齊 (left/center/right) */
+        text-align: left;
         box-sizing: border-box;
     }
-    
-    /* 標章區塊與上方文字保持一點距離 */
     .footer-badge { margin-top: 15px; }
     .footer-badge img { max-height: 50px; width: auto; }
     
 
-    /* 其他區塊樣式 */
     .container { display: flex; padding: 1.25em; gap: 1.5em; max-width: 100%; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; justify-content: center; }
     .col-left, .col-right { width: 20%; flex: 0 1 20%; } 
     .col-center { width: 60%; flex: 0 1 60%; }
@@ -141,7 +134,18 @@
     .dept-content a { color: #0056b3; text-decoration: none; }
     .dept-content a:hover { text-decoration: underline; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 900px) { .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; } }
+
+    .accordion-btn { width: 100%; background-color: #fff; color: #333; cursor: pointer; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; text-align: left; outline: none; font-size: 1.1em; font-family: inherit; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+    .accordion-btn:hover, .accordion-btn:focus { background-color: #f0f8ff; color: #397DB3; border-color: #397DB3; outline: 2px solid yellow; }
+    .accordion-btn[aria-expanded="true"] { background-color: #397DB3; color: #fff; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .accordion-btn[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
+    .acc-icon { transition: transform 0.3s ease; font-size: 0.8em; }
+    .accordion-panel { padding: 0; background-color: #fafafa; border: 1px solid #ddd; border-top: none; border-radius: 0 0 5px 5px; list-style: none; margin: 0; }
+    .accordion-panel[hidden] { display: none; }
+    .sub-link-item a { display: block; padding: 10px 15px 10px 30px; text-decoration: none; color: #555; border-bottom: 1px dashed #eee; transition: 0.2s; position: relative; }
+    .sub-link-item a:hover, .sub-link-item a:focus { background-color: #eee; color: #397DB3; padding-left: 35px; outline: 2px solid yellow; }
+    .sub-link-item a::before { content: '↳'; position: absolute; left: 15px; color: #999; font-size: 0.9em; }
+    .sub-link-item:last-child a { border-bottom: none; }
 
     .back-to-top {
         display: none; 
@@ -164,6 +168,26 @@
     }
     .back-to-top:hover { opacity: 1; background-color: #397DB3; }
     .back-to-top:focus { outline: 3px solid yellow; opacity: 1; background-color: #397DB3; } 
+
+    /* ★★★ 這裡就是您原本遺失的 RWD 手機版設定！請務必包含這段 ★★★ */
+    @media (max-width: 900px) {
+        .school-title-cn { font-size: 1.8em; } .school-title-en { font-size: 1em; }
+        .header-left { width: 80%; } .school-logo { height: 60px; margin-right: 10px; }
+        .header-right { display: none; } .hamburger { display: block; }
+        .mobile-only { display: block; border-bottom: 1px solid rgba(255,255,255,0.2); background-color: #397DB3; }
+        .navbar { background-color: #fff; border-bottom: 2px solid #397DB3; }
+        .nav-container { flex-wrap: wrap; }
+        .nav-menu { display: none; flex-direction: column; width: 100%; background-color: #397DB3; order: 3; }
+        .nav-menu.active { display: flex; } .nav-item { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .dropdown-content { position: relative; display: block; width: 100%; box-shadow: none; background-color: #397DB3; top: 0; }
+        .dropdown-content a { color: #fff; padding-left: 30px; } .nav-item:hover .dropdown-content { display: block; }
+        .container { flex-direction: column; }
+        .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
+        .col-center { order: 1; } .col-left { order: 2; } .col-right { order: 3; }
+        .sitemap-list { flex-direction: column; }
+        .top-nav { display: none; } 
+        .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; }
+    }
 </style>
 <style>
                 /* ★★★ 修正：max-width 改用 em (相對單位)，符合 AAA 規範 (CS3140801C) ★★★ */
@@ -290,9 +314,9 @@
 <div class="breadcrumb">
                 <a href="index.html"> 首頁</a> 
                 > 
-                <span aria-current="page">學校簡介</span>
+                <span aria-current="page">學校篤介</span>
             </div>
-<h1 class="page-title">學校簡介</h1>
+<h1 class="page-title">學校篤介</h1>
 <div class="article-body">
 <P><FONT size=5>三多願景:</FONT><BR>三多簡史一個陽光普照的小學--締造三多新風貌 迎向陽光新校園<BR>1、發展人文的校風：<BR>學校充滿人文的氣息，和諧的情境，每個人都懂得愛人、關懷人與感受他人的恩惠;擁有誠懇、熱情的心，以及身體力行的行動力。<BR>&nbsp;2、經營優質的教育：<BR>學校教育的內容與目標，著重啟發孩子個人的潛能，培養主動學習的態度，強調探究與建構式的學習歷程，以培育帶得走的能力。<BR>&nbsp;3、營造活力的校園：<BR>全校師生互動良好，親師合作共同實現教育目標，學校充滿活力與朝氣，老師寓教於樂、學生樂於學習成果豐碩。<BR>&nbsp;4、培育健康的學生：<BR>教師發揮教育大愛，全面關照每一位孩童，普及化均衡照顧，以及個別化的教學與生活輔導面面俱到，力求每位學生身心健康，人格發展健全。<BR><FONT size=5>三多簡史:<BR></FONT>本校於民國76年05月11日成立籌備處，由樹林國小詹正信校長擔任籌備主任，著手規劃校園。<BR>民國76年06月15日經鎮長邀集地方人士共同議定「三多國小」為校名。<BR>民國77年07月08日縣府正式准於成立設校。8月15日縣府核定溫振有調派本校為創校校長。<BR>民國79年01月10日 校舍工程奠基典禮。<BR>民國80年09月01日 正式招生，計41班，約1082位學生。<BR>民國82年08月01日 趙福來校長接任本校第二任校長。<BR>民國83年06月08日 三多美術館完工。<BR>民國84年08月01日 成立附設幼兒園。<BR>民國86年04月01日 圖書館完工。<BR>民國86年08月01日 莊清美校長接任本校第三任校長。<BR>民國89年03月30日 操場完工。<BR>民國90年08月01日 陳義霖校長接任本校第四任校長。<BR>民國90年08月01日 設立資源班。<BR>民國90年08月01日 成立躲避球隊。<BR>民國95年08月01日 洪金山校長接任本校第五任校長。<BR>民國99年08月01日 周麗櫻校長接任本校第六任校長。<BR>民國101年08月16日 信義樓屋頂隔水防熱工程完工。<BR>民國102年08月01日 成立棒球隊。<BR>民國102年11月09日 仁愛樓屋頂防水隔熱工程完工。<BR>民國104年12月05日 警衛室改建工程竣工。<BR>民國106年03月21日 信義樓老舊廁所改建工程竣工。<BR>民國106年09月27日 操場整修工程竣工。<BR>民國107年08月01日 洪珮瑀校長接任本校第七任校長，迄今。<BR>民國108年01月13日 信義樓、和平樓、感恩樓校舍耐震結構補強工程竣工。<BR>民國108年05月31日 智慧樓校舍耐震結構補強工程竣工。<BR>民國108年07月18日 仁愛樓、智慧樓外遮陽板設置工程完工。<BR>民國108年08月01日 新北市中小學強棒深耕計畫學校(棒球代表隊)。<BR>民國108年08月12日 圖書館整修工程竣工。<BR>民國108年09月27日 校務評鑑八大項度全數通過，「學生輔導」向度榮譽通過，榮獲金質獎。<BR>民國109年05月31日 智慧樓老舊廁所改建工程竣工。<BR>民國109年06月07日 感恩樓校舍頂樓防水隔熱工程完工。<BR>民國109年10月01日 感恩樓屋頂太陽能板裝設工程完工。<BR>民國109年11月13日 操場司令台磁磚剝落及地板層漏水改善工程竣工。<BR>民國110年06月29日 視聽教室改善工程完工。<BR>民國110年08月01日 新北市體育重點學校-田徑類。<BR>民國110年09月21日 忠孝樓老舊廁所改建工程竣工。<BR>民國111年01月21日 冷氣裝設工程完工。<BR>民國111年02月10日 電力系統改善工程完工。<BR>民國111年03月18日 創客教室落成啟用。<BR>民國111年06月29日 親和綠化植生牆完工。<BR>民國111年09月18日 校門整修及改善工程完工。<BR>民國112年09月18日 幼兒園2歲專班增班工程完工。<BR>民國112年09月28日 幼兒園2歲專班開課。<BR>民國112年11月13日 榮獲112年「新北市低碳校園標章」認證銀鵝獎。<BR>民國112年11月27日 榮獲113年度新北市閱讀磐石優等獎。<BR>民國113年01月19日 中央球場及跳遠沙坑整修工程完工。<BR>民國113年07月12日 感恩樓3樓禮堂地坪工程完工。<BR>民國113年08月28日 承辦113學年度三鶯區語文競賽。<BR>民國114年06月18日 新建棒球運動場地工程完工。<BR><FONT size=5>三多校歌:</FONT><BR>校歌樂譜:</P>
 <P><IMG style="MAX-WIDTH: 100%; BORDER-TOP: #ccc 1px solid; HEIGHT: auto; BORDER-RIGHT: #ccc 1px solid; BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid" alt=校歌樂譜 src="images/校歌.jpg"><BR>校歌歌詞:</P>
