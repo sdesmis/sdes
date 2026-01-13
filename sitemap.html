@@ -188,6 +188,19 @@
         .top-nav { display: none; } 
         .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; }
     }
+
+    /* ★★★ 新增：底部版權條的樣式 ★★★ */
+    .footer-copyright {
+        width: 100%;
+        background-color: #397DB3; /* 使用主題色 */
+        color: #fff;
+        text-align: center;      /* 強制居中 */
+        padding: 15px 0;         /* 上下留點空間 */
+        font-size: 0.95em;
+        margin-top: 0;
+    }
+    
+    .footer-copyright a { color: #fff; text-decoration: underline; }
 </style>
 <style>
                 .sitemap-wrapper { width: 95%; max-width: 62em; margin: 2em auto; padding: 40px; background: #fff; min-height: 600px; box-shadow: 0 0 15px rgba(0,0,0,0.05); border-radius: 8px; }
@@ -508,11 +521,10 @@
                         <a href="#ah" id="ah" accesskey="H" title="下方功能區" class="access-key" style="color:#ccc; text-decoration: none;">:::</a>
                     </div>
                     <div style="line-height: 1.8;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
 
     <div style="text-align: left;">
         <div>
-            © 2025 新北市樹林區三多國民小學 版權所有<br>
             地址：238 新北市樹林區三福街52號<br>
             電話：<a href="tel:0226880698" data-title="撥打電話" style="text-decoration: underline; color: inherit;">(02)2688-0698</a> (<a href="ext.html" target="_self" data-title="分機表" style="text-decoration: underline; color: inherit;">分機表</a>) | 傳真：(02)2688-6461<br>
             學生請假專線：<a href="tel:0226895230" data-title="撥打電話" style="text-decoration: underline; color: inherit;">(02)2689-5230</a><br>
@@ -520,19 +532,25 @@
         </div>
     </div>
 
-    <div style="text-align: right; padding-right: 100px;">
+    <div style="text-align: right; padding-right: 40px;">
         <a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20251229072914" target="_blank" data-title="無障礙網站 (另開新視窗)">
             <img src="images/A.png" border="0" width="88" height="31" alt="通過A無障礙網頁檢測" style="vertical-align: bottom;">
         </a>
     </div>
 
 </div>
-                    </div>
 
+                    </div>
                     <div class="footer-badge">
                         
                     </div>
                 
+                </div>
+
+                
+                <div class="footer-copyright">
+                    <div class="nav-container"> © 2025 新北市樹林區三多國民小學 版權所有
+                    </div>
                 </div>
             </footer>
             
