@@ -44,7 +44,7 @@
         padding: 0; 
         display: flex; 
         flex-wrap: wrap; 
-        justify-content: center; 
+        justify-content: flex-start; 
     }
 
     .nav-item { position: relative; }
@@ -218,7 +218,7 @@
         .top-nav { display: none; } 
         .dept-btn { flex: 1 1 45%; text-align: center; border-radius: 5px; }
     }
-</style>
+    </style>
 </head><body>
 <a href="#main_content" class="skip-link">跳到主要內容區塊</a>
 <div class="top-nav">
@@ -231,7 +231,7 @@
 <div class="header-left">
 <a href="index.html" class="logo-link" data-title="返回首頁">
 <img src="images/sandwo-logo-2.png" alt="學校校徽" class="school-logo" />
-<div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Shulin Dist Sanduo Elementary School</span></div>
+<div class="school-text"><h1 class="school-title-cn">新北市樹林區三多國民小學</h1><span class="school-title-en">New Taipei City Sanduo Elementary School</span></div>
 </a></div>
 <div class="header-right">
 <form class="search-header" onsubmit="var q = this.querySelector('input').value; if(q) location.href='sitemap.html?q='+encodeURIComponent(q); return false;">
@@ -410,8 +410,8 @@
 <div class="center-content-wrapper">
 <div class="block-card" id="blk-center-0">
 <h2 class="block-title" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">三多願景</h2>
-<div class="carousel-container" id="carousel-C19ca3455" data-cols="1">
-<button type="button" class="pause-btn" onclick="togglePause('C19ca3455')" aria-label="暫停輪播">II 暫停</button>
+<div class="carousel-container" id="carousel-C319d0838" data-cols="1">
+<button type="button" class="pause-btn" onclick="togglePause('C319d0838')" aria-label="暫停輪播">II 暫停</button>
 <ul class="carousel-list">
 <li class="carousel-item">
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: inherit; height: 100%;">
@@ -438,11 +438,11 @@
 </div>
 </li>
 </ul>
-<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'C19ca3455')" aria-label="上一組內容">❮</button>
-<button type="button" class="control-btn next" onclick="moveSlide(1, 'C19ca3455')" aria-label="下一組內容">❯</button>
+<button type="button" class="control-btn prev" onclick="moveSlide(-1, 'C319d0838')" aria-label="上一組內容">❮</button>
+<button type="button" class="control-btn next" onclick="moveSlide(1, 'C319d0838')" aria-label="下一組內容">❯</button>
 <div class="dots-container"></div>
 </div>
-<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C19ca3455'); });</script>
+<script>document.addEventListener('DOMContentLoaded', function() { initCarousel('C319d0838'); });</script>
 </div>
 <div class="block-card" id="blk-center-1">
 <h2 class="block-title" style="color: #FFFFFF; background-color: #397DB3; padding: 10px 15px; border-radius: 5px; text-align: center;" tabindex="-1">公告訊息</h2>
@@ -560,12 +560,12 @@
 <ul class="link-list-container">
 <li class="link-list-entry">
 <a href="https://play.google.com/store/apps/details?id=tw.com.ischool.ntpc&hl=zh_TW&gl=US&pli=1" target="_blank" data-title="新北校園通Google Play下載 (另開新視窗)" class="img-link"><img src="images/Google_Play_Store.png" alt="" />
-<div class="img-caption" aria-hidden="true">新北校園通Google Play下載</div>
+<div class="img-caption">新北校園通Google Play下載</div>
 </a>
 </li>
 <li class="link-list-entry">
 <a href="https://www.google.com/url?q=https%3A%2F%2Fapps.apple.com%2Ftw%2Fapp%2F%25E6%2596%25B0%25E5%258C%2597%25E6%25A0%25A1%25E5%259C%2592%25E9%2580%259A%2Fid1065747651&sa=D&sntz=1&usg=AOvVaw0dVGOxHRU9dR62Fi_GJG87" target="_blank" data-title="新北校園通App Store下載 (另開新視窗)" class="img-link"><img src="images/appstore.png" alt="" />
-<div class="img-caption" aria-hidden="true">新北校園通App Store下載</div>
+<div class="img-caption">新北校園通App Store下載</div>
 </a>
 </li>
 <li class="link-list-entry">
@@ -642,8 +642,22 @@ function initCarousel(uid) {
     var cols = parseInt(container.getAttribute('data-cols')) || 1;
     var items = container.querySelectorAll('.carousel-item');
     var dotsContainer = container.querySelector('.dots-container');
+    
+    // ★★★ 新增：選取上一張/下一張按鈕 ★★★
+    var prevBtn = container.querySelector('.prev');
+    var nextBtn = container.querySelector('.next');
 
     function getItemsPerPage() { return window.innerWidth <= 900 ? 1 : cols; }
+
+    function getItemTitle(idx) {
+        if (!items[idx]) return '圖片 ' + (idx + 1);
+        var img = items[idx].querySelector('img');
+        var cap = items[idx].querySelector('.carousel-caption');
+        var text = '';
+        if (cap) text = cap.innerText;
+        else if (img) text = img.getAttribute('alt');
+        return text ? text : ('第 ' + (idx + 1) + ' 張內容');
+    }
 
     state.showPage = function(idx) {
         var perPage = getItemsPerPage();
@@ -657,18 +671,51 @@ function initCarousel(uid) {
             list.scrollTo({ left: scrollW * idx, behavior: 'smooth' });
         }
         
-        dotsContainer.innerHTML = '';
-        for (var i=0; i<totalPages; i++) {
-             var dot = document.createElement('span');
-             dot.className = 'dot' + (i === idx ? ' active' : '');
-             var label = (getItemsPerPage() === 3) ? ('切換到第 ' + (i+1) + ' 組') : ('切換到第 ' + (i+1) + ' 張');
-             dot.setAttribute('aria-label', label);
-             dot.onclick = (function(index){ return function(){ clearTimeout(state.timer); state.showPage(index); state.autoShow(); } })(i);
-             dotsContainer.appendChild(dot);
+        // 重建圓點邏輯 (防止焦點遺失)
+        if (dotsContainer.children.length !== totalPages) {
+            dotsContainer.innerHTML = '';
+            for (var i=0; i<totalPages; i++) {
+                 var dot = document.createElement('button');
+                 dot.className = 'dot';
+                 dot.setAttribute('type', 'button');
+                 
+                 var labelText = getItemTitle(i); 
+                 if (getItemsPerPage() === 3) labelText = '第 ' + (i+1) + ' 組內容';
+                 dot.setAttribute('data-label', labelText); 
+
+                 // 圓點焦點事件
+                 dot.onfocus = (function(index){ 
+                    return function(){ 
+                        clearTimeout(state.timer); 
+                        state.showPage(index); 
+                    } 
+                 })(i);
+
+                 dot.onblur = function() { state.autoShow(); };
+
+                 dot.onclick = (function(index){ 
+                    return function(){ 
+                        clearTimeout(state.timer); 
+                        state.showPage(index); 
+                        //state.autoShow(); 
+                    } 
+                 })(i);
+
+                 dotsContainer.appendChild(dot);
+            }
+        }
+
+        var dots = dotsContainer.children;
+        for (var i=0; i<dots.length; i++) {
+            var isActive = (i === idx);
+            dots[i].className = 'dot' + (isActive ? ' active' : '');
+            var baseLabel = dots[i].getAttribute('data-label');
+            dots[i].setAttribute('aria-label', baseLabel + (isActive ? ' (目前顯示)' : ''));
         }
     };
 
     state.autoShow = function() {
+        clearTimeout(state.timer);
         if(!state.isPaused) {
             state.timer = setTimeout(function() {
                 state.showPage(state.index + 1);
@@ -677,7 +724,27 @@ function initCarousel(uid) {
         }
     };
 
-    window.addEventListener('resize', function() { state.showPage(state.index); });
+    // ★★★ 新增：為上一張/下一張按鈕加入焦點暫停功能 ★★★
+    function setupNavBtn(btn) {
+        if(!btn) return;
+        // 當鍵盤焦點移上去時，暫停輪播
+        btn.onfocus = function() { clearTimeout(state.timer); };
+        // 當滑鼠移上去時，也暫停 (雙重保險)
+        btn.onmouseover = function() { clearTimeout(state.timer); };
+        
+        // 當離開焦點/滑鼠移開時，恢復輪播
+        btn.onblur = function() { state.autoShow(); };
+        btn.onmouseout = function() { state.autoShow(); };
+    }
+    
+    setupNavBtn(prevBtn);
+    setupNavBtn(nextBtn);
+    // ★★★ 結束新增 ★★★
+
+    window.addEventListener('resize', function() { 
+        dotsContainer.innerHTML = ''; 
+        state.showPage(state.index); 
+    });
     
     if(items.length > 0) {
         state.showPage(0);
@@ -687,7 +754,9 @@ function initCarousel(uid) {
 
 function moveSlide(n, uid) {
     var s = carouselState[uid];
-    if(s) { clearTimeout(s.timer); s.showPage(s.index + n); s.autoShow(); }
+    // 只切換圖片，不自動播放。
+    // 等到使用者把焦點移開 (onblur) 或滑鼠移開 (onmouseout) 時，上面的 setupNavBtn 會負責恢復播放。
+    if(s) { clearTimeout(s.timer); s.showPage(s.index + n); }
 }
 
 function togglePause(uid) {
