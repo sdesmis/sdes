@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>公告管理系統</title>
+  <title>無障礙公告管理系統</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="符合無障礙 AAA 標準的公告發布與管理系統">
   <style>
@@ -19,33 +19,33 @@
     .btn-danger { background: #cc0000; color: #fff; }
     .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
     
-    /* 彈出視窗 Dialog (修正 CS3140801C: 使用 rem 相對單位) */
+    /* 彈出視窗 */
     dialog {
       background: var(--bg); color: var(--text);
       border: 2px solid var(--border);
       border-radius: 8px;
       padding: 20px;
-      max-width: 50rem; /* 800px -> 50rem */
+      max-width: 50rem;
       width: 90%;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
     
-    /* 公告列表 */
+    /* 列表卡片 */
     .post-list-item { padding: 1.5rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
     .post-list-item:hover { background: var(--input-bg); }
     .post-list-item h2 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
     .post-meta { font-size: 0.95rem; opacity: 0.9; line-height: 1.5; }
     .badge-pin { background: #b00; color: #fff; padding: 2px 6px; font-size: 0.8rem; border-radius: 4px; margin-right: 5px; font-weight: bold; }
 
-    /* 分頁控制區 */
+    /* 分頁控制 */
     .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 30px; flex-wrap: wrap; }
     .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; border-radius: 4px; }
     .page-btn:hover { background: var(--input-bg); }
     .page-btn.active { background: var(--text); color: var(--bg); font-weight: bold; border-color: var(--text); }
     .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* 視圖與通知 */
+    /* 視圖切換 */
     .view { display: none; } .active-view { display: block; animation: fadeIn 0.3s; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 1rem 2rem; border: 2px solid var(--focus); z-index: 2000; display: none; font-weight: bold; }
@@ -58,6 +58,7 @@
     
     input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 1px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; }
     label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group { margin-bottom: 15px; }
     
     /* 狀態標籤 */
     .status-on { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; border: 1px solid #c3e6cb; }
@@ -99,10 +100,8 @@
     <form onsubmit="handleLogin(event)" style="max-width:25rem; margin:auto; border:2px solid var(--border); padding:30px; border-radius:8px;">
       <label for="username">帳號</label>
       <input type="text" id="username" required autocomplete="username">
-      
       <label for="password">密碼</label>
       <input type="password" id="password" required autocomplete="current-password">
-      
       <div style="margin-top:20px; display:flex; justify-content:space-between;">
         <button type="submit" class="btn">登入</button>
         <button type="button" class="btn btn-secondary" onclick="switchView('view-public')">取消</button>
@@ -143,12 +142,14 @@
         </div>
 
         <div style="border:1px dashed var(--border); padding:15px; margin-bottom:20px; background:var(--bg);">
-          <label for="post-file">附件上傳</label>
-          <input type="file" id="post-file">
-          <div id="current-attachment-info" style="display:none; margin-top:10px;">
-            <a href="#" target="_blank" id="existing-file-link" style="font-weight:bold;">查看現有附件</a>
-            <label for="delete-attachment" style="display:inline-block; margin-left:15px; color:#b00;">
-              <input type="checkbox" id="delete-attachment" style="width:auto;"> 刪除舊檔
+          <label for="post-file">附件上傳 (可多選)</label>
+          <input type="file" id="post-file" multiple>
+          
+          <div id="current-attachment-info" style="display:none; margin-top:10px; padding:10px; background:#eee;">
+            <p style="margin:0 0 5px 0;"><strong>目前已有的附件：</strong></p>
+            <ul id="existing-file-list" style="margin:0; padding-left:20px;"></ul>
+            <label for="delete-attachment" style="display:block; margin-top:10px; color:#b00;">
+              <input type="checkbox" id="delete-attachment" style="width:auto;"> 刪除所有舊附件 (若勾選，舊檔將全部清空)
             </label>
           </div>
         </div>
@@ -184,7 +185,7 @@
     <h2>已發布公告</h2>
     <div class="table-container">
       <table>
-        <thead><tr><th>日期</th><th>標題</th><th>分類</th><th>發布者</th><th>操作</th></tr></thead>
+        <thead><tr><th>日期</th><th>標題</th><th>分類</th><th>發布者</th><th>附件</th><th>操作</th></tr></thead>
         <tbody id="admin-tbody"></tbody>
       </table>
     </div>
@@ -213,13 +214,10 @@
       <h2 style="margin-top:0;" id="user-form-title">新增使用者</h2>
       <form id="user-form" onsubmit="handleUserSave(event)">
         <input type="hidden" id="user-is-edit" value="false">
-        
         <label for="new-username">帳號 (必填)</label>
         <input type="text" id="new-username" required autocomplete="off">
-        
         <label for="new-jobtitle">職稱 (必填)</label>
         <input type="text" id="new-jobtitle" required autocomplete="off">
-        
         <label for="new-password">密碼 (新增必填，修改選填)</label>
         <input type="password" id="new-password" autocomplete="new-password">
         
@@ -229,16 +227,13 @@
             <input type="checkbox" id="role-super" style="width:auto;"> 系統管理員 (全權限)
           </label>
           <hr style="margin:10px 0;">
-          
           <div style="margin-bottom:10px; padding-bottom:5px; border-bottom:1px dashed #ccc;">
             <label for="perm-select-all" style="cursor:pointer; color:#0056b3;">
               <input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" style="width:auto;"> 全選 / 取消全選
             </label>
           </div>
-
           <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:15px;"></div>
         </div>
-        
         <div style="margin-top:20px;">
           <button type="submit" class="btn" id="btn-save-user">新增使用者</button>
           <button type="button" class="btn btn-secondary" onclick="resetUserForm()">重置</button>
@@ -256,15 +251,9 @@
       <button onclick="document.getElementById('password-modal').close()" class="btn btn-secondary">關閉</button>
     </div>
     <form onsubmit="handleChangePassword(event)">
-      <label for="cp-old">舊密碼</label>
-      <input type="password" id="cp-old" required>
-      
-      <label for="cp-new">新密碼</label>
-      <input type="password" id="cp-new" required>
-      
-      <label for="cp-confirm">確認新密碼</label>
-      <input type="password" id="cp-confirm" required>
-      
+      <label for="cp-old">舊密碼</label><input type="password" id="cp-old" required>
+      <label for="cp-new">新密碼</label><input type="password" id="cp-new" required>
+      <label for="cp-confirm">確認新密碼</label><input type="password" id="cp-confirm" required>
       <div style="text-align:right; margin-top:15px;">
         <button type="submit" class="btn">確認修改</button>
       </div>
@@ -273,15 +262,13 @@
 
   <script>
     // 👇👇👇 請在此填入您的 GAS 網址 👇👇👇
-    const API_URL = "https://script.google.com/macros/s/AKfycbx8ecaMDCvwK-d_APCwzzabgmhEJmqbwfb84Lm08lnCR9iw0TaUa7rqGYRqV8BCKgxS/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbwoAtocGgeoAPjKDgI3by1xOPMTsb68BL4ihhNDMxZTjVOZnv2NiQZUFrgEoqNBXFqu/exec";
 
     // 全域變數
     let currentUser = null;
     let allPublicData = []; 
-    let currentFilteredData = []; // 分頁用
+    let currentFilteredData = []; 
     let categories = [];
-    
-    // 分頁設定
     const ITEMS_PER_PAGE = 5; 
     let currentPage = 1;
 
@@ -306,22 +293,13 @@
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
       document.getElementById(id).classList.add('active-view');
       window.scrollTo(0,0);
-      if (id === 'view-public') {
-        document.getElementById('category-filter').value = 'all';
-        loadPublicData();
-      }
+      if (id === 'view-public') { document.getElementById('category-filter').value = 'all'; loadPublicData(); }
       if (id === 'view-users') loadUsers();
     }
 
-    // ========== 公開資料 & 分頁 ==========
+    // ========== 公開資料 ==========
     function loadCategories() { callApi('getCategories').then(d => { categories = d; renderCategorySelects(); renderCategoryTable(); }); }
-    
-    function loadPublicData() { 
-      callApi('getPublicData').then(d => { 
-        allPublicData = d; 
-        applyFilter(); 
-      }).catch(e => document.getElementById('public-list').innerHTML='<p style="padding:20px;color:red;">資料載入失敗</p>'); 
-    }
+    function loadPublicData() { callApi('getPublicData').then(d => { allPublicData = d; applyFilter(); }).catch(e => document.getElementById('public-list').innerHTML='<p style="padding:20px;color:red;">資料載入失敗</p>'); }
     
     function renderCategorySelects() {
       const active = categories.filter(c => c.isActive);
@@ -332,8 +310,7 @@
 
     function applyFilter() {
       const cat = document.getElementById('category-filter').value;
-      if (cat === 'all') currentFilteredData = allPublicData;
-      else currentFilteredData = allPublicData.filter(d => d.category === cat);
+      currentFilteredData = (cat === 'all') ? allPublicData : allPublicData.filter(d => d.category === cat);
       currentPage = 1;
       renderCurrentPage();
     }
@@ -355,12 +332,13 @@
       list.innerHTML = displayData.map((item, index) => {
         const realIndex = start + index;
         const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂</span>` : '';
+        const attachBadge = (item.attachments && item.attachments.length > 0) ? ' | 📎 含附件' : '';
         return `
           <div class="post-list-item" onclick="openDetail(${realIndex})" role="button" tabindex="0">
             ${pinHtml}
             <h2>${item.title}</h2>
             <div class="post-meta">
-              <strong>${item.date}</strong> | ${item.category} | 發布者：${item.authorTitle}
+              <strong>${item.date}</strong> | ${item.category} | 發布者：${item.authorTitle} ${attachBadge}
             </div>
           </div>`;
       }).join('');
@@ -395,19 +373,19 @@
       const contentDiv = document.getElementById('modal-content');
       
       const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂公告</span>` : '';
-      const attachHtml = item.attachment ? `<div style="margin-top:20px; padding:10px; border:1px dashed #ccc;"><a href="${item.attachment}" target="_blank" class="btn">📎 下載附件 / 預覽</a></div>` : '';
+      let attachHtml = '';
+      if (item.attachments && item.attachments.length > 0) {
+        attachHtml = `<div style="margin-top:20px; padding:15px; border:1px dashed #ccc; background:var(--input-bg);"><strong>附件下載：</strong><br>`;
+        if(typeof item.attachments === 'string') attachHtml += `<a href="${item.attachments}" target="_blank">下載附件</a>`; // 相容舊版
+        else attachHtml += item.attachments.map(f => `<a href="${f.url}" target="_blank" style="margin-right:15px;">📎 ${f.name}</a>`).join('');
+        attachHtml += `</div>`;
+      }
       const linkHtml = item.link ? `<div style="margin-top:10px;"><a href="${item.link}" target="_blank" class="btn">🔗 前往外部連結</a></div>` : '';
 
       contentDiv.innerHTML = `
         <h2 style="margin-top:0; font-size:1.6rem; border-bottom:1px solid #ccc; padding-bottom:10px;">${pinHtml} ${item.title}</h2>
-        <p style="color:#666; font-size:0.95rem;">
-          發布日期：${item.date} <br>
-          分類：${item.category} <br>
-          發布者：${item.authorTitle}
-        </p>
-        <div style="font-size:1.15rem; line-height:1.8; margin-top:20px;">
-          ${item.content.replace(/\n/g, '<br>')}
-        </div>
+        <p style="color:#666; font-size:0.95rem;">發布日期：${item.date} <br>分類：${item.category} <br>發布者：${item.authorTitle}</p>
+        <div style="font-size:1.15rem; line-height:1.8; margin-top:20px;">${item.content.replace(/\n/g, '<br>')}</div>
         ${attachHtml} ${linkHtml}
       `;
       modal.showModal();
@@ -415,21 +393,18 @@
 
     function closeDetail() { document.getElementById('detail-modal').close(); }
 
-    // ========== 登入 & 權限 ==========
+    // ========== 登入 & 後台 ==========
     function handleLogin(e) {
       e.preventDefault(); showMessage("登入中...");
       callApi('login', { username: document.getElementById('username').value, password: document.getElementById('password').value }).then(res => {
         currentUser = res.username;
         document.getElementById('user-display').textContent = res.jobTitle || res.username;
         const isSuper = res.isSuperAdmin;
-        
         document.getElementById('btn-cats').style.display = isSuper ? 'inline-block' : 'none';
         document.getElementById('btn-users').style.display = isSuper ? 'inline-block' : 'none';
-        
         const authorDiv = document.getElementById('author-select-group');
         if (isSuper) { authorDiv.style.display = 'block'; loadAuthorSelect(); } 
         else { authorDiv.style.display = 'none'; }
-
         loadAdminData(); switchView('view-admin'); document.getElementById('username').value=''; document.getElementById('password').value='';
       }).catch(e => showMessage(e.message));
     }
@@ -448,22 +423,28 @@
       });
     }
 
-    // ========== 後台公告管理 ==========
     function loadAdminData() {
       callApi('getAdminData', { currentUser }).then(d => {
-        document.getElementById('admin-tbody').innerHTML = d.map(i => `
+        document.getElementById('admin-tbody').innerHTML = d.map(i => {
+          const hasAttach = (i.attachments && i.attachments.length > 0) ? `✅ ${i.attachments.length}個` : '-';
+          return `
           <tr style="${i.author === currentUser ? 'background:rgba(255,215,0,0.1);' : ''}">
             <td>${i.date}</td><td>${i.title}</td><td>${i.category}</td><td>${i.authorTitle}</td>
-            <td>${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger">刪</button>` : '-'}</td>
-          </tr>`).join('');
+            <td style="font-size:0.9rem;">${hasAttach}</td>
+            <td>${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn" style="padding:2px 5px;font-size:0.9rem;">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger" style="padding:2px 5px;font-size:0.9rem;">刪</button>` : '-'}</td>
+          </tr>`;
+        }).join('');
       });
     }
+
     async function handleSave(e) {
       e.preventDefault(); showMessage("儲存中...");
       try {
         const fileInput = document.getElementById('post-file');
-        let fileData = null;
-        if (fileInput.files.length > 0) fileData = await readFileAsBase64(fileInput.files[0]);
+        let filesData = [];
+        if (fileInput.files.length > 0) {
+          filesData = await Promise.all(Array.from(fileInput.files).map(file => readFileAsBase64(file)));
+        }
         const formData = {
           id: document.getElementById('post-id').value,
           title: document.getElementById('post-title').value,
@@ -475,12 +456,13 @@
           pinExpiry: document.getElementById('post-pin-expiry').value,
           deleteAttachment: document.getElementById('delete-attachment').checked.toString(),
           newAuthor: document.getElementById('post-author').value,
-          fileData: fileData
+          filesData: filesData
         };
         await callApi('saveAnnouncement', { formObj: formData, currentUser });
         showMessage("成功"); resetForm(); loadAdminData();
       } catch (e) { showMessage("失敗: " + e.message); }
     }
+
     function editPost(item) {
       document.getElementById('post-id').value = item.id;
       document.getElementById('post-title').value = item.title;
@@ -490,129 +472,69 @@
       document.getElementById('post-expiry').value = item.expiryDate;
       document.getElementById('post-pinned').checked = item.isPinned;
       document.getElementById('post-pin-expiry').value = item.pinExpiry;
-      const info = document.getElementById('current-attachment-info');
-      const link = document.getElementById('existing-file-link');
-      if(item.attachment) { info.style.display='block'; link.href=item.attachment; } else { info.style.display='none'; }
       
-      const authorSelect = document.getElementById('post-author');
-      authorSelect.value = ""; 
-
+      const info = document.getElementById('current-attachment-info');
+      const list = document.getElementById('existing-file-list');
+      list.innerHTML = "";
+      if(item.attachments && item.attachments.length > 0) { 
+        info.style.display='block'; 
+        item.attachments.forEach(f => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${f.url}" target="_blank">${f.name}</a>`;
+          list.appendChild(li);
+        });
+      } else { info.style.display='none'; }
+      
+      document.getElementById('post-author').value = ""; 
       document.getElementById('post-file').value = "";
       document.getElementById('delete-attachment').checked = false;
       document.getElementById('post-title').focus();
     }
     function deletePost(id) { if(confirm("確定刪除？")) callApi('deleteAnnouncement', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadAdminData(); }); }
-    function resetForm() { 
-      document.getElementById('admin-form').reset(); 
-      document.getElementById('post-id').value=""; 
-      document.getElementById('current-attachment-info').style.display='none'; 
-      document.getElementById('post-author').value = "";
-    }
+    function resetForm() { document.getElementById('admin-form').reset(); document.getElementById('post-id').value=""; document.getElementById('current-attachment-info').style.display='none'; document.getElementById('post-author').value = ""; }
 
-    // ========== 分類管理 ==========
-    function handleCatSave(e) {
-      e.preventDefault();
-      callApi('saveCategory', { id: document.getElementById('cat-id').value, name: document.getElementById('cat-name').value, currentUser }).then(()=>{
-        showMessage("成功"); document.getElementById('cat-form').reset(); document.getElementById('cat-id').value=""; loadCategories();
-      });
-    }
+    // ========== 分類 & 使用者 ==========
+    function handleCatSave(e) { e.preventDefault(); callApi('saveCategory', { id: document.getElementById('cat-id').value, name: document.getElementById('cat-name').value, currentUser }).then(()=>{ showMessage("成功"); document.getElementById('cat-form').reset(); document.getElementById('cat-id').value=""; loadCategories(); }); }
     function editCat(id, name) { document.getElementById('cat-id').value = id; document.getElementById('cat-name').value = name; document.getElementById('cat-name').focus(); }
     function toggleCat(id, isActive) { if(confirm(`確定${isActive?'啟用':'停用'}？`)) callApi('toggleCategoryStatus', {id, isActive, currentUser}).then(()=>{ showMessage("更新成功"); loadCategories(); }); }
-    function deleteCat(id) { if(confirm("確定刪除？建議使用停用。")) callApi('deleteCategory', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadCategories(); }); }
-    function renderCategoryTable() {
-      document.getElementById('cat-tbody').innerHTML = categories.map(c => `
-        <tr>
-          <td><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span> ${c.isActive?'<span class="status-on">啟用</span>':'<span class="status-off">停用</span>'}</td>
-          <td>
-            <button onclick="editCat('${c.id}','${c.name}')" class="btn">修</button>
-            <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}">${c.isActive?'停用':'啟用'}</button>
-            <button onclick="deleteCat('${c.id}')" class="btn btn-secondary">刪</button>
-          </td>
-        </tr>`).join('');
-    }
+    function deleteCat(id) { if(confirm("確定刪除？")) callApi('deleteCategory', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadCategories(); }); }
+    function renderCategoryTable() { document.getElementById('cat-tbody').innerHTML = categories.map(c => `<tr><td><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span> ${c.isActive?'<span class="status-on">啟用</span>':'<span class="status-off">停用</span>'}</td><td><button onclick="editCat('${c.id}','${c.name}')" class="btn">修</button> <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}">${c.isActive?'停用':'啟用'}</button> <button onclick="deleteCat('${c.id}')" class="btn btn-secondary">刪</button></td></tr>`).join(''); }
 
-    // ========== 使用者管理 ==========
     function loadUsers() {
       const container = document.getElementById('permission-checkboxes');
-      // 注意：這裡有修改，label 包住 input 且有 for，符合 AAA
-      container.innerHTML = categories.map(c => `
-        <label for="perm-${c.name}" style="display:inline-block; margin-right:15px; margin-bottom:5px;">
-          <input type="checkbox" id="perm-${c.name}" name="user-permissions" value="${c.name}" style="width:auto;"> ${c.name}
-        </label>`).join('');
-      
-      callApi('getUsers', { currentUser }).then(users => {
-        document.getElementById('user-tbody').innerHTML = users.map(u => `<tr><td>${u.username}</td><td>${u.jobTitle}</td><td>${u.group}</td><td>${u.username===currentUser?'(自己)':`<button onclick='editUser(${JSON.stringify(u)})' class="btn">修</button> <button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪</button>`}</td></tr>`).join('');
-      });
+      container.innerHTML = categories.map(c => `<label for="perm-${c.name}" style="display:inline-block; margin-right:15px; margin-bottom:5px;"><input type="checkbox" id="perm-${c.name}" name="user-permissions" value="${c.name}" style="width:auto;"> ${c.name}</label>`).join('');
+      callApi('getUsers', { currentUser }).then(users => { document.getElementById('user-tbody').innerHTML = users.map(u => `<tr><td>${u.username}</td><td>${u.jobTitle}</td><td>${u.group}</td><td>${u.username===currentUser?'(自己)':`<button onclick='editUser(${JSON.stringify(u)})' class="btn">修</button> <button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪</button>`}</td></tr>`).join(''); });
     }
-    
-    function toggleAllPerms(source) {
-      const checkboxes = document.querySelectorAll('input[name="user-permissions"]');
-      checkboxes.forEach(cb => cb.checked = source.checked);
-    }
-
+    function toggleAllPerms(source) { document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = source.checked); }
     function handleUserSave(e) {
       e.preventDefault();
       let selected = [];
       if(document.getElementById('role-super').checked) selected.push('系統管理員');
       document.querySelectorAll('input[name="user-permissions"]:checked').forEach(cb => selected.push(cb.value));
       if(selected.length===0){ alert("請選權限"); return; }
-      const data = {
-        isEdit: document.getElementById('user-is-edit').value === 'true',
-        username: document.getElementById('new-username').value,
-        password: document.getElementById('new-password').value,
-        jobTitle: document.getElementById('new-jobtitle').value,
-        group: selected.join(',')
-      };
-      callApi('saveUser', { formObj: data, currentUser }).then(()=>{ showMessage("成功"); resetUserForm(); loadUsers(); }).catch(e => showMessage(e.message));
+      const data = { isEdit: document.getElementById('user-is-edit').value === 'true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: selected.join(',') };
+      callApi('saveUser', { formObj: data, currentUser }).then(()=>{ showMessage("成功"); resetUserForm(); loadUsers(); });
     }
     function editUser(u) {
-      document.getElementById('user-form-title').textContent = "修改使用者";
-      document.getElementById('user-is-edit').value = "true";
+      document.getElementById('user-form-title').textContent = "修改"; document.getElementById('user-is-edit').value = "true";
       document.getElementById('new-username').value = u.username; document.getElementById('new-username').readOnly = true;
       document.getElementById('new-jobtitle').value = u.jobTitle;
-      
-      document.getElementById('new-password').value = ""; 
-      document.getElementById('new-password').placeholder = "留空不改";
-      document.getElementById('new-password').required = false;
-
+      document.getElementById('new-password').value = ""; document.getElementById('new-password').placeholder = "留空不改"; document.getElementById('new-password').required = false;
       const grps = u.group.split(',');
       document.getElementById('role-super').checked = grps.includes('系統管理員');
-      
       const perms = document.querySelectorAll('input[name="user-permissions"]');
       perms.forEach(cb => cb.checked = grps.includes(cb.value));
-      
-      const isAllChecked = Array.from(perms).every(cb => cb.checked);
-      const selectAllBox = document.getElementById('perm-select-all');
-      if(selectAllBox) selectAllBox.checked = (perms.length > 0 && isAllChecked);
+      document.getElementById('perm-select-all').checked = (perms.length > 0 && Array.from(perms).every(cb => cb.checked));
     }
-    function resetUserForm() {
-      document.getElementById('user-form').reset(); 
-      document.getElementById('user-form-title').textContent = "新增使用者"; 
-      document.getElementById('user-is-edit').value = "false"; 
-      document.getElementById('new-username').readOnly = false;
-      document.getElementById('new-password').placeholder = "";
-      document.getElementById('new-password').required = true;
-    }
+    function resetUserForm() { document.getElementById('user-form').reset(); document.getElementById('user-form-title').textContent = "新增"; document.getElementById('user-is-edit').value = "false"; document.getElementById('new-username').readOnly = false; document.getElementById('new-password').placeholder = ""; document.getElementById('new-password').required = true; }
     function deleteUser(u) { if(confirm("確定刪除？")) callApi('deleteUser', {targetUsername:u, currentUser}).then(()=>{ showMessage("已刪除"); loadUsers(); }); }
 
-    // ========== 修改個人密碼 ==========
-    function openChangePasswordModal() {
-      document.getElementById('cp-old').value = "";
-      document.getElementById('cp-new').value = "";
-      document.getElementById('cp-confirm').value = "";
-      document.getElementById('password-modal').showModal();
-    }
+    function openChangePasswordModal() { document.getElementById('cp-old').value = ""; document.getElementById('cp-new').value = ""; document.getElementById('cp-confirm').value = ""; document.getElementById('password-modal').showModal(); }
     function handleChangePassword(e) {
       e.preventDefault();
-      const oldPass = document.getElementById('cp-old').value;
-      const newPass = document.getElementById('cp-new').value;
-      const confirmPass = document.getElementById('cp-confirm').value;
-      if (newPass !== confirmPass) { alert("兩次新密碼不相同"); return; }
-      if (newPass === oldPass) { alert("新密碼不能與舊密碼相同"); return; }
-      
-      callApi('changePassword', { username: currentUser, oldPassword: oldPass, newPassword: newPass })
-        .then(msg => { alert(msg); document.getElementById('password-modal').close(); })
-        .catch(e => alert(e.message));
+      const oldPass = document.getElementById('cp-old').value, newPass = document.getElementById('cp-new').value, confirmPass = document.getElementById('cp-confirm').value;
+      if (newPass !== confirmPass) { alert("兩次密碼不同"); return; }
+      callApi('changePassword', { username: currentUser, oldPassword: oldPass, newPassword: newPass }).then(msg => { alert(msg); document.getElementById('password-modal').close(); }).catch(e => alert(e.message));
     }
   </script>
 </body>
