@@ -4,97 +4,137 @@
   <meta charset="UTF-8">
   <title>公告管理系統</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="符合無障礙 AAA 標準的公告發布與管理系統">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
 
   <style>
-    /* ========== AAA 級基礎設定 ========== */
+    /* ========== 基礎設定 ========== */
     :root { 
-      /* 強制設定為白底黑字 (亮色主題) */
-      --bg: #ffffff; 
-      --text: #000000; 
-      --focus: #FFD700; 
-      --border: #000000; 
-      --input-bg: #f9f9f9; 
-      --card-bg: #ffffff;
-      --card-hover: #f0f0f0;
+      --bg: #ffffff; --text: #000000; --focus: #FFD700; --border: #000000; 
+      --input-bg: #f9f9f9; --card-bg: #ffffff; --card-hover: #fcfcfc;
+      --gray-border: #ccc;
     }
     
     html, body { 
-      /* 👇 修改字型設定，優先使用 Iansui 👇 */
       font-family: "Iansui", "Helvetica Neue", Arial, sans-serif; 
-      background: var(--bg); 
-      color: var(--text); 
-      font-size: 100%; 
-      line-height: 1.6; 
-      margin: 0; 
-      padding: 0; 
+      background: var(--bg); color: var(--text); 
+      font-size: 100%; line-height: 1.6; margin: 0; padding: 0; 
     }
     
-    body { padding: 1.5rem; max-width: 60rem; margin: 0 auto; }
+    body { padding: 1.5rem; max-width: 64rem; margin: 0 auto; }
     *:focus { outline: 0.25rem solid var(--focus) !important; outline-offset: 0.125rem; }
     
-    /* 按鈕樣式 */
-    .btn { padding: 0.5rem 1rem; background: var(--text); color: var(--bg); border: 1px solid transparent; cursor: pointer; font-weight: bold; border-radius: 4px; display: inline-block; text-decoration: none; font-size: 1rem; }
+    /* 👇 修正重點：按鈕必須明確設定繼承字型 👇 */
+    button, input, select, textarea, .btn {
+      font-family: inherit; /* 強制繼承 Iansui 字體 */
+    }
+
+    .btn { 
+      padding: 0.5rem 1rem; 
+      background: var(--text); 
+      color: var(--bg); 
+      border: 2px solid transparent; 
+      cursor: pointer; 
+      font-weight: bold; 
+      border-radius: 4px; 
+      display: inline-block; 
+      text-decoration: none; 
+      font-size: 1rem; 
+    }
     .btn:hover { opacity: 0.8; text-decoration: underline; }
     .btn-danger { background: #cc0000; color: #fff; }
-    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--border); }
     
-    /* 表單元件 */
-    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 1px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; font-family: inherit; }
+    input, select, textarea { 
+      width: 100%; padding: 10px; margin-bottom: 15px; 
+      background: var(--input-bg); color: var(--text); 
+      border: 2px solid var(--border); box-sizing: border-box; 
+      font-size: 1rem; border-radius: 4px; 
+    }
     label { display: block; margin-bottom: 5px; font-weight: bold; }
-    .form-group { margin-bottom: 15px; }
-
-    /* 彈出視窗 Dialog */
-    dialog {
-      background: var(--bg); color: var(--text);
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 50rem;
-      width: 90%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-    dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
     
-    /* 公告列表 (卡片式) */
-    .post-list-item {
-      padding: 1.5rem;
-      border-bottom: 1px solid #ccc;
-      cursor: pointer;
-      transition: background 0.2s;
-      background: var(--card-bg);
-    }
+    dialog { background: var(--bg); color: var(--text); border: 3px solid var(--border); border-radius: 8px; padding: 20px; max-width: 50rem; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+    dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
+    
+    /* 一般公告列表 */
+    .post-list-item { padding: 1.5rem; border-bottom: 1px solid var(--gray-border); cursor: pointer; transition: background 0.2s; background: var(--card-bg); }
     .post-list-item:hover { background: var(--card-hover); }
     .post-list-item h2 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: #000; text-decoration: underline; text-underline-offset: 4px; }
-    .post-meta { font-size: 0.95rem; color: #555; line-height: 1.5; }
     .badge-pin { background: #b00; color: #fff; padding: 2px 6px; font-size: 0.8rem; border-radius: 4px; margin-right: 5px; font-weight: bold; }
 
-    /* 分頁控制區 */
-    .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 30px; flex-wrap: wrap; }
-    .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: #fff; color: #000; cursor: pointer; border-radius: 4px; font-family: inherit; }
-    .page-btn:hover { background: #eee; }
-    .page-btn.active { background: #000; color: #fff; font-weight: bold; border-color: #000; }
+    /* ========== 榮譽榜樣式 ========== */
+    #honor-roll-section { 
+      margin-top: 4rem; 
+      margin-bottom: 3rem; 
+      border: 1px solid var(--gray-border); 
+      border-radius: 8px; 
+      overflow: hidden; 
+      display: none; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    #honor-roll-header { 
+      background: #f5f5f5; 
+      color: var(--text);          
+      padding: 15px 20px; 
+      font-size: 1.5rem; 
+      font-weight: bold; 
+      display: flex; align-items: center; gap: 10px; 
+      border-bottom: 1px solid var(--gray-border);
+    }
+
+    .honor-card { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--gray-border); }
+    .honor-card:last-child { border-bottom: none; }
+
+    .honor-media { 
+      flex: 0 0 400px; max-width: 100%; min-height: 250px; 
+      background: #f9f9f9; position: relative; 
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .honor-media img { width: 100%; height: 250px; object-fit: contain; background: #f0f0f0; display: block; }
+    
+    .honor-content { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; min-width: 300px; }
+    .honor-content h3 { margin: 0 0 10px 0; font-size: 1.6rem; }
+    .honor-content p { margin: 0 0 15px 0; color: #555; font-size: 1.1rem; }
+
+    .carousel-controls {
+      position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px;
+      background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px;
+    }
+    .carousel-btn {
+      background: transparent; color: #fff; border: 1px solid #fff; 
+      width: 32px; height: 32px; border-radius: 50%; 
+      cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0;
+    }
+    .carousel-btn:hover { background: #fff; color: #000; }
+    .carousel-btn:focus { outline: 3px solid var(--focus); }
+
+    /* Flexbox Order Control */
+    .ctrl-prev { order: 1; } 
+    .ctrl-play { order: 2; }
+    .ctrl-next { order: 3; }
+
+    @media (max-width: 768px) {
+      .honor-card { flex-direction: column; }
+      .honor-media { flex: auto; width: 100%; height: auto; }
+      .honor-media img { height: auto; max-height: 300px; }
+    }
+
+    /* 分頁按鈕 */
+    .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 20px; padding-bottom: 20px; }
+    .page-btn { padding: 8px 12px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 4px; }
+    .page-btn.active { background: #000; color: #fff; border-color:#000; }
     .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* 視圖與通知 */
+    /* 其他 */
     .view { display: none; } .active-view { display: block; animation: fadeIn 0.3s; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 1rem 2rem; border: 2px solid var(--focus); z-index: 2000; display: none; font-weight: bold; }
-    
-    /* 表格樣式 */
-    .table-container { overflow-x: auto; margin-top: 20px; }
-    table { width: 100%; border-collapse: collapse; min-width: 600px; }
-    th, td { border: 1px solid #000; padding: 10px; text-align: left; }
-    th { background: #eee; color: #000; font-weight:bold; }
-    
-    /* 狀態標籤 */
-    .status-on { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; border: 1px solid #c3e6cb; }
-    .status-off { background: #f8d7da; color: #721c24; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; border: 1px solid #f5c6cb; }
+    .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 1rem 2rem; border: 3px solid var(--focus); z-index: 2000; display: none; }
     .cat-disabled { text-decoration: line-through; color: #888; }
+    .status-on { background: #d4edda; color: #155724; padding: 2px 5px; border-radius: 3px; }
+    .status-off { background: #f8d7da; color: #721c24; padding: 2px 5px; border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -102,21 +142,30 @@
   <div id="global-status" role="alert" class="status-msg"></div>
 
   <div id="view-public" class="view active-view">
-    <header style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--border); padding-bottom:15px; margin-bottom:25px;">
-      <h1 style="margin:0; font-size:1.8rem;">最新公告系統</h1>
+    <header style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--border); padding-bottom:15px; margin-bottom:25px;">
+      <h1 style="margin:0; font-size:2rem;">最新公告</h1>
       <button onclick="switchView('view-login')" class="btn">管理員登入</button>
     </header>
 
     <div style="margin-bottom:20px;">
-      <label for="category-filter">分類篩選：</label>
+      <label for="category-filter">公告分類篩選：</label>
       <select id="category-filter" onchange="applyFilter()"><option value="all">載入中...</option></select>
     </div>
 
-    <div id="public-list" style="border-top: 1px solid var(--border);">
+    <div id="public-list" style="border-top: 2px solid var(--border);">
       <p style="padding: 20px;">資料載入中...</p>
     </div>
 
     <div id="pagination-controls" class="pagination"></div>
+
+    <section id="honor-roll-section" aria-label="榮譽榜展示區">
+      <div id="honor-roll-header">
+        <span role="img" aria-label="獎盃">🏆</span> 榮譽榜
+      </div>
+      <div id="honor-list">
+        </div>
+      <div id="honor-pagination" class="pagination"></div>
+    </section>
   </div>
 
   <dialog id="detail-modal">
@@ -128,12 +177,10 @@
 
   <div id="view-login" class="view">
     <h1 style="text-align:center;">管理員登入</h1>
-    <form onsubmit="handleLogin(event)" style="max-width:25rem; margin:auto; border:2px solid var(--border); padding:30px; border-radius:8px;">
-      <label for="username">帳號</label>
-      <input type="text" id="username" required autocomplete="username">
-      <label for="password">密碼</label>
-      <input type="password" id="password" required autocomplete="current-password">
-      <div style="margin-top:20px; display:flex; justify-content:space-between;">
+    <form onsubmit="handleLogin(event)" style="max-width:25rem; margin:auto; border:3px solid var(--border); padding:30px; border-radius:8px;">
+      <label for="username">帳號</label><input type="text" id="username" required>
+      <label for="password">密碼</label><input type="password" id="password" required>
+      <div style="margin-top:20px; text-align:center;">
         <button type="submit" class="btn">登入</button>
         <button type="button" class="btn btn-secondary" onclick="switchView('view-public')">取消</button>
       </div>
@@ -141,171 +188,123 @@
   </div>
 
   <div id="view-admin" class="view">
-    <header style="border-bottom:2px solid var(--border); padding-bottom:15px; margin-bottom:25px;">
+    <header style="border-bottom:3px solid var(--border); padding-bottom:15px; margin-bottom:25px;">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-        <h1 style="margin:0; font-size:1.5rem;">後台管理 - <span id="user-display"></span></h1>
+        <h1 style="margin:0; font-size:1.5rem;">後台 - <span id="user-display"></span></h1>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <button onclick="switchView('view-public')" class="btn btn-secondary">前台</button>
-          <button id="btn-cats" onclick="switchView('view-cats')" class="btn btn-secondary" style="display:none;">分類管理</button>
-          <button id="btn-users" onclick="switchView('view-users')" class="btn btn-secondary" style="display:none;">使用者管理</button>
-          <button onclick="openChangePasswordModal()" class="btn btn-secondary">修改密碼</button>
+          <button id="btn-cats" onclick="switchView('view-cats')" class="btn btn-secondary" style="display:none;">分類</button>
+          <button id="btn-users" onclick="switchView('view-users')" class="btn btn-secondary" style="display:none;">使用者</button>
+          <button onclick="openChangePasswordModal()" class="btn btn-secondary">改密碼</button>
           <button onclick="logout()" class="btn">登出</button>
         </div>
       </div>
     </header>
 
-    <div style="background:var(--input-bg); padding:25px; border:1px solid var(--border); margin-bottom:30px; border-radius:8px;">
+    <div style="background:var(--input-bg); padding:25px; border:2px solid var(--border); margin-bottom:30px; border-radius:8px;">
       <h2 style="margin-top:0;">發布/編輯公告</h2>
       <form id="admin-form" onsubmit="handleSave(event)">
         <input type="hidden" id="post-id">
-        <label for="post-title">標題 (必填)</label>
-        <input type="text" id="post-title" required>
+        <label for="post-title">標題</label><input type="text" id="post-title" required>
+        <label for="post-cat">分類</label><select id="post-cat" required><option>載入中...</option></select>
+        <label for="post-content">內容</label><textarea id="post-content" rows="6" required></textarea>
         
-        <label for="post-cat">分類 (必填)</label>
-        <select id="post-cat" required><option>載入中...</option></select>
-        
-        <label for="post-content">內容 (必填)</label>
-        <textarea id="post-content" rows="6" required></textarea>
-        
-        <div id="author-select-group" style="display:none; background:#fff; border:1px solid #b00; padding:15px; margin-bottom:20px;">
-          <label for="post-author" style="color:#b00; margin-bottom:5px;">【系統管理員專用】指定發布者：</label>
-          <select id="post-author" style="margin-bottom:0;"><option value="">(保留原發布者)</option></select>
+        <div id="author-select-group" style="display:none; margin-bottom:15px;">
+          <label for="post-author" style="color:#b00;">指定發布者 (總管)：</label>
+          <select id="post-author"><option value="">(保留原發布者)</option></select>
         </div>
 
-        <div style="border:1px dashed var(--border); padding:15px; margin-bottom:20px; background:#fff;">
-          <label for="post-file">附件上傳 (可多選)</label>
+        <div style="border:2px dashed var(--border); padding:15px; margin-bottom:20px; background:#fff;">
+          <label for="post-file">附件 (圖片將用於榮譽榜輪播)</label>
           <input type="file" id="post-file" multiple>
-          
-          <div id="current-attachment-info" style="display:none; margin-top:10px; padding:10px; background:#eee;">
-            <p style="margin:0 0 5px 0;"><strong>目前已有的附件：</strong></p>
-            <ul id="existing-file-list" style="margin:0; padding-left:20px;"></ul>
-            <label for="delete-attachment" style="display:block; margin-top:10px; color:#b00;">
-              <input type="checkbox" id="delete-attachment" style="width:auto;"> 刪除所有舊附件 (若勾選，舊檔將全部清空)
-            </label>
+          <div id="current-attachment-info" style="display:none; margin-top:10px;">
+            <p><strong>目前附件：</strong></p><ul id="existing-file-list" style="margin-0;padding-left:20px;"></ul>
+            <label for="delete-attachment" style="color:#b00; margin-top:10px; display:block;"><input type="checkbox" id="delete-attachment" style="width:auto;"> 刪除所有舊附件</label>
           </div>
         </div>
 
-        <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:20px;">
-          <label for="post-pinned" style="display:flex; align-items:center; gap:5px;">
-            <input type="checkbox" id="post-pinned" style="width:auto; margin:0;"> 設為置頂
-          </label>
-          <div style="display:flex; align-items:center; gap:5px;">
-            <label for="post-pin-expiry" style="margin:0;">置頂期限：</label>
-            <input type="date" id="post-pin-expiry" style="width:auto; margin:0;">
-          </div>
+        <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
+          <label style="display:flex; align-items:center; gap:5px;"><input type="checkbox" id="post-pinned" style="width:auto; margin:0;"> 設為置頂</label>
+          <div style="display:flex; align-items:center; gap:5px;"><label for="post-pin-expiry" style="margin:0;">期限：</label><input type="date" id="post-pin-expiry" style="width:auto; margin:0;"></div>
         </div>
         
-        <div style="display:flex; flex-wrap:wrap; gap:20px;">
-          <div style="flex:1;">
-            <label for="post-expiry">下架日期</label>
-            <input type="date" id="post-expiry">
-          </div>
-          <div style="flex:1;">
-            <label for="post-link">外部連結</label>
-            <input type="url" id="post-link" placeholder="https://...">
-          </div>
+        <div style="display:flex; gap:20px;">
+          <div style="flex:1;"><label for="post-expiry">下架日</label><input type="date" id="post-expiry"></div>
+          <div style="flex:1;"><label for="post-link">外部連結</label><input type="url" id="post-link"></div>
         </div>
         
-        <div style="margin-top:10px;">
-          <button type="submit" class="btn">儲存公告</button>
-          <button type="button" onclick="resetForm()" class="btn btn-secondary">清空</button>
-        </div>
+        <div style="margin-top:15px;"><button type="submit" class="btn">儲存</button><button type="button" onclick="resetForm()" class="btn btn-secondary">清空</button></div>
       </form>
     </div>
-
-    <h2>已發布公告</h2>
-    <div class="table-container">
-      <table>
-        <thead><tr><th>日期</th><th>標題</th><th>分類</th><th>發布者</th><th>附件</th><th>操作</th></tr></thead>
-        <tbody id="admin-tbody"></tbody>
-      </table>
-    </div>
+    <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse;"><thead><tr><th style="border:1px solid #000; padding:8px;">標題</th><th style="border:1px solid #000; padding:8px;">分類</th><th style="border:1px solid #000; padding:8px;">操作</th></tr></thead><tbody id="admin-tbody"></tbody></table></div>
   </div>
 
   <div id="view-cats" class="view">
     <header><h1>分類管理</h1><button onclick="switchView('view-admin')" class="btn btn-secondary">返回</button></header>
-    <div style="background:var(--input-bg); padding:20px; border:1px solid var(--border); margin:20px 0; border-radius:8px;">
+    <div style="background:var(--input-bg); padding:20px; border:2px solid var(--border); margin:20px 0; border-radius:8px;">
       <form id="cat-form" onsubmit="handleCatSave(event)" style="display:flex; gap:10px; align-items:flex-end;">
         <input type="hidden" id="cat-id">
-        <div style="flex-grow:1;">
-          <label for="cat-name">分類名稱</label>
-          <input type="text" id="cat-name" required style="margin:0;">
-        </div>
+        <div style="flex-grow:1;"><label for="cat-name">分類名稱</label><input type="text" id="cat-name" required style="margin:0;"></div>
         <button type="submit" class="btn">儲存</button>
       </form>
     </div>
-    <div class="table-container">
-      <table><thead><tr><th>名稱</th><th>操作</th></tr></thead><tbody id="cat-tbody"></tbody></table>
-    </div>
+    <div class="table-container"><table><thead><tr><th>名稱</th><th>操作</th></tr></thead><tbody id="cat-tbody"></tbody></table></div>
   </div>
 
   <div id="view-users" class="view">
     <header><h1>使用者管理</h1><button onclick="switchView('view-admin')" class="btn btn-secondary">返回</button></header>
-    <div style="background:var(--input-bg); padding:25px; border:1px solid var(--border); margin:20px 0; border-radius:8px;">
+    <div style="background:var(--input-bg); padding:25px; border:2px solid var(--border); margin:20px 0; border-radius:8px;">
       <h2 style="margin-top:0;" id="user-form-title">新增使用者</h2>
       <form id="user-form" onsubmit="handleUserSave(event)">
         <input type="hidden" id="user-is-edit" value="false">
-        <label for="new-username">帳號 (必填)</label>
-        <input type="text" id="new-username" required autocomplete="off">
-        <label for="new-jobtitle">職稱 (必填)</label>
-        <input type="text" id="new-jobtitle" required autocomplete="off">
-        <label for="new-password">密碼 (新增必填，修改選填)</label>
-        <input type="password" id="new-password" autocomplete="new-password">
-        
-        <div style="border:1px solid var(--border); padding:15px; background:#fff;">
+        <label for="new-username">帳號 (必填)</label><input type="text" id="new-username" required autocomplete="off">
+        <label for="new-jobtitle">職稱 (必填)</label><input type="text" id="new-jobtitle" required autocomplete="off">
+        <label for="new-password">密碼</label><input type="password" id="new-password" autocomplete="new-password">
+        <div style="border:2px solid var(--border); padding:15px; background:#fff;">
           <p style="margin:0 0 10px 0; font-weight:bold;">權限設定：</p>
-          <label for="role-super" style="margin-bottom:10px; color:#b00;">
-            <input type="checkbox" id="role-super" style="width:auto;"> 系統管理員 (全權限)
-          </label>
+          <label for="role-super" style="margin-bottom:10px; color:#b00;"><input type="checkbox" id="role-super" style="width:auto;"> 系統管理員 (全權限)</label>
           <hr style="margin:10px 0;">
-          <div style="margin-bottom:10px; padding-bottom:5px; border-bottom:1px dashed #ccc;">
-            <label for="perm-select-all" style="cursor:pointer; color:#0056b3;">
-              <input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" style="width:auto;"> 全選 / 取消全選
-            </label>
-          </div>
+          <div style="margin-bottom:10px; padding-bottom:5px; border-bottom:1px dashed #ccc;"><label for="perm-select-all" style="cursor:pointer; color:#0056b3;"><input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" style="width:auto;"> 全選 / 取消全選</label></div>
           <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:15px;"></div>
         </div>
-        <div style="margin-top:20px;">
-          <button type="submit" class="btn" id="btn-save-user">新增使用者</button>
-          <button type="button" class="btn btn-secondary" onclick="resetUserForm()">重置</button>
-        </div>
+        <div style="margin-top:20px;"><button type="submit" class="btn" id="btn-save-user">新增使用者</button><button type="button" class="btn btn-secondary" onclick="resetUserForm()">重置</button></div>
       </form>
     </div>
-    <div class="table-container">
-      <table><thead><tr><th>帳號</th><th>職稱</th><th>權限</th><th>操作</th></tr></thead><tbody id="user-tbody"></tbody></table>
-    </div>
+    <div class="table-container"><table><thead><tr><th>帳號</th><th>職稱</th><th>權限</th><th>操作</th></tr></thead><tbody id="user-tbody"></tbody></table></div>
   </div>
 
   <dialog id="password-modal">
     <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #ccc; padding-bottom:10px;">
-      <h2 style="margin:0;">修改個人密碼</h2>
-      <button onclick="document.getElementById('password-modal').close()" class="btn btn-secondary">關閉</button>
+      <h2 style="margin:0;">修改個人密碼</h2><button onclick="document.getElementById('password-modal').close()" class="btn btn-secondary">關閉</button>
     </div>
     <form onsubmit="handleChangePassword(event)">
       <label for="cp-old">舊密碼</label><input type="password" id="cp-old" required>
       <label for="cp-new">新密碼</label><input type="password" id="cp-new" required>
       <label for="cp-confirm">確認新密碼</label><input type="password" id="cp-confirm" required>
-      <div style="text-align:right; margin-top:15px;">
-        <button type="submit" class="btn">確認修改</button>
-      </div>
+      <div style="text-align:right; margin-top:15px;"><button type="submit" class="btn">確認修改</button></div>
     </form>
   </dialog>
 
   <script>
-    // 👇👇👇 請在此填入您的 GAS 網址 👇👇👇
+    // 👇👇👇 請務必替換成您的 GAS 網址 👇👇👇
     const API_URL = "https://script.google.com/macros/s/AKfycbwoAtocGgeoAPjKDgI3by1xOPMTsb68BL4ihhNDMxZTjVOZnv2NiQZUFrgEoqNBXFqu/exec";
 
-    // 全域變數
-    let currentUser = null;
-    let allPublicData = []; 
-    let currentFilteredData = []; 
-    let categories = [];
-    const ITEMS_PER_PAGE = 5; 
-    let currentPage = 1;
+    let currentUser = null, allPublicData = [], currentFilteredData = [], categories = [];
+    const ITEMS_PER_PAGE = 5; let currentPage = 1;
+    let honorData = []; const HONOR_PER_PAGE = 3; let currentHonorPage = 1;
+    const carouselTimers = {}; 
 
     document.addEventListener('DOMContentLoaded', () => { loadCategories(); loadPublicData(); });
 
-    // ========== API 核心 ==========
+    // 工具: 修復 Drive 連結
+    function getDriveImgUrl(url) {
+      if (!url) return "";
+      let id = "";
+      if (url.includes("id=")) id = url.split("id=")[1].split("&")[0];
+      else if (url.includes("/d/")) id = url.split("/d/")[1].split("/")[0];
+      return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w2000` : url;
+    }
+
     async function callApi(op, data = {}) {
       try {
         const url = ['getPublicData', 'getCategories'].includes(op) ? `${API_URL}?op=${op}` : API_URL;
@@ -328,15 +327,138 @@
       if (id === 'view-users') loadUsers();
     }
 
-    // ========== 公開資料 ==========
+    // ========== 公開資料 & 榮譽榜 ==========
     function loadCategories() { callApi('getCategories').then(d => { categories = d; renderCategorySelects(); renderCategoryTable(); }); }
-    function loadPublicData() { callApi('getPublicData').then(d => { allPublicData = d; applyFilter(); }).catch(e => document.getElementById('public-list').innerHTML='<p style="padding:20px;color:red;">資料載入失敗</p>'); }
     
+    function loadPublicData() { 
+      callApi('getPublicData').then(d => { 
+        allPublicData = d; 
+        initHonorRoll(); 
+        applyFilter(); 
+      }).catch(e => document.getElementById('public-list').innerHTML='<p style="padding:20px;color:red;">資料載入失敗</p>'); 
+    }
+
+    function initHonorRoll() {
+      honorData = allPublicData.filter(d => d.category && d.category.indexOf("榮譽榜") !== -1);
+      const section = document.getElementById('honor-roll-section');
+      if (honorData.length === 0) {
+        section.style.display = 'none';
+      } else {
+        section.style.display = 'block';
+        currentHonorPage = 1;
+        renderHonorRollPage();
+      }
+    }
+
+    // 🏆 渲染榮譽榜
+    function renderHonorRollPage() {
+      Object.keys(carouselTimers).forEach(key => stopAutoPlay(key));
+      const container = document.getElementById('honor-list');
+      const pagination = document.getElementById('honor-pagination');
+      const start = (currentHonorPage - 1) * HONOR_PER_PAGE;
+      const displayData = honorData.slice(start, start + HONOR_PER_PAGE);
+
+      container.innerHTML = displayData.map((item, localIdx) => {
+        const carouselKey = item.id;
+        const attachs = item.attachments || [];
+        const images = attachs.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
+        
+        let mediaContent = '';
+        if (images.length === 0) {
+          mediaContent = `<div style="color:#aaa; font-size:2rem;">🏆</div>`;
+        } else if (images.length === 1) {
+          mediaContent = `<img src="${getDriveImgUrl(images[0].url)}" alt="${images[0].name}">`;
+        } else {
+          const processedImages = images.map(img => ({ name: img.name, url: getDriveImgUrl(img.url) }));
+          const imgJson = JSON.stringify(processedImages).replace(/"/g, '&quot;'); 
+          
+          mediaContent = `
+            <img src="${processedImages[0].url}" id="honor-img-${carouselKey}" data-idx="0" data-imgs="${imgJson}" alt="輪播圖片">
+            <div class="carousel-controls">
+              <button class="carousel-btn ctrl-play" onclick="togglePlay('${carouselKey}')" id="play-btn-${carouselKey}" aria-label="暫停/播放">❚❚</button>
+              <button class="carousel-btn ctrl-prev" onclick="moveSlide('${carouselKey}', -1)" aria-label="上一張">❮</button>
+              <button class="carousel-btn ctrl-next" onclick="moveSlide('${carouselKey}', 1)" aria-label="下一張">❯</button>
+            </div>`;
+          startAutoPlay(carouselKey, processedImages.length);
+        }
+
+        const globalIndex = allPublicData.indexOf(item);
+
+        return `
+          <div class="honor-card">
+            <div class="honor-media">${mediaContent}</div>
+            <div class="honor-content">
+              <h3>${item.title}</h3>
+              <p>${item.date} | ${item.authorTitle}</p>
+              <div style="max-height:100px; overflow:hidden; text-overflow:ellipsis;">${item.content.substring(0, 100)}...</div>
+              <div style="margin-top:10px;">
+                <button onclick="openDetail(${globalIndex})" class="btn">查看詳情</button>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+      const totalPages = Math.ceil(honorData.length / HONOR_PER_PAGE);
+      if (totalPages > 1) {
+        let html = `<button class="page-btn" onclick="changeHonorPage(${currentHonorPage-1})" ${currentHonorPage===1?'disabled':''}>&laquo;</button>`;
+        for(let i=1; i<=totalPages; i++) html += `<button class="page-btn ${i===currentHonorPage?'active':''}" onclick="changeHonorPage(${i})">${i}</button>`;
+        html += `<button class="page-btn" onclick="changeHonorPage(${currentHonorPage+1})" ${currentHonorPage===totalPages?'disabled':''}>&raquo;</button>`;
+        pagination.innerHTML = html;
+      } else {
+        pagination.innerHTML = '';
+      }
+    }
+
+    function changeHonorPage(p) {
+      const total = Math.ceil(honorData.length / HONOR_PER_PAGE);
+      if (p < 1 || p > total) return;
+      currentHonorPage = p;
+      renderHonorRollPage();
+    }
+
+    function startAutoPlay(key, count) {
+      if (carouselTimers[key]) clearInterval(carouselTimers[key]);
+      carouselTimers[key] = setInterval(() => moveSlide(key, 1, true), 3000);
+    }
+
+    function moveSlide(key, dir, isAuto = false) {
+      const img = document.getElementById(`honor-img-${key}`);
+      if (!img) return;
+      const images = JSON.parse(img.dataset.imgs);
+      let current = parseInt(img.dataset.idx);
+      current = (current + dir + images.length) % images.length;
+      img.src = images[current].url;
+      img.dataset.idx = current;
+      if (!isAuto) stopAutoPlay(key);
+    }
+
+    function togglePlay(key) {
+      const btn = document.getElementById(`play-btn-${key}`);
+      if (carouselTimers[key]) {
+        stopAutoPlay(key);
+        btn.textContent = "▶"; 
+      } else {
+        const img = document.getElementById(`honor-img-${key}`);
+        const images = JSON.parse(img.dataset.imgs);
+        startAutoPlay(key, images.length);
+        btn.textContent = "❚❚"; 
+      }
+    }
+
+    function stopAutoPlay(key) {
+      if (carouselTimers[key]) {
+        clearInterval(carouselTimers[key]);
+        delete carouselTimers[key];
+        const btn = document.getElementById(`play-btn-${key}`);
+        if(btn) btn.textContent = "▶";
+      }
+    }
+
+    // ========== 一般列表 ==========
     function renderCategorySelects() {
-      const active = categories.filter(c => c.isActive);
-      const html = active.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+      const html = categories.filter(c => c.isActive).map(c => `<option value="${c.name}">${c.name}</option>`).join('');
       document.getElementById('category-filter').innerHTML = `<option value="all">所有分類</option>` + html;
-      document.getElementById('post-cat').innerHTML = `<option value="" disabled selected>請選擇分類...</option>` + html;
+      document.getElementById('post-cat').innerHTML = `<option value="" disabled selected>請選擇...</option>` + html;
     }
 
     function applyFilter() {
@@ -349,82 +471,69 @@
     function renderCurrentPage() {
       const list = document.getElementById('public-list');
       const controls = document.getElementById('pagination-controls');
-      
-      if (currentFilteredData.length === 0) {
-        list.innerHTML = '<p style="padding:20px;">目前沒有公告</p>';
-        controls.innerHTML = '';
-        return;
-      }
+      if (currentFilteredData.length === 0) { list.innerHTML = '<p style="padding:20px;">無公告</p>'; controls.innerHTML=''; return; }
 
       const start = (currentPage - 1) * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      const displayData = currentFilteredData.slice(start, end);
+      const displayData = currentFilteredData.slice(start, start + ITEMS_PER_PAGE);
 
       list.innerHTML = displayData.map((item, index) => {
-        const realIndex = start + index;
         const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂</span>` : '';
         const attachBadge = (item.attachments && item.attachments.length > 0) ? ' | 📎 含附件' : '';
+        // 修正：使用 globalIndex
+        const globalIndex = allPublicData.indexOf(item);
+        
         return `
-          <div class="post-list-item" onclick="openDetail(${realIndex})" role="button" tabindex="0">
-            ${pinHtml}
-            <h2>${item.title}</h2>
-            <div class="post-meta">
-              <strong>${item.date}</strong> | ${item.category} | 發布者：${item.authorTitle} ${attachBadge}
-            </div>
+          <div class="post-list-item" onclick="openDetail(${globalIndex})" tabindex="0">
+            ${pinHtml} <h2>${item.title}</h2>
+            <div class="post-meta"><strong>${item.date}</strong> | ${item.category} | ${item.authorTitle} ${attachBadge}</div>
           </div>`;
       }).join('');
-
+      
       renderPaginationControls();
     }
 
     function renderPaginationControls() {
-      const totalPages = Math.ceil(currentFilteredData.length / ITEMS_PER_PAGE);
-      const container = document.getElementById('pagination-controls');
-      if (totalPages <= 1) { container.innerHTML = ''; return; }
-
-      let html = `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo;</button>`;
-      for (let i = 1; i <= totalPages; i++) {
-        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-      }
-      html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>&raquo;</button>`;
-      container.innerHTML = html;
-    }
-
-    function changePage(page) {
-      const totalPages = Math.ceil(currentFilteredData.length / ITEMS_PER_PAGE);
-      if (page < 1 || page > totalPages) return;
-      currentPage = page;
-      renderCurrentPage();
-      window.scrollTo(0, 0); 
-    }
-
-    function openDetail(realIndex) {
-      const item = currentFilteredData[realIndex];
-      const modal = document.getElementById('detail-modal');
-      const contentDiv = document.getElementById('modal-content');
+      const total = Math.ceil(currentFilteredData.length / ITEMS_PER_PAGE);
+      const div = document.getElementById('pagination-controls');
+      if(total<=1){ div.innerHTML=''; return; }
       
-      const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂公告</span>` : '';
+      let html = `<button class="page-btn" onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''}>&laquo;</button>`;
+      for(let i=1; i<=total; i++) html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
+      html += `<button class="page-btn" onclick="changePage(${currentPage+1})" ${currentPage===total?'disabled':''}>&raquo;</button>`;
+      div.innerHTML = html;
+    }
+    function changePage(p) { 
+      const total = Math.ceil(currentFilteredData.length / ITEMS_PER_PAGE);
+      if(p<1 || p>total) return; 
+      currentPage = p; renderCurrentPage(); window.scrollTo(0,0); 
+    }
+
+    function openDetail(index) {
+      const item = allPublicData[index];
+      if (!item) return;
+      const modal = document.getElementById('detail-modal');
+      const content = document.getElementById('modal-content');
+      
       let attachHtml = '';
       if (item.attachments && item.attachments.length > 0) {
-        attachHtml = `<div style="margin-top:20px; padding:15px; border:1px dashed #ccc; background:#fff;"><strong>附件下載：</strong><br>`;
-        if(typeof item.attachments === 'string') attachHtml += `<a href="${item.attachments}" target="_blank">下載附件</a>`; // 相容舊版
-        else attachHtml += item.attachments.map(f => `<a href="${f.url}" target="_blank" style="margin-right:15px;">📎 ${f.name}</a>`).join('');
+        attachHtml = `<div style="margin-top:20px; padding:10px; border:1px dashed #000; background:#f9f9f9;"><strong>附件：</strong><br>`;
+        if (typeof item.attachments === 'string') attachHtml += `<a href="${item.attachments}" target="_blank">下載</a>`;
+        else attachHtml += item.attachments.map(f => `<a href="${f.url}" target="_blank" style="margin-right:10px;">📎 ${f.name}</a>`).join('');
         attachHtml += `</div>`;
       }
-      const linkHtml = item.link ? `<div style="margin-top:10px;"><a href="${item.link}" target="_blank" class="btn">🔗 前往外部連結</a></div>` : '';
-
-      contentDiv.innerHTML = `
-        <h2 style="margin-top:0; font-size:1.6rem; border-bottom:1px solid #ccc; padding-bottom:10px;">${pinHtml} ${item.title}</h2>
-        <p style="color:#666; font-size:0.95rem;">發布日期：${item.date} <br>分類：${item.category} <br>發布者：${item.authorTitle}</p>
-        <div style="font-size:1.15rem; line-height:1.8; margin-top:20px;">${item.content.replace(/\n/g, '<br>')}</div>
-        ${attachHtml} ${linkHtml}
+      
+      content.innerHTML = `
+        <h2 style="border-bottom:2px solid #000; padding-bottom:10px;">${item.title}</h2>
+        <p style="color:#555;">${item.date} | ${item.category} | ${item.authorTitle}</p>
+        <div style="font-size:1.2rem; line-height:1.8; margin-top:20px;">${item.content.replace(/\n/g, '<br>')}</div>
+        ${attachHtml}
+        ${item.link ? `<div style="margin-top:10px;"><a href="${item.link}" target="_blank" class="btn">🔗 外部連結</a></div>` : ''}
       `;
       modal.showModal();
     }
-
     function closeDetail() { document.getElementById('detail-modal').close(); }
 
-    // ========== 登入 & 後台 ==========
+    // ========== 登入/後台 ==========
     function handleLogin(e) {
       e.preventDefault(); showMessage("登入中...");
       callApi('login', { username: document.getElementById('username').value, password: document.getElementById('password').value }).then(res => {
@@ -434,37 +543,29 @@
         document.getElementById('btn-cats').style.display = isSuper ? 'inline-block' : 'none';
         document.getElementById('btn-users').style.display = isSuper ? 'inline-block' : 'none';
         const authorDiv = document.getElementById('author-select-group');
-        if (isSuper) { authorDiv.style.display = 'block'; loadAuthorSelect(); } 
-        else { authorDiv.style.display = 'none'; }
-        loadAdminData(); switchView('view-admin'); document.getElementById('username').value=''; document.getElementById('password').value='';
+        if (isSuper) { authorDiv.style.display = 'block'; loadAuthorSelect(); } else { authorDiv.style.display = 'none'; }
+        loadAdminData(); switchView('view-admin');
       }).catch(e => showMessage(e.message));
     }
     function logout() { currentUser = null; switchView('view-public'); showMessage("已登出"); }
-
+    
     function loadAuthorSelect() {
       callApi('getUsers', { currentUser }).then(users => {
-        const select = document.getElementById('post-author');
-        select.innerHTML = '<option value="">(保留原發布者)</option>';
-        users.forEach(u => {
-          const option = document.createElement('option');
-          option.value = u.username;
-          option.textContent = `${u.username} (${u.jobTitle})`;
-          select.appendChild(option);
-        });
+        const sel = document.getElementById('post-author');
+        sel.innerHTML = '<option value="">(保留原發布者)</option>' + users.map(u => `<option value="${u.username}">${u.username} (${u.jobTitle})</option>`).join('');
       });
     }
 
     function loadAdminData() {
       callApi('getAdminData', { currentUser }).then(d => {
-        document.getElementById('admin-tbody').innerHTML = d.map(i => {
-          const hasAttach = (i.attachments && i.attachments.length > 0) ? `✅ ${i.attachments.length}個` : '-';
-          return `
-          <tr style="${i.author === currentUser ? 'background:#eef; ' : ''}">
-            <td>${i.date}</td><td>${i.title}</td><td>${i.category}</td><td>${i.authorTitle}</td>
-            <td style="font-size:0.9rem;">${hasAttach}</td>
-            <td>${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn" style="padding:2px 5px;font-size:0.9rem;">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger" style="padding:2px 5px;font-size:0.9rem;">刪</button>` : '-'}</td>
-          </tr>`;
-        }).join('');
+        document.getElementById('admin-tbody').innerHTML = d.map(i => `
+          <tr style="${i.author === currentUser ? 'background:#eef;' : ''}">
+            <td style="border:1px solid #000; padding:8px;">${i.title}</td>
+            <td style="border:1px solid #000; padding:8px;">${i.category}</td>
+            <td style="border:1px solid #000; padding:8px;">
+              ${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn" style="padding:2px 5px;">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger" style="padding:2px 5px;">刪</button>` : '-'}
+            </td>
+          </tr>`).join('');
       });
     }
 
@@ -473,9 +574,7 @@
       try {
         const fileInput = document.getElementById('post-file');
         let filesData = [];
-        if (fileInput.files.length > 0) {
-          filesData = await Promise.all(Array.from(fileInput.files).map(file => readFileAsBase64(file)));
-        }
+        if (fileInput.files.length > 0) filesData = await Promise.all(Array.from(fileInput.files).map(readFileAsBase64));
         const formData = {
           id: document.getElementById('post-id').value,
           title: document.getElementById('post-title').value,
@@ -503,69 +602,57 @@
       document.getElementById('post-expiry').value = item.expiryDate;
       document.getElementById('post-pinned').checked = item.isPinned;
       document.getElementById('post-pin-expiry').value = item.pinExpiry;
-      
-      const info = document.getElementById('current-attachment-info');
       const list = document.getElementById('existing-file-list');
       list.innerHTML = "";
-      if(item.attachments && item.attachments.length > 0) { 
-        info.style.display='block'; 
-        item.attachments.forEach(f => {
-          const li = document.createElement('li');
-          li.innerHTML = `<a href="${f.url}" target="_blank">${f.name}</a>`;
-          list.appendChild(li);
-        });
-      } else { info.style.display='none'; }
-      
-      document.getElementById('post-author').value = ""; 
-      document.getElementById('post-file').value = "";
-      document.getElementById('delete-attachment').checked = false;
+      if (item.attachments && item.attachments.length > 0) {
+        document.getElementById('current-attachment-info').style.display = 'block';
+        item.attachments.forEach(f => { list.innerHTML += `<li><a href="${f.url}" target="_blank">${f.name}</a></li>`; });
+      } else {
+        document.getElementById('current-attachment-info').style.display = 'none';
+      }
+      document.getElementById('post-files').value = "";
       document.getElementById('post-title').focus();
     }
+    
     function deletePost(id) { if(confirm("確定刪除？")) callApi('deleteAnnouncement', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadAdminData(); }); }
-    function resetForm() { document.getElementById('admin-form').reset(); document.getElementById('post-id').value=""; document.getElementById('current-attachment-info').style.display='none'; document.getElementById('post-author').value = ""; }
+    function resetForm() { document.getElementById('admin-form').reset(); document.getElementById('post-id').value=""; document.getElementById('current-attachment-info').style.display='none'; }
 
-    // ========== 分類 & 使用者 ==========
+    // 分類 & 使用者管理
     function handleCatSave(e) { e.preventDefault(); callApi('saveCategory', { id: document.getElementById('cat-id').value, name: document.getElementById('cat-name').value, currentUser }).then(()=>{ showMessage("成功"); document.getElementById('cat-form').reset(); document.getElementById('cat-id').value=""; loadCategories(); }); }
-    function editCat(id, name) { document.getElementById('cat-id').value = id; document.getElementById('cat-name').value = name; document.getElementById('cat-name').focus(); }
-    function toggleCat(id, isActive) { if(confirm(`確定${isActive?'啟用':'停用'}？`)) callApi('toggleCategoryStatus', {id, isActive, currentUser}).then(()=>{ showMessage("更新成功"); loadCategories(); }); }
-    function deleteCat(id) { if(confirm("確定刪除？")) callApi('deleteCategory', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadCategories(); }); }
-    function renderCategoryTable() { document.getElementById('cat-tbody').innerHTML = categories.map(c => `<tr><td><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span> ${c.isActive?'<span class="status-on">啟用</span>':'<span class="status-off">停用</span>'}</td><td><button onclick="editCat('${c.id}','${c.name}')" class="btn">修</button> <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}">${c.isActive?'停用':'啟用'}</button> <button onclick="deleteCat('${c.id}')" class="btn btn-secondary">刪</button></td></tr>`).join(''); }
+    function editCat(id, name) { document.getElementById('cat-id').value = id; document.getElementById('cat-name').value = name; }
+    function toggleCat(id, isActive) { if(confirm("確定切換？")) callApi('toggleCategoryStatus', {id, isActive, currentUser}).then(()=>{ showMessage("成功"); loadCategories(); }); }
+    function deleteCat(id) { if(confirm("刪除？")) callApi('deleteCategory', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadCategories(); }); }
+    function renderCategoryTable() { document.getElementById('cat-tbody').innerHTML = categories.map(c => `<tr><td style="border:1px solid #000;padding:8px;"><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span></td><td style="border:1px solid #000;padding:8px;"><button onclick="editCat('${c.id}','${c.name}')" class="btn">修</button> <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}">${c.isActive?'停':'啟'}</button> <button onclick="deleteCat('${c.id}')" class="btn btn-secondary">刪</button></td></tr>`).join(''); }
 
     function loadUsers() {
       const container = document.getElementById('permission-checkboxes');
-      container.innerHTML = categories.map(c => `<label for="perm-${c.name}" style="display:inline-block; margin-right:15px; margin-bottom:5px;"><input type="checkbox" id="perm-${c.name}" name="user-permissions" value="${c.name}" style="width:auto;"> ${c.name}</label>`).join('');
-      callApi('getUsers', { currentUser }).then(users => { document.getElementById('user-tbody').innerHTML = users.map(u => `<tr><td>${u.username}</td><td>${u.jobTitle}</td><td>${u.group}</td><td>${u.username===currentUser?'(自己)':`<button onclick='editUser(${JSON.stringify(u)})' class="btn">修</button> <button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪</button>`}</td></tr>`).join(''); });
+      container.innerHTML = categories.map(c => `<label style="margin-right:10px;"><input type="checkbox" name="user-permissions" value="${c.name}"> ${c.name}</label>`).join('');
+      callApi('getUsers', { currentUser }).then(users => { document.getElementById('user-tbody').innerHTML = users.map(u => `<tr><td style="border:1px solid #000;padding:8px;">${u.username}</td><td style="border:1px solid #000;padding:8px;">${u.jobTitle}</td><td style="border:1px solid #000;padding:8px;"><button onclick='editUser(${JSON.stringify(u)})' class="btn">修</button> <button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪</button></td></tr>`).join(''); });
     }
-    function toggleAllPerms(source) { document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = source.checked); }
+    function toggleAllPerms(src) { document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = src.checked); }
     function handleUserSave(e) {
       e.preventDefault();
-      let selected = [];
-      if(document.getElementById('role-super').checked) selected.push('系統管理員');
+      let selected = []; if(document.getElementById('role-super').checked) selected.push('系統管理員');
       document.querySelectorAll('input[name="user-permissions"]:checked').forEach(cb => selected.push(cb.value));
-      if(selected.length===0){ alert("請選權限"); return; }
-      const data = { isEdit: document.getElementById('user-is-edit').value === 'true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: selected.join(',') };
+      const data = { isEdit: document.getElementById('user-is-edit').value==='true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: selected.join(',') };
       callApi('saveUser', { formObj: data, currentUser }).then(()=>{ showMessage("成功"); resetUserForm(); loadUsers(); });
     }
     function editUser(u) {
       document.getElementById('user-form-title').textContent = "修改"; document.getElementById('user-is-edit').value = "true";
       document.getElementById('new-username').value = u.username; document.getElementById('new-username').readOnly = true;
       document.getElementById('new-jobtitle').value = u.jobTitle;
-      document.getElementById('new-password').value = ""; document.getElementById('new-password').placeholder = "留空不改"; document.getElementById('new-password').required = false;
-      const grps = u.group.split(',');
-      document.getElementById('role-super').checked = grps.includes('系統管理員');
-      const perms = document.querySelectorAll('input[name="user-permissions"]');
-      perms.forEach(cb => cb.checked = grps.includes(cb.value));
-      document.getElementById('perm-select-all').checked = (perms.length > 0 && Array.from(perms).every(cb => cb.checked));
+      const grps = u.group.split(','); document.getElementById('role-super').checked = grps.includes('系統管理員');
+      document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = grps.includes(cb.value));
     }
-    function resetUserForm() { document.getElementById('user-form').reset(); document.getElementById('user-form-title').textContent = "新增"; document.getElementById('user-is-edit').value = "false"; document.getElementById('new-username').readOnly = false; document.getElementById('new-password').placeholder = ""; document.getElementById('new-password').required = true; }
-    function deleteUser(u) { if(confirm("確定刪除？")) callApi('deleteUser', {targetUsername:u, currentUser}).then(()=>{ showMessage("已刪除"); loadUsers(); }); }
-
-    function openChangePasswordModal() { document.getElementById('cp-old').value = ""; document.getElementById('cp-new').value = ""; document.getElementById('cp-confirm').value = ""; document.getElementById('password-modal').showModal(); }
+    function resetUserForm() { document.getElementById('user-form').reset(); document.getElementById('user-form-title').textContent="新增"; document.getElementById('user-is-edit').value="false"; document.getElementById('new-username').readOnly=false; }
+    function deleteUser(u) { if(confirm("刪除？")) callApi('deleteUser', {targetUsername:u, currentUser}).then(()=>{ showMessage("已刪除"); loadUsers(); }); }
+    
+    function openChangePasswordModal() { document.getElementById('password-modal').showModal(); }
     function handleChangePassword(e) {
       e.preventDefault();
-      const oldPass = document.getElementById('cp-old').value, newPass = document.getElementById('cp-new').value, confirmPass = document.getElementById('cp-confirm').value;
-      if (newPass !== confirmPass) { alert("兩次密碼不同"); return; }
-      callApi('changePassword', { username: currentUser, oldPassword: oldPass, newPassword: newPass }).then(msg => { alert(msg); document.getElementById('password-modal').close(); }).catch(e => alert(e.message));
+      const o=document.getElementById('cp-old').value, n=document.getElementById('cp-new').value, c=document.getElementById('cp-confirm').value;
+      if(n!==c){alert("密碼不符");return;}
+      callApi('changePassword', {username:currentUser, oldPassword:o, newPassword:n}).then(msg=>{alert(msg);document.getElementById('password-modal').close();});
     }
   </script>
 </body>
