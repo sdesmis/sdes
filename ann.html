@@ -231,6 +231,13 @@
             <input type="checkbox" id="role-super" style="width:auto;"> 系統管理員 (全權限)
           </label>
           <hr style="margin:10px 0;">
+          
+          <div style="margin-bottom:10px; padding-bottom:5px; border-bottom:1px dashed #ccc;">
+            <label style="cursor:pointer; color:#0056b3;">
+              <input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" style="width:auto;"> 全選 / 取消全選
+            </label>
+          </div>
+
           <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:15px;"></div>
         </div>
         
@@ -508,7 +515,7 @@
     }
     function editCat(id, name) { document.getElementById('cat-id').value = id; document.getElementById('cat-name').value = name; document.getElementById('cat-name').focus(); }
     function toggleCat(id, isActive) { if(confirm(`確定${isActive?'啟用':'停用'}？`)) callApi('toggleCategoryStatus', {id, isActive, currentUser}).then(()=>{ showMessage("更新成功"); loadCategories(); }); }
-    function deleteCat(id) { if(confirm("確定刪除？")) callApi('deleteCategory', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadCategories(); }); }
+    function deleteCat(id) { if(confirm("確定刪除？建議使用停用。")) callApi('deleteCategory', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadCategories(); }); }
     function renderCategoryTable() {
       document.getElementById('cat-tbody').innerHTML = categories.map(c => `
         <tr>
@@ -529,6 +536,13 @@
         document.getElementById('user-tbody').innerHTML = users.map(u => `<tr><td>${u.username}</td><td>${u.jobTitle}</td><td>${u.group}</td><td>${u.username===currentUser?'(自己)':`<button onclick='editUser(${JSON.stringify(u)})' class="btn">修</button> <button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪</button>`}</td></tr>`).join('');
       });
     }
+    
+    // 全選/取消全選
+    function toggleAllPerms(source) {
+      const checkboxes = document.querySelectorAll('input[name="user-permissions"]');
+      checkboxes.forEach(cb => cb.checked = source.checked);
+    }
+
     function handleUserSave(e) {
       e.preventDefault();
       let selected = [];
@@ -546,7 +560,6 @@
     }
     function editUser(u) {
       document.getElementById('user-form-title').textContent = "修改使用者";
-      document.getElementById('btn-save-user').textContent = "更新資料";
       document.getElementById('user-is-edit').value = "true";
       document.getElementById('new-username').value = u.username; document.getElementById('new-username').readOnly = true;
       document.getElementById('new-jobtitle').value = u.jobTitle;
@@ -557,7 +570,14 @@
 
       const grps = u.group.split(',');
       document.getElementById('role-super').checked = grps.includes('系統管理員');
-      document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = grps.includes(cb.value));
+      
+      const perms = document.querySelectorAll('input[name="user-permissions"]');
+      perms.forEach(cb => cb.checked = grps.includes(cb.value));
+      
+      // 自動判斷是否勾選全選
+      const isAllChecked = Array.from(perms).every(cb => cb.checked);
+      const selectAllBox = document.getElementById('perm-select-all');
+      if(selectAllBox) selectAllBox.checked = (perms.length > 0 && isAllChecked);
     }
     function resetUserForm() {
       document.getElementById('user-form').reset(); 
