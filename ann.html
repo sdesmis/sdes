@@ -6,149 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="符合無障礙 AAA 標準的公告發布與管理系統">
   <style>
-    /* =========================================
-       AAA 級無障礙樣式 (High Contrast & Responsive)
-       ========================================= */
-    :root { 
-      --bg: #ffffff; 
-      --text: #000000; 
-      --focus: #FFD700; /* 強烈對比焦點色 */
-      --border: #000000; 
-      --input-bg: #f5f5f5;
-      --btn-text: #ffffff;
-    }
+    /* ========== AAA 級無障礙樣式 ========== */
+    :root { --bg: #ffffff; --text: #000000; --focus: #FFD700; --border: #000000; --input-bg: #f5f5f5; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #000000; --text: #ffffff; --focus: #FFD700; --border: #ffffff; --input-bg: #333333; } }
     
-    /* 深色模式支援 */
-    @media (prefers-color-scheme: dark) { 
-      :root { 
-        --bg: #000000; 
-        --text: #ffffff; 
-        --focus: #FFD700; 
-        --border: #ffffff; 
-        --input-bg: #333333;
-        --btn-text: #000000;
-      } 
-    }
+    html, body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 100%; line-height: 1.8; letter-spacing: 0.12em; margin: 0; padding: 0; }
+    body { padding: 1.25rem; max-width: 60rem; margin: 0 auto; }
+    div, p, label, input, button { font-size: 1rem; line-height: inherit; font-family: inherit; }
+    *:focus { outline: 0.25rem solid var(--focus) !important; outline-offset: 0.125rem; }
     
-    /* 基礎設定：使用相對單位 rem */
-    html, body { 
-      font-family: "Helvetica Neue", Arial, "Heiti TC", sans-serif; 
-      background: var(--bg); 
-      color: var(--text); 
-      font-size: 100%; 
-      line-height: 1.8; /* AAA: 寬鬆行高 */
-      letter-spacing: 0.12em; 
-      word-spacing: 0.16em; 
-      margin: 0; 
-      padding: 0; 
-    }
-
-    /* 確保所有元素繼承字體設定 */
-    div, p, span, a, li, td, th, label, input, button, select, textarea { 
-      font-size: 1rem; 
-      line-height: inherit; 
-      font-family: inherit;
-    }
-
-    body { 
-      padding: 1.25rem; 
-      max-width: 60rem; 
-      margin: 0 auto; 
-    }
-
-    /* 強制顯示焦點狀態 (AAA 關鍵) */
-    *:focus { 
-      outline: 0.25rem solid var(--focus) !important; 
-      outline-offset: 0.125rem; 
-    }
-    
-    /* 按鈕樣式 */
-    .btn { 
-      padding: 0.75rem 1.25rem; 
-      background: var(--text); 
-      color: var(--bg); 
-      border: 0.125rem solid transparent; 
-      cursor: pointer; 
-      font-weight: bold; 
-      text-decoration: none; 
-      display: inline-block; 
-      margin-right: 0.5rem;
-      border-radius: 0.25rem;
-    }
+    .btn { padding: 0.75rem 1.25rem; background: var(--text); color: var(--bg); border: 0.125rem solid transparent; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; margin-right: 0.5rem; border-radius: 0.25rem; }
     .btn:hover { text-decoration: underline; opacity: 0.9; }
     .btn-danger { background: #cc0000; color: #ffffff; }
     .btn-secondary { background: transparent; color: var(--text); border: 0.125rem solid var(--border); }
     
-    /* 表單元件 */
     .form-group { margin-bottom: 1.5rem; }
     label { display: block; font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem; }
-    input[type="text"], input[type="password"], input[type="date"], input[type="url"], select, textarea { 
-      width: 100%; 
-      padding: 0.75rem; 
-      font-size: 1.1rem; 
-      border: 0.125rem solid var(--border); 
-      background: var(--input-bg); 
-      color: var(--text); 
-      box-sizing: border-box; 
-      border-radius: 0.25rem; 
-    }
+    input, select, textarea { width: 100%; padding: 0.75rem; font-size: 1.1rem; border: 0.125rem solid var(--border); background: var(--input-bg); color: var(--text); box-sizing: border-box; border-radius: 0.25rem; }
 
-    /* 視圖切換機制 */
-    .view { display: none; }
-    .active-view { display: block; animation: fadeIn 0.3s; }
+    .view { display: none; } .active-view { display: block; animation: fadeIn 0.3s; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* 輔助閱讀 (Screen Reader Only) */
     .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
-    
-    /* 全域訊息通知 */
-    .status-msg { 
-      position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%); 
-      background: var(--text); color: var(--bg); 
-      padding: 1rem 2rem; font-weight: bold; 
-      border: 0.25rem solid var(--focus); z-index: 1000; 
-      display: none; font-size: 1.2rem; 
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
+    .status-msg { position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 1rem 2rem; font-weight: bold; border: 0.25rem solid var(--focus); z-index: 1000; display: none; font-size: 1.2rem; }
 
-    /* 表格樣式 */
     .table-container { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; border: 0.125rem solid var(--border); }
     th, td { border: 0.0625rem solid var(--border); padding: 0.75rem; text-align: left; vertical-align: top; }
     th { background: var(--text); color: var(--bg); font-weight: bold; }
 
-    /* 公告卡片 */
     .announcement { border: 0.125rem solid var(--border); padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 0.25rem; }
     .pinned-post { border: 0.3rem solid var(--text) !important; background-color: var(--input-bg); position: relative; }
     .pin-badge { background: var(--text); color: var(--bg); padding: 0.25rem 0.5rem; font-weight: bold; display: inline-block; margin-bottom: 0.75rem; }
-    
-    .attachment-link { 
-      display: inline-block; margin-top: 1rem; 
-      padding: 0.5rem 1rem; 
-      border: 0.125rem dashed var(--border); 
-      color: var(--text); text-decoration: none; font-weight: bold; 
-    }
+    .attachment-link { display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; border: 0.125rem dashed var(--border); color: var(--text); text-decoration: none; font-weight: bold; }
     .attachment-link:hover { background: var(--text); color: var(--bg); }
 
-    /* 標題層級 */
     h1 { font-size: 2rem; margin: 1.5rem 0; line-height: 1.3; border-bottom: 0.125rem solid var(--border); padding-bottom: 0.5rem; }
     h2 { font-size: 1.5rem; margin: 1.2rem 0; line-height: 1.4; }
-    h3 { font-size: 1.25rem; margin: 1rem 0; }
 
-    /* 核取方塊群組 */
     .checkbox-group { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
-    .checkbox-item { 
-      display: flex; align-items: center; gap: 0.5rem; 
-      background: var(--input-bg); padding: 0.5rem 1rem; 
-      border: 0.0625rem solid var(--border); border-radius: 0.25rem; 
-    }
+    .checkbox-item { display: flex; align-items: center; gap: 0.5rem; background: var(--input-bg); padding: 0.5rem 1rem; border: 0.0625rem solid var(--border); border-radius: 0.25rem; }
     .checkbox-item input { width: 1.25rem; height: 1.25rem; cursor: pointer; }
+
+    /* 分類狀態樣式 */
+    .cat-disabled { color: #888; font-style: italic; text-decoration: line-through; }
+    .status-badge { font-size: 0.9rem; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
+    .status-on { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .status-off { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
   </style>
 </head>
 <body>
 
   <div id="global-status" role="alert" aria-live="assertive" class="status-msg"></div>
-  
   <a href="#main-start" style="position:absolute; top:-5rem; left:0; padding:1rem; background:var(--focus); color:#000; z-index:100; font-size:1.2rem; font-weight:bold; text-decoration:none;" onfocus="this.style.top='0'">跳至主要內容</a>
 
   <div id="view-public" class="view active-view" role="main">
@@ -156,434 +64,197 @@
       <h1>最新公告消息</h1>
       <button onclick="switchView('view-login')" class="btn">管理員登入</button>
     </header>
-
     <div id="main-start">
       <div class="form-group" style="background:var(--input-bg); padding:1.5rem; border:0.125rem solid var(--border); margin-top:1rem;">
         <label for="category-filter">依公告分類篩選：</label>
-        <select id="category-filter" onchange="applyFilter()" disabled>
-          <option value="all">載入中...</option>
-        </select>
+        <select id="category-filter" onchange="applyFilter()" disabled><option value="all">載入中...</option></select>
       </div>
-      
       <div id="filter-status" class="visually-hidden" role="status" aria-live="polite"></div>
-      
-      <div id="public-list">
-        <p style="font-size:1.2rem; padding:1rem;">資料載入中，請稍候...</p>
-      </div>
+      <div id="public-list"><p style="font-size:1.2rem; padding:1rem;">資料載入中...</p></div>
     </div>
   </div>
 
   <div id="view-login" class="view" role="main">
-    <header>
-      <h1 tabindex="-1" id="login-heading">管理員登入</h1>
-    </header>
+    <header><h1 tabindex="-1">管理員登入</h1></header>
     <form id="login-form" onsubmit="handleLogin(event)" style="max-width:30rem; margin:2rem auto; padding:2rem; border:0.125rem solid var(--border); border-radius:0.5rem;">
-      <div class="form-group">
-        <label for="username">帳號</label>
-        <input type="text" id="username" required autocomplete="username">
-      </div>
-      <div class="form-group">
-        <label for="password">密碼</label>
-        <input type="password" id="password" required autocomplete="current-password">
-      </div>
-      <div style="margin-top:2rem;">
-        <button type="submit" class="btn">登入系統</button>
-        <button type="button" class="btn btn-secondary" onclick="switchView('view-public')">取消返回</button>
-      </div>
+      <div class="form-group"><label for="username">帳號</label><input type="text" id="username" required autocomplete="username"></div>
+      <div class="form-group"><label for="password">密碼</label><input type="password" id="password" required autocomplete="current-password"></div>
+      <div style="margin-top:2rem;"><button type="submit" class="btn">登入系統</button><button type="button" class="btn btn-secondary" onclick="switchView('view-public')">取消返回</button></div>
     </form>
   </div>
 
   <div id="view-admin" class="view" role="main">
     <header>
       <h1 tabindex="-1">後台管理</h1>
-      <div style="margin-bottom:1rem; font-size:1.1rem;">
-        登入身分：<span id="user-display" style="font-weight:bold; background:var(--input-bg); padding:0.2rem 0.5rem;"></span>
-      </div>
-      <nav role="navigation" aria-label="後台選單" style="margin-bottom:1.5rem;">
+      <div style="margin-bottom:1rem; font-size:1.1rem;">登入身分：<span id="user-display" style="font-weight:bold; background:var(--input-bg); padding:0.2rem 0.5rem;"></span></div>
+      <nav role="navigation" style="margin-bottom:1.5rem;">
         <button onclick="switchView('view-public')" class="btn btn-secondary">檢視前台</button>
         <button id="btn-manage-cats" onclick="switchView('view-cats')" class="btn btn-secondary" style="display:none;">管理分類</button>
         <button id="btn-manage-users" onclick="switchView('view-users')" class="btn btn-secondary" style="display:none;">管理使用者</button>
         <button onclick="logout()" class="btn">登出</button>
       </nav>
     </header>
-
     <section aria-labelledby="form-heading" style="background:var(--input-bg); padding:1.5rem; border:0.125rem solid var(--border); margin-bottom:2.5rem;">
       <h2 id="form-heading">發布/編輯公告</h2>
       <form id="admin-form" onsubmit="handleSave(event)">
-        <input type="hidden" id="post-id"> <div class="form-group">
-          <label for="post-title">標題 (必填)</label>
-          <input type="text" id="post-title" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="post-cat">分類 (必填)</label>
-          <select id="post-cat" required>
-            <option value="">載入中...</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="post-content">內容 (必填)</label>
-          <textarea id="post-content" rows="6" required></textarea>
-        </div>
-        
+        <input type="hidden" id="post-id">
+        <div class="form-group"><label for="post-title">標題 (必填)</label><input type="text" id="post-title" required></div>
+        <div class="form-group"><label for="post-cat">分類 (必填)</label><select id="post-cat" required><option value="">載入中...</option></select></div>
+        <div class="form-group"><label for="post-content">內容 (必填)</label><textarea id="post-content" rows="6" required></textarea></div>
         <div class="form-group" style="border: 0.125rem dashed var(--border); padding: 1rem; background:var(--bg);">
-          <label for="post-file">上傳附件 (選填，單一檔案)</label>
-          <input type="file" id="post-file">
-          
+          <label for="post-file">上傳附件</label><input type="file" id="post-file">
           <div id="current-attachment-info" style="margin-top:1rem; display:none;">
-            <p><strong>目前已有附件：</strong> <a href="#" target="_blank" id="existing-file-link">下載/預覽檔案</a></p>
+            <p><strong>已有附件：</strong> <a href="#" target="_blank" id="existing-file-link">下載檔案</a></p>
             <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem;">
               <input type="checkbox" id="delete-attachment" style="width:1.5rem; height:1.5rem;">
               <label for="delete-attachment" style="margin:0; color:#b00;">刪除舊附件</label>
             </div>
           </div>
         </div>
-
         <fieldset style="border: 0.125rem solid var(--border); padding: 1rem; margin-bottom: 1.5rem; background:var(--bg);">
           <legend style="font-weight:bold; padding:0 0.5rem;">置頂設定</legend>
-          <div class="form-group" style="display:flex; align-items:center; gap:0.8rem;">
-            <input type="checkbox" id="post-pinned" style="width:1.5rem; height:1.5rem;">
-            <label for="post-pinned" style="margin:0;">將此公告設為置頂</label>
-          </div>
-          <div class="form-group">
-            <label for="post-pin-expiry">置頂有效期限 (選填)</label>
-            <input type="date" id="post-pin-expiry">
-          </div>
+          <div class="form-group" style="display:flex; align-items:center; gap:0.8rem;"><input type="checkbox" id="post-pinned" style="width:1.5rem; height:1.5rem;"><label for="post-pinned" style="margin:0;">將此公告設為置頂</label></div>
+          <div class="form-group"><label for="post-pin-expiry">置頂期限</label><input type="date" id="post-pin-expiry"></div>
         </fieldset>
-
-        <div class="form-group">
-          <label for="post-expiry">公告下架日期 (選填，過期後前台不顯示)</label>
-          <input type="date" id="post-expiry">
-        </div>
-
-        <div class="form-group">
-          <label for="post-link">外部連結 URL (選填)</label>
-          <input type="url" id="post-link" placeholder="https://example.com">
-        </div>
-
-        <div style="margin-top:2rem;">
-          <button type="submit" class="btn">儲存公告</button>
-          <button type="button" onclick="resetForm()" class="btn btn-secondary">清空 / 取消編輯</button>
-        </div>
+        <div class="form-group"><label for="post-expiry">下架日期</label><input type="date" id="post-expiry"></div>
+        <div class="form-group"><label for="post-link">外部連結</label><input type="url" id="post-link"></div>
+        <div style="margin-top:2rem;"><button type="submit" class="btn">儲存公告</button><button type="button" onclick="resetForm()" class="btn btn-secondary">清空</button></div>
       </form>
     </section>
-
-    <section>
-      <h2>公告列表</h2>
-      <div class="table-container">
-        <table id="admin-table">
-          <caption>已發布的公告清單</caption>
-          <thead>
-            <tr>
-              <th scope="col" style="width:15%">日期</th>
-              <th scope="col" style="width:30%">標題</th>
-              <th scope="col" style="width:15%">分類</th>
-              <th scope="col" style="width:10%">附件</th>
-              <th scope="col" style="width:15%">狀態</th>
-              <th scope="col" style="width:15%">操作</th>
-            </tr>
-          </thead>
-          <tbody id="admin-tbody"></tbody>
-        </table>
-      </div>
-    </section>
+    <section><h2>公告列表</h2><div class="table-container"><table id="admin-table"><thead><tr><th>日期</th><th>標題</th><th>分類</th><th>附件</th><th>操作</th></tr></thead><tbody id="admin-tbody"></tbody></table></div></section>
   </div>
 
   <div id="view-cats" class="view" role="main">
-    <header>
-      <h1 tabindex="-1">分類管理</h1>
-      <button onclick="switchView('view-admin')" class="btn btn-secondary">返回公告管理</button>
-    </header>
+    <header><h1 tabindex="-1">分類管理</h1><button onclick="switchView('view-admin')" class="btn btn-secondary">返回公告管理</button></header>
     <section style="background:var(--input-bg); padding:1.5rem; border:0.125rem solid var(--border); margin:2rem 0;">
       <h2>新增 / 修改分類</h2>
       <form id="cat-form" onsubmit="handleCatSave(event)">
         <input type="hidden" id="cat-id">
         <div class="form-group" style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap;">
-          <div style="flex-grow:1;">
-            <label for="cat-name">分類名稱</label>
-            <input type="text" id="cat-name" required placeholder="例如：總務處、榮譽榜">
-          </div>
+          <div style="flex-grow:1;"><label for="cat-name">分類名稱</label><input type="text" id="cat-name" required placeholder="例如：總務處、榮譽榜"></div>
           <button type="submit" class="btn">儲存分類</button>
         </div>
       </form>
     </section>
-    <section>
-      <h2>現有分類列表</h2>
-      <div class="table-container">
-        <table id="cat-table">
-          <thead><tr><th scope="col">分類名稱</th><th scope="col">操作</th></tr></thead>
-          <tbody id="cat-tbody"></tbody>
-        </table>
-      </div>
-    </section>
+    <section><h2>現有分類列表</h2><div class="table-container"><table id="cat-table"><thead><tr><th>分類名稱</th><th>操作</th></tr></thead><tbody id="cat-tbody"></tbody></table></div></section>
   </div>
 
   <div id="view-users" class="view" role="main">
-    <header>
-      <h1 tabindex="-1">使用者管理</h1>
-      <button onclick="switchView('view-admin')" class="btn btn-secondary">返回公告管理</button>
-    </header>
+    <header><h1 tabindex="-1">使用者管理</h1><button onclick="switchView('view-admin')" class="btn btn-secondary">返回公告管理</button></header>
     <section style="background:var(--input-bg); padding:1.5rem; border:0.125rem solid var(--border); margin:2rem 0;">
       <h2 id="user-form-title">新增使用者</h2>
       <form id="user-form" onsubmit="handleUserSave(event)">
         <input type="hidden" id="user-is-edit" value="false">
-        
-        <div class="form-group">
-          <label for="new-username">帳號 (必填)</label>
-          <input type="text" id="new-username" required autocomplete="off">
-          <small id="user-edit-hint" style="display:none; color:#b00; font-weight:bold;">(編輯模式下無法修改帳號)</small>
-        </div>
-        
-        <div class="form-group">
-          <label for="new-jobtitle">顯示職稱 (必填，如：教學組長)</label>
-          <input type="text" id="new-jobtitle" required autocomplete="off" placeholder="公告時將顯示此名稱">
-        </div>
-
-        <div class="form-group">
-          <label for="new-password">密碼</label>
-          <input type="password" id="new-password" required autocomplete="new-password">
-        </div>
-        
+        <div class="form-group"><label for="new-username">帳號 (必填)</label><input type="text" id="new-username" required autocomplete="off"><small id="user-edit-hint" style="display:none; color:#b00;">(編輯模式下無法修改帳號)</small></div>
+        <div class="form-group"><label for="new-jobtitle">顯示職稱 (必填)</label><input type="text" id="new-jobtitle" required autocomplete="off" placeholder="公告時將顯示此名稱"></div>
+        <div class="form-group"><label for="new-password">密碼</label><input type="password" id="new-password" required autocomplete="new-password"></div>
         <fieldset style="border: 0.125rem solid var(--border); padding: 1rem; background:var(--bg);">
           <legend style="font-weight:bold; padding: 0 0.5rem;">權限設定 (可多選)</legend>
-          
-          <div class="checkbox-item" style="margin-bottom:1rem; border-color:var(--text);">
-            <input type="checkbox" id="role-super" value="系統管理員">
-            <label for="role-super" style="margin:0; color:#b00;">系統管理員 (擁有所有權限)</label>
-          </div>
-          
+          <div class="checkbox-item" style="margin-bottom:1rem; border-color:var(--text);"><input type="checkbox" id="role-super" value="系統管理員"><label for="role-super" style="margin:0; color:#b00;">系統管理員</label></div>
           <hr style="border-top:1px solid var(--border); margin:1rem 0;">
-          <p style="margin:0 0 0.5rem 0;"><strong>一般分類權限：</strong></p>
-          <div id="permission-checkboxes" class="checkbox-group">
-            </div>
+          <div id="permission-checkboxes" class="checkbox-group"></div>
         </fieldset>
-
-        <div style="margin-top:2rem;">
-          <button type="submit" class="btn" id="btn-save-user">新增使用者</button>
-          <button type="button" class="btn btn-secondary" onclick="resetUserForm()">重置 / 取消編輯</button>
-        </div>
+        <div style="margin-top:2rem;"><button type="submit" class="btn" id="btn-save-user">新增使用者</button><button type="button" class="btn btn-secondary" onclick="resetUserForm()">重置</button></div>
       </form>
     </section>
-    <section>
-      <h2>現有使用者列表</h2>
-      <div class="table-container">
-        <table id="user-table">
-          <thead>
-            <tr>
-              <th scope="col">帳號</th>
-              <th scope="col">職稱</th>
-              <th scope="col">權限組別</th>
-              <th scope="col">操作</th>
-            </tr>
-          </thead>
-          <tbody id="user-tbody"></tbody>
-        </table>
-      </div>
-    </section>
+    <section><h2>現有使用者列表</h2><div class="table-container"><table id="user-table"><thead><tr><th>帳號</th><th>職稱</th><th>權限組別</th><th>操作</th></tr></thead><tbody id="user-tbody"></tbody></table></div></section>
   </div>
 
   <script>
-    // 👇👇👇【重要】請將這裡換成您的 GAS 網頁應用程式網址 (結尾是 /exec) 👇👇👇
-    const API_URL = "https://script.google.com/macros/s/AKfycbznZsbIC1zzOyUSTEAjIzDt0vdp7aYYggvaAYpo0f4r1iGabWJzKvq98PW27cFsOpDI/exec";
+    // 👇👇👇 請在此貼上您的 GAS 網頁應用程式網址 👇👇👇
+    const API_URL = "https://script.google.com/macros/s/AKfycbxnEKBa0oVHa7bj7UK7XH-qC0Ygx6l-cQXS9X1dBUXy_amsl1MSz6vpsSDK5lT5_Ij9/exec";
 
-    // 全域變數
     let currentUser = null;
     let allPublicData = [];
     let categories = [];
     
-    // 初始化
-    document.addEventListener('DOMContentLoaded', () => { 
-      loadCategories(); 
-      loadPublicData(); 
-    });
+    document.addEventListener('DOMContentLoaded', () => { loadCategories(); loadPublicData(); });
 
-    // ========== 核心：API 呼叫函式 (使用 fetch) ==========
     async function callApi(op, data = {}) {
-      // 讀取類操作用 GET
-      if (['getPublicData', 'getCategories'].includes(op)) {
-        try {
-          const res = await fetch(`${API_URL}?op=${op}`);
-          return await res.json();
-        } catch (e) {
-          throw new Error("連線失敗，請檢查網路或 API 網址");
-        }
-      } 
-      // 寫入/敏感操作用 POST
-      else {
-        try {
-          const res = await fetch(API_URL, {
-            method: 'POST',
-            // GAS 的 doPost 對 text/plain 支援度最好，避免 preflight 選項請求問題
-            body: JSON.stringify({ op, ...data }) 
-          });
-          const json = await res.json();
-          if (json.error) throw new Error(json.error);
-          return json;
-        } catch (e) {
-          throw new Error("操作失敗：" + e.message);
-        }
-      }
+      try {
+        const url = ['getPublicData', 'getCategories'].includes(op) ? `${API_URL}?op=${op}` : API_URL;
+        const opts = ['getPublicData', 'getCategories'].includes(op) ? {} : { method: 'POST', body: JSON.stringify({ op, ...data }) };
+        const res = await fetch(url, opts);
+        const json = await res.json();
+        if (json.error) throw new Error(json.error);
+        return json;
+      } catch (e) { throw new Error("API 錯誤：" + e.message); }
     }
 
-    // ========== 輔助工具 ==========
-    function showMessage(msg) { 
-      const el = document.getElementById('global-status'); 
-      el.textContent = msg; 
-      el.style.display = 'block'; 
-      setTimeout(() => el.style.display = 'none', 5000); 
-    }
+    function showMessage(msg) { const el = document.getElementById('global-status'); el.textContent = msg; el.style.display = 'block'; setTimeout(() => el.style.display = 'none', 5000); }
+    function readFileAsBase64(file) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res({ name: file.name, mimeType: file.type, data: r.result }); r.onerror = rej; r.readAsDataURL(file); }); }
 
-    function readFileAsBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve({ name: file.name, mimeType: file.type, data: reader.result });
-        reader.onerror = error => reject(error);
-        reader.readAsDataURL(file);
-      });
-    }
-
-    // 視圖切換與資料更新
     function switchView(id) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
-      const view = document.getElementById(id); 
-      view.classList.add('active-view');
-      
-      // 將焦點移至標題，協助讀屏軟體
-      const h1 = view.querySelector('h1'); 
-      if(h1) h1.focus();
-      
-      // 特定視圖的自動載入邏輯
+      const view = document.getElementById(id); view.classList.add('active-view');
+      const h1 = view.querySelector('h1'); if(h1) h1.focus();
       if(id === 'view-users') loadUsers();
       if(id === 'view-public') {
          document.getElementById('category-filter').value = 'all';
          document.getElementById('public-list').innerHTML = '<p style="padding:1rem;">資料更新中...</p>';
-         loadPublicData(); // 切換回前台時自動重整
+         loadPublicData();
       }
     }
 
-    // ========== 1. 公開資料邏輯 ==========
-    function loadCategories() { 
-      callApi('getCategories').then(data => { 
-        categories = data; 
-        renderCategorySelects(); 
-        renderCategoryTable(); 
-      }).catch(err => console.error(err));
-    }
-    
-    function loadPublicData() { 
-      callApi('getPublicData').then(data => { 
-        allPublicData = data; 
-        renderPublic(data); 
-      }).catch(err => {
-        document.getElementById('public-list').innerHTML = `<p style="color:red; padding:1rem;">無法載入資料：${err.message}</p>`;
-      });
-    }
-
+    // --- 公開資料 ---
+    function loadCategories() { callApi('getCategories').then(data => { categories = data; renderCategorySelects(); renderCategoryTable(); }).catch(e => console.error(e)); }
+    function loadPublicData() { callApi('getPublicData').then(data => { allPublicData = data; renderPublic(data); }).catch(e => document.getElementById('public-list').innerHTML = `<p style="color:red;padding:1rem;">載入失敗</p>`); }
     function renderCategorySelects() {
-      const filter = document.getElementById('category-filter');
-      const adminSelect = document.getElementById('post-cat');
-      let options = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-      filter.innerHTML = `<option value="all">顯示所有分類</option>` + options; filter.disabled = false;
-      adminSelect.innerHTML = `<option value="" disabled selected>請選擇分類</option>` + options;
+      const activeCats = categories.filter(c => c.isActive);
+      const html = activeCats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+      document.getElementById('category-filter').innerHTML = `<option value="all">顯示所有分類</option>` + html; 
+      document.getElementById('category-filter').disabled = false;
+      document.getElementById('post-cat').innerHTML = `<option value="" disabled selected>請選擇分類</option>` + html;
     }
-    
     function renderPublic(data) {
       const list = document.getElementById('public-list');
-      if (data.length === 0) { list.innerHTML = '<p style="padding:1.5rem; border:0.125rem solid #000;">目前沒有任何公告。</p>'; return; }
+      if (data.length === 0) { list.innerHTML = '<p style="padding:1.5rem; border:0.125rem solid #000;">暫無公告。</p>'; return; }
       list.innerHTML = data.map(item => {
-        const pinBadge = item.isPinned ? '<div class="pin-badge">📌 置頂公告</div>' : '';
-        const srText = item.isPinned ? '<span class="visually-hidden">此為置頂消息：</span>' : '';
-        const attachHtml = item.attachment ? `<a href="${item.attachment}" target="_blank" class="attachment-link">📎 下載附件 / 預覽</a>` : '';
-        
-        return `
-          <article class="announcement ${item.isPinned ? 'pinned-post' : ''}">
-            ${pinBadge}
-            <h2>${srText}${item.title}</h2>
-            <p><strong>${item.date}</strong> | ${item.category} | 發布者：${item.authorTitle}</p>
-            <div style="margin-top:1rem;">${item.content.replace(/\n/g, '<br>')}</div>
-            ${attachHtml}
-            ${item.link ? `<div style="margin-top:1rem;"><a href="${item.link}" target="_blank" class="btn">閱讀更多 <span class="visually-hidden">關於 ${item.title}</span></a></div>` : ''}
-          </article>`;
+        const pinBadge = item.isPinned ? '<div class="pin-badge">📌 置頂</div>' : '';
+        const srText = item.isPinned ? '<span class="visually-hidden">置頂：</span>' : '';
+        const attachHtml = item.attachment ? `<a href="${item.attachment}" target="_blank" class="attachment-link">📎 下載附件</a>` : '';
+        return `<article class="announcement ${item.isPinned ? 'pinned-post' : ''}">${pinBadge}<h2>${srText}${item.title}</h2><p><strong>${item.date}</strong> | ${item.category} | 發布者：${item.authorTitle}</p><div style="margin-top:1rem;">${item.content.replace(/\n/g, '<br>')}</div>${attachHtml}${item.link ? `<div style="margin-top:1rem;"><a href="${item.link}" target="_blank" class="btn">閱讀更多</a></div>` : ''}</article>`;
       }).join('');
     }
-    
     function applyFilter() {
       const cat = document.getElementById('category-filter').value;
       const filtered = cat === 'all' ? allPublicData : allPublicData.filter(d => d.category === cat);
       renderPublic(filtered);
-      // AAA: 狀態回報
-      document.getElementById('filter-status').textContent = `篩選完成，顯示 ${filtered.length} 筆資料`;
+      document.getElementById('filter-status').textContent = `篩選 ${filtered.length} 筆`;
     }
 
-    // ========== 2. 登入邏輯 ==========
+    // --- 登入 ---
     function handleLogin(e) {
       e.preventDefault();
-      const u = document.getElementById('username').value;
-      const p = document.getElementById('password').value;
-      
+      const u = document.getElementById('username').value, p = document.getElementById('password').value;
       showMessage("登入中...");
       callApi('login', { username: u, password: p }).then(res => {
-        if(res.error) throw new Error(res.error);
         currentUser = res.username;
-        // 顯示 職稱 或 帳號
         document.getElementById('user-display').textContent = `${res.jobTitle || res.username}`;
-        
-        // 權限判斷顯示按鈕
-        const btnCat = document.getElementById('btn-manage-cats');
-        const btnUser = document.getElementById('btn-manage-users');
-        if(res.isSuperAdmin) {
-          btnCat.style.display = 'inline-block';
-          btnUser.style.display = 'inline-block';
-        } else {
-          btnCat.style.display = 'none';
-          btnUser.style.display = 'none';
-        }
-
-        loadAdminData(); 
-        switchView('view-admin'); 
-        document.getElementById('login-form').reset();
-      }).catch(err => showMessage(err.message));
+        const isSuper = res.isSuperAdmin;
+        document.getElementById('btn-manage-cats').style.display = isSuper ? 'inline-block' : 'none';
+        document.getElementById('btn-manage-users').style.display = isSuper ? 'inline-block' : 'none';
+        loadAdminData(); switchView('view-admin'); document.getElementById('login-form').reset();
+      }).catch(e => showMessage(e.message));
     }
-    
-    function logout() { 
-      currentUser = null; 
-      switchView('view-public'); 
-      showMessage("已成功登出"); 
-    }
+    function logout() { currentUser = null; switchView('view-public'); showMessage("已登出"); }
 
-    // ========== 3. 後台公告管理 ==========
+    // --- 後台公告 ---
     function loadAdminData() {
       callApi('getAdminData', { currentUser }).then(data => {
          document.getElementById('admin-tbody').innerHTML = data.map(item => `
           <tr style="${item.author === currentUser ? 'background:rgba(255,215,0,0.1);' : ''}">
-            <td>${item.date}</td>
-            <td>${item.title}</td>
-            <td>
-              ${item.category} 
-              ${item.isPinned ? '<br><small style="color:#b00; font-weight:bold;">📌置頂</small>' : ''}
-            </td>
-            <td>${item.attachment ? '✅ 有' : '-'}</td>
-            <td>${item.authorTitle}</td>
-            <td>
-              ${item.isMine ? `
-                <button onclick='editPost(${JSON.stringify(item)})' class="btn" style="font-size:0.9rem;">編輯</button>
-                <button onclick='deletePost("${item.id}")' class="btn btn-danger" style="font-size:0.9rem;">刪除</button>
-              ` : '<span style="color:#666;">無權限</span>'}
-            </td>
+            <td>${item.date}</td><td>${item.title}</td><td>${item.category}${item.isPinned ? '<br><small style="color:#b00;">📌置頂</small>' : ''}</td><td>${item.attachment ? '✅' : '-'}</td>
+            <td>${item.isMine ? `<button onclick='editPost(${JSON.stringify(item)})' class="btn">編輯</button><button onclick='deletePost("${item.id}")' class="btn btn-danger">刪除</button>` : '無權限'}</td>
           </tr>`).join('');
-      }).catch(err => console.error(err));
+      }).catch(e => console.error(e));
     }
-
     async function handleSave(e) {
-      e.preventDefault();
-      showMessage("正在儲存公告與檔案，請稍候...");
+      e.preventDefault(); showMessage("儲存中...");
       try {
         const fileInput = document.getElementById('post-file');
         let fileData = null;
-        // 如果有選檔案，先轉 Base64
         if (fileInput.files.length > 0) fileData = await readFileAsBase64(fileInput.files[0]);
-
         const formData = {
           id: document.getElementById('post-id').value,
           title: document.getElementById('post-title').value,
@@ -596,17 +267,11 @@
           deleteAttachment: document.getElementById('delete-attachment').checked.toString(),
           fileData: fileData
         };
-
-        if (!formData.category) { alert("請選擇公告分類"); return; }
-        
+        if (!formData.category) { alert("請選分類"); return; }
         await callApi('saveAnnouncement', { formObj: formData, currentUser });
-        showMessage("公告儲存成功！"); 
-        resetForm(); 
-        loadAdminData();
-        
-      } catch (err) { showMessage("儲存失敗：" + err.message); }
+        showMessage("成功"); resetForm(); loadAdminData();
+      } catch (err) { showMessage("失敗：" + err.message); }
     }
-    
     function editPost(item) {
       document.getElementById('post-id').value = item.id;
       document.getElementById('post-title').value = item.title;
@@ -616,179 +281,81 @@
       document.getElementById('post-expiry').value = item.expiryDate;
       document.getElementById('post-pinned').checked = item.isPinned;
       document.getElementById('post-pin-expiry').value = item.pinExpiry;
-      
-      // 附件處理
       const infoDiv = document.getElementById('current-attachment-info');
       const link = document.getElementById('existing-file-link');
-      if (item.attachment) { 
-        infoDiv.style.display = 'block'; 
-        link.href = item.attachment; 
-      } else { 
-        infoDiv.style.display = 'none'; 
-      }
-      // 重置檔案欄位
+      if (item.attachment) { infoDiv.style.display = 'block'; link.href = item.attachment; } else { infoDiv.style.display = 'none'; }
       document.getElementById('post-file').value = "";
       document.getElementById('delete-attachment').checked = false;
-      
-      // 焦點移至標題
       document.getElementById('post-title').focus();
-      showMessage(`正在編輯：${item.title}`);
+      showMessage(`編輯：${item.title}`);
     }
+    function deletePost(id) { if(confirm("確定刪除？")) callApi('deleteAnnouncement', { id, currentUser }).then(() => { showMessage("已刪除"); loadAdminData(); }); }
+    function resetForm() { document.getElementById('admin-form').reset(); document.getElementById('post-id').value = ""; document.getElementById('current-attachment-info').style.display = 'none'; }
 
-    function deletePost(id) { 
-      if(confirm("確定要刪除這則公告嗎？無法復原。")) {
-        callApi('deleteAnnouncement', { id, currentUser })
-          .then(() => { showMessage("公告已刪除"); loadAdminData(); })
-          .catch(err => showMessage(err.message)); 
-      }
-    }
-
-    function resetForm() { 
-      document.getElementById('admin-form').reset(); 
-      document.getElementById('post-id').value = ""; 
-      document.getElementById('current-attachment-info').style.display = 'none'; 
-    }
-
-    // ========== 4. 分類管理 ==========
+    // --- 分類管理 (含 停用 與 刪除) ---
     function handleCatSave(e) { 
         e.preventDefault(); 
-        const id = document.getElementById('cat-id').value;
-        const name = document.getElementById('cat-name').value;
-        callApi('saveCategory', { id, name, currentUser }).then(res => {
-            if(res.error) throw new Error(res.error);
-            showMessage("分類儲存成功"); 
-            document.getElementById('cat-form').reset(); 
-            document.getElementById('cat-id').value=""; 
-            loadCategories(); // 重載分類以更新下拉選單
-        }).catch(err => showMessage(err.message));
+        callApi('saveCategory', { id: document.getElementById('cat-id').value, name: document.getElementById('cat-name').value, currentUser }).then(() => {
+            showMessage("成功"); document.getElementById('cat-form').reset(); document.getElementById('cat-id').value=""; loadCategories();
+        });
     }
+    function editCat(id, name) { document.getElementById('cat-id').value = id; document.getElementById('cat-name').value = name; document.getElementById('cat-name').focus(); }
+    function toggleCat(id, isActive) { if(confirm(`確定${isActive ? '啟用' : '停用'}？`)) callApi('toggleCategoryStatus', { id, isActive, currentUser }).then(() => { showMessage("狀態已更新"); loadCategories(); }); }
     
-    function editCat(id, name) { 
-      document.getElementById('cat-id').value = id; 
-      document.getElementById('cat-name').value = name; 
-      document.getElementById('cat-name').focus(); 
-    }
-    
-    function deleteCat(id) { 
-      if(confirm("確定刪除此分類？")) {
-        callApi('deleteCategory', { id, currentUser }).then(() => { 
-          showMessage("分類已刪除"); loadCategories(); 
-        }); 
-      }
-    }
-    
+    // 👇 恢復刪除功能：加入 deleteCat 按鈕 👇
+    function deleteCat(id) { if(confirm("確定永久刪除？建議使用停用。")) callApi('deleteCategory', { id, currentUser }).then(() => { showMessage("分類已刪除"); loadCategories(); }); }
+
     function renderCategoryTable() { 
       document.getElementById('cat-tbody').innerHTML = categories.map(c => `
         <tr>
-          <td>${c.name}</td>
+          <td><span class="${c.isActive ? '' : 'cat-disabled'}">${c.name}</span> ${c.isActive ? '<span class="status-badge status-on">啟用</span>' : '<span class="status-badge status-off">停用</span>'}</td>
           <td>
-            <button onclick="editCat('${c.id}', '${c.name}')" class="btn">修改</button>
-            <button onclick="deleteCat('${c.id}')" class="btn btn-danger">刪除</button>
+            <button onclick="editCat('${c.id}', '${c.name}')" class="btn" style="font-size:0.9rem;">修</button>
+            <button onclick="toggleCat('${c.id}', ${!c.isActive})" class="btn ${c.isActive ? 'btn-danger' : 'btn'}" style="font-size:0.9rem;">${c.isActive ? '停用' : '啟用'}</button>
+            <button onclick="deleteCat('${c.id}')" class="btn btn-secondary" style="font-size:0.9rem;">刪</button>
           </td>
         </tr>`).join(''); 
     }
 
-    // ========== 5. 使用者管理 ==========
+    // --- 使用者管理 ---
     function loadUsers() {
-      // 動態生成 Checkbox 選單
       const container = document.getElementById('permission-checkboxes');
-      container.innerHTML = categories.map(c => `
-        <div class="checkbox-item">
-          <input type="checkbox" id="perm-${c.name}" name="user-permissions" value="${c.name}">
-          <label for="perm-${c.name}" style="margin:0;">${c.name}</label>
-        </div>`).join('');
-      
+      container.innerHTML = categories.map(c => `<div class="checkbox-item"><input type="checkbox" id="perm-${c.name}" name="user-permissions" value="${c.name}"><label for="perm-${c.name}" style="margin:0;">${c.name}</label></div>`).join('');
       callApi('getUsers', { currentUser }).then(users => {
-         document.getElementById('user-tbody').innerHTML = users.map(u => `
-          <tr>
-            <td>${u.username}</td>
-            <td>${u.jobTitle}</td>
-            <td>${u.group}</td>
-            <td>
-              ${u.username === currentUser ? '<span style="color:#666;">(目前登入)</span>' : `
-                <button onclick='editUser(${JSON.stringify(u)})' class="btn">修改</button>
-                <button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪除</button>
-              `}
-            </td>
-          </tr>`).join('');
+         document.getElementById('user-tbody').innerHTML = users.map(u => `<tr><td>${u.username}</td><td>${u.jobTitle}</td><td>${u.group}</td><td>${u.username === currentUser ? '(自己)' : `<button onclick='editUser(${JSON.stringify(u)})' class="btn">修</button><button onclick="deleteUser('${u.username}')" class="btn btn-danger">刪</button>`}</td></tr>`).join('');
       });
     }
-    
     function handleUserSave(e) {
       e.preventDefault();
-      let selectedGroups = [];
-      if(document.getElementById('role-super').checked) selectedGroups.push('系統管理員');
-      document.querySelectorAll('input[name="user-permissions"]:checked').forEach(cb => selectedGroups.push(cb.value));
-      
-      if(selectedGroups.length === 0) { alert("請至少選擇一個權限！"); return; }
-      
+      let selected = [];
+      if(document.getElementById('role-super').checked) selected.push('系統管理員');
+      document.querySelectorAll('input[name="user-permissions"]:checked').forEach(cb => selected.push(cb.value));
+      if(selected.length === 0) { alert("請選權限"); return; }
       const formData = {
         isEdit: document.getElementById('user-is-edit').value === 'true',
         username: document.getElementById('new-username').value,
         password: document.getElementById('new-password').value,
         jobTitle: document.getElementById('new-jobtitle').value,
-        group: selectedGroups.join(',')
+        group: selected.join(',')
       };
-      
-      callApi('saveUser', { formObj: formData, currentUser }).then(() => {
-          showMessage("使用者儲存成功"); 
-          resetUserForm(); 
-          loadUsers();
-      }).catch(err => showMessage(err.message));
+      callApi('saveUser', { formObj: formData, currentUser }).then(() => { showMessage("成功"); resetUserForm(); loadUsers(); }).catch(e => showMessage(e.message));
     }
-    
-    function editUser(user) {
-      document.getElementById('user-form-title').textContent = "修改使用者"; 
-      document.getElementById('btn-save-user').textContent = "更新資料"; 
-      document.getElementById('user-is-edit').value = "true";
-      
-      const userInput = document.getElementById('new-username'); 
-      userInput.value = user.username; 
-      userInput.readOnly = true; 
-      userInput.style.backgroundColor = "#e0e0e0"; 
-      document.getElementById('user-edit-hint').style.display = 'inline';
-      
-      document.getElementById('new-jobtitle').value = user.jobTitle;
-      
-      // 密碼設為非必填
-      const passInput = document.getElementById('new-password'); 
-      passInput.value = ""; 
-      passInput.placeholder = "留空表示不修改密碼"; 
-      passInput.required = false;
-      
-      // 勾選權限
-      const groups = user.group.split(',');
-      document.getElementById('role-super').checked = groups.includes('系統管理員');
-      document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = groups.includes(cb.value));
-      
+    function editUser(u) {
+      document.getElementById('user-form-title').textContent = "修改"; document.getElementById('btn-save-user').textContent = "更新"; document.getElementById('user-is-edit').value = "true";
+      document.getElementById('new-username').value = u.username; document.getElementById('new-username').readOnly = true; document.getElementById('new-username').style.backgroundColor = "#e0e0e0"; document.getElementById('user-edit-hint').style.display = 'inline';
+      document.getElementById('new-jobtitle').value = u.jobTitle;
+      document.getElementById('new-password').value = ""; document.getElementById('new-password').placeholder = "留空不改"; document.getElementById('new-password').required = false;
+      const grps = u.group.split(',');
+      document.getElementById('role-super').checked = grps.includes('系統管理員');
+      document.querySelectorAll('input[name="user-permissions"]').forEach(cb => cb.checked = grps.includes(cb.value));
       document.getElementById('new-jobtitle').focus();
     }
-    
     function resetUserForm() {
-      document.getElementById('user-form').reset(); 
-      document.getElementById('user-form-title').textContent = "新增使用者"; 
-      document.getElementById('btn-save-user').textContent = "新增使用者"; 
-      document.getElementById('user-is-edit').value = "false";
-      
-      const userInput = document.getElementById('new-username'); 
-      userInput.readOnly = false; 
-      userInput.style.backgroundColor = ""; 
-      document.getElementById('user-edit-hint').style.display = 'none';
-      
-      const passInput = document.getElementById('new-password'); 
-      passInput.placeholder = ""; 
-      passInput.required = true;
+      document.getElementById('user-form').reset(); document.getElementById('user-form-title').textContent = "新增"; document.getElementById('btn-save-user').textContent = "新增"; document.getElementById('user-is-edit').value = "false";
+      document.getElementById('new-username').readOnly = false; document.getElementById('new-username').style.backgroundColor = ""; document.getElementById('user-edit-hint').style.display = 'none';
+      document.getElementById('new-password').placeholder = ""; document.getElementById('new-password').required = true;
     }
-    
-    function deleteUser(u) { 
-      if(confirm("確定刪除此使用者？")) {
-        callApi('deleteUser', { targetUsername: u, currentUser }).then(() => { 
-          showMessage("使用者已刪除"); loadUsers(); 
-        }); 
-      }
-    }
-
+    function deleteUser(u) { if(confirm("確定刪除？")) callApi('deleteUser', { targetUsername: u, currentUser }).then(() => { showMessage("已刪除"); loadUsers(); }); }
   </script>
 </body>
-
 </html>
