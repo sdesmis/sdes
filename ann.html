@@ -42,6 +42,13 @@
     .post-meta { font-size: 0.95rem; opacity: 0.9; }
     .badge-pin { background: #b00; color: #fff; padding: 2px 6px; font-size: 0.8rem; border-radius: 4px; margin-right: 5px; font-weight: bold; }
 
+    /* 分頁控制區 CSS */
+    .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 20px; flex-wrap: wrap; }
+    .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; border-radius: 4px; }
+    .page-btn:hover { background: var(--input-bg); }
+    .page-btn.active { background: var(--text); color: var(--bg); font-weight: bold; border-color: var(--text); }
+    .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
     /* 其他 CSS */
     .view { display: none; } .active-view { display: block; animation: fadeIn 0.3s; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -50,7 +57,6 @@
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     th, td { border: 1px solid var(--border); padding: 8px; text-align: left; }
     
-    /* 分類狀態 */
     .status-on { background: #d4edda; color: #155724; padding: 2px 5px; border-radius: 3px; font-size:0.85rem; }
     .status-off { background: #f8d7da; color: #721c24; padding: 2px 5px; border-radius: 3px; font-size:0.85rem; }
     .cat-disabled { text-decoration: line-through; color: #888; }
@@ -74,6 +80,8 @@
     <div id="public-list" style="border-top: 1px solid var(--border);">
       <p>資料載入中...</p>
     </div>
+
+    <div id="pagination-controls" class="pagination"></div>
   </div>
 
   <dialog id="detail-modal">
@@ -174,7 +182,14 @@
     // 👇👇👇 請在此填入您的 GAS 網址 👇👇👇
     const API_URL = "https://script.google.com/macros/s/AKfycbzxoLJzyCdEJ8by36gYS8XOZ81dbpTZL3CiVYmOiaSeA_Ho-dpNAXvMzKZcFzpJVvTF/exec";
 
-    let currentUser = null, allPublicData = [], categories = [];
+    let currentUser = null;
+    let allPublicData = []; // 存放所有公告
+    let currentFilteredData = []; // 存放篩選後的公告 (用於分頁)
+    let categories = [];
+    
+    // ========== 分頁設定 ==========
+    const ITEMS_PER_PAGE = 5; // 每頁顯示 5 筆
+    let currentPage = 1;
 
     document.addEventListener('DOMContentLoaded', () => { loadCategories(); loadPublicData(); });
 
@@ -202,9 +217,15 @@
       if (id === 'view-users') loadUsers();
     }
 
-    // --- 公開資料 & 彈出視窗 ---
+    // --- 公開資料 & 分頁邏輯 ---
     function loadCategories() { callApi('getCategories').then(d => { categories = d; renderCategorySelects(); renderCategoryTable(); }); }
-    function loadPublicData() { callApi('getPublicData').then(d => { allPublicData = d; renderPublic(d); }).catch(e => document.getElementById('public-list').innerHTML='載入失敗'); }
+    
+    function loadPublicData() { 
+      callApi('getPublicData').then(d => { 
+        allPublicData = d; 
+        applyFilter(); // 載入後直接執行篩選與分頁
+      }).catch(e => document.getElementById('public-list').innerHTML='載入失敗'); 
+    }
     
     function renderCategorySelects() {
       const active = categories.filter(c => c.isActive);
@@ -213,14 +234,49 @@
       document.getElementById('post-cat').innerHTML = `<option value="" disabled selected>請選擇...</option>` + html;
     }
 
-    function renderPublic(data) {
+    // 核心分頁篩選器
+    function applyFilter() {
+      const cat = document.getElementById('category-filter').value;
+      
+      // 1. 篩選資料
+      if (cat === 'all') {
+        currentFilteredData = allPublicData;
+      } else {
+        currentFilteredData = allPublicData.filter(d => d.category === cat);
+      }
+      
+      // 2. 重置頁碼回第一頁
+      currentPage = 1;
+      
+      // 3. 渲染
+      renderCurrentPage();
+    }
+
+    // 渲染當前頁面資料
+    function renderCurrentPage() {
       const list = document.getElementById('public-list');
-      if (data.length === 0) { list.innerHTML = '<p style="padding:20px;">無公告</p>'; return; }
-      list.innerHTML = data.map((item, idx) => {
+      const controls = document.getElementById('pagination-controls');
+      
+      if (currentFilteredData.length === 0) {
+        list.innerHTML = '<p style="padding:20px;">無符合條件的公告</p>';
+        controls.innerHTML = '';
+        return;
+      }
+
+      // 計算切片範圍
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const displayData = currentFilteredData.slice(start, end);
+
+      // 顯示公告
+      list.innerHTML = displayData.map((item, index) => {
+        // 因為 displayData 是切片後的，所以 index 是 0~4。
+        // 我們需要計算出他在 currentFilteredData 中的真實 index，以便 openDetail 能抓到正確資料
+        const realIndex = start + index;
+        
         const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂</span>` : '';
-        // 點擊事件綁定 index
         return `
-          <div class="post-list-item" onclick="openDetail(${idx})" role="button" tabindex="0">
+          <div class="post-list-item" onclick="openDetail(${realIndex})" role="button" tabindex="0">
             ${pinHtml}
             <h2>${item.title}</h2>
             <div class="post-meta">
@@ -228,10 +284,50 @@
             </div>
           </div>`;
       }).join('');
+
+      // 顯示分頁按鈕
+      renderPaginationControls();
     }
 
-    function openDetail(idx) {
-      const item = allPublicData[idx];
+    // 產生分頁按鈕
+    function renderPaginationControls() {
+      const totalPages = Math.ceil(currentFilteredData.length / ITEMS_PER_PAGE);
+      const container = document.getElementById('pagination-controls');
+      
+      if (totalPages <= 1) {
+        container.innerHTML = ''; // 只有一頁就不顯示按鈕
+        return;
+      }
+
+      let html = '';
+      
+      // 上一頁
+      html += `<button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; 上一頁</button>`;
+      
+      // 頁碼 (簡單版：顯示所有頁碼，若頁數太多可再優化)
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+      }
+      
+      // 下一頁
+      html += `<button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一頁 &raquo;</button>`;
+      
+      container.innerHTML = html;
+    }
+
+    // 切換頁面
+    function changePage(page) {
+      const totalPages = Math.ceil(currentFilteredData.length / ITEMS_PER_PAGE);
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderCurrentPage();
+      // 回到頂端
+      window.scrollTo(0, 0); 
+    }
+
+    // 開啟詳情 (從 currentFilteredData 抓取資料)
+    function openDetail(realIndex) {
+      const item = currentFilteredData[realIndex];
       const modal = document.getElementById('detail-modal');
       const contentDiv = document.getElementById('modal-content');
       
@@ -253,11 +349,6 @@
     }
 
     function closeDetail() { document.getElementById('detail-modal').close(); }
-    function applyFilter() {
-      const cat = document.getElementById('category-filter').value;
-      const filtered = cat === 'all' ? allPublicData : allPublicData.filter(d => d.category === cat);
-      renderPublic(filtered);
-    }
 
     // --- 登入 ---
     function handleLogin(e) {
@@ -385,4 +476,3 @@
   </script>
 </body>
 </html>
-
