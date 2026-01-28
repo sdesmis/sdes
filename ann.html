@@ -2,24 +2,40 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>無障礙公告管理系統</title>
+  <title>公告管理系統</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="符合無障礙 AAA 標準的公告發布與管理系統">
   <style>
-    /* ========== AAA 級基礎設定 ========== */
-    :root { --bg: #ffffff; --text: #000000; --focus: #FFD700; --border: #000000; --input-bg: #f5f5f5; --card-bg: #f9f9f9; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #222222; --text: #ffffff; --focus: #FFD700; --border: #555555; --input-bg: #333333; --card-bg: #333333; } }
+    /* ========== AAA 級基礎設定 (強制亮色主題) ========== */
+    :root { 
+      /* 強制設定為白底黑字 */
+      --bg: #ffffff; 
+      --text: #000000; 
+      --focus: #FFD700; /* 焦點維持黃色 */
+      --border: #000000; 
+      --input-bg: #f9f9f9; 
+      --card-bg: #ffffff;
+      --card-hover: #f0f0f0;
+    }
+    
+    /* 移除原本的 @media (prefers-color-scheme: dark) 區塊 */
     
     html, body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 100%; line-height: 1.6; margin: 0; padding: 0; }
     body { padding: 1.5rem; max-width: 60rem; margin: 0 auto; }
     *:focus { outline: 0.25rem solid var(--focus) !important; outline-offset: 0.125rem; }
     
+    /* 按鈕樣式 */
     .btn { padding: 0.5rem 1rem; background: var(--text); color: var(--bg); border: 1px solid transparent; cursor: pointer; font-weight: bold; border-radius: 4px; display: inline-block; text-decoration: none; font-size: 1rem; }
-    .btn:hover { opacity: 0.9; }
+    .btn:hover { opacity: 0.8; text-decoration: underline; }
     .btn-danger { background: #cc0000; color: #fff; }
     .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
     
-    /* 彈出視窗 */
+    /* 表單元件 */
+    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 1px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group { margin-bottom: 15px; }
+
+    /* 彈出視窗 Dialog (原生 HTML5) */
     dialog {
       background: var(--bg); color: var(--text);
       border: 2px solid var(--border);
@@ -27,38 +43,40 @@
       padding: 20px;
       max-width: 50rem;
       width: 90%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* 陰影調淡一點適合亮色 */
     }
-    dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
+    dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
     
-    /* 列表卡片 */
-    .post-list-item { padding: 1.5rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
-    .post-list-item:hover { background: var(--input-bg); }
-    .post-list-item h2 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
-    .post-meta { font-size: 0.95rem; opacity: 0.9; line-height: 1.5; }
+    /* 公告列表 (卡片式) */
+    .post-list-item {
+      padding: 1.5rem;
+      border-bottom: 1px solid #ccc; /* 邊框淡化一點 */
+      cursor: pointer;
+      transition: background 0.2s;
+      background: var(--card-bg);
+    }
+    .post-list-item:hover { background: var(--card-hover); }
+    .post-list-item h2 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: #000; text-decoration: underline; text-underline-offset: 4px; }
+    .post-meta { font-size: 0.95rem; color: #555; line-height: 1.5; }
     .badge-pin { background: #b00; color: #fff; padding: 2px 6px; font-size: 0.8rem; border-radius: 4px; margin-right: 5px; font-weight: bold; }
 
-    /* 分頁控制 */
+    /* 分頁控制區 */
     .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 30px; flex-wrap: wrap; }
-    .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; border-radius: 4px; }
-    .page-btn:hover { background: var(--input-bg); }
-    .page-btn.active { background: var(--text); color: var(--bg); font-weight: bold; border-color: var(--text); }
+    .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: #fff; color: #000; cursor: pointer; border-radius: 4px; }
+    .page-btn:hover { background: #eee; }
+    .page-btn.active { background: #000; color: #fff; font-weight: bold; border-color: #000; }
     .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* 視圖切換 */
+    /* 視圖與通知 */
     .view { display: none; } .active-view { display: block; animation: fadeIn 0.3s; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 1rem 2rem; border: 2px solid var(--focus); z-index: 2000; display: none; font-weight: bold; }
+    .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 1rem 2rem; border: 2px solid var(--focus); z-index: 2000; display: none; font-weight: bold; }
     
-    /* 表格與表單 */
+    /* 表格樣式 */
     .table-container { overflow-x: auto; margin-top: 20px; }
     table { width: 100%; border-collapse: collapse; min-width: 600px; }
-    th, td { border: 1px solid var(--border); padding: 10px; text-align: left; }
-    th { background: var(--text); color: var(--bg); }
-    
-    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 1px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; }
-    .form-group { margin-bottom: 15px; }
+    th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+    th { background: #eee; color: #000; font-weight:bold; }
     
     /* 狀態標籤 */
     .status-on { background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; border: 1px solid #c3e6cb; }
@@ -136,12 +154,12 @@
         <label for="post-content">內容 (必填)</label>
         <textarea id="post-content" rows="6" required></textarea>
         
-        <div id="author-select-group" style="display:none; background:var(--bg); border:1px solid #b00; padding:15px; margin-bottom:20px;">
+        <div id="author-select-group" style="display:none; background:#fff; border:1px solid #b00; padding:15px; margin-bottom:20px;">
           <label for="post-author" style="color:#b00; margin-bottom:5px;">【系統管理員專用】指定發布者：</label>
           <select id="post-author" style="margin-bottom:0;"><option value="">(保留原發布者)</option></select>
         </div>
 
-        <div style="border:1px dashed var(--border); padding:15px; margin-bottom:20px; background:var(--bg);">
+        <div style="border:1px dashed var(--border); padding:15px; margin-bottom:20px; background:#fff;">
           <label for="post-file">附件上傳 (可多選)</label>
           <input type="file" id="post-file" multiple>
           
@@ -221,7 +239,7 @@
         <label for="new-password">密碼 (新增必填，修改選填)</label>
         <input type="password" id="new-password" autocomplete="new-password">
         
-        <div style="border:1px solid var(--border); padding:15px; background:var(--bg);">
+        <div style="border:1px solid var(--border); padding:15px; background:#fff;">
           <p style="margin:0 0 10px 0; font-weight:bold;">權限設定：</p>
           <label for="role-super" style="margin-bottom:10px; color:#b00;">
             <input type="checkbox" id="role-super" style="width:auto;"> 系統管理員 (全權限)
@@ -375,7 +393,7 @@
       const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂公告</span>` : '';
       let attachHtml = '';
       if (item.attachments && item.attachments.length > 0) {
-        attachHtml = `<div style="margin-top:20px; padding:15px; border:1px dashed #ccc; background:var(--input-bg);"><strong>附件下載：</strong><br>`;
+        attachHtml = `<div style="margin-top:20px; padding:15px; border:1px dashed #ccc; background:#fff;"><strong>附件下載：</strong><br>`;
         if(typeof item.attachments === 'string') attachHtml += `<a href="${item.attachments}" target="_blank">下載附件</a>`; // 相容舊版
         else attachHtml += item.attachments.map(f => `<a href="${f.url}" target="_blank" style="margin-right:15px;">📎 ${f.name}</a>`).join('');
         attachHtml += `</div>`;
@@ -428,7 +446,7 @@
         document.getElementById('admin-tbody').innerHTML = d.map(i => {
           const hasAttach = (i.attachments && i.attachments.length > 0) ? `✅ ${i.attachments.length}個` : '-';
           return `
-          <tr style="${i.author === currentUser ? 'background:rgba(255,215,0,0.1);' : ''}">
+          <tr style="${i.author === currentUser ? 'background:#eef; ' : ''}">
             <td>${i.date}</td><td>${i.title}</td><td>${i.category}</td><td>${i.authorTitle}</td>
             <td style="font-size:0.9rem;">${hasAttach}</td>
             <td>${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn" style="padding:2px 5px;font-size:0.9rem;">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger" style="padding:2px 5px;font-size:0.9rem;">刪</button>` : '-'}</td>
