@@ -5,22 +5,35 @@
   <title>公告管理系統</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="符合無障礙 AAA 標準的公告發布與管理系統">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
+
   <style>
-    /* ========== AAA 級基礎設定 (強制亮色主題) ========== */
+    /* ========== AAA 級基礎設定 ========== */
     :root { 
-      /* 強制設定為白底黑字 */
+      /* 強制設定為白底黑字 (亮色主題) */
       --bg: #ffffff; 
       --text: #000000; 
-      --focus: #FFD700; /* 焦點維持黃色 */
+      --focus: #FFD700; 
       --border: #000000; 
       --input-bg: #f9f9f9; 
       --card-bg: #ffffff;
       --card-hover: #f0f0f0;
     }
     
-    /* 移除原本的 @media (prefers-color-scheme: dark) 區塊 */
+    html, body { 
+      /* 👇 修改字型設定，優先使用 Iansui 👇 */
+      font-family: "Iansui", "Helvetica Neue", Arial, sans-serif; 
+      background: var(--bg); 
+      color: var(--text); 
+      font-size: 100%; 
+      line-height: 1.6; 
+      margin: 0; 
+      padding: 0; 
+    }
     
-    html, body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 100%; line-height: 1.6; margin: 0; padding: 0; }
     body { padding: 1.5rem; max-width: 60rem; margin: 0 auto; }
     *:focus { outline: 0.25rem solid var(--focus) !important; outline-offset: 0.125rem; }
     
@@ -31,11 +44,11 @@
     .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
     
     /* 表單元件 */
-    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 1px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; }
+    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 1px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; font-family: inherit; }
     label { display: block; margin-bottom: 5px; font-weight: bold; }
     .form-group { margin-bottom: 15px; }
 
-    /* 彈出視窗 Dialog (原生 HTML5) */
+    /* 彈出視窗 Dialog */
     dialog {
       background: var(--bg); color: var(--text);
       border: 2px solid var(--border);
@@ -43,14 +56,14 @@
       padding: 20px;
       max-width: 50rem;
       width: 90%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* 陰影調淡一點適合亮色 */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
     dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
     
     /* 公告列表 (卡片式) */
     .post-list-item {
       padding: 1.5rem;
-      border-bottom: 1px solid #ccc; /* 邊框淡化一點 */
+      border-bottom: 1px solid #ccc;
       cursor: pointer;
       transition: background 0.2s;
       background: var(--card-bg);
@@ -62,7 +75,7 @@
 
     /* 分頁控制區 */
     .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 30px; flex-wrap: wrap; }
-    .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: #fff; color: #000; cursor: pointer; border-radius: 4px; }
+    .page-btn { padding: 8px 12px; border: 1px solid var(--border); background: #fff; color: #000; cursor: pointer; border-radius: 4px; font-family: inherit; }
     .page-btn:hover { background: #eee; }
     .page-btn.active { background: #000; color: #fff; font-weight: bold; border-color: #000; }
     .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
