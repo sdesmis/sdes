@@ -15,106 +15,49 @@
       --bg: #ffffff; --text: #000000; --focus: #FFD700; --border: #000000; 
       --input-bg: #f9f9f9; --card-bg: #ffffff; --card-hover: #fcfcfc;
       --gray-border: #ccc;
+      --theme-color: #000000; --btn-text-color: #ffffff;
     }
     
-    html, body { 
-      font-family: "Iansui", "Helvetica Neue", Arial, sans-serif; 
-      background: var(--bg); color: var(--text); 
-      font-size: 100%; line-height: 1.6; margin: 0; padding: 0; 
-    }
-    
+    html, body { font-family: "Iansui", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 100%; line-height: 1.6; margin: 0; padding: 0; }
     body { padding: 1.5rem; max-width: 64rem; margin: 0 auto; }
     *:focus { outline: 0.25rem solid var(--focus) !important; outline-offset: 0.125rem; }
     
-    /* 👇 修正重點：按鈕必須明確設定繼承字型 👇 */
-    button, input, select, textarea, .btn {
-      font-family: inherit; /* 強制繼承 Iansui 字體 */
-    }
+    /* 按鈕與表單繼承字型 */
+    button, input, select, textarea, .btn { font-family: inherit; }
 
-    .btn { 
-      padding: 0.5rem 1rem; 
-      background: var(--text); 
-      color: var(--bg); 
-      border: 2px solid transparent; 
-      cursor: pointer; 
-      font-weight: bold; 
-      border-radius: 4px; 
-      display: inline-block; 
-      text-decoration: none; 
-      font-size: 1rem; 
-    }
+    .btn { padding: 0.5rem 1rem; background: var(--theme-color); color: var(--btn-text-color); border: 2px solid transparent; cursor: pointer; font-weight: bold; border-radius: 4px; display: inline-block; text-decoration: none; font-size: 1rem; }
     .btn:hover { opacity: 0.8; text-decoration: underline; }
-    .btn-danger { background: #cc0000; color: #fff; }
-    .btn-secondary { background: transparent; color: var(--text); border: 2px solid var(--border); }
+    .btn-danger { background: #cc0000 !important; color: #fff !important; }
+    .btn-secondary { background: transparent !important; color: var(--text) !important; border: 2px solid var(--border) !important; }
     
-    input, select, textarea { 
-      width: 100%; padding: 10px; margin-bottom: 15px; 
-      background: var(--input-bg); color: var(--text); 
-      border: 2px solid var(--border); box-sizing: border-box; 
-      font-size: 1rem; border-radius: 4px; 
-    }
+    input, select, textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: var(--input-bg); color: var(--text); border: 2px solid var(--border); box-sizing: border-box; font-size: 1rem; border-radius: 4px; }
     label { display: block; margin-bottom: 5px; font-weight: bold; }
     
     dialog { background: var(--bg); color: var(--text); border: 3px solid var(--border); border-radius: 8px; padding: 20px; max-width: 50rem; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
     dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
     
     /* 一般公告列表 */
-    .post-list-item { padding: 1.5rem; border-bottom: 1px solid var(--gray-border); cursor: pointer; transition: background 0.2s; background: var(--card-bg); }
+    .post-list-item { padding: 1rem; border-bottom: 1px solid var(--gray-border); cursor: pointer; transition: background 0.2s; background: var(--card-bg); }
     .post-list-item:hover { background: var(--card-hover); }
-    .post-list-item h2 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: #000; text-decoration: underline; text-underline-offset: 4px; }
+    .post-list-item h2 { margin: 0 0 0.5rem 0; font-size: 1.2rem; color: #000; text-decoration: underline; text-underline-offset: 4px; }
     .badge-pin { background: #b00; color: #fff; padding: 2px 6px; font-size: 0.8rem; border-radius: 4px; margin-right: 5px; font-weight: bold; }
 
-    /* ========== 榮譽榜樣式 ========== */
-    #honor-roll-section { 
-      margin-top: 0.5rem; 
-      margin-bottom: 0.5rem; 
-      border: 1px solid var(--gray-border); 
-      border-radius: 8px; 
-      overflow: hidden; 
-      display: none; 
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    
-    #honor-roll-header { 
-      background: #f5f5f5; 
-      color: var(--text);          
-      padding: 15px 20px; 
-      font-size: 1.5rem; 
-      font-weight: bold; 
-      display: flex; align-items: center; gap: 10px; 
-      border-bottom: 1px solid var(--gray-border);
-    }
-
+    /* 榮譽榜 */
+    #honor-roll-section { margin-top: 0.5rem; margin-bottom: 0.5rem; border: 1px solid var(--gray-border); border-radius: 8px; overflow: hidden; display: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    #honor-roll-header { background: #f5f5f5; color: var(--text); padding: 15px 20px; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--gray-border); }
     .honor-card { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--gray-border); }
     .honor-card:last-child { border-bottom: none; }
-
-    .honor-media { 
-      flex: 0 0 400px; max-width: 100%; min-height: 250px; 
-      background: #f9f9f9; position: relative; 
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
+    .honor-media { flex: 0 0 400px; max-width: 100%; min-height: 250px; background: #f9f9f9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .honor-media img { width: 100%; height: 250px; object-fit: contain; background: #f0f0f0; display: block; }
-    
     .honor-content { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; min-width: 300px; }
-    .honor-content h3 { margin: 0 0 10px 0; font-size: 1.6rem; }
+    .honor-content h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
     .honor-content p { margin: 0 0 15px 0; color: #555; font-size: 1.1rem; }
 
-    .carousel-controls {
-      position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px;
-      background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px;
-    }
-    .carousel-btn {
-      background: transparent; color: #fff; border: 1px solid #fff; 
-      width: 32px; height: 32px; border-radius: 50%; 
-      cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0;
-    }
+    .carousel-controls { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px; }
+    .carousel-btn { background: transparent; color: #fff; border: 1px solid #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0; }
     .carousel-btn:hover { background: #fff; color: #000; }
     .carousel-btn:focus { outline: 3px solid var(--focus); }
-
-    /* Flexbox Order Control */
-    .ctrl-prev { order: 1; } 
-    .ctrl-play { order: 2; }
-    .ctrl-next { order: 3; }
+    .ctrl-prev { order: 1; } .ctrl-play { order: 2; } .ctrl-next { order: 3; }
 
     @media (max-width: 768px) {
       .honor-card { flex-direction: column; }
@@ -124,8 +67,8 @@
 
     /* 分頁按鈕 */
     .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 20px; padding-bottom: 20px; }
-    .page-btn { padding: 8px 12px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 4px; }
-    .page-btn.active { background: #000; color: #fff; border-color:#000; }
+    .page-btn { padding: 8px 12px; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 4px; }
+    .page-btn.active { background: var(--theme-color); color: var(--btn-text-color); border-color: var(--theme-color); }
     .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* 其他 */
@@ -135,6 +78,12 @@
     .cat-disabled { text-decoration: line-through; color: #888; }
     .status-on { background: #d4edda; color: #155724; padding: 2px 5px; border-radius: 3px; }
     .status-off { background: #f8d7da; color: #721c24; padding: 2px 5px; border-radius: 3px; }
+    
+    /* 表格 RWD */
+    .table-container { overflow-x: auto; margin-top: 20px; }
+    table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+    th { background: #eee; color: #000; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -155,15 +104,13 @@
     <div id="public-list" style="border-top: 2px solid var(--border);">
       <p style="padding: 20px;">資料載入中...</p>
     </div>
-
     <div id="pagination-controls" class="pagination"></div>
 
     <section id="honor-roll-section" aria-label="榮譽榜展示區">
       <div id="honor-roll-header">
         <span role="img" aria-label="獎盃">🏆</span> 榮譽榜
       </div>
-      <div id="honor-list">
-        </div>
+      <div id="honor-list"></div>
       <div id="honor-pagination" class="pagination"></div>
     </section>
   </div>
@@ -201,6 +148,15 @@
       </div>
     </header>
 
+    <div id="admin-settings-section" style="background:#fff3e0; padding:15px; border:2px solid #ffb74d; margin-bottom:20px; border-radius:8px; display:none;">
+      <h3 style="margin-top:0;">🎨 系統外觀設定</h3>
+      <div style="display:flex; align-items:center; gap:15px;">
+        <label for="theme-color-picker" style="margin:0;">按鈕/頁碼顏色：</label>
+        <input type="color" id="theme-color-picker" value="#000000" style="width:60px; padding:0; height:30px;">
+        <button onclick="saveSystemSettings()" class="btn">儲存設定</button>
+      </div>
+    </div>
+
     <div style="background:var(--input-bg); padding:25px; border:2px solid var(--border); margin-bottom:30px; border-radius:8px;">
       <h2 style="margin-top:0;">發布/編輯公告</h2>
       <form id="admin-form" onsubmit="handleSave(event)">
@@ -208,12 +164,10 @@
         <label for="post-title">標題</label><input type="text" id="post-title" required>
         <label for="post-cat">分類</label><select id="post-cat" required><option>載入中...</option></select>
         <label for="post-content">內容</label><textarea id="post-content" rows="6" required></textarea>
-        
         <div id="author-select-group" style="display:none; margin-bottom:15px;">
           <label for="post-author" style="color:#b00;">指定發布者 (總管)：</label>
           <select id="post-author"><option value="">(保留原發布者)</option></select>
         </div>
-
         <div style="border:2px dashed var(--border); padding:15px; margin-bottom:20px; background:#fff;">
           <label for="post-file">附件 (圖片將用於榮譽榜輪播)</label>
           <input type="file" id="post-file" multiple>
@@ -222,21 +176,26 @@
             <label for="delete-attachment" style="color:#b00; margin-top:10px; display:block;"><input type="checkbox" id="delete-attachment" style="width:auto;"> 刪除所有舊附件</label>
           </div>
         </div>
-
         <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
           <label style="display:flex; align-items:center; gap:5px;"><input type="checkbox" id="post-pinned" style="width:auto; margin:0;"> 設為置頂</label>
           <div style="display:flex; align-items:center; gap:5px;"><label for="post-pin-expiry" style="margin:0;">期限：</label><input type="date" id="post-pin-expiry" style="width:auto; margin:0;"></div>
         </div>
-        
         <div style="display:flex; gap:20px;">
           <div style="flex:1;"><label for="post-expiry">下架日</label><input type="date" id="post-expiry"></div>
           <div style="flex:1;"><label for="post-link">外部連結</label><input type="url" id="post-link"></div>
         </div>
-        
         <div style="margin-top:15px;"><button type="submit" class="btn">儲存</button><button type="button" onclick="resetForm()" class="btn btn-secondary">清空</button></div>
       </form>
     </div>
-    <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse;"><thead><tr><th style="border:1px solid #000; padding:8px;">標題</th><th style="border:1px solid #000; padding:8px;">分類</th><th style="border:1px solid #000; padding:8px;">操作</th></tr></thead><tbody id="admin-tbody"></tbody></table></div>
+
+    <h2>已發布公告</h2>
+    <div class="table-container">
+      <table>
+        <thead><tr><th>日期</th><th>標題</th><th>分類</th><th>發布者</th><th>附件</th><th>操作</th></tr></thead>
+        <tbody id="admin-tbody"></tbody>
+      </table>
+    </div>
+    <div id="admin-pagination" class="pagination"></div>
   </div>
 
   <div id="view-cats" class="view">
@@ -287,16 +246,43 @@
 
   <script>
     // 👇👇👇 請務必替換成您的 GAS 網址 👇👇👇
-    const API_URL = "https://script.google.com/macros/s/AKfycbwoAtocGgeoAPjKDgI3by1xOPMTsb68BL4ihhNDMxZTjVOZnv2NiQZUFrgEoqNBXFqu/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbznHLZ-aXaNqGgdk8HJzWgN5OVNeYnh6zc3MGO3TfRzxrti3MLO-rGVTXWWUk3PFCg/exec";
 
     let currentUser = null, allPublicData = [], currentFilteredData = [], categories = [];
     const ITEMS_PER_PAGE = 5; let currentPage = 1;
     let honorData = []; const HONOR_PER_PAGE = 3; let currentHonorPage = 1;
+    
+    // 後台分頁變數
+    let allAdminData = []; 
+    const ADMIN_PER_PAGE = 10; 
+    let currentAdminPage = 1;
+
     const carouselTimers = {}; 
 
-    document.addEventListener('DOMContentLoaded', () => { loadCategories(); loadPublicData(); });
+    document.addEventListener('DOMContentLoaded', () => { 
+      loadSystemSettings();
+      loadCategories(); 
+      loadPublicData(); 
+    });
 
-    // 工具: 修復 Drive 連結
+    // ========== 系統設定 (顏色) ==========
+    function loadSystemSettings() {
+      callApi('getSettings').then(settings => {
+        if(settings.themeColor) applyThemeColor(settings.themeColor);
+      }).catch(e => console.log('載入設定失敗', e));
+    }
+    function applyThemeColor(color) {
+      document.documentElement.style.setProperty('--theme-color', color);
+      document.getElementById('theme-color-picker').value = color;
+    }
+    function saveSystemSettings() {
+      const color = document.getElementById('theme-color-picker').value;
+      const settings = { themeColor: color };
+      applyThemeColor(color);
+      callApi('saveSettings', { settings, currentUser }).then(msg => showMessage(msg));
+    }
+
+    // ========== API & 工具 ==========
     function getDriveImgUrl(url) {
       if (!url) return "";
       let id = "";
@@ -307,8 +293,8 @@
 
     async function callApi(op, data = {}) {
       try {
-        const url = ['getPublicData', 'getCategories'].includes(op) ? `${API_URL}?op=${op}` : API_URL;
-        const opts = ['getPublicData', 'getCategories'].includes(op) ? {} : { method: 'POST', body: JSON.stringify({ op, ...data }) };
+        const url = ['getPublicData', 'getCategories', 'getSettings'].includes(op) ? `${API_URL}?op=${op}` : API_URL;
+        const opts = ['getPublicData', 'getCategories', 'getSettings'].includes(op) ? {} : { method: 'POST', body: JSON.stringify({ op, ...data }) };
         const res = await fetch(url, opts);
         const json = await res.json();
         if (json.error) throw new Error(json.error);
@@ -329,7 +315,6 @@
 
     // ========== 公開資料 & 榮譽榜 ==========
     function loadCategories() { callApi('getCategories').then(d => { categories = d; renderCategorySelects(); renderCategoryTable(); }); }
-    
     function loadPublicData() { 
       callApi('getPublicData').then(d => { 
         allPublicData = d; 
@@ -350,7 +335,6 @@
       }
     }
 
-    // 🏆 渲染榮譽榜
     function renderHonorRollPage() {
       Object.keys(carouselTimers).forEach(key => stopAutoPlay(key));
       const container = document.getElementById('honor-list');
@@ -479,7 +463,6 @@
       list.innerHTML = displayData.map((item, index) => {
         const pinHtml = item.isPinned ? `<span class="badge-pin">📌 置頂</span>` : '';
         const attachBadge = (item.attachments && item.attachments.length > 0) ? ' | 📎 含附件' : '';
-        // 修正：使用 globalIndex
         const globalIndex = allPublicData.indexOf(item);
         
         return `
@@ -540,10 +523,22 @@
         currentUser = res.username;
         document.getElementById('user-display').textContent = res.jobTitle || res.username;
         const isSuper = res.isSuperAdmin;
+        
         document.getElementById('btn-cats').style.display = isSuper ? 'inline-block' : 'none';
         document.getElementById('btn-users').style.display = isSuper ? 'inline-block' : 'none';
+        
+        const settingsDiv = document.getElementById('admin-settings-section');
         const authorDiv = document.getElementById('author-select-group');
-        if (isSuper) { authorDiv.style.display = 'block'; loadAuthorSelect(); } else { authorDiv.style.display = 'none'; }
+        
+        if (isSuper) { 
+          authorDiv.style.display = 'block'; 
+          settingsDiv.style.display = 'block'; 
+          loadAuthorSelect(); 
+        } else { 
+          authorDiv.style.display = 'none'; 
+          settingsDiv.style.display = 'none';
+        }
+        
         loadAdminData(); switchView('view-admin');
       }).catch(e => showMessage(e.message));
     }
@@ -558,15 +553,49 @@
 
     function loadAdminData() {
       callApi('getAdminData', { currentUser }).then(d => {
-        document.getElementById('admin-tbody').innerHTML = d.map(i => `
-          <tr style="${i.author === currentUser ? 'background:#eef;' : ''}">
-            <td style="border:1px solid #000; padding:8px;">${i.title}</td>
-            <td style="border:1px solid #000; padding:8px;">${i.category}</td>
-            <td style="border:1px solid #000; padding:8px;">
-              ${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn" style="padding:2px 5px;">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger" style="padding:2px 5px;">刪</button>` : '-'}
-            </td>
-          </tr>`).join('');
+        allAdminData = d;
+        currentAdminPage = 1;
+        renderAdminCurrentPage();
       });
+    }
+
+    function renderAdminCurrentPage() {
+      const tbody = document.getElementById('admin-tbody');
+      const pagination = document.getElementById('admin-pagination');
+      
+      const start = (currentAdminPage - 1) * ADMIN_PER_PAGE;
+      const displayData = allAdminData.slice(start, start + ADMIN_PER_PAGE);
+
+      tbody.innerHTML = displayData.map(i => {
+        const hasAttach = (i.attachments && i.attachments.length > 0) ? `✅ ${i.attachments.length}個` : '-';
+        return `
+        <tr style="${i.author === currentUser ? 'background:#eef;' : ''}">
+          <td style="border:1px solid #000; padding:8px;">${i.date}</td>
+          <td style="border:1px solid #000; padding:8px;">${i.title}</td>
+          <td style="border:1px solid #000; padding:8px;">${i.category}</td>
+          <td style="border:1px solid #000; padding:8px;">${i.authorTitle}</td>
+          <td style="border:1px solid #000; padding:8px; font-size:0.9rem;">${hasAttach}</td>
+          <td style="border:1px solid #000; padding:8px;">
+            ${i.isMine ? `<button onclick='editPost(${JSON.stringify(i)})' class="btn" style="padding:2px 5px;">修</button> <button onclick='deletePost("${i.id}")' class="btn btn-danger" style="padding:2px 5px;">刪</button>` : '-'}
+          </td>
+        </tr>`;
+      }).join('');
+
+      // 後台分頁按鈕
+      const totalPages = Math.ceil(allAdminData.length / ADMIN_PER_PAGE);
+      if(totalPages <= 1) { pagination.innerHTML = ''; return; }
+      
+      let html = `<button class="page-btn" onclick="changeAdminPage(${currentAdminPage-1})" ${currentAdminPage===1?'disabled':''}>&laquo;</button>`;
+      for(let i=1; i<=totalPages; i++) html += `<button class="page-btn ${i===currentAdminPage?'active':''}" onclick="changeAdminPage(${i})">${i}</button>`;
+      html += `<button class="page-btn" onclick="changeAdminPage(${currentAdminPage+1})" ${currentAdminPage===totalPages?'disabled':''}>&raquo;</button>`;
+      pagination.innerHTML = html;
+    }
+
+    function changeAdminPage(p) {
+      const total = Math.ceil(allAdminData.length / ADMIN_PER_PAGE);
+      if (p < 1 || p > total) return;
+      currentAdminPage = p;
+      renderAdminCurrentPage();
     }
 
     async function handleSave(e) {
@@ -602,6 +631,7 @@
       document.getElementById('post-expiry').value = item.expiryDate;
       document.getElementById('post-pinned').checked = item.isPinned;
       document.getElementById('post-pin-expiry').value = item.pinExpiry;
+      
       const list = document.getElementById('existing-file-list');
       list.innerHTML = "";
       if (item.attachments && item.attachments.length > 0) {
@@ -610,7 +640,10 @@
       } else {
         document.getElementById('current-attachment-info').style.display = 'none';
       }
+      
+      document.getElementById('post-author').value = ""; 
       document.getElementById('post-files').value = "";
+      document.getElementById('delete-attachment').checked = false;
       document.getElementById('post-title').focus();
     }
     
