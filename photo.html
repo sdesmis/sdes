@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>校園活動輪播 - 無障礙 AAA</title>
+    <style>
+        :root {
+            --overlay-bg: rgba(0, 0, 0, 0.6);
+            --focus-color: #FFD700;
+        }
+
+        body { margin: 0; background: #f4f4f4; font-family: "Microsoft JhengHei", sans-serif; }
+
+        /* 輪播外容器 */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        /* 圖片區 */
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+        }
+        .slide.active { opacity: 1; visibility: visible; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 1. 左上角：播放狀態鈕 (AAA 級需具備明確對比) */
+        .play-status {
+            position: absolute;
+            top: 20px; left: 20px;
+            background: var(--overlay-bg);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid #fff;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 2. 兩側：圓形切換鈕 */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px; height: 60px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.5); }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        /* 3. 底部：文字條 (AAA: 確保對比度並保持語義) */
+        .caption-bar {
+            position: absolute;
+            bottom: 60px; left: 5%; width: 90%;
+            background: var(--overlay-bg);
+            color: #fff;
+            padding: 15px 25px;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 5;
+            box-sizing: border-box;
+        }
+
+        /* 4. 最下方：點狀指示器 */
+        .dots-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .dot {
+            width: 12px; height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .dot.active { background: #4a90e2; width: 30px; border-radius: 10px; }
+
+        /* 無障礙焦點樣式 */
+        button:focus-visible {
+            outline: 4px solid var(--focus-color);
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<section class="carousel-wrapper" id="main-carousel" aria-label="校園活動相簿">
+    <button class="play-status" id="toggle-play" aria-live="polite">
+        <span id="play-icon">||</span> <span id="play-text">播放中</span>
+    </button>
+
+    <div id="slides-container" aria-live="off"></div>
+
+    <div class="caption-bar" id="current-caption">載入中...</div>
+
+    <button class="nav-btn prev" id="go-prev" aria-label="上一張">〈</button>
+    <button class="nav-btn next" id="go-next" aria-label="下一張">〉</button>
+
+    <div class="dots-container" id="dots"></div>
+</section>
+
+<script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwJet0Ok4aD6B62t6b-uBlH1e9c6Qlxzpks2SsehKDatdeEvys3KtX0Mw5WOR8wSMRc/exec';
+    const state = { data: [], index: 0, paused: false, timer: null };
+
+    async function init() {
+        try {
+            const res = await fetch(GAS_URL);
+            state.data = await res.json();
+            render();
+            startTimer();
+        } catch (e) { document.getElementById('current-caption').innerText = "載入失敗"; }
+    }
+
+    function render() {
+        const container = document.getElementById('slides-container');
+        const dots = document.getElementById('dots');
+        
+        state.data.forEach((item, i) => {
+            const div = document.createElement('div');
+            div.className = `slide ${i === 0 ? 'active' : ''}`;
+            div.innerHTML = `<img src="${item.url}" alt="${item.description}">`;
+            container.appendChild(div);
+
+            const dot = document.createElement('button');
+            dot.className = `dot ${i === 0 ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `跳至第 ${i+1} 張`);
+            dot.onclick = () => goTo(i);
+            dots.appendChild(dot);
+        });
+        updateInfo();
+    }
+
+    function updateInfo() {
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        slides.forEach((s, i) => s.classList.toggle('active', i === state.index));
+        dots.forEach((d, i) => d.classList.toggle('active', i === state.index));
+        document.getElementById('current-caption').innerText = state.data[state.index].description;
+    }
+
+    function goTo(i) {
+        state.index = (i + state.data.length) % state.data.length;
+        updateInfo();
+    }
+
+    function startTimer() {
+        state.timer = setInterval(() => { if(!state.paused) goTo(state.index + 1); }, 5000);
+    }
+
+    document.getElementById('go-next').onclick = () => goTo(state.index + 1);
+    document.getElementById('go-prev').onclick = () => goTo(state.index - 1);
+    
+    document.getElementById('toggle-play').onclick = function() {
+        state.paused = !state.paused;
+        document.getElementById('play-icon').innerText = state.paused ? "▶" : "||";
+        document.getElementById('play-text').innerText = state.paused ? "已暫停" : "播放中";
+    };
+
+    init();
+</script>
+</body>
+</html>
