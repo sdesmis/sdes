@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無障礙輪播 - 焦點順序與顯示修正版</title>
+    <title>無障礙輪播 - 指示點焦點同步版</title>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,13 +28,12 @@
 
         .carousel-container.loaded, .carousel-container.loaded .slides-area { background: #000; min-height: 20rem; }
 
-        /* --- 核心顯示修正 --- */
+        /* 組件顯示控制 */
         .status-btn, .nav-arrow, .caption-overlay, .dots-nav { 
             opacity: 0; transition: opacity 0.5s ease; z-index: 50 !important; 
             pointer-events: none;
         }
 
-        /* 只要容器內有焦點 (focus-within) 或已載入，強制顯現 */
         .carousel-container.loaded .status-btn, 
         .carousel-container.loaded .nav-arrow, 
         .carousel-container.loaded .caption-overlay, 
@@ -56,7 +55,6 @@
         .slide.active { position: relative; opacity: 1; z-index: 20; }
         .slide img { width: 100%; height: auto; display: block; object-fit: contain; }
 
-        /* 圖片焦點框線 */
         .slide:focus-visible {
             outline: 5px solid var(--focus-ring) !important;
             outline-offset: -5px;
@@ -142,7 +140,6 @@
             carouselState.images.forEach((img, i) => {
                 const slideDiv = document.createElement('div');
                 slideDiv.className = `slide ${i === 0 ? 'active' : ''}`;
-                // 修正：只有當前圖片才可被 tab 選取
                 slideDiv.setAttribute('tabindex', i === 0 ? '0' : '-1'); 
                 slideDiv.innerHTML = `<img src="${img.url}" alt="${img.description}">`;
                 
@@ -154,7 +151,12 @@
                 dot.className = `dot-item ${i === 0 ? 'active' : ''}`;
                 dot.setAttribute('aria-label', `查看第 ${i+1} 張`);
                 dot.onclick = () => updateTo(i);
-                dot.onfocus = () => setFocusPause(true);
+                
+                // 關鍵修正：當 Tab 焦點移到指示點時，自動跳轉到對應圖片
+                dot.onfocus = () => {
+                    setFocusPause(true);
+                    updateTo(i); 
+                };
                 dot.onblur = () => setFocusPause(false);
                 dBox.appendChild(dot);
             });
@@ -179,7 +181,6 @@
             slides.forEach((s, i) => {
                 const isActive = i === carouselState.current;
                 s.classList.toggle('active', isActive);
-                // 關鍵修正：切換圖片時，動態更新 tabindex
                 s.setAttribute('tabindex', isActive ? '0' : '-1');
                 s.setAttribute('aria-hidden', !isActive);
             });
