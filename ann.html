@@ -22,7 +22,6 @@
     body { padding: 1.5rem; max-width: 64rem; margin: 0 auto; }
     *:focus { outline: 0.25rem solid var(--focus) !important; outline-offset: 0.125rem; }
     
-    /* 按鈕與表單繼承字型 */
     button, input, select, textarea, .btn { font-family: inherit; }
 
     .btn { padding: 0.5rem 1rem; background: var(--theme-color); color: var(--btn-text-color); border: 2px solid transparent; cursor: pointer; font-weight: bold; border-radius: 4px; display: inline-block; text-decoration: none; font-size: 1rem; }
@@ -74,12 +73,11 @@
     /* 其他 */
     .view { display: none; } .active-view { display: block; animation: fadeIn 0.3s; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 1rem 2rem; border: 3px solid var(--focus); z-index: 2000; display: none; }
+    .status-msg { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 1rem 2rem; border: 3px solid var(--focus); z-index: 2000; display: none; font-weight: bold; }
     .cat-disabled { text-decoration: line-through; color: #888; }
     .status-on { background: #d4edda; color: #155724; padding: 2px 5px; border-radius: 3px; }
     .status-off { background: #f8d7da; color: #721c24; padding: 2px 5px; border-radius: 3px; }
     
-    /* 表格 RWD */
     .table-container { overflow-x: auto; margin-top: 20px; }
     table { width: 100%; border-collapse: collapse; min-width: 600px; }
     th, td { border: 1px solid #000; padding: 10px; text-align: left; }
@@ -218,7 +216,8 @@
         <input type="hidden" id="user-is-edit" value="false">
         <label for="new-username">帳號 (必填)</label><input type="text" id="new-username" required autocomplete="off">
         <label for="new-jobtitle">職稱 (必填)</label><input type="text" id="new-jobtitle" required autocomplete="off">
-        <label for="new-password">密碼</label><input type="password" id="new-password" autocomplete="new-password">
+        <label for="new-password">密碼 (新增時必填，修改時留空不變)</label>
+        <input type="password" id="new-password" autocomplete="new-password" placeholder="請輸入 8-20 個字元">
         <div style="border:2px solid var(--border); padding:15px; background:#fff;">
           <p style="margin:0 0 10px 0; font-weight:bold;">權限設定：</p>
           <label for="role-super" style="margin-bottom:10px; color:#b00;"><input type="checkbox" id="role-super" style="width:auto;"> 系統管理員 (全權限)</label>
@@ -238,7 +237,7 @@
     </div>
     <form onsubmit="handleChangePassword(event)">
       <label for="cp-old">舊密碼</label><input type="password" id="cp-old" required>
-      <label for="cp-new">新密碼</label><input type="password" id="cp-new" required>
+      <label for="cp-new">新密碼 (8-20字元)</label><input type="password" id="cp-new" required>
       <label for="cp-confirm">確認新密碼</label><input type="password" id="cp-confirm" required>
       <div style="text-align:right; margin-top:15px;"><button type="submit" class="btn">確認修改</button></div>
     </form>
@@ -251,12 +250,7 @@
     let currentUser = null, allPublicData = [], currentFilteredData = [], categories = [];
     const ITEMS_PER_PAGE = 5; let currentPage = 1;
     let honorData = []; const HONOR_PER_PAGE = 3; let currentHonorPage = 1;
-    
-    // 後台分頁變數
-    let allAdminData = []; 
-    const ADMIN_PER_PAGE = 10; 
-    let currentAdminPage = 1;
-
+    let allAdminData = []; const ADMIN_PER_PAGE = 10; let currentAdminPage = 1;
     const carouselTimers = {}; 
 
     document.addEventListener('DOMContentLoaded', () => { 
@@ -265,7 +259,7 @@
       loadPublicData(); 
     });
 
-    // ========== 系統設定 (顏色) ==========
+    // ========== 系統設定 ==========
     function loadSystemSettings() {
       callApi('getSettings').then(settings => {
         if(settings.themeColor) applyThemeColor(settings.themeColor);
@@ -277,9 +271,8 @@
     }
     function saveSystemSettings() {
       const color = document.getElementById('theme-color-picker').value;
-      const settings = { themeColor: color };
       applyThemeColor(color);
-      callApi('saveSettings', { settings, currentUser }).then(msg => showMessage(msg));
+      callApi('saveSettings', { settings: { themeColor: color }, currentUser }).then(msg => showMessage(msg));
     }
 
     // ========== API & 工具 ==========
@@ -581,7 +574,6 @@
         </tr>`;
       }).join('');
 
-      // 後台分頁按鈕
       const totalPages = Math.ceil(allAdminData.length / ADMIN_PER_PAGE);
       if(totalPages <= 1) { pagination.innerHTML = ''; return; }
       
@@ -631,7 +623,6 @@
       document.getElementById('post-expiry').value = item.expiryDate;
       document.getElementById('post-pinned').checked = item.isPinned;
       document.getElementById('post-pin-expiry').value = item.pinExpiry;
-      
       const list = document.getElementById('existing-file-list');
       list.innerHTML = "";
       if (item.attachments && item.attachments.length > 0) {
@@ -640,7 +631,6 @@
       } else {
         document.getElementById('current-attachment-info').style.display = 'none';
       }
-      
       document.getElementById('post-author').value = ""; 
       document.getElementById('post-files').value = "";
       document.getElementById('delete-attachment').checked = false;
@@ -648,7 +638,7 @@
     }
     
     function deletePost(id) { if(confirm("確定刪除？")) callApi('deleteAnnouncement', {id, currentUser}).then(()=>{ showMessage("已刪除"); loadAdminData(); }); }
-    function resetForm() { document.getElementById('admin-form').reset(); document.getElementById('post-id').value=""; document.getElementById('current-attachment-info').style.display='none'; }
+    function resetForm() { document.getElementById('admin-form').reset(); document.getElementById('post-id').value=""; document.getElementById('current-attachment-info').style.display='none'; document.getElementById('post-author').value = ""; }
 
     // 分類 & 使用者管理
     function handleCatSave(e) { e.preventDefault(); callApi('saveCategory', { id: document.getElementById('cat-id').value, name: document.getElementById('cat-name').value, currentUser }).then(()=>{ showMessage("成功"); document.getElementById('cat-form').reset(); document.getElementById('cat-id').value=""; loadCategories(); }); }
@@ -668,6 +658,11 @@
       let selected = []; if(document.getElementById('role-super').checked) selected.push('系統管理員');
       document.querySelectorAll('input[name="user-permissions"]:checked').forEach(cb => selected.push(cb.value));
       const data = { isEdit: document.getElementById('user-is-edit').value==='true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: selected.join(',') };
+      
+      // 新增：密碼長度檢查
+      if (!data.isEdit && (data.password.length < 8 || data.password.length > 20)) { alert("密碼需8-20字元"); return; }
+      if (data.isEdit && data.password && (data.password.length < 8 || data.password.length > 20)) { alert("密碼需8-20字元"); return; }
+
       callApi('saveUser', { formObj: data, currentUser }).then(()=>{ showMessage("成功"); resetUserForm(); loadUsers(); });
     }
     function editUser(u) {
@@ -685,6 +680,7 @@
       e.preventDefault();
       const o=document.getElementById('cp-old').value, n=document.getElementById('cp-new').value, c=document.getElementById('cp-confirm').value;
       if(n!==c){alert("密碼不符");return;}
+      if(n.length < 8 || n.length > 20){alert("密碼長度需8-20字元");return;}
       callApi('changePassword', {username:currentUser, oldPassword:o, newPassword:n}).then(msg=>{alert(msg);document.getElementById('password-modal').close();});
     }
   </script>
