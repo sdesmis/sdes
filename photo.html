@@ -18,16 +18,20 @@
             background-color: transparent;
         }
 
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            max-width: 50rem; /* CS3140801C: 符合 40 個文字寬度 */
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-        }
+.carousel-container {
+    position: relative;
+    width: 100%;
+    /* CS3140801C: 將 1000px 換算為相對單位 rem (1000/16 = 62.5) */
+    max-width: 62.5rem; 
+    margin: 0 auto;
+    
+    /* 設定為長條形比例，您可以根據需求調整 (例如 3 / 1 或 4 / 1) */
+    aspect-ratio: 3 / 2; 
+    
+    background: #000;
+    display: flex;
+    flex-direction: column;
+}
 
         /* HM1130100C: 標題結構 */
         .sr-only {
@@ -71,11 +75,11 @@
         /* 圖片說明：無底色、一點明體、加大加粗 */
         .caption-overlay {
             position: absolute;
-            bottom: 4.5rem; left: 0; width: 100%;
+            bottom: 3.5rem; left: 0; width: 100%;
             padding: 0 2rem;
             box-sizing: border-box;
             color: #fff;
-            font-size: 2.25rem; 
+            font-size: 1.75rem; 
             font-weight: 900; 
             z-index: 5;
             text-align: left;
