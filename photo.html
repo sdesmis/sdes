@@ -3,53 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>嵌入式無障礙輪播 - 一點明體修正版</title>
+    <title>無障礙輪播 - 高度自適應版</title>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
     <style>
         :root {
             --focus-ring: #FFD700;
-            --overlay-shadow: rgba(0, 0, 0, 0.9);
         }
 
         body {
             margin: 0; padding: 0;
-            overflow: hidden;
-            font-family: 'Iansui', serif; 
+            font-family: 'Iansui', serif;
             background-color: transparent;
         }
 
-.carousel-container {
-    position: relative;
-    width: 100%;
-    /* CS3140801C: 將 1000px 換算為相對單位 rem (1000/16 = 62.5) */
-    max-width: 75rem; 
-    margin: 0 auto;
-    
-    /* 設定為長條形比例，您可以根據需求調整 (例如 3 / 1 或 4 / 1) */
-    aspect-ratio: 3 / 2; 
-    
-    background: #000;
-    display: flex;
-    flex-direction: column;
-}
-
-        /* HM1130100C: 標題結構 */
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        /* CS3140801C: 最大寬度 1000px (62.5rem) */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 62.5rem; 
+            margin: 0 auto;
+            background: #000;
+            /* 移除 aspect-ratio，改由內容撐開高度 */
+            display: flex;
+            flex-direction: column;
         }
 
         .slides-area {
-            position: relative; flex-grow: 1; overflow: hidden;
+            position: relative;
+            width: 100%;
+            /* 這裡不設定固定高度，確保圖片能自然呈現 */
+            min-height: 20rem; 
         }
 
         .slide {
-            position: absolute; inset: 0; opacity: 0;
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            opacity: 0;
             transition: opacity 0.5s ease-in-out;
-            visibility: hidden; display: flex; align-items: center; justify-content: center;
+            visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .slide.active { opacity: 1; visibility: visible; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .slide.active {
+            position: relative; /* 只有活動中的圖片佔據空間，達成高度自適應 */
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto; /* 自動縮放高度 */
+            display: block;
+            /* 確保圖片不被裁切 */
+            object-fit: contain; 
+        }
 
         /* 播放控制 */
         .status-btn {
@@ -61,60 +70,57 @@
             font-family: 'Iansui', serif;
         }
 
-        /* 左右導覽按鈕 */
+        /* 導覽按鈕：增加背景半透明度確保在淺色圖片上可見 */
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             z-index: 10; width: 3.5rem; height: 3.5rem;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             border: 0.125rem solid #fff; border-radius: 50%;
             color: #fff; font-size: 2rem; cursor: pointer;
         }
         .prev { left: 1rem; }
         .next { right: 1rem; }
 
-        /* 圖片說明：無底色、一點明體、加大加粗 */
+        /* 圖片說明：強化版文字陰影 */
         .caption-overlay {
             position: absolute;
-            bottom: 3.5rem; left: 0; width: 100%;
+            bottom: 4rem; left: 0; width: 100%;
             padding: 0 2rem;
             box-sizing: border-box;
             color: #fff;
-            font-size: 1.75rem; 
+            font-size: 2rem; 
             font-weight: 900; 
             z-index: 5;
-            text-align: left;
             text-shadow: 
-                -3px -3px 0 #000,  
-                 3px -3px 0 #000,
-                -3px  3px 0 #000,
-                 3px  3px 0 #000,
-                 0px  0px 15px var(--overlay-shadow); 
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                0px 0px 15px rgba(0,0,0,1);
             pointer-events: none;
         }
 
-        /* HM1240102C: 指示器導覽區塊 */
+        /* HM1240102C: 指示器導覽 */
         .dots-nav {
-            position: absolute; bottom: 1.5rem; width: 100%;
-            display: flex; justify-content: center; gap: 0.75rem; z-index: 10;
+            position: relative; /* 改為相對定位，放在圖片下方 */
+            padding: 1rem 0;
+            width: 100%;
+            display: flex; justify-content: center; gap: 0.75rem;
+            background: #000;
         }
-
         .dot-item {
             width: 0.9rem; height: 0.9rem; border-radius: 50%;
-            border: 0.125rem solid #fff; background: rgba(0,0,0,0.6);
-            cursor: pointer; padding: 0;
+            border: 0.125rem solid #fff; background: rgba(255,255,255,0.4);
+            cursor: pointer;
         }
         .dot-item.active { background: #4a90e2; width: 2.5rem; border-radius: 0.6rem; }
 
-        /* AAA 焦點強化 */
-        button:focus-visible {
-            outline: 0.4rem solid var(--focus-ring);
-            outline-offset: 0.2rem;
-        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        
+        button:focus-visible { outline: 0.4rem solid var(--focus-ring); outline-offset: 0.2rem; }
     </style>
 </head>
 <body>
 
-    <h1 class="sr-only">嵌入式活動照片展示輪播</h1>
+    <h1 class="sr-only">活動照片展示輪播</h1>
 
     <section class="carousel-container" role="region" aria-roledescription="carousel" aria-label="活動展示區">
         
@@ -123,16 +129,16 @@
         </button>
 
         <div class="slides-area" id="slides-box" aria-live="off">
-            <div class="sr-only">正在載入圖片內容...</div>
+            <div class="sr-only">載入中...</div>
         </div>
 
-        <div class="caption-overlay" id="caption-text">相簿載入中...</div>
+        <div class="caption-overlay" id="caption-text"></div>
 
         <button class="nav-arrow prev" id="btn-prev" aria-label="上一張圖片">〈</button>
         <button class="nav-arrow next" id="btn-next" aria-label="下一張圖片">〉</button>
 
         <nav class="dots-nav" id="dots-box" aria-label="分頁導覽">
-            <span class="sr-only">投影片分頁按鈕載入中...</span>
+            <span class="sr-only">分頁載入中...</span>
         </nav>
     </section>
 
@@ -149,28 +155,26 @@
                     runTimer();
                 }
             } catch (err) {
-                document.getElementById('caption-text').innerText = "無法載入相簿資料。";
+                document.getElementById('caption-text').innerText = "載入失敗。";
             }
         }
 
         function setupCarousel() {
             const sBox = document.getElementById('slides-box');
             const dBox = document.getElementById('dots-box');
-
-            // 清除預設的載入中文字
-            sBox.innerHTML = "";
-            dBox.innerHTML = "";
+            sBox.innerHTML = ""; dBox.innerHTML = "";
 
             carouselState.images.forEach((img, i) => {
                 const slideDiv = document.createElement('div');
                 slideDiv.className = `slide ${i === 0 ? 'active' : ''}`;
                 slideDiv.setAttribute('aria-hidden', i !== 0);
+                // 確保圖片寬度 100%，高度自動
                 slideDiv.innerHTML = `<img src="${img.url}" alt="${img.description}">`;
                 sBox.appendChild(slideDiv);
 
                 const dot = document.createElement('button');
                 dot.className = `dot-item ${i === 0 ? 'active' : ''}`;
-                dot.setAttribute('aria-label', `導覽至第 ${i+1} 張：${img.description}`);
+                dot.setAttribute('aria-label', `導覽至第 ${i+1} 張`);
                 dot.onclick = () => updateTo(i);
                 dBox.appendChild(dot);
             });
@@ -191,8 +195,7 @@
                 s.setAttribute('aria-hidden', !isActive);
             });
             dots.forEach((d, i) => d.classList.toggle('active', i === carouselState.current));
-            document.getElementById('caption-text').innerText = 
-                carouselState.images[carouselState.current].description;
+            document.getElementById('caption-text').innerText = carouselState.images[carouselState.current].description;
         }
 
         function runTimer() {
@@ -209,7 +212,6 @@
             carouselState.isPaused = !carouselState.isPaused;
             document.getElementById('p-icon').innerText = carouselState.isPaused ? "▶" : "||";
             document.getElementById('p-text').innerText = carouselState.isPaused ? "已暫停" : "播放中";
-            document.getElementById('slides-box').setAttribute('aria-live', carouselState.isPaused ? 'polite' : 'off');
         };
 
         fetchData();
