@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>嵌入式無障礙輪播 - 一點明體樣式</title>
+    <title>嵌入式無障礙輪播 - 一點明體修正版</title>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
     <style>
         :root {
             --focus-ring: #FFD700;
+            --overlay-shadow: rgba(0, 0, 0, 0.9);
         }
 
         body {
             margin: 0; padding: 0;
             overflow: hidden;
-            /* CS2140401C: 使用相對單位並套用自訂字體 */
             font-family: 'Iansui', serif; 
             background-color: transparent;
         }
@@ -21,8 +21,7 @@
         .carousel-container {
             position: relative;
             width: 100%;
-            /* CS3140801C: 最大寬度限制以利閱讀 */
-            max-width: 50rem; 
+            max-width: 50rem; /* CS3140801C: 符合 40 個文字寬度 */
             margin: 0 auto;
             aspect-ratio: 16 / 9;
             background: #000;
@@ -30,7 +29,7 @@
             flex-direction: column;
         }
 
-        /* HM1130100C: 標題結構隱藏但存在 */
+        /* HM1130100C: 標題結構 */
         .sr-only {
             position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
             overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
@@ -45,7 +44,6 @@
             transition: opacity 0.5s ease-in-out;
             visibility: hidden; display: flex; align-items: center; justify-content: center;
         }
-
         .slide.active { opacity: 1; visibility: visible; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -59,7 +57,7 @@
             font-family: 'Iansui', serif;
         }
 
-        /* 左右導覽 */
+        /* 左右導覽按鈕 */
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             z-index: 10; width: 3.5rem; height: 3.5rem;
@@ -77,27 +75,25 @@
             padding: 0 2rem;
             box-sizing: border-box;
             color: #fff;
-            /* 加大字體與加粗 */
             font-size: 2.25rem; 
             font-weight: 900; 
-            line-height: 1.2;
             z-index: 5;
             text-align: left;
-            /* 強化版描邊：確保一點明體的纖細筆畫在複雜背景下不消失 */
             text-shadow: 
                 -3px -3px 0 #000,  
                  3px -3px 0 #000,
                 -3px  3px 0 #000,
                  3px  3px 0 #000,
-                 0px  0px 15px rgba(0,0,0,1); 
+                 0px  0px 15px var(--overlay-shadow); 
             pointer-events: none;
         }
 
-        /* 分頁點點 */
+        /* HM1240102C: 指示器導覽區塊 */
         .dots-nav {
             position: absolute; bottom: 1.5rem; width: 100%;
             display: flex; justify-content: center; gap: 0.75rem; z-index: 10;
         }
+
         .dot-item {
             width: 0.9rem; height: 0.9rem; border-radius: 50%;
             border: 0.125rem solid #fff; background: rgba(0,0,0,0.6);
@@ -114,22 +110,26 @@
 </head>
 <body>
 
-    <h1 class="sr-only">活動照片展示輪播</h1>
+    <h1 class="sr-only">嵌入式活動照片展示輪播</h1>
 
-    <section class="carousel-container" role="region" aria-roledescription="carousel" aria-label="校園影像">
+    <section class="carousel-container" role="region" aria-roledescription="carousel" aria-label="活動展示區">
         
         <button id="ctrl-play" class="status-btn">
             <span id="p-icon">||</span> <span id="p-text">播放中</span>
         </button>
 
-        <div class="slides-area" id="slides-box" aria-live="off"></div>
+        <div class="slides-area" id="slides-box" aria-live="off">
+            <div class="sr-only">正在載入圖片內容...</div>
+        </div>
 
-        <div class="caption-overlay" id="caption-text">載入中...</div>
+        <div class="caption-overlay" id="caption-text">相簿載入中...</div>
 
-        <button class="nav-arrow prev" id="btn-prev" aria-label="上一張">〈</button>
-        <button class="nav-arrow next" id="btn-next" aria-label="下一張">〉</button>
+        <button class="nav-arrow prev" id="btn-prev" aria-label="上一張圖片">〈</button>
+        <button class="nav-arrow next" id="btn-next" aria-label="下一張圖片">〉</button>
 
-        <nav class="dots-nav" id="dots-box" aria-label="分頁導覽"></nav>
+        <nav class="dots-nav" id="dots-box" aria-label="分頁導覽">
+            <span class="sr-only">投影片分頁按鈕載入中...</span>
+        </nav>
     </section>
 
     <script>
@@ -145,13 +145,17 @@
                     runTimer();
                 }
             } catch (err) {
-                document.getElementById('caption-text').innerText = "載入失敗。";
+                document.getElementById('caption-text').innerText = "無法載入相簿資料。";
             }
         }
 
         function setupCarousel() {
             const sBox = document.getElementById('slides-box');
             const dBox = document.getElementById('dots-box');
+
+            // 清除預設的載入中文字
+            sBox.innerHTML = "";
+            dBox.innerHTML = "";
 
             carouselState.images.forEach((img, i) => {
                 const slideDiv = document.createElement('div');
@@ -162,7 +166,7 @@
 
                 const dot = document.createElement('button');
                 dot.className = `dot-item ${i === 0 ? 'active' : ''}`;
-                dot.setAttribute('aria-label', `跳至第 ${i+1} 張`);
+                dot.setAttribute('aria-label', `導覽至第 ${i+1} 張：${img.description}`);
                 dot.onclick = () => updateTo(i);
                 dBox.appendChild(dot);
             });
