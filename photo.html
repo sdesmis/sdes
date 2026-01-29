@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無障礙輪播 - 指示點焦點同步版</title>
+    <title>校園活動輪播 - 無障礙 AAA 最終修正版</title>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --focus-ring: #FFD700;
-            --focus-outline: #000000;
-        }
-
+        :root { --focus-ring: #FFD700; --focus-outline: #000000; }
         body { margin: 0; padding: 0; font-family: 'Iansui', serif; background-color: transparent; }
 
         .carousel-container {
@@ -28,51 +24,45 @@
 
         .carousel-container.loaded, .carousel-container.loaded .slides-area { background: #000; min-height: 20rem; }
 
-        /* 組件顯示控制 */
+        /* 組件顯示邏輯： loaded 或 focus-within 時顯示 */
         .status-btn, .nav-arrow, .caption-overlay, .dots-nav { 
-            opacity: 0; transition: opacity 0.5s ease; z-index: 50 !important; 
-            pointer-events: none;
+            opacity: 0; transition: opacity 0.5s ease; z-index: 50 !important; pointer-events: none;
         }
 
-        .carousel-container.loaded .status-btn, 
-        .carousel-container.loaded .nav-arrow, 
-        .carousel-container.loaded .caption-overlay, 
-        .carousel-container.loaded .dots-nav,
-        .carousel-container:focus-within .status-btn,
-        .carousel-container:focus-within .nav-arrow,
-        .carousel-container:focus-within .caption-overlay,
-        .carousel-container:focus-within .dots-nav { 
-            opacity: 1 !important; 
-            pointer-events: auto;
+        .carousel-container.loaded .status-btn, .carousel-container.loaded .nav-arrow, 
+        .carousel-container.loaded .caption-overlay, .carousel-container.loaded .dots-nav,
+        .carousel-container:focus-within .status-btn, .carousel-container:focus-within .nav-arrow,
+        .carousel-container:focus-within .caption-overlay, .carousel-container:focus-within .dots-nav { 
+            opacity: 1 !important; pointer-events: auto;
         }
 
         .slide {
             position: absolute; top: 0; left: 0; width: 100%;
             opacity: 0; transition: opacity 0.8s ease;
-            display: flex; justify-content: center; align-items: center;
-            outline: none; z-index: 10;
+            display: flex; justify-content: center; align-items: center; outline: none; z-index: 10;
         }
         .slide.active { position: relative; opacity: 1; z-index: 20; }
         .slide img { width: 100%; height: auto; display: block; object-fit: contain; }
 
         .slide:focus-visible {
             outline: 5px solid var(--focus-ring) !important;
-            outline-offset: -5px;
-            box-shadow: inset 0 0 0 10px var(--focus-outline);
+            outline-offset: -5px; box-shadow: inset 0 0 0 10px var(--focus-outline);
         }
 
-        /* UI 元件樣式 */
+        /* UI 按鈕 */
         .status-btn {
             position: absolute; top: 1rem; left: 1rem;
             background: rgba(0,0,0,0.8); color: #fff; border: 0.125rem solid #fff;
             border-radius: 2rem; padding: 0.5rem 1rem; font-size: 1.1rem; cursor: pointer;
         }
+
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             width: 3.5rem; height: 3.5rem; background: rgba(0, 0, 0, 0.6);
             border: 0.125rem solid #fff; border-radius: 50%; color: #fff; font-size: 2rem; cursor: pointer;
         }
         .prev { left: 1rem; } .next { right: 1rem; }
+
         .caption-overlay {
             position: absolute; bottom: 4.5rem; left: 0; width: 100%;
             padding: 0 2rem; box-sizing: border-box; color: #fff;
@@ -80,10 +70,13 @@
             text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0px 0px 15px rgba(0,0,0,1);
             pointer-events: none;
         }
+
+        /* HM1240102C: nav 區塊 */
         .dots-nav {
             position: absolute; bottom: 1.5rem; width: 100%;
             display: flex; justify-content: center; gap: 0.8rem;
         }
+
         .dot-item {
             width: 1.2rem; height: 1.2rem; border-radius: 50%;
             border: 0.15rem solid #fff; background: rgba(0, 0, 0, 0.5);
@@ -91,15 +84,16 @@
         }
         .dot-item.active { background: #4a90e2; width: 3rem; border-radius: 0.6rem; }
 
-        button:focus-visible { outline: 5px solid var(--focus-ring); outline-offset: 3px; box-shadow: 0 0 0 8px var(--focus-outline); }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        button:focus-visible { outline: 5px solid var(--focus-ring); outline-offset: 3px; box-shadow: 0 0 0 8px var(--focus-outline); }
     </style>
 </head>
 <body>
 
-    <h1 class="sr-only">嵌入式校園相簿輪播</h1>
+    <h1 class="sr-only">嵌入式照片輪播展示</h1>
 
-    <section id="carousel-main" class="carousel-container" role="region" aria-roledescription="carousel" aria-label="展示區">
+    <section id="carousel-main" class="carousel-container" role="region" aria-roledescription="carousel" aria-label="活動展示區">
+        
         <button id="ctrl-play" class="status-btn">
             <span id="p-icon">||</span> <span id="p-text">播放中</span>
         </button>
@@ -110,10 +104,12 @@
 
         <div class="caption-overlay" id="caption-text"></div>
 
-        <button class="nav-arrow prev" id="btn-prev" aria-label="上一張">〈</button>
-        <button class="nav-arrow next" id="btn-next" aria-label="下一張">〉</button>
+        <button class="nav-arrow prev" id="btn-prev" aria-label="上一張圖片">〈</button>
+        <button class="nav-arrow next" id="btn-next" aria-label="下一張圖片">〉</button>
 
-        <nav class="dots-nav" id="dots-box" aria-label="分頁"></nav>
+        <nav class="dots-nav" id="dots-box" aria-label="分頁導覽">
+            <span class="sr-only">相簿分頁按鈕載入中...</span>
+        </nav>
     </section>
 
     <script>
@@ -129,13 +125,16 @@
                     runTimer();
                     document.getElementById('carousel-main').classList.add('loaded');
                 }
-            } catch (err) { document.getElementById('loading-text').innerText = "載入失敗。"; }
+            } catch (err) {
+                document.getElementById('loading-text').innerText = "載入失敗。";
+            }
         }
 
         function setupCarousel() {
             const sBox = document.getElementById('slides-box');
             const dBox = document.getElementById('dots-box');
-            sBox.innerHTML = ""; dBox.innerHTML = "";
+            sBox.innerHTML = "";
+            dBox.innerHTML = ""; // 清除 sr-only 文字，替換為按鈕
 
             carouselState.images.forEach((img, i) => {
                 const slideDiv = document.createElement('div');
@@ -149,10 +148,10 @@
 
                 const dot = document.createElement('button');
                 dot.className = `dot-item ${i === 0 ? 'active' : ''}`;
-                dot.setAttribute('aria-label', `查看第 ${i+1} 張`);
+                dot.setAttribute('aria-label', `查看第 ${i+1} 張：${img.description}`);
                 dot.onclick = () => updateTo(i);
                 
-                // 關鍵修正：當 Tab 焦點移到指示點時，自動跳轉到對應圖片
+                // 焦點連動跳轉與暫停
                 dot.onfocus = () => {
                     setFocusPause(true);
                     updateTo(i); 
