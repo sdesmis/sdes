@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行事曆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Iansui:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #000;
+            --weekend-red: #d90606;
+            --focus-outline: #005a9c;
+            --border: 2px solid #000;
+            --bg-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Iansui', sans-serif;
+            background: var(--bg-white);
+            color: var(--primary-text);
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 15px;
+            line-height: 1.5;
+        }
+
+        /* 頁籤導覽 */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { 
+            padding: 10px 20px; border: var(--border); background: #fff; 
+            cursor: pointer; font-weight: bold; font-family: inherit; font-size: 1.1rem;
+        }
+        .tab-btn[aria-selected="true"] { background: #000; color: #fff; }
+
+        /* 控制列 */
+        .controls { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+        .nav-btn { padding: 8px 16px; border: var(--border); background: #eee; cursor: pointer; font-weight: bold; font-family: inherit; }
+
+        /* 表格結構 */
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        th { border: var(--border); background: #f4f4f4; padding: 10px 5px; height: auto; font-size: 1.1rem; }
+        td { border: var(--border); padding: 8px; vertical-align: top; height: 125px; }
+        
+        .weekend { color: var(--weekend-red); }
+
+        /* 行程標籤樣式 */
+        .event-item {
+            background: #f0f0f0; border-left: 5px solid #000;
+            padding: 4px 8px; margin-top: 5px; font-size: 0.9rem;
+            cursor: pointer; word-break: break-all; display: block;
+            text-align: left;
+        }
+        .event-item:hover, .event-item:focus { background: #e0e0e0; outline: 3px solid var(--focus-outline); }
+        
+        /* 全天行程特別樣式 */
+        .all-day-tag { background: #333; color: #fff; border-left: 5px solid var(--weekend-red); }
+
+        /* 彈出視窗 (Modal) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: none;
+            justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #fff; border: 4px solid #000; padding: 30px;
+            max-width: 500px; width: 90%; position: relative;
+        }
+        .close-btn { position: absolute; top: 10px; right: 10px; padding: 8px 15px; border: 2px solid #000; cursor: pointer; font-weight: bold; }
+
+        /* 鍵盤焦點與無障礙 */
+        *:focus { outline: 5px solid var(--focus-outline); outline-offset: 2px; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+        
+        /* 時段清單樣式 */
+        .time-label { font-weight: bold; font-size: 0.85rem; color: #444; display: block; }
+        .all-day-tag .time-label { color: #eee; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>行事曆</h1>
+    <div class="tabs" role="tablist">
+        <button role="tab" class="tab-btn" id="tab-month" aria-selected="true" onclick="updateMode('month')">月檢視</button>
+        <button role="tab" class="tab-btn" id="tab-week" aria-selected="false" onclick="updateMode('week')">週檢視</button>
+        <button role="tab" class="tab-btn" id="tab-day" aria-selected="false" onclick="updateMode('day')">日檢視</button>
+    </div>
+    <div class="controls">
+        <h2 id="current-label" aria-live="polite">資料載入中...</h2>
+        <button class="nav-btn" onclick="navView(-1)">上一個範圍</button>
+        <button class="nav-btn" onclick="navView(0)">回到今天</button>
+        <button class="nav-btn" onclick="navView(1)">下一個範圍</button>
+    </div>
+</header>
+
+<main id="calendar-container">
+    <table role="grid">
+        <thead id="cal-head"></thead>
+        <tbody id="cal-body"></tbody>
+    </table>
+</main>
+
+<div id="modal" class="modal-overlay" onclick="if(event.target===this) closeModal()">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="m-title" tabindex="-1">
+        <button class="close-btn" onclick="closeModal()">關閉 (Esc)</button>
+        <h2 id="m-title">行程詳細資訊</h2>
+        <hr>
+        <div id="m-body"></div>
+    </div>
+</div>
+
+<script>
+    // 請填入您部署後的 GAS 網址
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwMS8k7-IO3Ox9Le07fACJF2F0CiCEksoyAgW_8gIR9pPv2olZHKGTdsMsHs6h_-sw/exec'; 
+    
+    let currDate = new Date();
+    let currMode = 'month';
+    let eventsData = [];
+    let lastActiveElement;
+
+    async function fetchData() {
+        document.getElementById('current-label').innerText = "連線伺服器中...";
+        try {
+            const response = await fetch(`${GAS_URL}?year=${currDate.getFullYear()}&month=${currDate.getMonth()+1}`);
+            eventsData = await response.json();
+            render();
+        } catch(e) { 
+            document.getElementById('current-label').innerText = "無法取得資料，請檢查網路。"; 
+        }
+    }
+
+    function updateMode(m) { currMode = m; render(); }
+
+    function navView(n) {
+        if (n === 0) currDate = new Date();
+        else {
+            if (currMode === 'month') currDate.setMonth(currDate.getMonth() + n);
+            else if (currMode === 'week') currDate.setDate(currDate.getDate() + n * 7);
+            else currDate.setDate(currDate.getDate() + n);
+        }
+        fetchData();
+    }
+
+    function render() {
+        const head = document.getElementById('cal-head');
+        const body = document.getElementById('cal-body');
+        const label = document.getElementById('current-label');
+        
+        body.innerHTML = '';
+        head.innerHTML = '';
+        document.querySelectorAll('.tab-btn').forEach(b => b.setAttribute('aria-selected', b.id === `tab-${currMode}`));
+
+        if (currMode === 'month') renderMonth(head, body, label);
+        else if (currMode === 'week') renderWeek(head, body, label);
+        else if (currMode === 'day') renderDay(head, body, label);
+    }
+
+    function renderMonth(h, b, l) {
+        l.innerText = `${currDate.getFullYear()}年 ${currDate.getMonth()+1}月`;
+        h.innerHTML = `<tr><th class="weekend">星期日</th><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th class="weekend">星期六</th></tr>`;
+        
+        let firstDay = new Date(currDate.getFullYear(), currDate.getMonth(), 1).getDay();
+        let daysInMonth = new Date(currDate.getFullYear(), currDate.getMonth() + 1, 0).getDate();
+        let dateCount = 1;
+
+        for (let i = 0; i < 6; i++) {
+            let tr = document.createElement('tr');
+            for (let j = 0; j < 7; j++) {
+                let td = document.createElement('td');
+                if ((i === 0 && j < firstDay) || dateCount > daysInMonth) {
+                    tr.appendChild(td);
+                } else {
+                    const dateStr = `${currDate.getFullYear()}-${String(currDate.getMonth()+1).padStart(2,'0')}-${String(dateCount).padStart(2,'0')}`;
+                    const dayEvs = eventsData.filter(e => e.start.startsWith(dateStr));
+                    
+                    td.tabIndex = 0;
+                    if (j === 0 || j === 6) td.classList.add('weekend');
+                    td.setAttribute('aria-label', `${dateCount}日, ${dayEvs.length}個行程`);
+                    td.innerHTML = `<strong>${dateCount}</strong>`;
+                    
+                    dayEvs.forEach(e => {
+                        td.appendChild(createEventElement(e));
+                    });
+                    
+                    td.onclick = () => openModal(null, dateStr, dayEvs);
+                    td.onkeydown = (ev) => { if(ev.key==='Enter') openModal(null, dateStr, dayEvs); };
+                    tr.appendChild(td);
+                    dateCount++;
+                }
+            }
+            b.appendChild(tr);
+            if (dateCount > daysInMonth) break;
+        }
+    }
+
+    function renderWeek(h, b, l) {
+        let start = new Date(currDate);
+        start.setDate(currDate.getDate() - currDate.getDay());
+        let end = new Date(start);
+        end.setDate(start.getDate() + 6);
+        
+        l.innerText = `${start.toLocaleDateString()} ~ ${end.toLocaleDateString()}`;
+        h.innerHTML = `<tr><th style="width:150px">日期</th><th>行程內容</th></tr>`;
+
+        for (let i = 0; i < 7; i++) {
+            let d = new Date(start);
+            d.setDate(start.getDate() + i);
+            let ds = d.toISOString().split('T')[0];
+            let evs = eventsData.filter(e => e.start.startsWith(ds));
+
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td style="height:auto; ${i===0||i===6?'color:var(--weekend-red)':''}">
+                <strong>星期${['日','一','二','三','四','五','六'][i]}</strong><br>${d.getMonth()+1}/${d.getDate()}
+            </td><td id="week-cell-${i}" style="height:auto"></td>`;
+            b.appendChild(tr);
+            
+            const cell = document.getElementById(`week-cell-${i}`);
+            if (evs.length) {
+                evs.forEach(e => cell.appendChild(createEventElement(e)));
+            } else {
+                cell.innerText = '無行程';
+            }
+        }
+    }
+
+    function renderDay(h, b, l) {
+        l.innerText = `${currDate.toLocaleDateString()} (星期${['日','一','二','三','四','五','六'][currDate.getDay()]})`;
+        h.innerHTML = `<tr><th style="width:100px">時間</th><th>行程</th></tr>`;
+        
+        const ds = currDate.toISOString().split('T')[0];
+        const evs = eventsData.filter(e => e.start.startsWith(ds));
+
+        for (let hour = 0; hour < 24; hour++) {
+            let tr = document.createElement('tr');
+            let hStr = String(hour).padStart(2, '0') + ':00';
+            let hourEvs = evs.filter(e => {
+                if(e.isAllDay) return hour === 0; // 全天行程放在 0 點
+                return new Date(e.start).getHours() === hour;
+            });
+
+            tr.innerHTML = `<td style="height:50px; text-align:center; background:#f9f9f9;">${hStr}</td><td id="day-cell-${hour}" style="height:50px;"></td>`;
+            b.appendChild(tr);
+            
+            const cell = document.getElementById(`day-cell-${hour}`);
+            hourEvs.forEach(e => cell.appendChild(createEventElement(e)));
+        }
+    }
+
+    // 建立行程 DOM 元素 (含時間顯示)
+    function createEventElement(e) {
+        let dv = document.createElement('div');
+        dv.className = 'event-item' + (e.isAllDay ? ' all-day-tag' : '');
+        dv.innerHTML = `<span class="time-label">${e.timeDisplay}</span><span>${e.title}</span>`;
+        dv.tabIndex = 0;
+        dv.onclick = (ex) => { ex.stopPropagation(); openModal(e); };
+        dv.onkeydown = (ex) => { if(ex.key==='Enter') { ex.stopPropagation(); openModal(e); } };
+        return dv;
+    }
+
+    // 彈窗邏輯
+    function openModal(e, dateStr, dayEvents) {
+        lastActiveElement = document.activeElement;
+        const modal = document.getElementById('modal');
+        const mBody = document.getElementById('m-body');
+        modal.style.display = 'flex';
+
+        if (e) {
+            mBody.innerHTML = `
+                <p><strong>行程主題：</strong><br>${e.title}</p>
+                <p><strong>時間：</strong>${e.timeDisplay}</p>
+                <p><strong>地點：</strong>${e.location || '未標註'}</p>
+                <p><strong>內容描述：</strong><br>${e.desc || '無詳細說明'}</p>
+            `;
+        } else {
+            mBody.innerHTML = `<h3>${dateStr} 行程概覽</h3>` + 
+                (dayEvents.length ? '' : '<p>今日無行程</p>');
+            dayEvents.forEach(x => {
+                let item = createEventElement(x);
+                item.style.marginBottom = "10px";
+                mBody.appendChild(item);
+            });
+        }
+        document.querySelector('.modal-content').focus();
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        if (lastActiveElement) lastActiveElement.focus();
+    }
+
+    window.onkeydown = (e) => { if(e.key === 'Escape') closeModal(); };
+
+    // 初始啟動
+    fetchData();
+</script>
+</body>
+</html>
