@@ -3,158 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無障礙輪播 - 指示點置內版</title>
+    <title>無障礙輪播 - 文字載入優化版</title>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
     <style>
         :root {
             --focus-ring: #FFD700;
         }
 
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Iansui', serif;
-            background-color: transparent;
-        }
+        body { margin: 0; padding: 0; font-family: 'Iansui', serif; background-color: transparent; }
 
-        /* CS3140801C: 最大寬度 62.5rem (1000px) */
         .carousel-container {
             position: relative;
             width: 100%;
-            max-width: 62.5rem; 
+            max-width: 62.5rem; /* 1000px */
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            background: #000; /* 確保 contain 縮放時背景統一 */
+            background: transparent; /* 初始完全透明 */
+            transition: background 0.5s ease;
         }
 
         .slides-area {
             position: relative;
             width: 100%;
-            min-height: 15rem; 
+            min-height: 10rem; /* 載入時給予較小的高度空間 */
             overflow: hidden;
-        }
-
-        .slide {
-            position: absolute;
-            top: 0; left: 0; width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            visibility: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .slide.active {
-            position: relative; 
+        /* 正在載入文字樣式 */
+        #loading-text {
+            font-size: 1.5rem;
+            color: #555;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* 載入完成後變黑，讓不裁切的圖片有背景色 */
+        .carousel-container.loaded { background: #000; }
+        .carousel-container.loaded .slides-area { background: #000; min-height: 20rem; }
+
+        /* 預設隱藏所有控制項 */
+        .status-btn, .nav-arrow, .caption-overlay, .dots-nav {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease;
+        }
+
+        /* 載入後顯示 */
+        .carousel-container.loaded .status-btn,
+        .carousel-container.loaded .nav-arrow,
+        .carousel-container.loaded .caption-overlay,
+        .carousel-container.loaded .dots-nav {
             opacity: 1;
             visibility: visible;
         }
 
-        .slide img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain; 
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%;
+            opacity: 0; transition: opacity 0.8s ease;
+            visibility: hidden; display: flex; justify-content: center; align-items: center;
         }
+        .slide.active { position: relative; opacity: 1; visibility: visible; }
+        .slide img { width: 100%; height: auto; display: block; object-fit: contain; }
 
-        /* 播放控制 */
+        /* UI 按鈕樣式 */
         .status-btn {
             position: absolute; top: 1rem; left: 1rem; z-index: 15;
-            background: rgba(0,0,0,0.7);
-            color: #fff; border: 0.125rem solid #fff;
-            border-radius: 2rem; padding: 0.5rem 1rem;
-            font-size: 1rem; cursor: pointer;
+            background: rgba(0,0,0,0.7); color: #fff; border: 0.125rem solid #fff;
+            border-radius: 2rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer;
             font-family: 'Iansui', serif;
         }
 
-        /* 導覽按鈕 */
         .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            z-index: 15; width: 3.5rem; height: 3.5rem;
-            background: rgba(0, 0, 0, 0.5);
-            border: 0.125rem solid #fff; border-radius: 50%;
-            color: #fff; font-size: 2rem; cursor: pointer;
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 15;
+            width: 3.5rem; height: 3.5rem; background: rgba(0, 0, 0, 0.5);
+            border: 0.125rem solid #fff; border-radius: 50%; color: #fff; font-size: 2rem; cursor: pointer;
         }
-        .prev { left: 1rem; }
-        .next { right: 1rem; }
+        .prev { left: 1rem; } .next { right: 1rem; }
 
-        /* 圖片說明：強化版文字陰影 */
+        /* 圖片說明 */
         .caption-overlay {
-            position: absolute;
-            bottom: 4.5rem; /* 向上微調，避開指示點 */
-            left: 0; width: 100%;
-            padding: 0 2rem;
-            box-sizing: border-box;
-            color: #fff;
-            font-size: 2.25rem; 
-            font-weight: 900; 
-            z-index: 10;
-            text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                0px 0px 15px rgba(0,0,0,1);
+            position: absolute; bottom: 4.5rem; left: 0; width: 100%;
+            padding: 0 2rem; box-sizing: border-box; color: #fff;
+            font-size: 2.25rem; font-weight: 900; z-index: 10;
+            text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0px 0px 15px rgba(0,0,0,1);
             pointer-events: none;
         }
 
-        /* HM1240102C: 指示器導覽區塊 - 改回 absolute 並置於圖片底部內 */
+        /* 分頁導覽 */
         .dots-nav {
-            position: absolute; 
-            bottom: 1.5rem; 
-            width: 100%;
-            display: flex; 
-            justify-content: center; 
-            gap: 0.8rem;
-            z-index: 20; /* 確保在圖片與文字之上 */
-            pointer-events: none; /* 讓導覽區塊不遮擋點擊，但內部按鈕需設回 auto */
+            position: absolute; bottom: 1.5rem; width: 100%;
+            display: flex; justify-content: center; gap: 0.8rem; z-index: 20;
+            pointer-events: none;
         }
-        
         .dot-item {
-            pointer-events: auto; /* 恢復按鈕可點擊 */
-            width: 1.1rem; height: 1.1rem; border-radius: 50%;
-            /* AAA級強化：白色外框搭配深色投影，確保在任何底色圖片上都清晰 */
-            border: 0.15rem solid #fff; 
-            background: rgba(0, 0, 0, 0.4);
-            box-shadow: 0 0 5px rgba(0,0,0,0.8);
-            cursor: pointer;
-            padding: 0;
-            transition: all 0.3s ease;
+            pointer-events: auto; width: 1.1rem; height: 1.1rem; border-radius: 50%;
+            border: 0.15rem solid #fff; background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 5px rgba(0,0,0,0.8); cursor: pointer; padding: 0;
         }
-        
-        .dot-item.active { 
-            background: #4a90e2; 
-            width: 3rem; 
-            border-radius: 0.6rem; 
-            border-color: #fff;
-            box-shadow: 0 0 8px rgba(0,0,0,1);
-        }
+        .dot-item.active { background: #4a90e2; width: 3rem; border-radius: 0.6rem; }
 
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-        
         button:focus-visible { outline: 0.4rem solid var(--focus-ring); outline-offset: 0.2rem; }
     </style>
 </head>
 <body>
 
-    <h1 class="sr-only">活動照片展示輪播</h1>
+    <h1 class="sr-only">嵌入式照片輪播展示</h1>
 
-    <section class="carousel-container" role="region" aria-roledescription="carousel" aria-label="活動展示區">
+    <section id="carousel-main" class="carousel-container" role="region" aria-roledescription="carousel" aria-label="活動展示區">
         
+        <div class="slides-area" id="slides-box" aria-live="polite">
+            <div id="loading-text">正在載入精彩照片...</div>
+        </div>
+
         <button id="ctrl-play" class="status-btn">
             <span id="p-icon">||</span> <span id="p-text">播放中</span>
         </button>
 
-        <div class="slides-area" id="slides-box" aria-live="off">
-            <div class="sr-only">載入中...</div>
-        </div>
-
         <div class="caption-overlay" id="caption-text"></div>
-
         <button class="nav-arrow prev" id="btn-prev" aria-label="上一張圖片">〈</button>
         <button class="nav-arrow next" id="btn-next" aria-label="下一張圖片">〉</button>
 
         <nav class="dots-nav" id="dots-box" aria-label="分頁導覽">
-            <span class="sr-only">分頁載入中...</span>
+            <span class="sr-only">導覽載入中...</span>
         </nav>
     </section>
 
@@ -169,9 +149,12 @@
                 if(carouselState.images.length > 0) {
                     setupCarousel();
                     runTimer();
+                    // 資料成功後切換狀態
+                    document.getElementById('carousel-main').classList.add('loaded');
                 }
             } catch (err) {
-                document.getElementById('caption-text').innerText = "載入失敗。";
+                document.getElementById('loading-text').innerText = "相簿暫時無法載入";
+                document.getElementById('loading-text').style.animation = "none";
             }
         }
 
