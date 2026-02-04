@@ -39,23 +39,21 @@
           "nav nav nav"
           "left main right"
           "footer footer footer";
-        
-        /* 預設：寬版 (Wide) 3:7:3 */
-        grid-template-columns: 3fr 7fr 3fr;
-        max-width: 98%; 
-        box-shadow: 0 0 1.25rem rgba(0,0,0,0.1);
+        /* 預設窄版 (Boxed): 左右固定 250px，中間自適應 */
+        grid-template-columns: 250px 1fr 250px;
+        max-width: 1280px; 
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
       }
 
-      /* 選項：窄版 (Boxed) */
-      .site-container.layout-boxed {
-        max-width: 80rem; /* 約 1280px */
-        /* 左右固定約 256px (16rem)，中間自適應 */
-        grid-template-columns: 16rem 1fr 16rem; 
+      /* 寬版樣式 (比例 3:7:3) */
+      .site-container.layout-wide {
+        max-width: 98%; 
+        grid-template-columns: 3fr 7fr 3fr; 
       }
     }
 
     /* Header */
-    #site-header { grid-area: header; background: #fff; padding: 1.5rem 2rem; border-bottom: 0.3rem solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+    #site-header { grid-area: header; background: #fff; padding: 1.5rem 2rem; border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
     .school-title h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
     .school-title p { margin: 0; color: #666; font-size: 1.1rem; }
 
@@ -63,19 +61,23 @@
     #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
     #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
-    #site-nav li a:hover, #site-nav li a.active { background: rgba(255,255,255,0.2); }
+    
+    /* 修正：移除 .active 的背景色，只保留 hover 效果 */
+    #site-nav li a:hover { background: rgba(255,255,255,0.2); }
+    /* 如果想要保留 active 狀態的某種標示 (例如文字顏色變亮)，可以在這裡加，目前先移除背景 */
+    #site-nav li a.active { /* background: rgba(255,255,255,0.2); */ } 
 
     /* Content Areas */
-    #main-content { grid-area: main; padding: 1.25rem; background: #fff; }
-    #sidebar-left { grid-area: left; padding: 1.25rem; background: #fdfdfd; border-right: 1px solid var(--border); }
-    #sidebar-right { grid-area: right; padding: 1.25rem; background: #fdfdfd; border-left: 1px solid var(--border); }
+    #main-content { grid-area: main; padding: 20px; background: #fff; }
+    #sidebar-left { grid-area: left; padding: 20px; background: #fdfdfd; border-right: 1px solid var(--border); }
+    #sidebar-right { grid-area: right; padding: 20px; background: #fdfdfd; border-left: 1px solid var(--border); }
 
     /* Widgets */
-    .widget { margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; background: #fff; }
-    .widget-title { background: var(--primary); color: #fff; padding: 0.6rem 1rem; margin: 0; font-size: 1.1rem; }
-    .widget-body { padding: 1rem; }
+    .widget { margin-bottom: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
+    .widget-title { background: var(--primary); color: #fff; padding: 10px 15px; margin: 0; font-size: 1.1rem; }
+    .widget-body { padding: 15px; }
     .widget-list { list-style: none; padding: 0; margin: 0; }
-    .widget-list li { margin-bottom: 0.5rem; border-bottom: 1px dashed #eee; padding-bottom: 0.3rem; }
+    .widget-list li { margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
     .widget-list a { color: #333; text-decoration: none; }
     .widget-list a:hover { color: var(--primary); text-decoration: underline; }
     iframe { width: 100%; border: 0; }
@@ -88,39 +90,39 @@
     .admin-mode #sidebar-left, .admin-mode #sidebar-right { display: none; }
     
     /* UI Elements */
-    .btn { padding: 0.5rem 1rem; background: var(--primary); color: #fff; border: none; border-radius: 0.25rem; cursor: pointer; text-decoration: none; display: inline-block; font-size: 1rem; margin-right: 0.3rem; }
+    .btn { padding: 0.5rem 1rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-size: 1rem; margin-right: 5px; }
     .btn:hover { opacity: 0.9; }
     .btn-sec { background: transparent; color: #333; border: 1px solid #ccc; }
     .btn-danger { background: #d32f2f; }
-    input, select, textarea { width: 100%; padding: 0.5rem; margin-bottom: 0.6rem; border: 1px solid #ddd; border-radius: 0.25rem; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
     
     /* 公告與榮譽榜 */
     .post-list-item { padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
     .post-list-item:hover { background: #f5f5f5; }
-    .badge-pin { background: #d32f2f; color: #fff; padding: 0.1rem 0.3rem; font-size: 0.8rem; border-radius: 0.2rem; margin-right: 0.3rem; }
+    .badge-pin { background: #d32f2f; color: #fff; padding: 2px 5px; font-size: 0.8rem; border-radius: 3px; margin-right: 5px; }
     
     /* Honor Roll Styles */
-    #honor-roll-section { margin-top: 1.5rem; margin-bottom: 3rem; border: 1px solid var(--gray-border); border-radius: 0.5rem; overflow: hidden; display: none; box-shadow: 0 0.125rem 0.3rem rgba(0,0,0,0.05); }
-    #honor-roll-header { background: #f5f5f5; color: #333; padding: 0.6rem 1rem; font-size: 1.3rem; font-weight: bold; border-bottom: 1px solid var(--gray-border); }
+    #honor-roll-section { margin-top: 1.5rem; margin-bottom: 3rem; border: 1px solid var(--gray-border); border-radius: 8px; overflow: hidden; display: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    #honor-roll-header { background: #f5f5f5; color: #333; padding: 10px 15px; font-size: 1.3rem; font-weight: bold; border-bottom: 1px solid var(--gray-border); }
     .honor-card { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--gray-border); }
     .honor-card:last-child { border-bottom: none; }
     .honor-media { flex: 0 0 350px; max-width: 100%; min-height: 250px; background: #f9f9f9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .honor-media img { width: 100%; height: 250px; object-fit: contain; background: #f0f0f0; }
-    .honor-content { flex: 1; padding: 1.25rem; display: flex; flex-direction: column; justify-content: center; }
-    .honor-content h3 { margin: 0 0 0.6rem 0; font-size: 1.5rem; }
+    .honor-content { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+    .honor-content h3 { margin: 0 0 10px 0; font-size: 1.5rem; }
     
-    .carousel-controls { position: absolute; bottom: 0.6rem; left: 0.6rem; display: flex; gap: 0.3rem; background: rgba(0,0,0,0.6); padding: 0.3rem 0.6rem; border-radius: 1.25rem; }
-    .carousel-btn { background: transparent; color: #fff; border: 1px solid #fff; width: 1.8rem; height: 1.8rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0; }
+    .carousel-controls { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 5px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px; }
+    .carousel-btn { background: transparent; color: #fff; border: 1px solid #fff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0; }
     .carousel-btn:hover { background: #fff; color: #000; }
     .ctrl-prev { order: 1; } .ctrl-play { order: 2; } .ctrl-next { order: 3; }
 
     /* Pagination */
-    .pagination { display: flex; justify-content: center; gap: 0.3rem; margin-top: 1.25rem; padding-bottom: 1.25rem; }
-    .page-btn { padding: 0.5rem 0.75rem; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 0.25rem; }
+    .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 20px; padding-bottom: 20px; }
+    .page-btn { padding: 5px 10px; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 4px; }
     .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
     /* Dialog */
-    dialog { border: 2px solid #ccc; border-radius: 0.5rem; padding: 1.25rem; max-width: 40rem; width: 90%; }
+    dialog { border: 2px solid #ccc; border-radius: 8px; padding: 20px; max-width: 600px; width: 90%; }
     dialog::backdrop { background: rgba(0,0,0,0.5); }
     
     /* RWD */
@@ -157,15 +159,13 @@
     
     <div id="view-home" class="view active-view">
       
-      <h2 style="border-bottom:0.125rem solid var(--primary); padding-bottom:0.6rem; margin-top:0;">最新消息</h2>
-      <div style="margin-bottom:1rem;">
-        <label for="cat-filter">分類篩選：</label>
-        <select id="cat-filter" onchange="applyFilter()" title="選擇公告分類">
-          <option value="all">所有分類</option>
-        </select>
+      <h2 style="border-bottom:2px solid var(--primary); padding-bottom:10px; margin-top:0;">最新消息</h2>
+      <div style="margin-bottom:15px;">
+        <label>分類篩選：</label>
+        <select id="cat-filter" onchange="applyFilter()"><option value="all">所有分類</option></select>
       </div>
       <div id="post-list">
-        <p style="padding: 1.25rem;">資料載入中...</p>
+        <p style="padding: 20px;">資料載入中...</p>
       </div>
       <div id="pagination" class="pagination"></div>
 
@@ -183,83 +183,64 @@
 
     <div id="view-login" class="view">
       <h2 style="text-align:center;">教職員登入</h2>
-      <form onsubmit="handleLogin(event)" style="max-width:20rem; margin:0 auto; border:1px solid #ccc; padding:1.25rem; border-radius:0.5rem;">
-        <label for="username">帳號</label>
-        <input type="text" id="username" required title="請輸入帳號">
-        
-        <label for="password">密碼</label>
-        <input type="password" id="password" required title="請輸入密碼">
-        
-        <div style="margin-top:0.6rem; display:flex; justify-content:space-between;">
-          <button type="submit" class="btn" title="執行登入">登入</button>
-          <button type="button" class="btn btn-sec" onclick="switchView('view-home')" title="返回首頁">取消</button>
+      <form onsubmit="handleLogin(event)" style="max-width:300px; margin:0 auto; border:1px solid #ccc; padding:20px; border-radius:8px;">
+        <label>帳號</label><input type="text" id="username" required>
+        <label>密碼</label><input type="password" id="password" required>
+        <div style="margin-top:10px; display:flex; justify-content:space-between;">
+          <button type="submit" class="btn">登入</button>
+          <button type="button" class="btn btn-sec" onclick="switchView('view-home')">取消</button>
         </div>
       </form>
     </div>
 
     <div id="view-admin" class="view">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; border-bottom:1px solid #eee; padding-bottom:0.6rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:10px;">
         <h3>後台管理 - <span id="admin-user-display"></span></h3>
         <div>
-          <button onclick="goHome()" class="btn btn-sec" title="回到前台首頁">回首頁</button>
-          <button onclick="openChangePasswordModal()" class="btn btn-sec" title="修改個人密碼">改密碼</button>
-          <button onclick="logout()" class="btn btn-danger" title="登出系統">登出</button>
+          <button onclick="goHome()" class="btn btn-sec">回首頁</button>
+          <button onclick="openChangePasswordModal()" class="btn btn-sec">改密碼</button>
+          <button onclick="logout()" class="btn btn-danger">登出</button>
         </div>
       </div>
 
-      <div style="margin-bottom:1.25rem;">
-        <button onclick="switchAdminTab('tab-posts')" class="btn" title="切換到公告管理">公告管理</button>
-        <button onclick="switchAdminTab('tab-site')" class="btn btn-sec" title="切換到網站架構">網站架構</button>
-        <button onclick="switchAdminTab('tab-users')" class="btn btn-sec" title="切換到使用者設定">使用者/設定</button>
+      <div style="margin-bottom:20px;">
+        <button onclick="switchAdminTab('tab-posts')" class="btn">公告管理</button>
+        <button onclick="switchAdminTab('tab-site')" class="btn btn-sec">網站架構</button>
+        <button onclick="switchAdminTab('tab-users')" class="btn btn-sec">使用者/設定</button>
       </div>
 
       <div id="tab-posts" class="admin-tab">
-        <div style="background:#f9f9f9; padding:1.25rem; border-radius:0.5rem; margin-bottom:1.25rem;">
+        <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:20px;">
           <h4>發布公告</h4>
           <form onsubmit="handlePostSave(event)">
             <input type="hidden" id="p-id">
-            
-            <label for="p-title">標題</label>
-            <input type="text" id="p-title" placeholder="標題" required title="請輸入公告標題">
-            
-            <div style="display:flex; gap:0.6rem;">
-              <div style="flex:1;">
-                <label for="p-cat">分類</label>
-                <select id="p-cat" required title="選擇公告分類"><option>分類...</option></select>
-              </div>
-              <div style="flex:1;">
-                <label for="p-author">發布者</label>
-                <select id="p-author" title="選擇發布者(選填)"><option value="">發布者(選填)</option></select>
-              </div>
+            <input type="text" id="p-title" placeholder="標題" required>
+            <div style="display:flex; gap:10px;">
+              <select id="p-cat" required><option>分類...</option></select>
+              <select id="p-author"><option value="">發布者(選填)</option></select>
             </div>
+            <textarea id="p-content" rows="5" placeholder="內容" required></textarea>
             
-            <label for="p-content">內容</label>
-            <textarea id="p-content" rows="5" placeholder="內容" required title="請輸入公告內容"></textarea>
-            
-            <div style="background:#fff; padding:0.6rem; border:1px dashed #ccc; margin-bottom:0.6rem;">
-              <label for="p-file">附件 (多選)：</label>
-              <input type="file" id="p-file" multiple title="上傳附件檔案">
+            <div style="background:#fff; padding:10px; border:1px dashed #ccc; margin-bottom:10px;">
+              <label>附件 (多選)：</label><input type="file" id="p-file" multiple>
               <div id="curr-attach" style="display:none; font-size:0.9rem; color:#666;">
                 現有：<span id="exist-file-list"></span>
-                <label style="color:#b00; margin-left:0.6rem;" for="del-attach">
-                  <input type="checkbox" id="del-attach" title="勾選刪除舊附件"> 刪除舊檔
-                </label>
+                <label style="color:#b00; margin-left:10px;"><input type="checkbox" id="del-attach"> 刪除舊檔</label>
               </div>
             </div>
 
-            <div style="display:flex; gap:1rem; margin-bottom:0.6rem;">
-              <label for="p-top"><input type="checkbox" id="p-top" title="設為置頂"> 置頂</label>
-              <label for="p-pin-exp">期限：<input type="date" id="p-pin-exp" title="置頂期限"></label>
-              <label for="p-exp">下架：<input type="date" id="p-exp" title="下架日期"></label>
-              <label for="p-link">外連：<input type="url" id="p-link" placeholder="http://" title="外部連結網址"></label>
+            <div style="display:flex; gap:15px; margin-bottom:10px;">
+              <label><input type="checkbox" id="p-top"> 置頂</label>
+              <label>期限：<input type="date" id="p-pin-exp"></label>
+              <label>下架：<input type="date" id="p-exp"></label>
+              <label>外連：<input type="url" id="p-link" placeholder="http://"></label>
             </div>
-            <button type="submit" class="btn" title="儲存公告">儲存</button> 
-            <button type="button" onclick="resetPostForm()" class="btn btn-sec" title="清空表單">清空</button>
+            <button type="submit" class="btn">儲存</button> <button type="button" onclick="resetPostForm()" class="btn btn-sec">清空</button>
           </form>
         </div>
         <div style="overflow-x:auto;">
           <table style="width:100%; border-collapse:collapse;">
-            <thead><tr style="background:#eee;"><th style="border:1px solid #ccc;padding:0.5rem;">日期</th><th>標題</th><th>分類</th><th>發布者</th><th>操作</th></tr></thead>
+            <thead><tr style="background:#eee;"><th style="border:1px solid #ccc;padding:8px;">日期</th><th>標題</th><th>分類</th><th>發布者</th><th>操作</th></tr></thead>
             <tbody id="admin-post-list"></tbody>
           </table>
         </div>
@@ -267,128 +248,93 @@
       </div>
 
       <div id="tab-site" class="admin-tab" style="display:none;">
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem;">
-          <div style="border:1px solid #ddd; padding:1rem; border-radius:0.5rem;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <div style="border:1px solid #ddd; padding:15px; border-radius:8px;">
             <h4>導覽列管理</h4>
             <form onsubmit="handleNavSave(event)">
               <input type="hidden" id="nav-id">
-              <label for="nav-title">名稱</label>
-              <input type="text" id="nav-title" placeholder="名稱" required title="輸入選單名稱">
-              
-              <label for="nav-link">連結</label>
-              <input type="text" id="nav-link" placeholder="連結 URL" required title="輸入選單連結">
-              
-              <label for="nav-order">排序</label>
-              <input type="number" id="nav-order" placeholder="排序" required style="width:5rem;" title="輸入排序數字">
-              
-              <button type="submit" class="btn" title="新增或更新導覽列">儲存</button>
+              <input type="text" id="nav-title" placeholder="名稱" required>
+              <input type="text" id="nav-link" placeholder="連結 URL" required>
+              <input type="number" id="nav-order" placeholder="排序" required style="width:80px;">
+              <button type="submit" class="btn">儲存</button>
             </form>
-            <ul id="admin-nav-list" style="margin-top:1rem; padding-left:1.25rem;"></ul>
+            <ul id="admin-nav-list" style="margin-top:15px; padding-left:20px;"></ul>
           </div>
-          <div style="border:1px solid #ddd; padding:1rem; border-radius:0.5rem;">
+          <div style="border:1px solid #ddd; padding:15px; border-radius:8px;">
             <h4>側邊欄區塊管理</h4>
             <form onsubmit="handleWidgetSave(event)">
               <input type="hidden" id="wid-id">
-              
-              <label for="wid-title">標題</label>
-              <input type="text" id="wid-title" placeholder="區塊標題" required title="輸入區塊標題">
-              
-              <label for="wid-type">類型</label>
-              <select id="wid-type" onchange="toggleWidInput()" title="選擇區塊內容類型">
+              <input type="text" id="wid-title" placeholder="區塊標題" required>
+              <select id="wid-type" onchange="toggleWidInput()">
                 <option value="links">連結列表</option>
                 <option value="html">自訂 HTML/Iframe</option>
               </select>
-              
-              <label for="wid-pos">位置</label>
-              <select id="wid-pos" title="選擇顯示位置"><option value="left">左側欄</option><option value="right">右側欄</option></select>
-              
-              <label for="wid-order">排序</label>
-              <input type="number" id="wid-order" placeholder="排序" required style="width:5rem;" title="輸入排序數字">
-              
+              <select id="wid-pos"><option value="left">左側欄</option><option value="right">右側欄</option></select>
+              <input type="number" id="wid-order" placeholder="排序" required style="width:80px;">
               <div id="wid-input-links">
-                <p style="font-size:0.8rem; color:#666; margin:0.3rem 0;">格式：標題|網址 (每行一個)</p>
-                <label for="wid-content-links" style="display:none;">連結內容</label>
-                <textarea id="wid-content-links" rows="4" placeholder="教育部|http://..." title="輸入連結列表"></textarea>
+                <p style="font-size:0.8rem; color:#666; margin:5px 0;">格式：標題|網址 (每行一個)</p>
+                <textarea id="wid-content-links" rows="4" placeholder="教育部|http://..."></textarea>
               </div>
               <div id="wid-input-html" style="display:none;">
-                <label for="wid-content-html" style="display:none;">HTML內容</label>
-                <textarea id="wid-content-html" rows="4" placeholder="HTML 代碼" title="輸入HTML代碼"></textarea>
+                <textarea id="wid-content-html" rows="4" placeholder="HTML 代碼"></textarea>
               </div>
-              <button type="submit" class="btn" title="新增或更新區塊">儲存</button>
+              <button type="submit" class="btn">儲存</button>
             </form>
-            <ul id="admin-wid-list" style="margin-top:1rem; padding-left:1.25rem;"></ul>
+            <ul id="admin-wid-list" style="margin-top:15px; padding-left:20px;"></ul>
           </div>
         </div>
-        <div style="margin-top:1.25rem; border:1px solid #ddd; padding:1rem; border-radius:0.5rem;">
+        <div style="margin-top:20px; border:1px solid #ddd; padding:15px; border-radius:8px;">
           <h4>分類管理 (停用/啟用)</h4>
-          <form onsubmit="handleCatSave(event)" style="display:flex; gap:0.6rem; margin-bottom:0.6rem;">
-            <input type="hidden" id="cat-id">
-            <label for="cat-name" style="display:none;">分類名稱</label>
-            <input type="text" id="cat-name" placeholder="分類名稱" required title="輸入分類名稱">
-            <button type="submit" class="btn" title="儲存分類">儲存</button>
+          <form onsubmit="handleCatSave(event)" style="display:flex; gap:10px; margin-bottom:10px;">
+            <input type="hidden" id="cat-id"><input type="text" id="cat-name" placeholder="分類名稱" required>
+            <button type="submit" class="btn">儲存</button>
           </form>
           <table style="width:100%; border-collapse:collapse;"><tbody id="cat-tbody"></tbody></table>
         </div>
       </div>
 
       <div id="tab-users" class="admin-tab" style="display:none;">
-        <div style="background:#fff3e0; padding:1rem; border-radius:0.5rem; margin-bottom:1.25rem;">
+        <div style="background:#fff3e0; padding:15px; border-radius:8px; margin-bottom:20px;">
           <h4>全站設定</h4>
-          <label for="set-name-zh">中文校名</label>
-          <input type="text" id="set-name-zh" title="輸入中文校名">
+          <label>中文校名：<input type="text" id="set-name-zh"></label>
+          <label>英文校名：<input type="text" id="set-name-en"></label>
+          <label>主題色：<input type="color" id="set-color"></label>
           
-          <label for="set-name-en">英文校名</label>
-          <input type="text" id="set-name-en" title="輸入英文校名">
-          
-          <label for="set-color">主題色</label>
-          <input type="color" id="set-color" title="選擇網站主題色">
-          
-          <div style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px dashed #ccc;">
-            <label for="set-layout-mode">版面寬度：</label>
-            <select id="set-layout-mode" style="width:auto; display:inline-block;" title="選擇版面寬度">
+          <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #ccc;">
+            <label>版面寬度：</label>
+            <select id="set-layout-mode" style="width:auto; display:inline-block;">
               <option value="wide">寬版 (預設)</option>
               <option value="boxed">窄版</option>
             </select>
           </div>
 
-          <button onclick="saveSiteSettings()" class="btn" style="margin-top:0.6rem;" title="儲存系統設定">儲存設定</button>
+          <button onclick="saveSiteSettings()" class="btn" style="margin-top:10px;">儲存設定</button>
         </div>
         
-        <div style="background:#f9f9f9; padding:1.25rem; border-radius:0.5rem;">
+        <div style="background:#f9f9f9; padding:20px; border-radius:8px;">
           <h4>使用者管理</h4>
           <form id="user-form" onsubmit="handleUserSave(event)">
             <input type="hidden" id="user-is-edit" value="false">
-            
-            <label for="new-username">帳號 (必填)</label>
-            <input type="text" id="new-username" required title="輸入使用者帳號">
-            
-            <label for="new-jobtitle">職稱 (必填)</label>
-            <input type="text" id="new-jobtitle" required title="輸入職稱">
-            
-            <label for="new-password">密碼 (新增必填，8-20字元)</label>
-            <input type="password" id="new-password" title="輸入密碼">
-            
-            <div style="background:#fff; padding:0.6rem; border:1px solid #ddd; margin:0.6rem 0;">
-              <p style="margin:0 0 0.3rem 0;"><strong>權限：</strong></p>
-              <label for="role-super"><input type="checkbox" id="role-super" title="設定為系統管理員"> 系統管理員</label>
-              <hr style="margin:0.3rem 0;">
-              <label style="color:#0056b3;" for="perm-select-all">
-                <input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" title="全選所有分類權限"> 全選
-              </label>
-              <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:0.3rem;"></div>
+            <label>帳號 (必填)</label><input type="text" id="new-username" required>
+            <label>職稱 (必填)</label><input type="text" id="new-jobtitle" required>
+            <label>密碼 (新增必填，8-20字元)</label><input type="password" id="new-password">
+            <div style="background:#fff; padding:10px; border:1px solid #ddd; margin:10px 0;">
+              <p style="margin:0 0 5px 0;"><strong>權限：</strong></p>
+              <label><input type="checkbox" id="role-super"> 系統管理員</label>
+              <hr style="margin:5px 0;">
+              <label style="color:#0056b3;"><input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)"> 全選</label>
+              <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:5px;"></div>
             </div>
-            <button type="submit" class="btn" title="儲存使用者資料">儲存使用者</button> 
-            <button type="button" onclick="resetUserForm()" class="btn btn-sec" title="重置表單">重置</button>
+            <button type="submit" class="btn">儲存使用者</button> <button type="button" onclick="resetUserForm()" class="btn btn-sec">重置</button>
           </form>
-          <table style="width:100%; margin-top:1rem; border-collapse:collapse;"><tbody id="user-tbody"></tbody></table>
+          <table style="width:100%; margin-top:15px; border-collapse:collapse;"><tbody id="user-tbody"></tbody></table>
         </div>
       </div>
 
     </div>
   </main>
 
-  <aside id="sidebar-right">
-    </aside>
+  <aside id="sidebar-right"></aside>
 
   <footer id="site-footer">
     <p>&copy; 2026 校園資訊網</p>
@@ -396,27 +342,20 @@
 
 </div>
 
-<div id="global-status" style="position:fixed; top:0.6rem; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:0.6rem 1.25rem; border-radius:0.25rem; display:none; z-index:9999;"></div>
+<div id="global-status" style="position:fixed; top:10px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:10px 20px; border-radius:4px; display:none; z-index:9999;"></div>
 
 <dialog id="detail-modal">
-  <div style="text-align:right;"><button onclick="closeDetail()" class="btn btn-sec" title="關閉視窗">Close</button></div>
+  <div style="text-align:right;"><button onclick="closeDetail()" class="btn btn-sec">Close</button></div>
   <div id="modal-content"></div>
 </dialog>
 
 <dialog id="password-modal">
   <h3>修改密碼</h3>
   <form onsubmit="handleChangePassword(event)">
-    <label for="cp-old">舊密碼</label>
-    <input type="password" id="cp-old" required title="輸入舊密碼">
-    
-    <label for="cp-new">新密碼 (8-20字)</label>
-    <input type="password" id="cp-new" required title="輸入新密碼">
-    
-    <label for="cp-confirm">確認</label>
-    <input type="password" id="cp-confirm" required title="再次輸入新密碼">
-    
-    <button type="submit" class="btn" title="確認修改">修改</button> 
-    <button type="button" onclick="document.getElementById('password-modal').close()" class="btn btn-sec" title="取消">取消</button>
+    <label>舊密碼</label><input type="password" id="cp-old" required>
+    <label>新密碼 (8-20字)</label><input type="password" id="cp-new" required>
+    <label>確認</label><input type="password" id="cp-confirm" required>
+    <button type="submit" class="btn">修改</button> <button type="button" onclick="document.getElementById('password-modal').close()" class="btn btn-sec">取消</button>
   </form>
 </dialog>
 
@@ -468,16 +407,11 @@ function renderSite() {
   if(nameEN && siteData.settings) nameEN.textContent = siteData.settings.schoolNameEN || "School Name";
   if(siteData.settings && siteData.settings.themeColor) document.documentElement.style.setProperty('--primary', siteData.settings.themeColor);
   
-  // Layout Mode Logic (Default: Wide)
+  // Layout Mode
   const container = document.getElementById('site-container');
-  if(container) {
-    // 如果後台設定是 boxed，才加上 layout-boxed class
-    // 若沒有設定，或者設定是 wide，則移除 layout-boxed (維持預設的寬版)
-    if(siteData.settings && siteData.settings.layoutMode === 'boxed') {
-      container.classList.add('layout-boxed');
-    } else {
-      container.classList.remove('layout-boxed');
-    }
+  if(container && siteData.settings && siteData.settings.layoutMode) {
+    if(siteData.settings.layoutMode === 'wide') container.classList.add('layout-wide');
+    else container.classList.remove('layout-wide');
   }
 
   // 2. 渲染 Nav (導覽列)
