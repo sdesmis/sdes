@@ -39,21 +39,18 @@
           "nav nav nav"
           "left main right"
           "footer footer footer";
-        /* 預設窄版 */
-        grid-template-columns: 250px 1fr 250px;
         
-        /* 修正 CS3140801C: 使用相對單位 rem 代替 px 
-           1280px / 16px(預設) = 80rem
-        */
-        max-width: 80rem; 
-        
-        box-shadow: 0 0 1.25rem rgba(0,0,0,0.1); /* 20px -> 1.25rem */
+        /* 預設：寬版 (Wide) 3:7:3 */
+        grid-template-columns: 3fr 7fr 3fr;
+        max-width: 98%; 
+        box-shadow: 0 0 1.25rem rgba(0,0,0,0.1);
       }
 
-      /* 寬版樣式 (比例 3:7:3) */
-      .site-container.layout-wide {
-        max-width: 98%; 
-        grid-template-columns: 3fr 7fr 3fr; 
+      /* 選項：窄版 (Boxed) */
+      .site-container.layout-boxed {
+        max-width: 80rem; /* 約 1280px */
+        /* 左右固定約 256px (16rem)，中間自適應 */
+        grid-template-columns: 16rem 1fr 16rem; 
       }
     }
 
@@ -349,8 +346,8 @@
           <div style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px dashed #ccc;">
             <label for="set-layout-mode">版面寬度：</label>
             <select id="set-layout-mode" style="width:auto; display:inline-block;" title="選擇版面寬度">
-              <option value="boxed">窄版 (預設)</option>
-              <option value="wide">寬版 (滿版)</option>
+              <option value="wide">寬版 (預設)</option>
+              <option value="boxed">窄版</option>
             </select>
           </div>
 
@@ -471,11 +468,16 @@ function renderSite() {
   if(nameEN && siteData.settings) nameEN.textContent = siteData.settings.schoolNameEN || "School Name";
   if(siteData.settings && siteData.settings.themeColor) document.documentElement.style.setProperty('--primary', siteData.settings.themeColor);
   
-  // Layout Mode
+  // Layout Mode Logic (Default: Wide)
   const container = document.getElementById('site-container');
-  if(container && siteData.settings && siteData.settings.layoutMode) {
-    if(siteData.settings.layoutMode === 'wide') container.classList.add('layout-wide');
-    else container.classList.remove('layout-wide');
+  if(container) {
+    // 如果後台設定是 boxed，才加上 layout-boxed class
+    // 若沒有設定，或者設定是 wide，則移除 layout-boxed (維持預設的寬版)
+    if(siteData.settings && siteData.settings.layoutMode === 'boxed') {
+      container.classList.add('layout-boxed');
+    } else {
+      container.classList.remove('layout-boxed');
+    }
   }
 
   // 2. 渲染 Nav (導覽列)
@@ -797,7 +799,7 @@ function loadAdminSettings() {
   const nzh = document.getElementById('set-name-zh'); if(nzh) nzh.value = siteData.settings.schoolNameZH || "";
   const nen = document.getElementById('set-name-en'); if(nen) nen.value = siteData.settings.schoolNameEN || "";
   const col = document.getElementById('set-color'); if(col) col.value = siteData.settings.themeColor || "#00695c";
-  const mod = document.getElementById('set-layout-mode'); if(mod) mod.value = siteData.settings.layoutMode || "boxed";
+  const mod = document.getElementById('set-layout-mode'); if(mod) mod.value = siteData.settings.layoutMode || "wide";
   renderAdminLists();
 }
 function saveSiteSettings() {
