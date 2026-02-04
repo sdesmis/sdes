@@ -40,18 +40,17 @@
           "left main right"
           "footer footer footer";
         
-        /* 🔥 修正：預設為寬版 (3:7:3) 🔥 */
+        /* 預設：寬版 (Wide) 3:7:3 */
         max-width: 98%; 
         grid-template-columns: 3fr 7fr 3fr; 
         
         box-shadow: 0 0 1.25rem rgba(0,0,0,0.1);
       }
 
-      /* 🔥 選項：窄版 (Boxed) - 只有加了這個 class 才會變窄 🔥 */
+      /* 選項：窄版 (Boxed) - 只有加了這個 class 才會變窄 */
       .site-container.layout-boxed {
         max-width: 80rem; /* 約 1280px */
-        /* 左右固定約 256px (16rem)，中間自適應 */
-        grid-template-columns: 16rem 1fr 16rem; 
+        grid-template-columns: 16rem 1fr 16rem; /* 左右固定約 256px，中間自適應 */
       }
     }
 
@@ -64,7 +63,9 @@
     #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
     #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
-    #site-nav li a:hover, #site-nav li a.active { background: rgba(255,255,255,0.2); }
+    
+    /* 🔥 修正：只在 hover 時顯示底色，移除 .active 的底色 🔥 */
+    #site-nav li a:hover { background: rgba(255,255,255,0.2); }
 
     /* Content Areas */
     #main-content { grid-area: main; padding: 1.25rem; background: #fff; }
@@ -469,7 +470,7 @@ function renderSite() {
   if(nameEN && siteData.settings) nameEN.textContent = siteData.settings.schoolNameEN || "School Name";
   if(siteData.settings && siteData.settings.themeColor) document.documentElement.style.setProperty('--primary', siteData.settings.themeColor);
   
-  // 🔥 Layout Mode Logic (Default: Wide) 🔥
+  // Layout Mode Logic (Default: Wide)
   const container = document.getElementById('site-container');
   if(container) {
     // 預設就是寬版，只有當設定為 boxed 時，才加 class
