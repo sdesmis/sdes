@@ -20,6 +20,20 @@
     
     button, input, select, textarea, .btn { font-family: inherit; }
 
+    /* ========== 無障礙定位點 (Accesskey) 樣式 ========== */
+    .accesskey {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0 5px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+    }
+    .accesskey:focus {
+      outline: 2px solid #FFD700;
+      color: #000;
+      background: #fff;
+    }
+
     /* ========== Layout: Grid 3 Columns ========== */
     .site-container {
       display: grid;
@@ -47,30 +61,31 @@
         box-shadow: 0 0 1.25rem rgba(0,0,0,0.1);
       }
 
-      /* 選項：窄版 (Boxed) - 只有加了這個 class 才會變窄 */
+      /* 選項：窄版 (Boxed) */
       .site-container.layout-boxed {
         max-width: 80rem; /* 約 1280px */
-        grid-template-columns: 16rem 1fr 16rem; /* 左右固定約 256px，中間自適應 */
+        grid-template-columns: 16rem 1fr 16rem; 
       }
     }
 
     /* Header */
-    #site-header { grid-area: header; background: #fff; padding: 1.5rem 2rem; border-bottom: 0.3rem solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+    #site-header { grid-area: header; background: #fff; padding: 1.5rem 2rem; border-bottom: 0.3rem solid var(--primary); display: flex; justify-content: space-between; align-items: center; position: relative; }
     .school-title h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
     .school-title p { margin: 0; color: #666; font-size: 1.1rem; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
 
     /* Nav */
     #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
     #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
     
-    /* 🔥 修正：只在 hover 時顯示底色，移除 .active 的底色 🔥 */
+    /* 僅 hover 顯示底色 */
     #site-nav li a:hover { background: rgba(255,255,255,0.2); }
 
     /* Content Areas */
-    #main-content { grid-area: main; padding: 1.25rem; background: #fff; }
-    #sidebar-left { grid-area: left; padding: 1.25rem; background: #fdfdfd; border-right: 1px solid var(--border); }
-    #sidebar-right { grid-area: right; padding: 1.25rem; background: #fdfdfd; border-left: 1px solid var(--border); }
+    #main-content { grid-area: main; padding: 1.25rem; background: #fff; position: relative; }
+    #sidebar-left { grid-area: left; padding: 1.25rem; background: #fdfdfd; border-right: 1px solid var(--border); position: relative; }
+    #sidebar-right { grid-area: right; padding: 1.25rem; background: #fdfdfd; border-left: 1px solid var(--border); position: relative; }
 
     /* Widgets */
     .widget { margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; background: #fff; }
@@ -84,6 +99,7 @@
 
     /* Footer */
     #site-footer { grid-area: footer; background: #333; color: #ccc; text-align: center; padding: 2rem; margin-top: auto; }
+    #site-footer a { color: #fff; text-decoration: underline; }
 
     /* Admin specific */
     .admin-mode .site-container { display: block; max-width: 100% !important; }
@@ -96,6 +112,13 @@
     .btn-danger { background: #d32f2f; }
     input, select, textarea { width: 100%; padding: 0.5rem; margin-bottom: 0.6rem; border: 1px solid #ddd; border-radius: 0.25rem; }
     
+    /* Sitemap Styles */
+    .sitemap-section { margin-bottom: 2rem; }
+    .sitemap-section h3 { border-bottom: 2px solid #ccc; padding-bottom: 0.5rem; color: var(--primary); }
+    .sitemap-list { list-style: none; padding-left: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .sitemap-list li a { text-decoration: none; color: #333; font-weight: bold; }
+    .sitemap-list li a:hover { text-decoration: underline; color: var(--primary); }
+
     /* 公告與榮譽榜 */
     .post-list-item { padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
     .post-list-item:hover { background: #f5f5f5; }
@@ -138,11 +161,14 @@
 <div id="site-container" class="site-container">
   
   <header id="site-header">
+    <a href="#site-header" accesskey="U" title="上方功能區塊" class="accesskey" style="position:absolute; top:5px; left:5px;">:::</a>
+    
     <div class="school-title">
       <h1 id="header-name-zh">載入中...</h1>
       <p id="header-name-en">Loading...</p>
     </div>
-    <div>
+    <div class="header-actions">
+      <button onclick="switchView('view-sitemap')" class="btn btn-sec" title="查看網站導覽">網站導覽</button>
       <button onclick="showLogin()" class="btn btn-sec" id="btn-login-toggle" title="點擊登入教職員系統">教職員登入</button>
     </div>
   </header>
@@ -153,22 +179,19 @@
   </nav>
 
   <aside id="sidebar-left">
+    <a href="#sidebar-left" accesskey="L" title="左方功能區塊" class="accesskey" style="display:block; margin-bottom:10px;">:::</a>
     </aside>
 
   <main id="main-content">
+    <a href="#main-content" accesskey="C" title="中央內容區塊" class="accesskey" style="display:block; margin-bottom:10px;">:::</a>
     
     <div id="view-home" class="view active-view">
-      
       <h2 style="border-bottom:0.125rem solid var(--primary); padding-bottom:0.6rem; margin-top:0;">最新消息</h2>
       <div style="margin-bottom:1rem;">
         <label for="cat-filter">分類篩選：</label>
-        <select id="cat-filter" onchange="applyFilter()" title="選擇公告分類">
-          <option value="all">所有分類</option>
-        </select>
+        <select id="cat-filter" onchange="applyFilter()" title="選擇公告分類"><option value="all">所有分類</option></select>
       </div>
-      <div id="post-list">
-        <p style="padding: 1.25rem;">資料載入中...</p>
-      </div>
+      <div id="post-list"><p style="padding: 1.25rem;">資料載入中...</p></div>
       <div id="pagination" class="pagination"></div>
 
       <section id="honor-roll-section" aria-label="榮譽榜">
@@ -176,6 +199,14 @@
         <div id="honor-list"></div>
         <div id="honor-pagination" class="pagination"></div>
       </section>
+    </div>
+
+    <div id="view-sitemap" class="view">
+      <h2 style="border-bottom:0.125rem solid var(--primary); padding-bottom:0.6rem; margin-top:0;">網站導覽</h2>
+      <p style="margin-bottom:1.5rem; color:#666;">本網站依無障礙網頁設計原則建置，網站的主要內容分為三個大區塊：<br>
+      Alt+U：上方功能區塊 | Alt+C：中央內容區塊 | Alt+L：左方功能區塊 | Alt+R：右方功能區塊</p>
+      
+      <div id="sitemap-content">載入中...</div>
     </div>
 
     <div id="view-about" class="view"><h2>學校簡介</h2><p>這裡是學校簡介內容...</p></div>
@@ -186,12 +217,8 @@
     <div id="view-login" class="view">
       <h2 style="text-align:center;">教職員登入</h2>
       <form onsubmit="handleLogin(event)" style="max-width:20rem; margin:0 auto; border:1px solid #ccc; padding:1.25rem; border-radius:0.5rem;">
-        <label for="username">帳號</label>
-        <input type="text" id="username" required title="請輸入帳號">
-        
-        <label for="password">密碼</label>
-        <input type="password" id="password" required title="請輸入密碼">
-        
+        <label for="username">帳號</label><input type="text" id="username" required title="請輸入帳號">
+        <label for="password">密碼</label><input type="password" id="password" required title="請輸入密碼">
         <div style="margin-top:0.6rem; display:flex; justify-content:space-between;">
           <button type="submit" class="btn" title="執行登入">登入</button>
           <button type="button" class="btn btn-sec" onclick="switchView('view-home')" title="返回首頁">取消</button>
@@ -208,82 +235,50 @@
           <button onclick="logout()" class="btn btn-danger" title="登出系統">登出</button>
         </div>
       </div>
-
       <div style="margin-bottom:1.25rem;">
-        <button onclick="switchAdminTab('tab-posts')" class="btn" title="切換到公告管理">公告管理</button>
-        <button onclick="switchAdminTab('tab-site')" class="btn btn-sec" title="切換到網站架構">網站架構</button>
-        <button onclick="switchAdminTab('tab-users')" class="btn btn-sec" title="切換到使用者設定">使用者/設定</button>
+        <button id="btn-tab-posts" onclick="switchAdminTab('tab-posts')" class="btn" title="切換到公告管理">公告管理</button>
+        <button id="btn-tab-site" onclick="switchAdminTab('tab-site')" class="btn btn-sec" title="切換到網站架構">網站架構</button>
+        <button id="btn-tab-users" onclick="switchAdminTab('tab-users')" class="btn btn-sec" title="切換到使用者設定">使用者/設定</button>
       </div>
-
       <div id="tab-posts" class="admin-tab">
         <div style="background:#f9f9f9; padding:1.25rem; border-radius:0.5rem; margin-bottom:1.25rem;">
           <h4>發布公告</h4>
           <form onsubmit="handlePostSave(event)">
             <input type="hidden" id="p-id">
-            
-            <label for="p-title">標題</label>
-            <input type="text" id="p-title" placeholder="標題" required title="請輸入公告標題">
-            
+            <label for="p-title">標題</label><input type="text" id="p-title" required title="請輸入公告標題">
             <div style="display:flex; gap:0.6rem;">
-              <div style="flex:1;">
-                <label for="p-cat">分類</label>
-                <select id="p-cat" required title="選擇公告分類"><option>分類...</option></select>
-              </div>
-              <div style="flex:1;">
-                <label for="p-author">發布者</label>
-                <select id="p-author" title="選擇發布者(選填)"><option value="">發布者(選填)</option></select>
-              </div>
+              <div style="flex:1;"><label for="p-cat">分類</label><select id="p-cat" required title="選擇公告分類"><option>分類...</option></select></div>
+              <div style="flex:1;"><label for="p-author">發布者</label><select id="p-author" title="選擇發布者"><option value="">發布者(選填)</option></select></div>
             </div>
-            
-            <label for="p-content">內容</label>
-            <textarea id="p-content" rows="5" placeholder="內容" required title="請輸入公告內容"></textarea>
-            
+            <label for="p-content">內容</label><textarea id="p-content" rows="5" required title="請輸入公告內容"></textarea>
             <div style="background:#fff; padding:0.6rem; border:1px dashed #ccc; margin-bottom:0.6rem;">
-              <label for="p-file">附件 (多選)：</label>
-              <input type="file" id="p-file" multiple title="上傳附件檔案">
-              <div id="curr-attach" style="display:none; font-size:0.9rem; color:#666;">
-                現有：<span id="exist-file-list"></span>
-                <label style="color:#b00; margin-left:0.6rem;" for="del-attach">
-                  <input type="checkbox" id="del-attach" title="勾選刪除舊附件"> 刪除舊檔
-                </label>
-              </div>
+              <label for="p-file">附件 (多選)：</label><input type="file" id="p-file" multiple title="上傳附件檔案">
+              <div id="curr-attach" style="display:none; font-size:0.9rem; color:#666;">現有：<span id="exist-file-list"></span><label style="color:#b00; margin-left:0.6rem;" for="del-attach"><input type="checkbox" id="del-attach" title="勾選刪除舊附件"> 刪除舊檔</label></div>
             </div>
-
             <div style="display:flex; gap:1rem; margin-bottom:0.6rem;">
               <label for="p-top"><input type="checkbox" id="p-top" title="設為置頂"> 置頂</label>
               <label for="p-pin-exp">期限：<input type="date" id="p-pin-exp" title="置頂期限"></label>
               <label for="p-exp">下架：<input type="date" id="p-exp" title="下架日期"></label>
-              <label for="p-link">外連：<input type="url" id="p-link" placeholder="http://" title="外部連結網址"></label>
+              <label for="p-link">外連：<input type="url" id="p-link" title="外部連結網址"></label>
             </div>
-            <button type="submit" class="btn" title="儲存公告">儲存</button> 
-            <button type="button" onclick="resetPostForm()" class="btn btn-sec" title="清空表單">清空</button>
+            <button type="submit" class="btn" title="儲存公告">儲存</button> <button type="button" onclick="resetPostForm()" class="btn btn-sec" title="清空表單">清空</button>
           </form>
         </div>
         <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse;">
-            <thead><tr style="background:#eee;"><th style="border:1px solid #ccc;padding:0.5rem;">日期</th><th>標題</th><th>分類</th><th>發布者</th><th>操作</th></tr></thead>
-            <tbody id="admin-post-list"></tbody>
-          </table>
+          <table style="width:100%; border-collapse:collapse;"><thead><tr style="background:#eee;"><th style="border:1px solid #ccc;padding:0.5rem;">日期</th><th>標題</th><th>分類</th><th>發布者</th><th>操作</th></tr></thead><tbody id="admin-post-list"></tbody></table>
         </div>
         <div id="admin-pagination" class="pagination"></div>
       </div>
-
       <div id="tab-site" class="admin-tab" style="display:none;">
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem;">
           <div style="border:1px solid #ddd; padding:1rem; border-radius:0.5rem;">
             <h4>導覽列管理</h4>
             <form onsubmit="handleNavSave(event)">
               <input type="hidden" id="nav-id">
-              <label for="nav-title">名稱</label>
-              <input type="text" id="nav-title" placeholder="名稱" required title="輸入選單名稱">
-              
-              <label for="nav-link">連結</label>
-              <input type="text" id="nav-link" placeholder="連結 URL" required title="輸入選單連結">
-              
-              <label for="nav-order">排序</label>
-              <input type="number" id="nav-order" placeholder="排序" required style="width:5rem;" title="輸入排序數字">
-              
-              <button type="submit" class="btn" title="新增或更新導覽列">儲存</button>
+              <label for="nav-title">名稱</label><input type="text" id="nav-title" required title="輸入選單名稱">
+              <label for="nav-link">連結</label><input type="text" id="nav-link" required title="輸入選單連結">
+              <label for="nav-order">排序</label><input type="number" id="nav-order" required style="width:5rem;" title="輸入排序數字">
+              <button type="submit" class="btn" title="新增或更新">儲存</button>
             </form>
             <ul id="admin-nav-list" style="margin-top:1rem; padding-left:1.25rem;"></ul>
           </div>
@@ -291,32 +286,13 @@
             <h4>側邊欄區塊管理</h4>
             <form onsubmit="handleWidgetSave(event)">
               <input type="hidden" id="wid-id">
-              
-              <label for="wid-title">標題</label>
-              <input type="text" id="wid-title" placeholder="區塊標題" required title="輸入區塊標題">
-              
-              <label for="wid-type">類型</label>
-              <select id="wid-type" onchange="toggleWidInput()" title="選擇區塊內容類型">
-                <option value="links">連結列表</option>
-                <option value="html">自訂 HTML/Iframe</option>
-              </select>
-              
-              <label for="wid-pos">位置</label>
-              <select id="wid-pos" title="選擇顯示位置"><option value="left">左側欄</option><option value="right">右側欄</option></select>
-              
-              <label for="wid-order">排序</label>
-              <input type="number" id="wid-order" placeholder="排序" required style="width:5rem;" title="輸入排序數字">
-              
-              <div id="wid-input-links">
-                <p style="font-size:0.8rem; color:#666; margin:0.3rem 0;">格式：標題|網址 (每行一個)</p>
-                <label for="wid-content-links" style="display:none;">連結內容</label>
-                <textarea id="wid-content-links" rows="4" placeholder="教育部|http://..." title="輸入連結列表"></textarea>
-              </div>
-              <div id="wid-input-html" style="display:none;">
-                <label for="wid-content-html" style="display:none;">HTML內容</label>
-                <textarea id="wid-content-html" rows="4" placeholder="HTML 代碼" title="輸入HTML代碼"></textarea>
-              </div>
-              <button type="submit" class="btn" title="新增或更新區塊">儲存</button>
+              <label for="wid-title">標題</label><input type="text" id="wid-title" required title="輸入區塊標題">
+              <label for="wid-type">類型</label><select id="wid-type" onchange="toggleWidInput()" title="選擇內容類型"><option value="links">連結列表</option><option value="html">自訂 HTML</option></select>
+              <label for="wid-pos">位置</label><select id="wid-pos" title="選擇顯示位置"><option value="left">左側欄</option><option value="right">右側欄</option></select>
+              <label for="wid-order">排序</label><input type="number" id="wid-order" required style="width:5rem;" title="輸入排序數字">
+              <div id="wid-input-links"><p style="font-size:0.8rem; color:#666; margin:0.3rem 0;">格式：標題|網址 (每行一個)</p><label for="wid-content-links" style="display:none;">連結內容</label><textarea id="wid-content-links" rows="4" title="輸入連結列表"></textarea></div>
+              <div id="wid-input-html" style="display:none;"><label for="wid-content-html" style="display:none;">HTML內容</label><textarea id="wid-content-html" rows="4" title="輸入HTML代碼"></textarea></div>
+              <button type="submit" class="btn" title="新增或更新">儲存</button>
             </form>
             <ul id="admin-wid-list" style="margin-top:1rem; padding-left:1.25rem;"></ul>
           </div>
@@ -324,72 +300,49 @@
         <div style="margin-top:1.25rem; border:1px solid #ddd; padding:1rem; border-radius:0.5rem;">
           <h4>分類管理 (停用/啟用)</h4>
           <form onsubmit="handleCatSave(event)" style="display:flex; gap:0.6rem; margin-bottom:0.6rem;">
-            <input type="hidden" id="cat-id">
-            <label for="cat-name" style="display:none;">分類名稱</label>
-            <input type="text" id="cat-name" placeholder="分類名稱" required title="輸入分類名稱">
-            <button type="submit" class="btn" title="儲存分類">儲存</button>
+            <input type="hidden" id="cat-id"><label for="cat-name" style="display:none;">分類名稱</label><input type="text" id="cat-name" placeholder="分類名稱" required title="輸入分類名稱"><button type="submit" class="btn" title="儲存分類">儲存</button>
           </form>
           <table style="width:100%; border-collapse:collapse;"><tbody id="cat-tbody"></tbody></table>
         </div>
       </div>
-
       <div id="tab-users" class="admin-tab" style="display:none;">
         <div style="background:#fff3e0; padding:1rem; border-radius:0.5rem; margin-bottom:1.25rem;">
           <h4>全站設定</h4>
-          <label for="set-name-zh">中文校名</label>
-          <input type="text" id="set-name-zh" title="輸入中文校名">
-          
-          <label for="set-name-en">英文校名</label>
-          <input type="text" id="set-name-en" title="輸入英文校名">
-          
-          <label for="set-color">主題色</label>
-          <input type="color" id="set-color" title="選擇網站主題色">
-          
+          <label for="set-name-zh">中文校名</label><input type="text" id="set-name-zh" title="輸入中文校名">
+          <label for="set-name-en">英文校名</label><input type="text" id="set-name-en" title="輸入英文校名">
+          <label for="set-color">主題色</label><input type="color" id="set-color" title="選擇網站主題色">
           <div style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px dashed #ccc;">
-            <label for="set-layout-mode">版面寬度：</label>
-            <select id="set-layout-mode" style="width:auto; display:inline-block;" title="選擇版面寬度">
-              <option value="wide">寬版 (預設)</option>
-              <option value="boxed">窄版</option>
-            </select>
+            <label for="set-layout-mode">版面寬度：</label><select id="set-layout-mode" style="width:auto;" title="選擇版面寬度"><option value="wide">寬版 (預設)</option><option value="boxed">窄版</option></select>
           </div>
-
+          <div style="margin-top:0.6rem; padding-top:0.6rem; border-top:1px dashed #ccc;">
+            <label for="set-footer-html">頁尾內容 (HTML)：</label><textarea id="set-footer-html" rows="10" title="輸入頁尾 HTML 內容" style="font-family:monospace;"></textarea>
+          </div>
           <button onclick="saveSiteSettings()" class="btn" style="margin-top:0.6rem;" title="儲存系統設定">儲存設定</button>
         </div>
-        
         <div style="background:#f9f9f9; padding:1.25rem; border-radius:0.5rem;">
           <h4>使用者管理</h4>
           <form id="user-form" onsubmit="handleUserSave(event)">
             <input type="hidden" id="user-is-edit" value="false">
-            
-            <label for="new-username">帳號 (必填)</label>
-            <input type="text" id="new-username" required title="輸入使用者帳號">
-            
-            <label for="new-jobtitle">職稱 (必填)</label>
-            <input type="text" id="new-jobtitle" required title="輸入職稱">
-            
-            <label for="new-password">密碼 (新增必填，8-20字元)</label>
-            <input type="password" id="new-password" title="輸入密碼">
-            
+            <label for="new-username">帳號 (必填)</label><input type="text" id="new-username" required title="輸入使用者帳號">
+            <label for="new-jobtitle">職稱 (必填)</label><input type="text" id="new-jobtitle" required title="輸入職稱">
+            <label for="new-password">密碼 (新增必填，8-20字元)</label><input type="password" id="new-password" title="輸入密碼">
             <div style="background:#fff; padding:0.6rem; border:1px solid #ddd; margin:0.6rem 0;">
               <p style="margin:0 0 0.3rem 0;"><strong>權限：</strong></p>
               <label for="role-super"><input type="checkbox" id="role-super" title="設定為系統管理員"> 系統管理員</label>
               <hr style="margin:0.3rem 0;">
-              <label style="color:#0056b3;" for="perm-select-all">
-                <input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" title="全選所有分類權限"> 全選
-              </label>
+              <label style="color:#0056b3;" for="perm-select-all"><input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)" title="全選所有分類權限"> 全選</label>
               <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:0.3rem;"></div>
             </div>
-            <button type="submit" class="btn" title="儲存使用者資料">儲存使用者</button> 
-            <button type="button" onclick="resetUserForm()" class="btn btn-sec" title="重置表單">重置</button>
+            <button type="submit" class="btn" title="儲存使用者資料">儲存使用者</button> <button type="button" onclick="resetUserForm()" class="btn btn-sec" title="重置表單">重置</button>
           </form>
           <table style="width:100%; margin-top:1rem; border-collapse:collapse;"><tbody id="user-tbody"></tbody></table>
         </div>
       </div>
-
     </div>
   </main>
 
   <aside id="sidebar-right">
+    <a href="#sidebar-right" accesskey="R" title="右方功能區塊" class="accesskey" style="display:block; margin-bottom:10px;">:::</a>
     </aside>
 
   <footer id="site-footer">
@@ -399,34 +352,13 @@
 </div>
 
 <div id="global-status" style="position:fixed; top:0.6rem; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:0.6rem 1.25rem; border-radius:0.25rem; display:none; z-index:9999;"></div>
-
-<dialog id="detail-modal">
-  <div style="text-align:right;"><button onclick="closeDetail()" class="btn btn-sec" title="關閉視窗">Close</button></div>
-  <div id="modal-content"></div>
-</dialog>
-
-<dialog id="password-modal">
-  <h3>修改密碼</h3>
-  <form onsubmit="handleChangePassword(event)">
-    <label for="cp-old">舊密碼</label>
-    <input type="password" id="cp-old" required title="輸入舊密碼">
-    
-    <label for="cp-new">新密碼 (8-20字)</label>
-    <input type="password" id="cp-new" required title="輸入新密碼">
-    
-    <label for="cp-confirm">確認</label>
-    <input type="password" id="cp-confirm" required title="再次輸入新密碼">
-    
-    <button type="submit" class="btn" title="確認修改">修改</button> 
-    <button type="button" onclick="document.getElementById('password-modal').close()" class="btn btn-sec" title="取消">取消</button>
-  </form>
-</dialog>
+<dialog id="detail-modal"><div style="text-align:right;"><button onclick="closeDetail()" class="btn btn-sec" title="關閉視窗">Close</button></div><div id="modal-content"></div></dialog>
+<dialog id="password-modal"><h3>修改密碼</h3><form onsubmit="handleChangePassword(event)"><label for="cp-old">舊密碼</label><input type="password" id="cp-old" required title="輸入舊密碼"><label for="cp-new">新密碼 (8-20字)</label><input type="password" id="cp-new" required title="輸入新密碼"><label for="cp-confirm">確認</label><input type="password" id="cp-confirm" required title="再次輸入新密碼"><button type="submit" class="btn" title="確認修改">修改</button> <button type="button" onclick="document.getElementById('password-modal').close()" class="btn btn-sec" title="取消">取消</button></form></dialog>
 
 <script>
 // 👇👇👇 請務必替換成您的 GAS 網址 👇👇👇
 const API_URL = "https://script.google.com/macros/s/AKfycbwhmKijh5AMO4g-fKpvA2kP3Jbe0RoHok-R3OYEtNqwZ8V35ykdZmvchMrsi8OaX-RF/exec";
 
-// Global Variables
 let siteData = {}, allPosts = [], currentUser = null;
 let currentFilteredData = [];
 const ITEMS_PER_PAGE = 5; let currentPage = 1;
@@ -437,434 +369,140 @@ const carouselTimers = {};
 document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
-  try {
-    await Promise.all([loadSiteData(), loadPosts()]);
-  } catch (error) {
-    console.error("Init Error:", error);
-    const list = document.getElementById('post-list');
-    if(list) list.innerHTML = `<p style="color:red;padding:1.25rem;">連線錯誤：${error.message}<br>請確認後端程式碼已部署最新版本。</p>`;
-  }
+  try { await Promise.all([loadSiteData(), loadPosts()]); } 
+  catch (error) { console.error("Init Error:", error); const list = document.getElementById('post-list'); if(list) list.innerHTML = `<p style="color:red;padding:1.25rem;">連線錯誤：${error.message}<br>請確認後端程式碼已部署最新版本。</p>`; }
 }
 
 async function loadSiteData() {
-  const res = await fetch(`${API_URL}?op=getSiteData`);
-  siteData = await res.json();
-  if(siteData.error) throw new Error(siteData.error);
-  renderSite();
+  const res = await fetch(`${API_URL}?op=getSiteData`); siteData = await res.json();
+  if(siteData.error) throw new Error(siteData.error); renderSite();
 }
 
 async function loadPosts() {
-  const res = await fetch(`${API_URL}?op=getPublicData`);
-  allPosts = await res.json();
-  if(allPosts.error) throw new Error(allPosts.error);
-  applyFilter();
-  initHonorRoll();
+  const res = await fetch(`${API_URL}?op=getPublicData`); allPosts = await res.json();
+  if(allPosts.error) throw new Error(allPosts.error); applyFilter(); initHonorRoll();
 }
 
-// ========== 核心：渲染前端介面 (加入防呆) ==========
 function renderSite() {
-  // 1. 設定 Header (防呆：檢查元素是否存在)
-  const nameZH = document.getElementById('header-name-zh');
-  const nameEN = document.getElementById('header-name-en');
+  // Header
+  const nameZH = document.getElementById('header-name-zh'); const nameEN = document.getElementById('header-name-en');
   if(nameZH && siteData.settings) nameZH.textContent = siteData.settings.schoolNameZH || "學校名稱";
   if(nameEN && siteData.settings) nameEN.textContent = siteData.settings.schoolNameEN || "School Name";
   if(siteData.settings && siteData.settings.themeColor) document.documentElement.style.setProperty('--primary', siteData.settings.themeColor);
   
-  // Layout Mode Logic (Default: Wide)
+  // Layout
   const container = document.getElementById('site-container');
   if(container) {
-    // 預設就是寬版，只有當設定為 boxed 時，才加 class
-    if(siteData.settings && siteData.settings.layoutMode === 'boxed') {
-      container.classList.add('layout-boxed');
-    } else {
-      container.classList.remove('layout-boxed');
-    }
+    if(siteData.settings && siteData.settings.layoutMode === 'boxed') container.classList.add('layout-boxed');
+    else container.classList.remove('layout-boxed');
   }
 
-  // 2. 渲染 Nav (導覽列)
+  // Footer
+  const footer = document.getElementById('site-footer');
+  if(footer && siteData.settings) footer.innerHTML = siteData.settings.footerContent || '<p>&copy; 2026 校園資訊網</p>';
+
+  // Nav
   const navList = document.getElementById('nav-list');
   if(navList) {
-    const items = siteData.navbar || [];
     navList.innerHTML = `<li><a onclick="switchView('view-home')" class="active">首頁</a></li>` + 
-      items.map(n => `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`).join('');
+      (siteData.navbar || []).map(n => `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`).join('');
   }
 
-  // 3. 渲染 Sidebar (側邊欄)
+  // Sidebars
   const left = document.getElementById('sidebar-left'), right = document.getElementById('sidebar-right');
-  if(left) left.innerHTML = ''; 
-  if(right) right.innerHTML = '';
+  let leftContent = '<a href="#sidebar-left" accesskey="L" title="左方功能區塊" class="accesskey" style="display:block; margin-bottom:10px;">:::</a>';
+  let rightContent = '<a href="#sidebar-right" accesskey="R" title="右方功能區塊" class="accesskey" style="display:block; margin-bottom:10px;">:::</a>';
   
   (siteData.sidebar || []).forEach(w => {
     let html = '';
     if(w.type === 'links') {
       try { html = '<ul class="widget-list">' + JSON.parse(w.content).map(l=>`<li><a href="${l.url}" target="_blank">${l.label}</a></li>`).join('') + '</ul>'; } catch(e){html='(連結格式錯誤)';}
-    } else html = w.content; // HTML/Iframe
-    
+    } else html = w.content;
     const widget = `<div class="widget"><div class="widget-title">${w.title}</div><div class="widget-body">${html}</div></div>`;
-    if(w.pos === 'left' && left) left.innerHTML += widget; 
-    else if(right) right.innerHTML += widget;
+    if(w.pos === 'left') leftContent += widget; else rightContent += widget;
   });
+  if(left) left.innerHTML = leftContent;
+  if(right) right.innerHTML = rightContent;
 
-  // 4. 渲染分類下拉選單
+  // Filters & Admin
   const cats = siteData.categories || [];
   const opts = cats.filter(c=>c.isActive).map(c=>`<option value="${c.name}">${c.name}</option>`).join('');
+  const filter = document.getElementById('cat-filter'); if(filter) filter.innerHTML = `<option value="all">所有分類</option>` + opts;
+  const adminCat = document.getElementById('p-cat'); if(adminCat) adminCat.innerHTML = `<option value="">請選擇</option>` + opts;
   
-  const filter = document.getElementById('cat-filter');
-  if(filter) filter.innerHTML = `<option value="all">所有分類</option>` + opts;
-  
-  const adminCat = document.getElementById('p-cat');
-  if(adminCat) adminCat.innerHTML = `<option value="">請選擇</option>` + opts;
-  
-  // 5. 後台分類列表
   const catTable = document.getElementById('cat-tbody');
   if(catTable) {
-    catTable.innerHTML = cats.map(c => 
-      `<tr>
-        <td style="border:1px solid #ddd;padding:0.5rem;"><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span></td>
-        <td style="border:1px solid #ddd;padding:0.5rem;">
-          <button onclick="editCat('${c.id}','${c.name}')" class="btn btn-sec" title="編輯分類">修</button> 
-          <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}" title="切換狀態">${c.isActive?'停':'啟'}</button>
-          <button onclick="deleteItem('deleteCategory','${c.id}')" class="btn btn-sec" title="刪除分類">刪</button>
-        </td>
-      </tr>`
-    ).join('');
+    catTable.innerHTML = cats.map(c => `<tr><td style="border:1px solid #ddd;padding:0.5rem;"><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span></td><td style="border:1px solid #ddd;padding:0.5rem;"><button onclick="editCat('${c.id}','${c.name}')" class="btn btn-sec" title="編輯">修</button> <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}" title="切換">${c.isActive?'停':'啟'}</button> <button onclick="deleteItem('deleteCategory','${c.id}')" class="btn btn-sec" title="刪除">刪</button></td></tr>`).join('');
   }
 }
 
-// ========== 圖片處理 ==========
-function getDriveImgUrl(url) {
-  if (!url) return "";
-  let id = ""; if (url.includes("id=")) id = url.split("id=")[1].split("&")[0]; else if (url.includes("/d/")) id = url.split("/d/")[1].split("/")[0];
-  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w2000` : url;
-}
-
-// ========== 榮譽榜邏輯 ==========
-function initHonorRoll() {
-  honorData = allPosts.filter(d => d.category && d.category.indexOf("榮譽榜") !== -1);
-  const sec = document.getElementById('honor-roll-section');
-  if(!sec) return;
-  if(honorData.length > 0) {
-    sec.style.display = 'block';
-    renderHonorRollPage();
-  } else {
-    sec.style.display = 'none';
-  }
-}
-
-function renderHonorRollPage() {
-  Object.keys(carouselTimers).forEach(k => { clearInterval(carouselTimers[k]); delete carouselTimers[k]; });
-  const start = (currentHonorPage-1)*HONOR_PER_PAGE;
-  const list = document.getElementById('honor-list');
-  if(!list) return;
-
-  list.innerHTML = honorData.slice(start, start+HONOR_PER_PAGE).map((item) => {
-    const key = item.id;
-    const imgs = (item.attachments||[]).filter(f=>f.name.match(/\.(jpg|png|jpeg|webp)$/i));
-    let media = `<div style="color:#ccc;font-size:3rem;text-align:center;line-height:200px;">🏆</div>`;
-    
-    if(imgs.length===1) media = `<img src="${getDriveImgUrl(imgs[0].url)}" alt="${imgs[0].name}">`;
-    else if(imgs.length>1) {
-      const pImgs = imgs.map(i=>({url:getDriveImgUrl(i.url), name:i.name}));
-      media = `<img src="${pImgs[0].url}" id="img-${key}" data-idx="0" alt="${pImgs[0].name}" data-imgs='${JSON.stringify(pImgs).replace(/'/g,"&#39;")}'><div class="carousel-controls"><button class="carousel-btn ctrl-play" onclick="togglePlay('${key}')" id="play-${key}" title="暫停/播放">❚❚</button><button class="carousel-btn ctrl-next" onclick="moveSlide('${key}',1)" title="下一張">></button></div>`;
-      carouselTimers[key] = setInterval(()=>moveSlide(key,1), 3000);
-    }
-    // 修正：openDetail 使用 global index
-    return `<div class="honor-card"><div class="honor-media">${media}</div><div class="honor-content"><h3>${item.title}</h3><p>${item.date} | ${item.authorTitle}</p><button class="btn" onclick="openDetail(${allPosts.indexOf(item)})" title="查看詳情">詳情</button></div></div>`;
-  }).join('');
-
-  // 榮譽榜分頁
-  const total = Math.ceil(honorData.length/HONOR_PER_PAGE);
-  const pag = document.getElementById('honor-pagination');
-  if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentHonorPage?'active':''}" onclick="currentHonorPage=${i+1};renderHonorRollPage()" title="第${i+1}頁">${i+1}</button>`).join('') : '';
-}
-
-function moveSlide(key, dir) {
-  const img = document.getElementById(`img-${key}`);
-  if(!img) return;
-  const data = JSON.parse(img.dataset.imgs);
-  let idx = (parseInt(img.dataset.idx) + dir + data.length) % data.length;
-  img.src = data[idx].url; img.alt = data[idx].name; img.dataset.idx = idx;
-}
-
-function togglePlay(key) {
-  const btn = document.getElementById(`play-${key}`);
-  if(carouselTimers[key]) { clearInterval(carouselTimers[key]); delete carouselTimers[key]; btn.textContent='▶'; }
-  else { carouselTimers[key] = setInterval(()=>moveSlide(key,1),3000); btn.textContent='❚❚'; }
-}
-
-// ========== 公告列表邏輯 ==========
-function applyFilter() {
-  const el = document.getElementById('cat-filter');
-  if(!el) return;
-  const cat = el.value;
-  currentFilteredData = cat==='all' ? allPosts : allPosts.filter(p=>p.category===cat);
-  currentPage = 1; renderCurrentPage();
-}
-
-function renderCurrentPage() {
-  const list = document.getElementById('post-list');
-  if(!list) return;
-  const start = (currentPage-1)*ITEMS_PER_PAGE;
-  list.innerHTML = currentFilteredData.slice(start, start+ITEMS_PER_PAGE).map(p => 
-    `<div class="post-list-item" onclick="openDetail(${allPosts.indexOf(p)})">
-       ${p.isPinned?'<span class="badge-pin">置頂</span>':''} <b>${p.date}</b> ${p.title} 
-       <span style="float:right;color:#888;">${p.category}</span>
-     </div>`
-  ).join('') || '<p style="padding:1.25rem;">無資料</p>';
+// ========== 網站導覽 (修正：按區塊顯示) ==========
+function renderSitemap() {
+  const content = document.getElementById('sitemap-content');
+  if (!content) return;
   
-  const total = Math.ceil(currentFilteredData.length/ITEMS_PER_PAGE);
-  const pag = document.getElementById('pagination');
-  if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentPage?'active':''}" onclick="currentPage=${i+1};renderCurrentPage()" title="第${i+1}頁">${i+1}</button>`).join('') : '';
-}
+  // 1. 主選單
+  let html = `<div class="sitemap-section"><h3>::: 主選單</h3><ul class="sitemap-list">`;
+  html += `<li><a href="#" onclick="switchView('view-home')">首頁</a></li>`;
+  (siteData.navbar || []).forEach(n => html += `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`);
+  html += `</ul></div>`;
 
-function openDetail(idx) {
-  const d = allPosts[idx];
-  if(!d) return;
-  let attachHtml = '';
-  if (d.attachments && d.attachments.length > 0) {
-    attachHtml = `<div style="margin-top:1.25rem; padding:0.6rem; background:#f9f9f9; border:1px dashed #ccc;"><strong>附件：</strong><br>` + 
-      d.attachments.map(f => `<a href="${getDriveImgUrl(f.url)}" target="_blank" style="margin-right:0.6rem;">📎 ${f.name}</a>`).join('') + `</div>`;
-  }
-  const modal = document.getElementById('modal-content');
-  if(modal) {
-    modal.innerHTML = `<h2>${d.title}</h2><p style="color:#666;">${d.date} | ${d.authorTitle}</p><div style="font-size:1.1rem; line-height:1.8;">${d.content.replace(/\n/g,'<br>')}</div>${attachHtml}`;
-    document.getElementById('detail-modal').showModal();
-  }
-}
-function closeDetail() { document.getElementById('detail-modal').close(); }
-
-// ========== 後台 & 登入邏輯 ==========
-function showLogin() { switchView('view-login'); }
-
-function handleLogin(e) {
-  e.preventDefault();
-  const u = document.getElementById('username').value;
-  const p = document.getElementById('password').value;
-  postData('login', {username:u, password:p}).then(res => {
-    currentUser = res.username;
-    const disp = document.getElementById('admin-user-display');
-    if(disp) disp.textContent = res.jobTitle || res.username;
-    
-    // 隱藏前台登入鈕
-    const btnToggle = document.getElementById('btn-login-toggle');
-    if(btnToggle) btnToggle.style.display='none';
-
-    // 如果是總管，載入額外資料
-    if(res.isSuper) {
-      loadUsers(); 
-      loadAdminSettings(); 
-      loadAuthorSelect();
+  // 2. 側邊欄區塊 (按標題分組)
+  (siteData.sidebar || []).forEach(w => {
+    if (w.type === 'links' && w.content) {
+      try {
+        const links = JSON.parse(w.content);
+        if (links.length > 0) {
+          html += `<div class="sitemap-section"><h3>::: ${w.title}</h3><ul class="sitemap-list">`;
+          links.forEach(l => html += `<li><a href="${l.url}" target="_blank">${l.label}</a></li>`);
+          html += `</ul></div>`;
+        }
+      } catch(e) {}
     }
-    loadAdminPosts();
-    switchView('view-admin');
   });
+  content.innerHTML = html;
 }
 
-function switchView(id) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
-  const target = document.getElementById(id);
-  if(target) target.classList.add('active-view');
-  
-  window.scrollTo(0,0);
-  
-  const container = document.getElementById('site-container');
-  const navLinks = document.querySelectorAll('#site-nav a');
-  navLinks.forEach(a => a.classList.remove('active'));
-
-  if (id.startsWith('view-')) {
-    const idx = ['view-home','view-about','view-admin-unit','view-resources','view-contact'].indexOf(id);
-    if(idx>=0 && navLinks[idx]) navLinks[idx].classList.add('active');
-  }
-
-  if (id === 'view-admin' || id === 'view-cats' || id === 'view-users') {
-    if(container) container.classList.add('admin-mode');
-  } else {
-    if(container) container.classList.remove('admin-mode');
-  }
-}
-
-function switchAdminTab(tabId) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.style.display='none');
-  const tab = document.getElementById(tabId); if(tab) tab.style.display='block';
-}
-
+// ========== 核心功能函式 (沿用) ==========
+function getDriveImgUrl(url) { if(!url) return ""; let id=""; if(url.includes("id=")) id=url.split("id=")[1].split("&")[0]; else if(url.includes("/d/")) id=url.split("/d/")[1].split("/")[0]; return id?`https://drive.google.com/thumbnail?id=${id}&sz=w2000`:url; }
+function initHonorRoll() { honorData = allPosts.filter(d => d.category && d.category.indexOf("榮譽榜") !== -1); const sec = document.getElementById('honor-roll-section'); if(sec) sec.style.display = honorData.length>0?'block':'none'; if(honorData.length>0) renderHonorRollPage(); }
+function renderHonorRollPage() { Object.keys(carouselTimers).forEach(k => { clearInterval(carouselTimers[k]); delete carouselTimers[k]; }); const start = (currentHonorPage-1)*HONOR_PER_PAGE; const list = document.getElementById('honor-list'); if(!list) return; list.innerHTML = honorData.slice(start, start+HONOR_PER_PAGE).map((item) => { const key = item.id; const imgs = (item.attachments||[]).filter(f=>f.name.match(/\.(jpg|png|jpeg|webp)$/i)); let media = `<div style="color:#ccc;font-size:3rem;text-align:center;line-height:200px;">🏆</div>`; if(imgs.length===1) media = `<img src="${getDriveImgUrl(imgs[0].url)}" alt="${imgs[0].name}">`; else if(imgs.length>1) { const pImgs = imgs.map(i=>({url:getDriveImgUrl(i.url), name:i.name})); media = `<img src="${pImgs[0].url}" id="img-${key}" data-idx="0" alt="${pImgs[0].name}" data-imgs='${JSON.stringify(pImgs).replace(/'/g,"&#39;")}'><div class="carousel-controls"><button class="carousel-btn ctrl-play" onclick="togglePlay('${key}')" id="play-${key}" title="暫停/播放">❚❚</button><button class="carousel-btn ctrl-next" onclick="moveSlide('${key}',1)" title="下一張">></button></div>`; carouselTimers[key] = setInterval(()=>moveSlide(key,1), 3000); } return `<div class="honor-card"><div class="honor-media">${media}</div><div class="honor-content"><h3>${item.title}</h3><p>${item.date} | ${item.authorTitle}</p><button class="btn" onclick="openDetail(${allPosts.indexOf(item)})" title="查看詳情">詳情</button></div></div>`; }).join(''); const total = Math.ceil(honorData.length/HONOR_PER_PAGE); const pag = document.getElementById('honor-pagination'); if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentHonorPage?'active':''}" onclick="currentHonorPage=${i+1};renderHonorRollPage()" title="第${i+1}頁">${i+1}</button>`).join('') : ''; }
+function moveSlide(key, dir) { const img = document.getElementById(`img-${key}`); if(!img) return; const data = JSON.parse(img.dataset.imgs); let idx = (parseInt(img.dataset.idx) + dir + data.length) % data.length; img.src = data[idx].url; img.alt = data[idx].name; img.dataset.idx = idx; }
+function togglePlay(key) { const btn = document.getElementById(`play-${key}`); if(carouselTimers[key]) { clearInterval(carouselTimers[key]); delete carouselTimers[key]; btn.textContent='▶'; } else { carouselTimers[key] = setInterval(()=>moveSlide(key,1),3000); btn.textContent='❚❚'; } }
+function applyFilter() { const el = document.getElementById('cat-filter'); if(!el) return; currentFilteredData = el.value==='all' ? allPosts : allPosts.filter(p=>p.category===el.value); currentPage = 1; renderCurrentPage(); }
+function renderCurrentPage() { const list = document.getElementById('post-list'); if(!list) return; const start = (currentPage-1)*ITEMS_PER_PAGE; list.innerHTML = currentFilteredData.slice(start, start+ITEMS_PER_PAGE).map(p => `<div class="post-list-item" onclick="openDetail(${allPosts.indexOf(p)})">${p.isPinned?'<span class="badge-pin">置頂</span>':''} <b>${p.date}</b> ${p.title} <span style="float:right;color:#888;">${p.category}</span></div>`).join('') || '<p style="padding:1.25rem;">無資料</p>'; const total = Math.ceil(currentFilteredData.length/ITEMS_PER_PAGE); const pag = document.getElementById('pagination'); if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentPage?'active':''}" onclick="currentPage=${i+1};renderCurrentPage()" title="第${i+1}頁">${i+1}</button>`).join('') : ''; }
+function openDetail(idx) { const d = allPosts[idx]; if(!d) return; let attachHtml = ''; if (d.attachments && d.attachments.length > 0) { attachHtml = `<div style="margin-top:1.25rem; padding:0.6rem; background:#f9f9f9; border:1px dashed #ccc;"><strong>附件：</strong><br>` + d.attachments.map(f => `<a href="${getDriveImgUrl(f.url)}" target="_blank" style="margin-right:0.6rem;">📎 ${f.name}</a>`).join('') + `</div>`; } const modal = document.getElementById('modal-content'); if(modal) { modal.innerHTML = `<h2>${d.title}</h2><p style="color:#666;">${d.date} | ${d.authorTitle}</p><div style="font-size:1.1rem; line-height:1.8;">${d.content.replace(/\n/g,'<br>')}</div>${attachHtml}`; document.getElementById('detail-modal').showModal(); } }
+function closeDetail() { document.getElementById('detail-modal').close(); }
+function showLogin() { switchView('view-login'); }
+function handleLogin(e) { e.preventDefault(); const u = document.getElementById('username').value; const p = document.getElementById('password').value; postData('login', {username:u, password:p}).then(res => { currentUser = res.username; const disp = document.getElementById('admin-user-display'); if(disp) disp.textContent = res.jobTitle || res.username; const btnToggle = document.getElementById('btn-login-toggle'); if(btnToggle) btnToggle.style.display='none'; if(res.isSuper) { document.getElementById('btn-tab-site').style.display = 'inline-block'; document.getElementById('btn-tab-users').style.display = 'inline-block'; loadUsers(); loadAdminSettings(); loadAuthorSelect(); } else { document.getElementById('btn-tab-site').style.display = 'none'; document.getElementById('btn-tab-users').style.display = 'none'; } loadAdminPosts(); switchAdminTab('tab-posts'); switchView('view-admin'); }); }
+function switchView(id) { document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view')); const target = document.getElementById(id); if(target) target.classList.add('active-view'); window.scrollTo(0,0); const container = document.getElementById('site-container'); const navLinks = document.querySelectorAll('#site-nav a'); navLinks.forEach(a => a.classList.remove('active')); if (id.startsWith('view-')) { const idx = ['view-home','view-about','view-admin-unit','view-resources','view-contact'].indexOf(id); if(idx>=0 && navLinks[idx]) navLinks[idx].classList.add('active'); } if (id === 'view-admin' || id === 'view-cats' || id === 'view-users') { if(container) container.classList.add('admin-mode'); } else { if(container) container.classList.remove('admin-mode'); } if(id === 'view-sitemap') renderSitemap(); }
+function switchAdminTab(tabId) { document.querySelectorAll('.admin-tab').forEach(t => t.style.display='none'); const tab = document.getElementById(tabId); if(tab) tab.style.display='block'; }
 function goHome() { switchView('view-home'); }
 function logout() { location.reload(); }
-
-// --- 後台功能 ---
-function loadAdminPosts() {
-  postData('getAdminData', {}).then(data => {
-    window.adminData = data;
-    renderAdminPosts();
-  });
-}
-
-function renderAdminPosts() {
-  const list = document.getElementById('admin-post-list');
-  if(!list) return;
-  const start = (currentAdminPage-1)*ADMIN_PER_PAGE;
-  list.innerHTML = window.adminData.slice(start, start+ADMIN_PER_PAGE).map(p => 
-    `<tr>
-      <td style="border:1px solid #ddd;padding:0.5rem;">${p.date}</td>
-      <td style="border:1px solid #ddd;padding:0.5rem;">${p.title}</td>
-      <td style="border:1px solid #ddd;padding:0.5rem;">${p.category}</td>
-      <td style="border:1px solid #ddd;padding:0.5rem;">${p.authorTitle}</td>
-      <td style="border:1px solid #ddd;padding:0.5rem;">
-        ${p.isMine ? `<button onclick='editPost(${JSON.stringify(p)})' class="btn btn-sec" style="padding:0.1rem 0.3rem;" title="修改公告">修</button> <button onclick="deleteItem('deleteAnnouncement','${p.id}')" class="btn btn-danger" style="padding:0.1rem 0.3rem;" title="刪除公告">刪</button>` : '-'}
-      </td>
-    </tr>`
-  ).join('');
-  
-  const total = Math.ceil(window.adminData.length/ADMIN_PER_PAGE);
-  const pag = document.getElementById('admin-pagination');
-  if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentAdminPage?'active':''}" onclick="currentAdminPage=${i+1};renderAdminPosts()" title="第${i+1}頁">${i+1}</button>`).join('') : '';
-}
-
-function loadAuthorSelect() {
-  postData('getUsers', {u:currentUser}).then(users => {
-    const sel = document.getElementById('p-author');
-    if(sel) sel.innerHTML = '<option value="">(保留原發布者)</option>' + users.map(u=>`<option value="${u.username}">${u.username} (${u.jobTitle})</option>`).join('');
-  });
-}
-
-async function handlePostSave(e) {
-  e.preventDefault();
-  const fileInput = document.getElementById('p-file');
-  let filesData = [];
-  if (fileInput.files.length > 0) filesData = await Promise.all(Array.from(fileInput.files).map(readFileAsBase64));
-  
-  const formObj = {
-    id: document.getElementById('p-id').value,
-    title: document.getElementById('p-title').value,
-    category: document.getElementById('p-cat').value,
-    newAuthor: document.getElementById('p-author').value,
-    content: document.getElementById('p-content').value,
-    isPinned: document.getElementById('p-top').checked.toString(),
-    pinExpiry: document.getElementById('p-pin-exp').value,
-    expiryDate: document.getElementById('p-exp').value,
-    link: document.getElementById('p-link').value,
-    deleteAttachment: document.getElementById('del-attach').checked.toString(),
-    filesData: filesData
-  };
-  postData('saveAnnouncement', {formObj}).then(()=>{ alert('成功'); resetPostForm(); loadPosts(); loadAdminPosts(); });
-}
-
-function editPost(p) {
-  document.getElementById('p-id').value = p.id;
-  document.getElementById('p-title').value = p.title;
-  document.getElementById('p-cat').value = p.category;
-  document.getElementById('p-content').value = p.content;
-  document.getElementById('p-top').checked = p.isPinned;
-  document.getElementById('p-pin-exp').value = p.pinExpiry;
-  document.getElementById('p-exp').value = p.expiryDate;
-  document.getElementById('p-link').value = p.link;
-  
-  const list = document.getElementById('exist-file-list');
-  const area = document.getElementById('curr-attach');
-  if(p.attachments && p.attachments.length>0) {
-    if(area) area.style.display='block';
-    if(list) list.innerHTML = p.attachments.map(f=>f.name).join(', ');
-  } else if(area) area.style.display='none';
-}
+function loadAdminPosts() { postData('getAdminData', {}).then(data => { window.adminData = data; renderAdminPosts(); }); }
+function renderAdminPosts() { const list = document.getElementById('admin-post-list'); if(!list) return; const start = (currentAdminPage-1)*ADMIN_PER_PAGE; list.innerHTML = window.adminData.slice(start, start+ADMIN_PER_PAGE).map(p => `<tr><td style="border:1px solid #ddd;padding:0.5rem;">${p.date}</td><td style="border:1px solid #ddd;padding:0.5rem;">${p.title}</td><td style="border:1px solid #ddd;padding:0.5rem;">${p.category}</td><td style="border:1px solid #ddd;padding:0.5rem;">${p.authorTitle}</td><td style="border:1px solid #ddd;padding:0.5rem;">${p.isMine ? `<button onclick='editPost(${JSON.stringify(p)})' class="btn btn-sec" style="padding:0.1rem 0.3rem;" title="修改公告">修</button> <button onclick="deleteItem('deleteAnnouncement','${p.id}')" class="btn btn-danger" style="padding:0.1rem 0.3rem;" title="刪除公告">刪</button>` : '-'}</td></tr>`).join(''); const total = Math.ceil(window.adminData.length/ADMIN_PER_PAGE); const pag = document.getElementById('admin-pagination'); if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentAdminPage?'active':''}" onclick="currentAdminPage=${i+1};renderAdminPosts()" title="第${i+1}頁">${i+1}</button>`).join('') : ''; }
+function loadAuthorSelect() { postData('getUsers', {u:currentUser}).then(users => { const sel = document.getElementById('p-author'); if(sel) sel.innerHTML = '<option value="">(保留原發布者)</option>' + users.map(u=>`<option value="${u.username}">${u.username} (${u.jobTitle})</option>`).join(''); }); }
+async function handlePostSave(e) { e.preventDefault(); const fileInput = document.getElementById('p-file'); let filesData = []; if (fileInput.files.length > 0) filesData = await Promise.all(Array.from(fileInput.files).map(readFileAsBase64)); const formObj = { id: document.getElementById('p-id').value, title: document.getElementById('p-title').value, category: document.getElementById('p-cat').value, newAuthor: document.getElementById('p-author').value, content: document.getElementById('p-content').value, isPinned: document.getElementById('p-top').checked.toString(), pinExpiry: document.getElementById('p-pin-exp').value, expiryDate: document.getElementById('p-exp').value, link: document.getElementById('p-link').value, deleteAttachment: document.getElementById('del-attach').checked.toString(), filesData: filesData }; postData('saveAnnouncement', {formObj}).then(()=>{ alert('成功'); resetPostForm(); loadPosts(); loadAdminPosts(); }); }
+function editPost(p) { document.getElementById('p-id').value = p.id; document.getElementById('p-title').value = p.title; document.getElementById('p-cat').value = p.category; document.getElementById('p-content').value = p.content; document.getElementById('p-top').checked = p.isPinned; document.getElementById('p-pin-exp').value = p.pinExpiry; document.getElementById('p-exp').value = p.expiryDate; document.getElementById('p-link').value = p.link; const list = document.getElementById('exist-file-list'); const area = document.getElementById('curr-attach'); if(p.attachments && p.attachments.length>0) { if(area) area.style.display='block'; if(list) list.innerHTML = p.attachments.map(f=>f.name).join(', '); } else if(area) area.style.display='none'; }
 function resetPostForm() { document.getElementById('admin-form').reset(); document.getElementById('p-id').value=""; document.getElementById('curr-attach').style.display='none'; }
-
-// --- 網站架構管理 ---
-function handleNavSave(e) {
-  e.preventDefault();
-  const item = { id: document.getElementById('nav-id').value, title: document.getElementById('nav-title').value, link: document.getElementById('nav-link').value, order: document.getElementById('nav-order').value };
-  postData('saveNavbar', {navItem:item}).then(()=>{ alert('成功'); loadSiteData().then(renderAdminLists); });
-}
-function handleWidgetSave(e) {
-  e.preventDefault();
-  const type = document.getElementById('wid-type').value;
-  let content = "";
-  if(type==='links') {
-    const lines = document.getElementById('wid-content-links').value.split('\n');
-    content = lines.map(l=>{ const [tx,url]=l.split('|'); return {label:tx, url:url}; }).filter(x=>x.label&&x.url);
-  } else content = document.getElementById('wid-content-html').value;
-  const widget = { id: document.getElementById('wid-id').value, title: document.getElementById('wid-title').value, type: type, pos: document.getElementById('wid-pos').value, order: document.getElementById('wid-order').value, content: content };
-  postData('saveSidebar', {widget}).then(()=>{ alert('成功'); loadSiteData().then(renderAdminLists); });
-}
-function toggleWidInput() {
-  const t = document.getElementById('wid-type').value;
-  document.getElementById('wid-input-links').style.display = t==='links'?'block':'none';
-  document.getElementById('wid-input-html').style.display = t==='html'?'block':'none';
-}
-function renderAdminLists() {
-  const navL = document.getElementById('admin-nav-list'); if(navL) navL.innerHTML = (siteData.navbar||[]).map(n=>`<li>${n.title} (排序:${n.order}) <button onclick="deleteItem('deleteNavbar','${n.id}')" class="btn-danger" style="font-size:0.8rem;padding:0.1rem 0.3rem;" title="刪除選單">刪</button></li>`).join('');
-  const widL = document.getElementById('admin-wid-list'); if(widL) widL.innerHTML = (siteData.sidebar||[]).map(w=>`<li>[${w.pos}] ${w.title} <button onclick="deleteItem('deleteSidebar','${w.id}')" class="btn-danger" style="font-size:0.8rem;padding:0.1rem 0.3rem;" title="刪除區塊">刪</button></li>`).join('');
-}
-
-// --- 使用者與設定 ---
-function loadAdminSettings() {
-  const nzh = document.getElementById('set-name-zh'); if(nzh) nzh.value = siteData.settings.schoolNameZH || "";
-  const nen = document.getElementById('set-name-en'); if(nen) nen.value = siteData.settings.schoolNameEN || "";
-  const col = document.getElementById('set-color'); if(col) col.value = siteData.settings.themeColor || "#00695c";
-  const mod = document.getElementById('set-layout-mode'); 
-  // 🔥 Default Value Change: 'wide' 🔥
-  if(mod) mod.value = siteData.settings.layoutMode || "wide";
-  renderAdminLists();
-}
-function saveSiteSettings() {
-  const s = { 
-    schoolNameZH: document.getElementById('set-name-zh').value, 
-    schoolNameEN: document.getElementById('set-name-en').value, 
-    themeColor: document.getElementById('set-color').value,
-    layoutMode: document.getElementById('set-layout-mode').value
-  };
-  postData('saveSettings', {settings:s}).then(()=>{ alert('設定更新'); loadSiteData(); });
-}
-
-function loadUsers() {
-  const permBox = document.getElementById('permission-checkboxes');
-  if(permBox) permBox.innerHTML = (siteData.categories||[]).map(c=>`<label><input type="checkbox" name="user-permissions" value="${c.name}" title="授權 ${c.name}"> ${c.name}</label>`).join('');
-  postData('getUsers', {}).then(users => {
-    const tb = document.getElementById('user-tbody');
-    if(tb) tb.innerHTML = users.map(u=>`<tr><td style="border:1px solid #ddd;padding:0.5rem;">${u.username}</td><td style="border:1px solid #ddd;padding:0.5rem;">${u.jobTitle}</td><td style="border:1px solid #ddd;padding:0.5rem;"><button onclick='editUser(${JSON.stringify(u)})' class="btn btn-sec" style="padding:0.1rem 0.3rem;" title="修改使用者">修</button> <button onclick="deleteItem('deleteUser','${u.username}')" class="btn btn-danger" style="padding:0.1rem 0.3rem;" title="刪除使用者">刪</button></td></tr>`).join('');
-  });
-}
-function handleUserSave(e) {
-  e.preventDefault();
-  let group = []; if(document.getElementById('role-super').checked) group.push('系統管理員');
-  document.querySelectorAll('input[name="user-permissions"]:checked').forEach(c=>group.push(c.value));
-  const form = { isEdit: document.getElementById('user-is-edit').value==='true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: group.join(',') };
-  if(!form.isEdit && (form.password.length<8 || form.password.length>20)) { alert("密碼需8-20字元"); return; }
-  if(form.isEdit && form.password && (form.password.length<8 || form.password.length>20)) { alert("密碼需8-20字元"); return; }
-  postData('saveUser', {formObj:form}).then(()=>{ alert('成功'); resetUserForm(); loadUsers(); });
-}
-function editUser(u) {
-  document.getElementById('user-form-title').textContent="修改"; document.getElementById('user-is-edit').value="true";
-  document.getElementById('new-username').value=u.username; document.getElementById('new-username').readOnly=true;
-  document.getElementById('new-jobtitle').value=u.jobTitle;
-  const grps = u.group.split(',');
-  document.getElementById('role-super').checked = grps.includes('系統管理員');
-  document.querySelectorAll('input[name="user-permissions"]').forEach(c=>c.checked=grps.includes(c.value));
-}
+function handleNavSave(e) { e.preventDefault(); const item = { id: document.getElementById('nav-id').value, title: document.getElementById('nav-title').value, link: document.getElementById('nav-link').value, order: document.getElementById('nav-order').value }; postData('saveNavbar', {navItem:item}).then(()=>{ alert('成功'); loadSiteData().then(renderAdminLists); }); }
+function handleWidgetSave(e) { e.preventDefault(); const type = document.getElementById('wid-type').value; let content = ""; if(type==='links') { const lines = document.getElementById('wid-content-links').value.split('\n'); content = lines.map(l=>{ const [tx,url]=l.split('|'); return {label:tx, url:url}; }).filter(x=>x.label&&x.url); } else content = document.getElementById('wid-content-html').value; const widget = { id: document.getElementById('wid-id').value, title: document.getElementById('wid-title').value, type: type, pos: document.getElementById('wid-pos').value, order: document.getElementById('wid-order').value, content: content }; postData('saveSidebar', {widget}).then(()=>{ alert('成功'); loadSiteData().then(renderAdminLists); }); }
+function toggleWidInput() { const t = document.getElementById('wid-type').value; document.getElementById('wid-input-links').style.display = t==='links'?'block':'none'; document.getElementById('wid-input-html').style.display = t==='html'?'block':'none'; }
+function renderAdminLists() { const navL = document.getElementById('admin-nav-list'); if(navL) navL.innerHTML = (siteData.navbar||[]).map(n=>`<li>${n.title} (排序:${n.order}) <button onclick="deleteItem('deleteNavbar','${n.id}')" class="btn-danger" style="font-size:0.8rem;padding:0.1rem 0.3rem;" title="刪除選單">刪</button></li>`).join(''); const widL = document.getElementById('admin-wid-list'); if(widL) widL.innerHTML = (siteData.sidebar||[]).map(w=>`<li>[${w.pos}] ${w.title} <button onclick="deleteItem('deleteSidebar','${w.id}')" class="btn-danger" style="font-size:0.8rem;padding:0.1rem 0.3rem;" title="刪除區塊">刪</button></li>`).join(''); }
+function loadAdminSettings() { const nzh = document.getElementById('set-name-zh'); if(nzh) nzh.value = siteData.settings.schoolNameZH || ""; const nen = document.getElementById('set-name-en'); if(nen) nen.value = siteData.settings.schoolNameEN || ""; const col = document.getElementById('set-color'); if(col) col.value = siteData.settings.themeColor || "#00695c"; const mod = document.getElementById('set-layout-mode'); if(mod) mod.value = siteData.settings.layoutMode || "wide"; const foot = document.getElementById('set-footer-html'); if(foot) foot.value = siteData.settings.footerContent || ""; renderAdminLists(); }
+function saveSiteSettings() { const s = { schoolNameZH: document.getElementById('set-name-zh').value, schoolNameEN: document.getElementById('set-name-en').value, themeColor: document.getElementById('set-color').value, layoutMode: document.getElementById('set-layout-mode').value, footerContent: document.getElementById('set-footer-html').value }; postData('saveSettings', {settings:s}).then(()=>{ alert('設定更新'); loadSiteData(); }); }
+function loadUsers() { const permBox = document.getElementById('permission-checkboxes'); if(permBox) permBox.innerHTML = (siteData.categories||[]).map(c=>`<label><input type="checkbox" name="user-permissions" value="${c.name}" title="授權 ${c.name}"> ${c.name}</label>`).join(''); postData('getUsers', {}).then(users => { const tb = document.getElementById('user-tbody'); if(tb) tb.innerHTML = users.map(u=>`<tr><td style="border:1px solid #ddd;padding:0.5rem;">${u.username}</td><td style="border:1px solid #ddd;padding:0.5rem;">${u.jobTitle}</td><td style="border:1px solid #ddd;padding:0.5rem;"><button onclick='editUser(${JSON.stringify(u)})' class="btn btn-sec" style="padding:0.1rem 0.3rem;" title="修改使用者">修</button> <button onclick="deleteItem('deleteUser','${u.username}')" class="btn btn-danger" style="padding:0.1rem 0.3rem;" title="刪除使用者">刪</button></td></tr>`).join(''); }); }
+function handleUserSave(e) { e.preventDefault(); let group = []; if(document.getElementById('role-super').checked) group.push('系統管理員'); document.querySelectorAll('input[name="user-permissions"]:checked').forEach(c=>group.push(c.value)); const form = { isEdit: document.getElementById('user-is-edit').value==='true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: group.join(',') }; if(!form.isEdit && (form.password.length<8 || form.password.length>20)) { alert("密碼需8-20字元"); return; } if(form.isEdit && form.password && (form.password.length<8 || form.password.length>20)) { alert("密碼需8-20字元"); return; } postData('saveUser', {formObj:form}).then(()=>{ alert('成功'); resetUserForm(); loadUsers(); }); }
+function editUser(u) { document.getElementById('user-form-title').textContent="修改"; document.getElementById('user-is-edit').value="true"; document.getElementById('new-username').value=u.username; document.getElementById('new-username').readOnly=true; document.getElementById('new-jobtitle').value=u.jobTitle; const grps = u.group.split(','); document.getElementById('role-super').checked = grps.includes('系統管理員'); document.querySelectorAll('input[name="user-permissions"]').forEach(c=>c.checked=grps.includes(c.value)); }
 function resetUserForm() { document.getElementById('user-form').reset(); document.getElementById('user-form-title').textContent="新增"; document.getElementById('user-is-edit').value="false"; document.getElementById('new-username').readOnly=false; }
 function toggleAllPerms(src) { document.querySelectorAll('input[name="user-permissions"]').forEach(c=>c.checked=src.checked); }
-
-// 分類管理
 function handleCatSave(e) { e.preventDefault(); const id=document.getElementById('cat-id').value; const name=document.getElementById('cat-name').value; postData('saveCategory', {id,name}).then(()=>{ alert('成功'); document.getElementById('cat-form').reset(); loadSiteData(); }); }
 function editCat(id, name) { document.getElementById('cat-id').value=id; document.getElementById('cat-name').value=name; }
 function toggleCat(id, active) { if(confirm("確定切換?")) postData('toggleCategoryStatus', {id, isActive:active}).then(()=>{ loadSiteData(); }); }
-
-// 共用工具
-async function postData(op, data) {
-  data.currentUser = currentUser;
-  const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ op, ...data }) });
-  const json = await res.json();
-  if (json.error) { alert(json.error); throw new Error(json.error); }
-  return json;
-}
+async function postData(op, data) { data.currentUser = currentUser; const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ op, ...data }) }); const json = await res.json(); if (json.error) { alert(json.error); throw new Error(json.error); } return json; }
 function deleteItem(op, id) { if(confirm("確定刪除?")) postData(op, {id}).then(() => { if(op.includes('Navbar')||op.includes('Sidebar')) loadSiteData().then(renderAdminLists); else if(op.includes('User')) loadUsers(); else if(op.includes('Category')) loadSiteData(); else { loadPosts(); loadAdminPosts(); } }); }
 function openChangePasswordModal() { document.getElementById('password-modal').showModal(); }
-function handleChangePassword(e) {
-  e.preventDefault();
-  const o=document.getElementById('cp-old').value, n=document.getElementById('cp-new').value, c=document.getElementById('cp-confirm').value;
-  if(n!==c){alert("密碼不符");return;}
-  if(n.length<8||n.length>20){alert("密碼長度需8-20字元");return;}
-  postData('changePassword', {username:currentUser, oldPassword:o, newPassword:n}).then(()=>{ alert("修改成功"); document.getElementById('password-modal').close(); });
-}
+function handleChangePassword(e) { e.preventDefault(); const o=document.getElementById('cp-old').value, n=document.getElementById('cp-new').value, c=document.getElementById('cp-confirm').value; if(n!==c){alert("密碼不符");return;} if(n.length<8||n.length>20){alert("密碼長度需8-20字元");return;} postData('changePassword', {username:currentUser, oldPassword:o, newPassword:n}).then(()=>{ alert("修改成功"); document.getElementById('password-modal').close(); }); }
 function showMessage(msg) { const el = document.getElementById('global-status'); if(el){ el.textContent = msg; el.style.display='block'; setTimeout(()=>el.style.display='none',3000); }}
 function readFileAsBase64(file) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res({ name: file.name, mimeType: file.type, data: r.result }); r.onerror = rej; r.readAsDataURL(file); }); }
 </script>
