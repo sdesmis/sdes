@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>校園資訊網</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== 基礎變數 ========== */
+    :root { 
+      --bg: #ffffff; --text: #333; --primary: #00695c; --secondary: #e0f2f1;
+      --border: #ddd; --input-bg: #f9f9f9; --theme-color: #00695c; --btn-text: #fff;
+      --gray-border: #ccc;
+    }
+    * { box-sizing: border-box; }
+    html, body { font-family: "Iansui", sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+    
+    button, input, select, textarea, .btn { font-family: inherit; }
+
+    /* ========== Layout: Grid 3 Columns ========== */
+    .site-container {
+      display: grid;
+      grid-template-areas: "header" "nav" "content" "footer";
+      grid-template-columns: 1fr;
+      min-height: 100vh;
+      width: 100%;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    /* 電腦版佈局 */
+    @media (min-width: 992px) {
+      .site-container {
+        grid-template-areas: 
+          "header header header"
+          "nav nav nav"
+          "left main right"
+          "footer footer footer";
+        /* 預設窄版 (Boxed): 左右固定 250px，中間自適應 */
+        grid-template-columns: 250px 1fr 250px;
+        max-width: 1280px; 
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      }
+
+      /* 👇 修改：寬版樣式 (比例 3:7:3) 👇 */
+      .site-container.layout-wide {
+        max-width: 98%; /* 撐滿螢幕 */
+        grid-template-columns: 3fr 7fr 3fr; /* 左3 : 中7 : 右3 */
+      }
+    }
+
+    /* Header */
+    #site-header { grid-area: header; background: #fff; padding: 1.5rem 2rem; border-bottom: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+    .school-title h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
+    .school-title p { margin: 0; color: #666; font-size: 1.1rem; }
+
+    /* Nav */
+    #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
+    #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+    #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
+    #site-nav li a:hover, #site-nav li a.active { background: rgba(255,255,255,0.2); }
+
+    /* Content Areas */
+    #main-content { grid-area: main; padding: 20px; background: #fff; }
+    #sidebar-left { grid-area: left; padding: 20px; background: #fdfdfd; border-right: 1px solid var(--border); }
+    #sidebar-right { grid-area: right; padding: 20px; background: #fdfdfd; border-left: 1px solid var(--border); }
+
+    /* Widgets */
+    .widget { margin-bottom: 20px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
+    .widget-title { background: var(--primary); color: #fff; padding: 10px 15px; margin: 0; font-size: 1.1rem; }
+    .widget-body { padding: 15px; }
+    .widget-list { list-style: none; padding: 0; margin: 0; }
+    .widget-list li { margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
+    .widget-list a { color: #333; text-decoration: none; }
+    .widget-list a:hover { color: var(--primary); text-decoration: underline; }
+    iframe { width: 100%; border: 0; }
+
+    /* Footer */
+    #site-footer { grid-area: footer; background: #333; color: #ccc; text-align: center; padding: 2rem; margin-top: auto; }
+
+    /* Admin specific */
+    .admin-mode .site-container { display: block; max-width: 100% !important; }
+    .admin-mode #sidebar-left, .admin-mode #sidebar-right { display: none; }
+    
+    /* UI Elements */
+    .btn { padding: 0.5rem 1rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-size: 1rem; margin-right: 5px; }
+    .btn:hover { opacity: 0.9; }
+    .btn-sec { background: transparent; color: #333; border: 1px solid #ccc; }
+    .btn-danger { background: #d32f2f; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; }
+    
+    /* 公告與榮譽榜 */
+    .post-list-item { padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
+    .post-list-item:hover { background: #f5f5f5; }
+    .badge-pin { background: #d32f2f; color: #fff; padding: 2px 5px; font-size: 0.8rem; border-radius: 3px; margin-right: 5px; }
+    
+    /* Honor Roll Styles */
+    #honor-roll-section { margin-top: 1.5rem; margin-bottom: 3rem; border: 1px solid var(--gray-border); border-radius: 8px; overflow: hidden; display: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    #honor-roll-header { background: #f5f5f5; color: #333; padding: 10px 15px; font-size: 1.3rem; font-weight: bold; border-bottom: 1px solid var(--gray-border); }
+    .honor-card { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--gray-border); }
+    .honor-card:last-child { border-bottom: none; }
+    .honor-media { flex: 0 0 350px; max-width: 100%; min-height: 250px; background: #f9f9f9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .honor-media img { width: 100%; height: 250px; object-fit: contain; background: #f0f0f0; }
+    .honor-content { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+    .honor-content h3 { margin: 0 0 10px 0; font-size: 1.5rem; }
+    
+    .carousel-controls { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 5px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 20px; }
+    .carousel-btn { background: transparent; color: #fff; border: 1px solid #fff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0; }
+    .carousel-btn:hover { background: #fff; color: #000; }
+    .ctrl-prev { order: 1; } .ctrl-play { order: 2; } .ctrl-next { order: 3; }
+
+    /* Pagination */
+    .pagination { display: flex; justify-content: center; gap: 5px; margin-top: 20px; padding-bottom: 20px; }
+    .page-btn { padding: 5px 10px; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 4px; }
+    .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Dialog */
+    dialog { border: 2px solid #ccc; border-radius: 8px; padding: 20px; max-width: 600px; width: 90%; }
+    dialog::backdrop { background: rgba(0,0,0,0.5); }
+    
+    /* RWD */
+    @media(max-width:768px){ .site-container{grid-template-areas:"header" "nav" "left" "main" "right" "footer"; grid-template-columns:1fr;} .honor-card{flex-direction:column;} .honor-media{flex:auto;width:100%;} #site-nav ul{flex-direction:column;} #site-nav li a{border-bottom:1px solid rgba(255,255,255,0.1);} }
+    .cat-disabled { text-decoration: line-through; color: #888; }
+    .view { display: none; } 
+    .active-view { display: block; animation: fadeIn 0.3s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body>
+
+<div id="site-container" class="site-container">
+  
+  <header id="site-header">
+    <div class="school-title">
+      <h1 id="header-name-zh">載入中...</h1>
+      <p id="header-name-en">Loading...</p>
+    </div>
+    <div>
+      <button onclick="showLogin()" class="btn btn-sec" id="btn-login-toggle">教職員登入</button>
+    </div>
+  </header>
+
+  <nav id="site-nav">
+    <ul id="nav-list">
+      </ul>
+  </nav>
+
+  <aside id="sidebar-left">
+    </aside>
+
+  <main id="main-content">
+    
+    <div id="view-home" class="view active-view">
+      
+      <h2 style="border-bottom:2px solid var(--primary); padding-bottom:10px; margin-top:0;">最新消息</h2>
+      <div style="margin-bottom:15px;">
+        <label>分類篩選：</label>
+        <select id="cat-filter" onchange="applyFilter()"><option value="all">所有分類</option></select>
+      </div>
+      <div id="post-list">
+        <p style="padding: 20px;">資料載入中...</p>
+      </div>
+      <div id="pagination" class="pagination"></div>
+
+      <section id="honor-roll-section" aria-label="榮譽榜">
+        <div id="honor-roll-header">🏆 師生榮譽榜</div>
+        <div id="honor-list"></div>
+        <div id="honor-pagination" class="pagination"></div>
+      </section>
+    </div>
+
+    <div id="view-about" class="view"><h2>學校簡介</h2><p>這裡是學校簡介內容...</p></div>
+    <div id="view-admin-unit" class="view"><h2>行政單位</h2><p>各處室介紹...</p></div>
+    <div id="view-resources" class="view"><h2>教學資源</h2><p>學習資源...</p></div>
+    <div id="view-contact" class="view"><h2>聯絡我們</h2><p>校址與電話...</p></div>
+
+    <div id="view-login" class="view">
+      <h2 style="text-align:center;">教職員登入</h2>
+      <form onsubmit="handleLogin(event)" style="max-width:300px; margin:0 auto; border:1px solid #ccc; padding:20px; border-radius:8px;">
+        <label>帳號</label><input type="text" id="username" required>
+        <label>密碼</label><input type="password" id="password" required>
+        <div style="margin-top:10px; display:flex; justify-content:space-between;">
+          <button type="submit" class="btn">登入</button>
+          <button type="button" class="btn btn-sec" onclick="switchView('view-home')">取消</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="view-admin" class="view">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:10px;">
+        <h3>後台管理 - <span id="admin-user-display"></span></h3>
+        <div>
+          <button onclick="goHome()" class="btn btn-sec">回首頁</button>
+          <button onclick="openChangePasswordModal()" class="btn btn-sec">改密碼</button>
+          <button onclick="logout()" class="btn btn-danger">登出</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <button onclick="switchAdminTab('tab-posts')" class="btn">公告管理</button>
+        <button onclick="switchAdminTab('tab-site')" class="btn btn-sec">網站架構</button>
+        <button onclick="switchAdminTab('tab-users')" class="btn btn-sec">使用者/設定</button>
+      </div>
+
+      <div id="tab-posts" class="admin-tab">
+        <div style="background:#f9f9f9; padding:20px; border-radius:8px; margin-bottom:20px;">
+          <h4>發布公告</h4>
+          <form onsubmit="handlePostSave(event)">
+            <input type="hidden" id="p-id">
+            <input type="text" id="p-title" placeholder="標題" required>
+            <div style="display:flex; gap:10px;">
+              <select id="p-cat" required><option>分類...</option></select>
+              <select id="p-author"><option value="">發布者(選填)</option></select>
+            </div>
+            <textarea id="p-content" rows="5" placeholder="內容" required></textarea>
+            
+            <div style="background:#fff; padding:10px; border:1px dashed #ccc; margin-bottom:10px;">
+              <label>附件 (多選)：</label><input type="file" id="p-file" multiple>
+              <div id="curr-attach" style="display:none; font-size:0.9rem; color:#666;">
+                現有：<span id="exist-file-list"></span>
+                <label style="color:#b00; margin-left:10px;"><input type="checkbox" id="del-attach"> 刪除舊檔</label>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:15px; margin-bottom:10px;">
+              <label><input type="checkbox" id="p-top"> 置頂</label>
+              <label>期限：<input type="date" id="p-pin-exp"></label>
+              <label>下架：<input type="date" id="p-exp"></label>
+              <label>外連：<input type="url" id="p-link" placeholder="http://"></label>
+            </div>
+            <button type="submit" class="btn">儲存</button> <button type="button" onclick="resetPostForm()" class="btn btn-sec">清空</button>
+          </form>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse;">
+            <thead><tr style="background:#eee;"><th style="border:1px solid #ccc;padding:8px;">日期</th><th>標題</th><th>分類</th><th>發布者</th><th>操作</th></tr></thead>
+            <tbody id="admin-post-list"></tbody>
+          </table>
+        </div>
+        <div id="admin-pagination" class="pagination"></div>
+      </div>
+
+      <div id="tab-site" class="admin-tab" style="display:none;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <div style="border:1px solid #ddd; padding:15px; border-radius:8px;">
+            <h4>導覽列管理</h4>
+            <form onsubmit="handleNavSave(event)">
+              <input type="hidden" id="nav-id">
+              <input type="text" id="nav-title" placeholder="名稱" required>
+              <input type="text" id="nav-link" placeholder="連結 URL" required>
+              <input type="number" id="nav-order" placeholder="排序" required style="width:80px;">
+              <button type="submit" class="btn">儲存</button>
+            </form>
+            <ul id="admin-nav-list" style="margin-top:15px; padding-left:20px;"></ul>
+          </div>
+          <div style="border:1px solid #ddd; padding:15px; border-radius:8px;">
+            <h4>側邊欄區塊管理</h4>
+            <form onsubmit="handleWidgetSave(event)">
+              <input type="hidden" id="wid-id">
+              <input type="text" id="wid-title" placeholder="區塊標題" required>
+              <select id="wid-type" onchange="toggleWidInput()">
+                <option value="links">連結列表</option>
+                <option value="html">自訂 HTML/Iframe</option>
+              </select>
+              <select id="wid-pos"><option value="left">左側欄</option><option value="right">右側欄</option></select>
+              <input type="number" id="wid-order" placeholder="排序" required style="width:80px;">
+              <div id="wid-input-links">
+                <p style="font-size:0.8rem; color:#666; margin:5px 0;">格式：標題|網址 (每行一個)</p>
+                <textarea id="wid-content-links" rows="4" placeholder="教育部|http://..."></textarea>
+              </div>
+              <div id="wid-input-html" style="display:none;">
+                <textarea id="wid-content-html" rows="4" placeholder="HTML 代碼"></textarea>
+              </div>
+              <button type="submit" class="btn">儲存</button>
+            </form>
+            <ul id="admin-wid-list" style="margin-top:15px; padding-left:20px;"></ul>
+          </div>
+        </div>
+        <div style="margin-top:20px; border:1px solid #ddd; padding:15px; border-radius:8px;">
+          <h4>分類管理 (停用/啟用)</h4>
+          <form onsubmit="handleCatSave(event)" style="display:flex; gap:10px; margin-bottom:10px;">
+            <input type="hidden" id="cat-id"><input type="text" id="cat-name" placeholder="分類名稱" required>
+            <button type="submit" class="btn">儲存</button>
+          </form>
+          <table style="width:100%; border-collapse:collapse;"><tbody id="cat-tbody"></tbody></table>
+        </div>
+      </div>
+
+      <div id="tab-users" class="admin-tab" style="display:none;">
+        <div style="background:#fff3e0; padding:15px; border-radius:8px; margin-bottom:20px;">
+          <h4>全站設定</h4>
+          <label>中文校名：<input type="text" id="set-name-zh"></label>
+          <label>英文校名：<input type="text" id="set-name-en"></label>
+          <label>主題色：<input type="color" id="set-color"></label>
+          
+          <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #ccc;">
+            <label>版面寬度：</label>
+            <select id="set-layout-mode" style="width:auto; display:inline-block;">
+              <option value="boxed">窄版 (預設)</option>
+              <option value="wide">寬版 (滿版)</option>
+            </select>
+          </div>
+
+          <button onclick="saveSiteSettings()" class="btn" style="margin-top:10px;">儲存設定</button>
+        </div>
+        
+        <div style="background:#f9f9f9; padding:20px; border-radius:8px;">
+          <h4>使用者管理</h4>
+          <form id="user-form" onsubmit="handleUserSave(event)">
+            <input type="hidden" id="user-is-edit" value="false">
+            <label>帳號 (必填)</label><input type="text" id="new-username" required>
+            <label>職稱 (必填)</label><input type="text" id="new-jobtitle" required>
+            <label>密碼 (新增必填，8-20字元)</label><input type="password" id="new-password">
+            <div style="background:#fff; padding:10px; border:1px solid #ddd; margin:10px 0;">
+              <p style="margin:0 0 5px 0;"><strong>權限：</strong></p>
+              <label><input type="checkbox" id="role-super"> 系統管理員</label>
+              <hr style="margin:5px 0;">
+              <label style="color:#0056b3;"><input type="checkbox" id="perm-select-all" onchange="toggleAllPerms(this)"> 全選</label>
+              <div id="permission-checkboxes" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:5px;"></div>
+            </div>
+            <button type="submit" class="btn">儲存使用者</button> <button type="button" onclick="resetUserForm()" class="btn btn-sec">重置</button>
+          </form>
+          <table style="width:100%; margin-top:15px; border-collapse:collapse;"><tbody id="user-tbody"></tbody></table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <aside id="sidebar-right"></aside>
+
+  <footer id="site-footer">
+    <p>&copy; 2026 校園資訊網</p>
+  </footer>
+
+</div>
+
+<div id="global-status" style="position:fixed; top:10px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:10px 20px; border-radius:4px; display:none; z-index:9999;"></div>
+
+<dialog id="detail-modal">
+  <div style="text-align:right;"><button onclick="closeDetail()" class="btn btn-sec">Close</button></div>
+  <div id="modal-content"></div>
+</dialog>
+
+<dialog id="password-modal">
+  <h3>修改密碼</h3>
+  <form onsubmit="handleChangePassword(event)">
+    <label>舊密碼</label><input type="password" id="cp-old" required>
+    <label>新密碼 (8-20字)</label><input type="password" id="cp-new" required>
+    <label>確認</label><input type="password" id="cp-confirm" required>
+    <button type="submit" class="btn">修改</button> <button type="button" onclick="document.getElementById('password-modal').close()" class="btn btn-sec">取消</button>
+  </form>
+</dialog>
+
+<script>
+// 👇👇👇 請務必替換成您的 GAS 網址 👇👇👇
+const API_URL = "https://script.google.com/macros/s/AKfycbwhmKijh5AMO4g-fKpvA2kP3Jbe0RoHok-R3OYEtNqwZ8V35ykdZmvchMrsi8OaX-RF/exec";
+
+// Global Variables
+let siteData = {}, allPosts = [], currentUser = null;
+let currentFilteredData = [];
+const ITEMS_PER_PAGE = 5; let currentPage = 1;
+const ADMIN_PER_PAGE = 10; let currentAdminPage = 1;
+let honorData = []; const HONOR_PER_PAGE = 3; let currentHonorPage = 1;
+const carouselTimers = {}; 
+
+document.addEventListener('DOMContentLoaded', init);
+
+async function init() {
+  try {
+    await Promise.all([loadSiteData(), loadPosts()]);
+  } catch (error) {
+    console.error("Init Error:", error);
+    const list = document.getElementById('post-list');
+    if(list) list.innerHTML = `<p style="color:red;padding:20px;">連線錯誤：${error.message}<br>請確認後端程式碼已部署最新版本。</p>`;
+  }
+}
+
+// 載入網站設定 (含分類、導覽列)
+async function loadSiteData() {
+  const res = await fetch(`${API_URL}?op=getSiteData`);
+  siteData = await res.json();
+  if(siteData.error) throw new Error(siteData.error);
+  renderSite();
+}
+
+// 載入公告
+async function loadPosts() {
+  const res = await fetch(`${API_URL}?op=getPublicData`);
+  allPosts = await res.json();
+  if(allPosts.error) throw new Error(allPosts.error);
+  applyFilter();
+  initHonorRoll();
+}
+
+// ========== 核心：渲染前端介面 (加入防呆) ==========
+function renderSite() {
+  // 1. 設定 Header (防呆：檢查元素是否存在)
+  const nameZH = document.getElementById('header-name-zh');
+  const nameEN = document.getElementById('header-name-en');
+  if(nameZH && siteData.settings) nameZH.textContent = siteData.settings.schoolNameZH || "學校名稱";
+  if(nameEN && siteData.settings) nameEN.textContent = siteData.settings.schoolNameEN || "School Name";
+  if(siteData.settings && siteData.settings.themeColor) document.documentElement.style.setProperty('--primary', siteData.settings.themeColor);
+  
+  // Layout Mode
+  const container = document.getElementById('site-container');
+  if(container && siteData.settings && siteData.settings.layoutMode) {
+    if(siteData.settings.layoutMode === 'wide') container.classList.add('layout-wide');
+    else container.classList.remove('layout-wide');
+  }
+
+  // 2. 渲染 Nav (導覽列)
+  const navList = document.getElementById('nav-list');
+  if(navList) {
+    const items = siteData.navbar || [];
+    navList.innerHTML = `<li><a onclick="switchView('view-home')" class="active">首頁</a></li>` + 
+      items.map(n => `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`).join('');
+  }
+
+  // 3. 渲染 Sidebar (側邊欄)
+  const left = document.getElementById('sidebar-left'), right = document.getElementById('sidebar-right');
+  if(left) left.innerHTML = ''; 
+  if(right) right.innerHTML = '';
+  
+  (siteData.sidebar || []).forEach(w => {
+    let html = '';
+    if(w.type === 'links') {
+      try { html = '<ul class="widget-list">' + JSON.parse(w.content).map(l=>`<li><a href="${l.url}" target="_blank">${l.label}</a></li>`).join('') + '</ul>'; } catch(e){html='(連結格式錯誤)';}
+    } else html = w.content; // HTML/Iframe
+    
+    const widget = `<div class="widget"><div class="widget-title">${w.title}</div><div class="widget-body">${html}</div></div>`;
+    if(w.pos === 'left' && left) left.innerHTML += widget; 
+    else if(right) right.innerHTML += widget;
+  });
+
+  // 4. 渲染分類下拉選單
+  const cats = siteData.categories || [];
+  const opts = cats.filter(c=>c.isActive).map(c=>`<option value="${c.name}">${c.name}</option>`).join('');
+  
+  const filter = document.getElementById('cat-filter');
+  if(filter) filter.innerHTML = `<option value="all">所有分類</option>` + opts;
+  
+  const adminCat = document.getElementById('p-cat');
+  if(adminCat) adminCat.innerHTML = `<option value="">請選擇</option>` + opts;
+  
+  // 5. 後台分類列表
+  const catTable = document.getElementById('cat-tbody');
+  if(catTable) {
+    catTable.innerHTML = cats.map(c => 
+      `<tr>
+        <td style="border:1px solid #ddd;padding:8px;"><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span></td>
+        <td style="border:1px solid #ddd;padding:8px;">
+          <button onclick="editCat('${c.id}','${c.name}')" class="btn btn-sec">修</button> 
+          <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}">${c.isActive?'停':'啟'}</button>
+          <button onclick="deleteItem('deleteCategory','${c.id}')" class="btn btn-sec">刪</button>
+        </td>
+      </tr>`
+    ).join('');
+  }
+}
+
+// ========== 圖片處理 ==========
+function getDriveImgUrl(url) {
+  if (!url) return "";
+  let id = ""; if (url.includes("id=")) id = url.split("id=")[1].split("&")[0]; else if (url.includes("/d/")) id = url.split("/d/")[1].split("/")[0];
+  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w2000` : url;
+}
+
+// ========== 榮譽榜邏輯 ==========
+function initHonorRoll() {
+  honorData = allPosts.filter(d => d.category && d.category.indexOf("榮譽榜") !== -1);
+  const sec = document.getElementById('honor-roll-section');
+  if(!sec) return;
+  if(honorData.length > 0) {
+    sec.style.display = 'block';
+    renderHonorRollPage();
+  } else {
+    sec.style.display = 'none';
+  }
+}
+
+function renderHonorRollPage() {
+  Object.keys(carouselTimers).forEach(k => { clearInterval(carouselTimers[k]); delete carouselTimers[k]; });
+  const start = (currentHonorPage-1)*HONOR_PER_PAGE;
+  const list = document.getElementById('honor-list');
+  if(!list) return;
+
+  list.innerHTML = honorData.slice(start, start+HONOR_PER_PAGE).map((item) => {
+    const key = item.id;
+    const imgs = (item.attachments||[]).filter(f=>f.name.match(/\.(jpg|png|jpeg|webp)$/i));
+    let media = `<div style="color:#ccc;font-size:3rem;text-align:center;line-height:200px;">🏆</div>`;
+    
+    if(imgs.length===1) media = `<img src="${getDriveImgUrl(imgs[0].url)}">`;
+    else if(imgs.length>1) {
+      const pImgs = imgs.map(i=>({url:getDriveImgUrl(i.url)}));
+      media = `<img src="${pImgs[0].url}" id="img-${key}" data-idx="0" data-imgs='${JSON.stringify(pImgs).replace(/'/g,"&#39;")}'><div class="carousel-controls"><button class="carousel-btn" onclick="moveSlide('${key}',1)">></button></div>`;
+      carouselTimers[key] = setInterval(()=>moveSlide(key,1), 3000);
+    }
+    // 修正：openDetail 使用 global index
+    return `<div class="honor-card"><div class="honor-media">${media}</div><div class="honor-content"><h3>${item.title}</h3><p>${item.date} | ${item.authorTitle}</p><button class="btn" onclick="openDetail(${allPosts.indexOf(item)})">詳情</button></div></div>`;
+  }).join('');
+
+  // 榮譽榜分頁
+  const total = Math.ceil(honorData.length/HONOR_PER_PAGE);
+  const pag = document.getElementById('honor-pagination');
+  if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentHonorPage?'active':''}" onclick="currentHonorPage=${i+1};renderHonorRollPage()">${i+1}</button>`).join('') : '';
+}
+
+function moveSlide(key, dir) {
+  const img = document.getElementById(`img-${key}`);
+  if(!img) return;
+  const data = JSON.parse(img.dataset.imgs);
+  let idx = (parseInt(img.dataset.idx) + dir + data.length) % data.length;
+  img.src = data[idx].url; img.dataset.idx = idx;
+}
+
+// ========== 公告列表邏輯 ==========
+function applyFilter() {
+  const el = document.getElementById('cat-filter');
+  if(!el) return;
+  const cat = el.value;
+  currentFilteredData = cat==='all' ? allPosts : allPosts.filter(p=>p.category===cat);
+  currentPage = 1; renderCurrentPage();
+}
+
+function renderCurrentPage() {
+  const list = document.getElementById('post-list');
+  if(!list) return;
+  const start = (currentPage-1)*ITEMS_PER_PAGE;
+  list.innerHTML = currentFilteredData.slice(start, start+ITEMS_PER_PAGE).map(p => 
+    `<div class="post-list-item" onclick="openDetail(${allPosts.indexOf(p)})">
+       ${p.isPinned?'<span class="badge-pin">置頂</span>':''} <b>${p.date}</b> ${p.title} 
+       <span style="float:right;color:#888;">${p.category}</span>
+     </div>`
+  ).join('') || '<p style="padding:20px;">無資料</p>';
+  
+  const total = Math.ceil(currentFilteredData.length/ITEMS_PER_PAGE);
+  const pag = document.getElementById('pagination');
+  if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentPage?'active':''}" onclick="currentPage=${i+1};renderCurrentPage()">${i+1}</button>`).join('') : '';
+}
+
+function openDetail(idx) {
+  const d = allPosts[idx];
+  if(!d) return;
+  let attachHtml = '';
+  if (d.attachments && d.attachments.length > 0) {
+    attachHtml = `<div style="margin-top:20px; padding:10px; background:#f9f9f9; border:1px dashed #ccc;"><strong>附件：</strong><br>` + 
+      d.attachments.map(f => `<a href="${getDriveImgUrl(f.url)}" target="_blank" style="margin-right:10px;">📎 ${f.name}</a>`).join('') + `</div>`;
+  }
+  const modal = document.getElementById('modal-content');
+  if(modal) {
+    modal.innerHTML = `<h2>${d.title}</h2><p style="color:#666;">${d.date} | ${d.authorTitle}</p><div style="font-size:1.1rem; line-height:1.8;">${d.content.replace(/\n/g,'<br>')}</div>${attachHtml}`;
+    document.getElementById('detail-modal').showModal();
+  }
+}
+function closeDetail() { document.getElementById('detail-modal').close(); }
+
+// ========== 後台 & 登入邏輯 ==========
+function showLogin() { switchView('view-login'); }
+
+function handleLogin(e) {
+  e.preventDefault();
+  const u = document.getElementById('username').value;
+  const p = document.getElementById('password').value;
+  postData('login', {username:u, password:p}).then(res => {
+    currentUser = res.username;
+    const disp = document.getElementById('admin-user-display');
+    if(disp) disp.textContent = res.jobTitle || res.username;
+    
+    // 隱藏前台登入鈕
+    const btnToggle = document.getElementById('btn-login-toggle');
+    if(btnToggle) btnToggle.style.display='none';
+
+    // 如果是總管，載入額外資料
+    if(res.isSuper) {
+      loadUsers(); 
+      loadAdminSettings(); 
+      loadAuthorSelect();
+    }
+    loadAdminPosts();
+    switchView('view-admin');
+  });
+}
+
+function switchView(id) {
+  // 1. 隱藏所有 View (使用 class)
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
+  // 2. 顯示目標 View
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active-view');
+  
+  window.scrollTo(0,0);
+  
+  const container = document.getElementById('site-container');
+  const navLinks = document.querySelectorAll('#site-nav a');
+  navLinks.forEach(a => a.classList.remove('active'));
+
+  // 靜態頁面簡單邏輯
+  if (id.startsWith('view-')) {
+    const idx = ['view-home','view-about','view-admin-unit','view-resources','view-contact'].indexOf(id);
+    if(idx>=0 && navLinks[idx]) navLinks[idx].classList.add('active');
+  }
+
+  // Admin Mode 切換 (隱藏側邊欄)
+  if (id === 'view-admin' || id === 'view-cats' || id === 'view-users') {
+    if(container) container.classList.add('admin-mode');
+  } else {
+    if(container) container.classList.remove('admin-mode');
+  }
+}
+
+// 後台 Tabs 切換
+function switchAdminTab(tabId) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.style.display='none');
+  const tab = document.getElementById(tabId);
+  if(tab) tab.style.display='block';
+}
+
+function goHome() { switchView('view-home'); }
+function logout() { location.reload(); }
+
+// --- 後台功能 ---
+function loadAdminPosts() {
+  postData('getAdminData', {}).then(data => {
+    window.adminData = data;
+    renderAdminPosts();
+  });
+}
+
+function renderAdminPosts() {
+  const list = document.getElementById('admin-post-list');
+  if(!list) return;
+  const start = (currentAdminPage-1)*ADMIN_PER_PAGE;
+  list.innerHTML = window.adminData.slice(start, start+ADMIN_PER_PAGE).map(p => 
+    `<tr>
+      <td style="border:1px solid #ddd;padding:8px;">${p.date}</td>
+      <td style="border:1px solid #ddd;padding:8px;">${p.title}</td>
+      <td style="border:1px solid #ddd;padding:8px;">${p.category}</td>
+      <td style="border:1px solid #ddd;padding:8px;">${p.authorTitle}</td>
+      <td style="border:1px solid #ddd;padding:8px;">
+        ${p.isMine ? `<button onclick='editPost(${JSON.stringify(p)})' class="btn btn-sec" style="padding:2px 5px;">修</button> <button onclick="deleteItem('deleteAnnouncement','${p.id}')" class="btn btn-danger" style="padding:2px 5px;">刪</button>` : '-'}
+      </td>
+    </tr>`
+  ).join('');
+  
+  const total = Math.ceil(window.adminData.length/ADMIN_PER_PAGE);
+  const pag = document.getElementById('admin-pagination');
+  if(pag) pag.innerHTML = total>1 ? Array.from({length:total},(_,i)=>`<button class="page-btn ${i+1===currentAdminPage?'active':''}" onclick="currentAdminPage=${i+1};renderAdminPosts()">${i+1}</button>`).join('') : '';
+}
+
+function loadAuthorSelect() {
+  postData('getUsers', {u:currentUser}).then(users => {
+    const sel = document.getElementById('p-author');
+    if(sel) sel.innerHTML = '<option value="">(保留原發布者)</option>' + users.map(u=>`<option value="${u.username}">${u.username} (${u.jobTitle})</option>`).join('');
+  });
+}
+
+async function handlePostSave(e) {
+  e.preventDefault();
+  const fileInput = document.getElementById('p-file');
+  let filesData = [];
+  if (fileInput.files.length > 0) filesData = await Promise.all(Array.from(fileInput.files).map(readFileAsBase64));
+  
+  const formObj = {
+    id: document.getElementById('p-id').value,
+    title: document.getElementById('p-title').value,
+    category: document.getElementById('p-cat').value,
+    newAuthor: document.getElementById('p-author').value,
+    content: document.getElementById('p-content').value,
+    isPinned: document.getElementById('p-top').checked.toString(),
+    pinExpiry: document.getElementById('p-pin-exp').value,
+    expiryDate: document.getElementById('p-exp').value,
+    link: document.getElementById('p-link').value,
+    deleteAttachment: document.getElementById('del-attach').checked.toString(),
+    filesData: filesData
+  };
+  postData('saveAnnouncement', {formObj}).then(()=>{ alert('成功'); resetPostForm(); loadPosts(); loadAdminPosts(); });
+}
+
+function editPost(p) {
+  document.getElementById('p-id').value = p.id;
+  document.getElementById('p-title').value = p.title;
+  document.getElementById('p-cat').value = p.category;
+  document.getElementById('p-content').value = p.content;
+  document.getElementById('p-top').checked = p.isPinned;
+  document.getElementById('p-pin-exp').value = p.pinExpiry;
+  document.getElementById('p-exp').value = p.expiryDate;
+  document.getElementById('p-link').value = p.link;
+  
+  const list = document.getElementById('exist-file-list');
+  const area = document.getElementById('curr-attach');
+  if(p.attachments && p.attachments.length>0) {
+    if(area) area.style.display='block';
+    if(list) list.innerHTML = p.attachments.map(f=>f.name).join(', ');
+  } else if(area) area.style.display='none';
+}
+function resetPostForm() { document.getElementById('admin-form').reset(); document.getElementById('p-id').value=""; document.getElementById('curr-attach').style.display='none'; }
+
+// --- 網站架構管理 ---
+function handleNavSave(e) {
+  e.preventDefault();
+  const item = { id: document.getElementById('nav-id').value, title: document.getElementById('nav-title').value, link: document.getElementById('nav-link').value, order: document.getElementById('nav-order').value };
+  postData('saveNavbar', {navItem:item}).then(()=>{ alert('成功'); loadSiteData().then(renderAdminLists); });
+}
+function handleWidgetSave(e) {
+  e.preventDefault();
+  const type = document.getElementById('wid-type').value;
+  let content = "";
+  if(type==='links') {
+    const lines = document.getElementById('wid-content-links').value.split('\n');
+    content = lines.map(l=>{ const [tx,url]=l.split('|'); return {label:tx, url:url}; }).filter(x=>x.label&&x.url);
+  } else content = document.getElementById('wid-content-html').value;
+  
+  const widget = { id: document.getElementById('wid-id').value, title: document.getElementById('wid-title').value, type: type, pos: document.getElementById('wid-pos').value, order: document.getElementById('wid-order').value, content: content };
+  postData('saveSidebar', {widget}).then(()=>{ alert('成功'); loadSiteData().then(renderAdminLists); });
+}
+function toggleWidInput() {
+  const t = document.getElementById('wid-type').value;
+  document.getElementById('wid-input-links').style.display = t==='links'?'block':'none';
+  document.getElementById('wid-input-html').style.display = t==='html'?'block':'none';
+}
+
+function renderAdminLists() {
+  const navL = document.getElementById('admin-nav-list');
+  if(navL) navL.innerHTML = (siteData.navbar||[]).map(n=>`<li>${n.title} (排序:${n.order}) <button onclick="deleteItem('deleteNavbar','${n.id}')" class="btn-danger" style="font-size:0.8rem;padding:2px;">刪</button></li>`).join('');
+  const widL = document.getElementById('admin-wid-list');
+  if(widL) widL.innerHTML = (siteData.sidebar||[]).map(w=>`<li>[${w.pos}] ${w.title} <button onclick="deleteItem('deleteSidebar','${w.id}')" class="btn-danger" style="font-size:0.8rem;padding:2px;">刪</button></li>`).join('');
+}
+
+// --- 使用者與設定 ---
+function loadAdminSettings() {
+  const nzh = document.getElementById('set-name-zh'); if(nzh) nzh.value = siteData.settings.schoolNameZH || "";
+  const nen = document.getElementById('set-name-en'); if(nen) nen.value = siteData.settings.schoolNameEN || "";
+  const col = document.getElementById('set-color'); if(col) col.value = siteData.settings.themeColor || "#00695c";
+  const mod = document.getElementById('set-layout-mode'); if(mod) mod.value = siteData.settings.layoutMode || "boxed";
+  renderAdminLists();
+}
+function saveSiteSettings() {
+  const s = { 
+    schoolNameZH: document.getElementById('set-name-zh').value, 
+    schoolNameEN: document.getElementById('set-name-en').value, 
+    themeColor: document.getElementById('set-color').value,
+    layoutMode: document.getElementById('set-layout-mode').value
+  };
+  postData('saveSettings', {settings:s}).then(()=>{ alert('設定更新'); loadSiteData(); });
+}
+
+function loadUsers() {
+  const permBox = document.getElementById('permission-checkboxes');
+  if(permBox) permBox.innerHTML = (siteData.categories||[]).map(c=>`<label><input type="checkbox" name="user-permissions" value="${c.name}"> ${c.name}</label>`).join('');
+  
+  postData('getUsers', {}).then(users => {
+    const tb = document.getElementById('user-tbody');
+    if(tb) tb.innerHTML = users.map(u=>`<tr><td style="border:1px solid #ddd;padding:8px;">${u.username}</td><td style="border:1px solid #ddd;padding:8px;">${u.jobTitle}</td><td style="border:1px solid #ddd;padding:8px;"><button onclick='editUser(${JSON.stringify(u)})' class="btn btn-sec" style="padding:2px;">修</button> <button onclick="deleteItem('deleteUser','${u.username}')" class="btn btn-danger" style="padding:2px;">刪</button></td></tr>`).join('');
+  });
+}
+function handleUserSave(e) {
+  e.preventDefault();
+  let group = []; if(document.getElementById('role-super').checked) group.push('系統管理員');
+  document.querySelectorAll('input[name="user-permissions"]:checked').forEach(c=>group.push(c.value));
+  const form = { isEdit: document.getElementById('user-is-edit').value==='true', username: document.getElementById('new-username').value, password: document.getElementById('new-password').value, jobTitle: document.getElementById('new-jobtitle').value, group: group.join(',') };
+  
+  if(!form.isEdit && (form.password.length<8 || form.password.length>20)) { alert("密碼需8-20字元"); return; }
+  if(form.isEdit && form.password && (form.password.length<8 || form.password.length>20)) { alert("密碼需8-20字元"); return; }
+  
+  postData('saveUser', {formObj:form}).then(()=>{ alert('成功'); resetUserForm(); loadUsers(); });
+}
+function editUser(u) {
+  document.getElementById('user-form-title').textContent="修改"; document.getElementById('user-is-edit').value="true";
+  document.getElementById('new-username').value=u.username; document.getElementById('new-username').readOnly=true;
+  document.getElementById('new-jobtitle').value=u.jobTitle;
+  const grps = u.group.split(',');
+  document.getElementById('role-super').checked = grps.includes('系統管理員');
+  document.querySelectorAll('input[name="user-permissions"]').forEach(c=>c.checked=grps.includes(c.value));
+}
+function resetUserForm() { document.getElementById('user-form').reset(); document.getElementById('user-form-title').textContent="新增"; document.getElementById('user-is-edit').value="false"; document.getElementById('new-username').readOnly=false; }
+function toggleAllPerms(src) { document.querySelectorAll('input[name="user-permissions"]').forEach(c=>c.checked=src.checked); }
+
+// 分類管理
+function handleCatSave(e) { e.preventDefault(); const id=document.getElementById('cat-id').value; const name=document.getElementById('cat-name').value; postData('saveCategory', {id,name}).then(()=>{ alert('成功'); document.getElementById('cat-form').reset(); loadSiteData(); }); }
+function editCat(id, name) { document.getElementById('cat-id').value=id; document.getElementById('cat-name').value=name; }
+function toggleCat(id, active) { if(confirm("確定切換?")) postData('toggleCategoryStatus', {id, isActive:active}).then(()=>{ loadSiteData(); }); }
+
+// 共用工具
+async function postData(op, data) {
+  data.currentUser = currentUser;
+  const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ op, ...data }) });
+  const json = await res.json();
+  if (json.error) { alert(json.error); throw new Error(json.error); }
+  return json;
+}
+function deleteItem(op, id) { if(confirm("確定刪除?")) postData(op, {id}).then(() => { if(op.includes('Navbar')||op.includes('Sidebar')) loadSiteData().then(renderAdminLists); else if(op.includes('User')) loadUsers(); else if(op.includes('Category')) loadSiteData(); else { loadPosts(); loadAdminPosts(); } }); }
+function openChangePasswordModal() { document.getElementById('password-modal').showModal(); }
+function handleChangePassword(e) {
+  e.preventDefault();
+  const o=document.getElementById('cp-old').value, n=document.getElementById('cp-new').value, c=document.getElementById('cp-confirm').value;
+  if(n!==c){alert("密碼不符");return;}
+  if(n.length<8||n.length>20){alert("密碼長度需8-20字元");return;}
+  postData('changePassword', {username:currentUser, oldPassword:o, newPassword:n}).then(()=>{ alert("修改成功"); document.getElementById('password-modal').close(); });
+}
+function showMessage(msg) { const el = document.getElementById('global-status'); if(el){ el.textContent = msg; el.style.display='block'; setTimeout(()=>el.style.display='none',3000); }}
+function readFileAsBase64(file) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res({ name: file.name, mimeType: file.type, data: r.result }); r.onerror = rej; r.readAsDataURL(file); }); }
+</script>
+</body>
+</html>
