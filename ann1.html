@@ -20,20 +20,11 @@
     
     button, input, select, textarea, .btn { font-family: inherit; }
 
-    /* ========== 無障礙定位點 (Accesskey) 樣式 ========== */
+    /* 無障礙定位點 */
     .accesskey {
-      color: var(--text);
-      text-decoration: none;
-      padding: 0 5px;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      display: inline-block;
+      color: var(--text); text-decoration: none; padding: 0 5px; font-size: 0.9rem; border: 1px solid transparent; display: inline-block;
     }
-    .accesskey:focus {
-      outline: 2px solid #FFD700;
-      color: #000;
-      background: #fff;
-    }
+    .accesskey:focus { outline: 2px solid #FFD700; color: #000; background: #fff; }
 
     /* ========== Layout: Grid 3 Columns ========== */
     .site-container {
@@ -46,7 +37,7 @@
       background: #fff;
     }
 
-    /* 電腦版佈局 */
+    /* 電腦版 (Desktop) */
     @media (min-width: 992px) {
       .site-container {
         grid-template-areas: 
@@ -54,32 +45,66 @@
           "nav nav nav"
           "left main right"
           "footer footer footer";
-        
-        /* 預設：寬版 (Wide) 3:7:3 */
         max-width: 98%; 
         grid-template-columns: 3fr 7fr 3fr; 
-        
         box-shadow: 0 0 1.25rem rgba(0,0,0,0.1);
       }
-
-      /* 選項：窄版 (Boxed) */
       .site-container.layout-boxed {
         max-width: 80rem; 
         grid-template-columns: 16rem 1fr 16rem; 
       }
+      /* 電腦版隱藏漢堡與手機選單 */
+      #hamburger-btn, #mobile-menu-overlay { display: none !important; }
     }
 
     /* Header */
-    #site-header { grid-area: header; background: #fff; padding: 1.5rem 2rem; border-bottom: 0.3rem solid var(--primary); display: flex; justify-content: space-between; align-items: center; position: relative; }
-    .school-title h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
-    .school-title p { margin: 0; color: #666; font-size: 1.1rem; }
+    #site-header { grid-area: header; background: #fff; padding: 1rem 1.5rem; border-bottom: 0.3rem solid var(--primary); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1000; }
+    .school-title h1 { margin: 0; color: var(--primary); font-size: 2rem; }
+    .school-title p { margin: 0; color: #666; font-size: 1rem; }
     .header-actions { display: flex; gap: 10px; align-items: center; }
 
-    /* Nav */
+    /* Nav (Desktop) */
     #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
     #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
     #site-nav li a:hover { background: rgba(255,255,255,0.2); }
+
+    /* ========== Mobile Menu (手機版漢堡選單) ========== */
+    #hamburger-btn {
+      background: transparent; border: none; font-size: 2rem; color: var(--primary); cursor: pointer; padding: 5px;
+    }
+    #mobile-menu-overlay {
+      display: none; /* 預設隱藏 */
+      background: #f4f4f4;
+      border-bottom: 2px solid var(--primary);
+      padding: 10px 0;
+      grid-area: nav; /* 佔據 nav 區域 */
+    }
+    #mobile-menu-overlay.open { display: block; }
+    
+    .mobile-nav-list { list-style: none; padding: 0; margin: 0; }
+    .mobile-nav-list li { border-bottom: 1px solid #ddd; }
+    .mobile-nav-list li a, .mobile-nav-list li button {
+      display: block; width: 100%; text-align: left;
+      padding: 15px 20px; text-decoration: none; color: #333; font-weight: bold; font-size: 1.1rem;
+      background: transparent; border: none; cursor: pointer;
+    }
+    .mobile-nav-list li a:hover, .mobile-nav-list li button:hover { background: #e0e0e0; color: var(--primary); }
+    
+    /* 分隔線 */
+    .mobile-divider { height: 5px; background: #ddd; margin: 0; }
+
+    /* 手機版隱藏元素 */
+    @media (max-width: 991px) {
+      /* 隱藏桌機導覽列與Header按鈕 */
+      #site-nav ul { display: none; } 
+      .header-actions { display: none; }
+      
+      /* 調整 Header 標題大小 */
+      .school-title h1 { font-size: 1.5rem; }
+      .school-title p { font-size: 0.9rem; }
+      #site-header { padding: 10px; }
+    }
 
     /* Content Areas */
     #main-content { grid-area: main; padding: 1.25rem; background: #fff; position: relative; }
@@ -118,14 +143,10 @@
     .sitemap-guide ul { padding-left: 1.5rem; }
     .sitemap-tree { list-style: none; padding-left: 0; }
     .sitemap-tree > li { margin-bottom: 1.5rem; }
-    .sitemap-tree > li > h4 { 
-      background: #eee; padding: 0.5rem 1rem; margin: 0 0 0.5rem 0; 
-      border-radius: 4px; color: #333; font-size: 1.1rem; 
-    }
+    .sitemap-tree > li > h4 { background: #eee; padding: 0.5rem 1rem; margin: 0 0 0.5rem 0; border-radius: 4px; color: #333; font-size: 1.1rem; }
     .sitemap-sub-tree { list-style: none; padding-left: 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
     .sitemap-sub-tree li a { text-decoration: none; color: var(--primary); font-weight: bold; display: block; padding: 5px 0; }
     .sitemap-sub-tree li a:hover { text-decoration: underline; color: #d32f2f; }
-    /* 第三層縮排 */
     .sitemap-deep-tree { list-style: disc; padding-left: 1.5rem; margin-top: 5px; font-weight: normal; font-size: 0.95rem; }
     .sitemap-deep-tree li a { color: #555; }
 
@@ -137,10 +158,11 @@
     .page-btn { padding: 0.5rem 0.75rem; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 0.25rem; }
     .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* Honor Roll */
+    /* Honor Roll Styles */
     #honor-roll-section { margin-top: 1.5rem; margin-bottom: 3rem; border: 1px solid var(--gray-border); border-radius: 0.5rem; overflow: hidden; display: none; box-shadow: 0 0.125rem 0.3rem rgba(0,0,0,0.05); }
     #honor-roll-header { background: #f5f5f5; color: #333; padding: 0.6rem 1rem; font-size: 1.3rem; font-weight: bold; border-bottom: 1px solid var(--gray-border); }
     .honor-card { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--gray-border); }
+    .honor-card:last-child { border-bottom: none; }
     .honor-media { flex: 0 0 350px; max-width: 100%; min-height: 250px; background: #f9f9f9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .honor-media img { width: 100%; height: 250px; object-fit: contain; background: #f0f0f0; }
     .honor-content { flex: 1; padding: 1.25rem; display: flex; flex-direction: column; justify-content: center; }
@@ -153,6 +175,8 @@
     /* Dialog */
     dialog { border: 2px solid #ccc; border-radius: 0.5rem; padding: 1.25rem; max-width: 40rem; width: 90%; }
     dialog::backdrop { background: rgba(0,0,0,0.5); }
+    
+    /* RWD */
     @media(max-width:768px){ .site-container{grid-template-areas:"header" "nav" "left" "main" "right" "footer"; grid-template-columns:1fr;} .honor-card{flex-direction:column;} .honor-media{flex:auto;width:100%;} #site-nav ul{flex-direction:column;} #site-nav li a{border-bottom:1px solid rgba(255,255,255,0.1);} }
     .cat-disabled { text-decoration: line-through; color: #888; }
     .view { display: none; } 
@@ -171,15 +195,22 @@
       <h1 id="header-name-zh">載入中...</h1>
       <p id="header-name-en">Loading...</p>
     </div>
+    
     <div class="header-actions">
       <button onclick="switchView('view-sitemap')" class="btn btn-sec" title="查看網站導覽">網站導覽</button>
       <button onclick="showLogin()" class="btn btn-sec" id="btn-login-toggle" title="點擊登入教職員系統">教職員登入</button>
     </div>
+
+    <button id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="開啟選單" title="選單">☰</button>
   </header>
 
   <nav id="site-nav">
-    <ul id="nav-list">
-      </ul>
+    <ul id="nav-list"></ul>
+    
+    <div id="mobile-menu-overlay">
+      <ul class="mobile-nav-list" id="mobile-menu-content">
+        </ul>
+    </div>
   </nav>
 
   <aside id="sidebar-left">
@@ -207,7 +238,6 @@
 
     <div id="view-sitemap" class="view">
       <h2 style="border-bottom:0.125rem solid var(--primary); padding-bottom:0.6rem; margin-top:0;">網站導覽</h2>
-      
       <div class="sitemap-container">
         <div class="sitemap-guide">
           <h3>::: 導盲磚 (Accesskey) 設定</h3>
@@ -220,10 +250,7 @@
             <li><strong>Alt+Z</strong>：下方功能區塊，包括版權宣告、聯絡資訊等。</li>
           </ul>
         </div>
-
-        <ul class="sitemap-tree" id="sitemap-tree-root">
-          <li>載入中...</li>
-        </ul>
+        <ul class="sitemap-tree" id="sitemap-tree-root"><li>載入中...</li></ul>
       </div>
     </div>
 
@@ -427,6 +454,25 @@ function renderSite() {
       (siteData.navbar || []).map(n => `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`).join('');
   }
 
+  // Mobile Menu (Clone items)
+  const mobileList = document.getElementById('mobile-menu-content');
+  if(mobileList) {
+    let mobileHtml = `<li><a onclick="switchView('view-home')">首頁</a></li>`;
+    (siteData.navbar || []).forEach(n => mobileHtml += `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`);
+    
+    // Add Separator and Actions
+    mobileHtml += `<li class="mobile-divider"></li>`;
+    mobileHtml += `<li><a onclick="switchView('view-sitemap')">網站導覽</a></li>`;
+    
+    if (currentUser) {
+      mobileHtml += `<li><a onclick="switchView('view-admin')">後台管理</a></li>`;
+      mobileHtml += `<li><button onclick="logout()">登出</button></li>`;
+    } else {
+      mobileHtml += `<li><a onclick="showLogin()">教職員登入</a></li>`;
+    }
+    mobileList.innerHTML = mobileHtml;
+  }
+
   // Sidebars
   const left = document.getElementById('sidebar-left'), right = document.getElementById('sidebar-right');
   let leftContent = '<a href="#sidebar-left" accesskey="L" title="左方功能區塊" class="accesskey" style="display:block; margin-bottom:10px;">:::</a>';
@@ -453,6 +499,12 @@ function renderSite() {
   if(catTable) {
     catTable.innerHTML = cats.map(c => `<tr><td style="border:1px solid #ddd;padding:0.5rem;"><span class="${c.isActive?'':'cat-disabled'}">${c.name}</span></td><td style="border:1px solid #ddd;padding:0.5rem;"><button onclick="editCat('${c.id}','${c.name}')" class="btn btn-sec" title="編輯">修</button> <button onclick="toggleCat('${c.id}',${!c.isActive})" class="btn ${c.isActive?'btn-danger':'btn'}" title="切換">${c.isActive?'停':'啟'}</button> <button onclick="deleteItem('deleteCategory','${c.id}')" class="btn btn-sec" title="刪除">刪</button></td></tr>`).join('');
   }
+}
+
+// ========== 手機版選單切換 ==========
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu-overlay');
+  if(menu) menu.classList.toggle('open');
 }
 
 // ========== 網站導覽 (修正：樹狀結構 & Footer Node) ==========
