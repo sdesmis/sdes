@@ -37,7 +37,7 @@
       background: #fff;
     }
 
-    /* 電腦版 (Desktop) */
+    /* 電腦版 (Desktop) >= 992px */
     @media (min-width: 992px) {
       .site-container {
         grid-template-areas: 
@@ -53,7 +53,7 @@
         max-width: 80rem; 
         grid-template-columns: 16rem 1fr 16rem; 
       }
-      /* 電腦版隱藏漢堡與手機選單 */
+      /* 電腦版隱藏漢堡與手機選單容器 */
       #hamburger-btn, #mobile-menu-overlay { display: none !important; }
     }
 
@@ -63,44 +63,49 @@
     .school-title p { margin: 0; color: #666; font-size: 1rem; }
     .header-actions { display: flex; gap: 10px; align-items: center; }
 
-    /* Nav (Desktop) */
-    #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
-    #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
-    #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
-    #site-nav li a:hover { background: rgba(255,255,255,0.2); }
+    /* Nav (共用樣式) */
+    #site-nav { grid-area: nav; background: var(--primary); color: #fff; position: relative; }
+    
+    /* Nav List (Desktop) */
+    #nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+    #nav-list li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
+    #nav-list li a:hover { background: rgba(255,255,255,0.2); }
 
     /* ========== Mobile Menu (手機版漢堡選單) ========== */
     #hamburger-btn {
       background: transparent; border: none; font-size: 2rem; color: var(--primary); cursor: pointer; padding: 5px;
     }
+    
     #mobile-menu-overlay {
       display: none; /* 預設隱藏 */
       background: #f4f4f4;
       border-bottom: 2px solid var(--primary);
-      padding: 10px 0;
-      grid-area: nav; /* 佔據 nav 區域 */
+      width: 100%;
     }
     #mobile-menu-overlay.open { display: block; }
     
-    .mobile-nav-list { list-style: none; padding: 0; margin: 0; }
+    .mobile-nav-list { 
+      list-style: none; padding: 0; margin: 0; display: block; /* 確保顯示 */
+    }
     .mobile-nav-list li { border-bottom: 1px solid #ddd; }
     .mobile-nav-list li a, .mobile-nav-list li button {
       display: block; width: 100%; text-align: left;
       padding: 15px 20px; text-decoration: none; color: #333; font-weight: bold; font-size: 1.1rem;
-      background: transparent; border: none; cursor: pointer;
+      background: transparent; border: none; cursor: pointer; font-family: inherit;
     }
-    .mobile-nav-list li a:hover, .mobile-nav-list li button:hover { background: #e0e0e0; color: var(--primary); }
+    .mobile-nav-list li a:hover, .mobile-nav-list li button:hover { 
+      background: #e0e0e0; color: var(--primary); 
+    }
     
-    /* 分隔線 */
-    .mobile-divider { height: 5px; background: #ddd; margin: 0; }
-
-    /* 手機版隱藏元素 */
+    /* 手機版樣式調整 (< 992px) */
     @media (max-width: 991px) {
-      /* 隱藏桌機導覽列與Header按鈕 */
-      #site-nav ul { display: none; } 
+      /* 🔥 修正關鍵：只隱藏桌機版的 UL (#nav-list)，不要隱藏所有的 UL 🔥 */
+      #nav-list { display: none; } 
+      
+      /* 隱藏桌機版 Header 按鈕 */
       .header-actions { display: none; }
       
-      /* 調整 Header 標題大小 */
+      /* 調整標題大小 */
       .school-title h1 { font-size: 1.5rem; }
       .school-title p { font-size: 0.9rem; }
       #site-header { padding: 10px; }
@@ -177,7 +182,7 @@
     dialog::backdrop { background: rgba(0,0,0,0.5); }
     
     /* RWD */
-    @media(max-width:768px){ .site-container{grid-template-areas:"header" "nav" "left" "main" "right" "footer"; grid-template-columns:1fr;} .honor-card{flex-direction:column;} .honor-media{flex:auto;width:100%;} #site-nav ul{flex-direction:column;} #site-nav li a{border-bottom:1px solid rgba(255,255,255,0.1);} }
+    @media(max-width:768px){ .site-container{grid-template-areas:"header" "nav" "left" "main" "right" "footer"; grid-template-columns:1fr;} .honor-card{flex-direction:column;} .honor-media{flex:auto;width:100%;} }
     .cat-disabled { text-decoration: line-through; color: #888; }
     .view { display: none; } 
     .active-view { display: block; animation: fadeIn 0.3s; }
@@ -454,21 +459,18 @@ function renderSite() {
       (siteData.navbar || []).map(n => `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`).join('');
   }
 
-  // Mobile Menu (Clone items)
+  // Mobile Menu
   const mobileList = document.getElementById('mobile-menu-content');
   if(mobileList) {
-    let mobileHtml = `<li><a onclick="switchView('view-home')">首頁</a></li>`;
+    let mobileHtml = `<li><a onclick="toggleMobileMenu(); switchView('view-home')">首頁</a></li>`;
     (siteData.navbar || []).forEach(n => mobileHtml += `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`);
-    
-    // Add Separator and Actions
-    mobileHtml += `<li class="mobile-divider"></li>`;
-    mobileHtml += `<li><a onclick="switchView('view-sitemap')">網站導覽</a></li>`;
+    mobileHtml += `<li><a onclick="toggleMobileMenu(); switchView('view-sitemap')">網站導覽</a></li>`;
     
     if (currentUser) {
-      mobileHtml += `<li><a onclick="switchView('view-admin')">後台管理</a></li>`;
+      mobileHtml += `<li><a onclick="toggleMobileMenu(); switchView('view-admin')">後台管理</a></li>`;
       mobileHtml += `<li><button onclick="logout()">登出</button></li>`;
     } else {
-      mobileHtml += `<li><a onclick="showLogin()">教職員登入</a></li>`;
+      mobileHtml += `<li><a onclick="toggleMobileMenu(); showLogin()">教職員登入</a></li>`;
     }
     mobileList.innerHTML = mobileHtml;
   }
@@ -507,14 +509,14 @@ function toggleMobileMenu() {
   if(menu) menu.classList.toggle('open');
 }
 
-// ========== 網站導覽 (修正：樹狀結構 & Footer Node) ==========
+// ========== 網站導覽 ==========
 function renderSitemap() {
   const root = document.getElementById('sitemap-tree-root');
   if (!root) return;
   
   let html = '';
 
-  // 1. 上方功能區塊
+  // 1. 上方
   html += `<li><h4>1. 上方選單區</h4><ul class="sitemap-sub-tree">`;
   html += `<li><a href="#" onclick="switchView('view-home')">首頁</a></li>`;
   (siteData.navbar || []).forEach(n => html += `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`);
@@ -564,7 +566,7 @@ function renderSitemap() {
     html += `</ul></li>`;
   }
 
-  // 5. 下方功能區 (Footer)
+  // 5. 下方
   html += `<li><h4>5. 下方功能區</h4><ul class="sitemap-sub-tree">`;
   html += `<li><a href="#site-footer">版權宣告與聯絡資訊</a></li>`;
   html += `</ul></li>`;
