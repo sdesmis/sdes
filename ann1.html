@@ -27,6 +27,7 @@
       padding: 0 5px;
       font-size: 0.9rem;
       border: 1px solid transparent;
+      display: inline-block;
     }
     .accesskey:focus {
       outline: 2px solid #FFD700;
@@ -63,7 +64,7 @@
 
       /* 選項：窄版 (Boxed) */
       .site-container.layout-boxed {
-        max-width: 80rem; /* 約 1280px */
+        max-width: 80rem; 
         grid-template-columns: 16rem 1fr 16rem; 
       }
     }
@@ -78,8 +79,6 @@
     #site-nav { grid-area: nav; background: var(--primary); color: #fff; }
     #site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
     #site-nav li a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; font-weight: bold; transition:0.3s; cursor: pointer; }
-    
-    /* 僅 hover 顯示底色 */
     #site-nav li a:hover { background: rgba(255,255,255,0.2); }
 
     /* Content Areas */
@@ -98,7 +97,7 @@
     iframe { width: 100%; border: 0; }
 
     /* Footer */
-    #site-footer { grid-area: footer; background: #333; color: #ccc; text-align: center; padding: 2rem; margin-top: auto; }
+    #site-footer { grid-area: footer; background: #333; color: #ccc; text-align: center; padding: 2rem; margin-top: auto; position: relative; }
     #site-footer a { color: #fff; text-decoration: underline; }
 
     /* Admin specific */
@@ -113,42 +112,47 @@
     input, select, textarea { width: 100%; padding: 0.5rem; margin-bottom: 0.6rem; border: 1px solid #ddd; border-radius: 0.25rem; }
     
     /* Sitemap Styles */
-    .sitemap-section { margin-bottom: 2rem; }
-    .sitemap-section h3 { border-bottom: 2px solid #ccc; padding-bottom: 0.5rem; color: var(--primary); }
-    .sitemap-list { list-style: none; padding-left: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-    .sitemap-list li a { text-decoration: none; color: #333; font-weight: bold; }
-    .sitemap-list li a:hover { text-decoration: underline; color: var(--primary); }
+    .sitemap-container { padding: 1rem; }
+    .sitemap-guide { background: #f9f9f9; padding: 1rem; border-left: 5px solid var(--primary); margin-bottom: 2rem; }
+    .sitemap-guide h3 { margin-top: 0; color: var(--primary); }
+    .sitemap-guide ul { padding-left: 1.5rem; }
+    .sitemap-tree { list-style: none; padding-left: 0; }
+    .sitemap-tree > li { margin-bottom: 1.5rem; }
+    .sitemap-tree > li > h4 { 
+      background: #eee; padding: 0.5rem 1rem; margin: 0 0 0.5rem 0; 
+      border-radius: 4px; color: #333; font-size: 1.1rem; 
+    }
+    .sitemap-sub-tree { list-style: none; padding-left: 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .sitemap-sub-tree li a { text-decoration: none; color: var(--primary); font-weight: bold; display: block; padding: 5px 0; }
+    .sitemap-sub-tree li a:hover { text-decoration: underline; color: #d32f2f; }
+    /* 第三層縮排 */
+    .sitemap-deep-tree { list-style: disc; padding-left: 1.5rem; margin-top: 5px; font-weight: normal; font-size: 0.95rem; }
+    .sitemap-deep-tree li a { color: #555; }
 
-    /* 公告與榮譽榜 */
+    /* Post & Pagination */
     .post-list-item { padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; }
     .post-list-item:hover { background: #f5f5f5; }
     .badge-pin { background: #d32f2f; color: #fff; padding: 0.1rem 0.3rem; font-size: 0.8rem; border-radius: 0.2rem; margin-right: 0.3rem; }
-    
-    /* Honor Roll Styles */
+    .pagination { display: flex; justify-content: center; gap: 0.3rem; margin-top: 1.25rem; padding-bottom: 1.25rem; }
+    .page-btn { padding: 0.5rem 0.75rem; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 0.25rem; }
+    .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Honor Roll */
     #honor-roll-section { margin-top: 1.5rem; margin-bottom: 3rem; border: 1px solid var(--gray-border); border-radius: 0.5rem; overflow: hidden; display: none; box-shadow: 0 0.125rem 0.3rem rgba(0,0,0,0.05); }
     #honor-roll-header { background: #f5f5f5; color: #333; padding: 0.6rem 1rem; font-size: 1.3rem; font-weight: bold; border-bottom: 1px solid var(--gray-border); }
     .honor-card { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 1px solid var(--gray-border); }
-    .honor-card:last-child { border-bottom: none; }
     .honor-media { flex: 0 0 350px; max-width: 100%; min-height: 250px; background: #f9f9f9; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .honor-media img { width: 100%; height: 250px; object-fit: contain; background: #f0f0f0; }
     .honor-content { flex: 1; padding: 1.25rem; display: flex; flex-direction: column; justify-content: center; }
     .honor-content h3 { margin: 0 0 0.6rem 0; font-size: 1.5rem; }
-    
     .carousel-controls { position: absolute; bottom: 0.6rem; left: 0.6rem; display: flex; gap: 0.3rem; background: rgba(0,0,0,0.6); padding: 0.3rem 0.6rem; border-radius: 1.25rem; }
     .carousel-btn { background: transparent; color: #fff; border: 1px solid #fff; width: 1.8rem; height: 1.8rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; padding: 0; }
     .carousel-btn:hover { background: #fff; color: #000; }
     .ctrl-prev { order: 1; } .ctrl-play { order: 2; } .ctrl-next { order: 3; }
 
-    /* Pagination */
-    .pagination { display: flex; justify-content: center; gap: 0.3rem; margin-top: 1.25rem; padding-bottom: 1.25rem; }
-    .page-btn { padding: 0.5rem 0.75rem; border: 1px solid var(--gray-border); background: #fff; cursor: pointer; border-radius: 0.25rem; }
-    .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-
     /* Dialog */
     dialog { border: 2px solid #ccc; border-radius: 0.5rem; padding: 1.25rem; max-width: 40rem; width: 90%; }
     dialog::backdrop { background: rgba(0,0,0,0.5); }
-    
-    /* RWD */
     @media(max-width:768px){ .site-container{grid-template-areas:"header" "nav" "left" "main" "right" "footer"; grid-template-columns:1fr;} .honor-card{flex-direction:column;} .honor-media{flex:auto;width:100%;} #site-nav ul{flex-direction:column;} #site-nav li a{border-bottom:1px solid rgba(255,255,255,0.1);} }
     .cat-disabled { text-decoration: line-through; color: #888; }
     .view { display: none; } 
@@ -203,10 +207,24 @@
 
     <div id="view-sitemap" class="view">
       <h2 style="border-bottom:0.125rem solid var(--primary); padding-bottom:0.6rem; margin-top:0;">網站導覽</h2>
-      <p style="margin-bottom:1.5rem; color:#666;">本網站依無障礙網頁設計原則建置，網站的主要內容分為三個大區塊：<br>
-      Alt+U：上方功能區塊 | Alt+C：中央內容區塊 | Alt+L：左方功能區塊 | Alt+R：右方功能區塊</p>
       
-      <div id="sitemap-content">載入中...</div>
+      <div class="sitemap-container">
+        <div class="sitemap-guide">
+          <h3>::: 導盲磚 (Accesskey) 設定</h3>
+          <p>本網站依無障礙網頁設計原則建置，網站的主要內容分為四個大區塊：</p>
+          <ul>
+            <li><strong>Alt+U</strong>：上方功能區塊，包括回首頁、網站導覽、登入等。</li>
+            <li><strong>Alt+C</strong>：中央內容區塊，為本頁主要內容區。</li>
+            <li><strong>Alt+L</strong>：左方功能區塊，提供快速連結與相關資訊。</li>
+            <li><strong>Alt+R</strong>：右方功能區塊，提供其他相關資訊。</li>
+            <li><strong>Alt+Z</strong>：下方功能區塊，包括版權宣告、聯絡資訊等。</li>
+          </ul>
+        </div>
+
+        <ul class="sitemap-tree" id="sitemap-tree-root">
+          <li>載入中...</li>
+        </ul>
+      </div>
     </div>
 
     <div id="view-about" class="view"><h2>學校簡介</h2><p>這裡是學校簡介內容...</p></div>
@@ -346,7 +364,8 @@
     </aside>
 
   <footer id="site-footer">
-    <p>&copy; 2026 校園資訊網</p>
+    <a href="#site-footer" accesskey="Z" title="下方功能區塊" class="accesskey" style="display:block; margin-bottom:10px; color:#ccc;">:::</a>
+    <div id="footer-content-area"><p>&copy; 2026 校園資訊網</p></div>
   </footer>
 
 </div>
@@ -398,8 +417,8 @@ function renderSite() {
   }
 
   // Footer
-  const footer = document.getElementById('site-footer');
-  if(footer && siteData.settings) footer.innerHTML = siteData.settings.footerContent || '<p>&copy; 2026 校園資訊網</p>';
+  const footerContent = document.getElementById('footer-content-area');
+  if(footerContent && siteData.settings && siteData.settings.footerContent) footerContent.innerHTML = siteData.settings.footerContent;
 
   // Nav
   const navList = document.getElementById('nav-list');
@@ -436,31 +455,69 @@ function renderSite() {
   }
 }
 
-// ========== 網站導覽 (修正：按區塊顯示) ==========
+// ========== 網站導覽 (修正：樹狀結構 & Footer Node) ==========
 function renderSitemap() {
-  const content = document.getElementById('sitemap-content');
-  if (!content) return;
+  const root = document.getElementById('sitemap-tree-root');
+  if (!root) return;
   
-  // 1. 主選單
-  let html = `<div class="sitemap-section"><h3>::: 主選單</h3><ul class="sitemap-list">`;
+  let html = '';
+
+  // 1. 上方功能區塊
+  html += `<li><h4>1. 上方選單區</h4><ul class="sitemap-sub-tree">`;
   html += `<li><a href="#" onclick="switchView('view-home')">首頁</a></li>`;
   (siteData.navbar || []).forEach(n => html += `<li><a href="${n.link}" target="_blank">${n.title}</a></li>`);
-  html += `</ul></div>`;
+  html += `</ul></li>`;
 
-  // 2. 側邊欄區塊 (按標題分組)
-  (siteData.sidebar || []).forEach(w => {
-    if (w.type === 'links' && w.content) {
-      try {
-        const links = JSON.parse(w.content);
-        if (links.length > 0) {
-          html += `<div class="sitemap-section"><h3>::: ${w.title}</h3><ul class="sitemap-list">`;
+  // 2. 左方
+  const leftWidgets = (siteData.sidebar || []).filter(w => w.pos === 'left');
+  if (leftWidgets.length > 0) {
+    html += `<li><h4>2. 左側功能區</h4><ul class="sitemap-sub-tree" style="display:block;">`;
+    leftWidgets.forEach(w => {
+      if (w.type === 'links' && w.content) {
+        try {
+          const links = JSON.parse(w.content);
+          html += `<li style="margin-top:10px;"><strong>${w.title}</strong><ul class="sitemap-deep-tree">`;
           links.forEach(l => html += `<li><a href="${l.url}" target="_blank">${l.label}</a></li>`);
-          html += `</ul></div>`;
-        }
-      } catch(e) {}
-    }
-  });
-  content.innerHTML = html;
+          html += `</ul></li>`;
+        } catch(e){}
+      } else {
+        html += `<li style="margin-top:10px;"><strong>${w.title}</strong> (自訂內容)</li>`;
+      }
+    });
+    html += `</ul></li>`;
+  }
+
+  // 3. 中央
+  html += `<li><h4>3. 中央內容區</h4><ul class="sitemap-sub-tree">`;
+  html += `<li><a href="#" onclick="switchView('view-home')">最新消息列表</a></li>`;
+  html += `<li><a href="#" onclick="switchView('view-home')">榮譽榜</a></li>`;
+  html += `</ul></li>`;
+
+  // 4. 右方
+  const rightWidgets = (siteData.sidebar || []).filter(w => w.pos === 'right');
+  if (rightWidgets.length > 0) {
+    html += `<li><h4>4. 右側功能區</h4><ul class="sitemap-sub-tree" style="display:block;">`;
+    rightWidgets.forEach(w => {
+      if (w.type === 'links' && w.content) {
+        try {
+          const links = JSON.parse(w.content);
+          html += `<li style="margin-top:10px;"><strong>${w.title}</strong><ul class="sitemap-deep-tree">`;
+          links.forEach(l => html += `<li><a href="${l.url}" target="_blank">${l.label}</a></li>`);
+          html += `</ul></li>`;
+        } catch(e){}
+      } else {
+        html += `<li style="margin-top:10px;"><strong>${w.title}</strong> (自訂內容)</li>`;
+      }
+    });
+    html += `</ul></li>`;
+  }
+
+  // 5. 下方功能區 (Footer)
+  html += `<li><h4>5. 下方功能區</h4><ul class="sitemap-sub-tree">`;
+  html += `<li><a href="#site-footer">版權宣告與聯絡資訊</a></li>`;
+  html += `</ul></li>`;
+
+  root.innerHTML = html;
 }
 
 // ========== 核心功能函式 (沿用) ==========
