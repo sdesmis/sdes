@@ -4,117 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>學校公告</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
 
     <style>
-        /* --- 基礎設定 --- */
         :root {
-            --bg-color: transparent; 
-            --text-color: #222222;
-            --link-color: #0044cc;
-            --focus-outline: 0.25rem solid #ffcc00;
-            --modal-overlay: rgba(0, 0, 0, 0.7);
-            --btn-active-bg: #0044cc;
-            --btn-active-text: #ffffff;
-            --tag-bg-dept: #f0f0f0; 
+            --bg-color: transparent; --text-color: #222222; --link-color: #0044cc;
+            --focus-outline: 0.25rem solid #ffcc00; --modal-overlay: rgba(0, 0, 0, 0.7);
+            --btn-active-bg: #0044cc; --btn-active-text: #ffffff; --tag-bg-dept: #f0f0f0; 
             --main-font: "Iansui", "Microsoft JhengHei", "Heiti TC", sans-serif;
         }
-
         *, *::before, *::after { box-sizing: border-box; }
-
-        body {
-            font-family: var(--main-font);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.5;
-            margin: 0; padding: 0;
-            font-size: 1rem;
-            width: 100%; overflow-x: hidden;
-        }
-
+        body { font-family: var(--main-font); background-color: var(--bg-color); color: var(--text-color); line-height: 1.5; margin: 0; padding: 0; font-size: 1rem; width: 100%; overflow-x: hidden; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         .container { width: 100%; max-width: 100vw; margin: 0; padding: 0 5px; }
-
+        
         /* SVG 圖示 */
         .icon-svg { display: inline-block; vertical-align: text-bottom; }
         .icon-top { color: #d32f2f; margin-right: 4px; width: 18px; height: 18px; }
         .icon-new { margin-left: 6px; height: 18px; vertical-align: middle; }
 
-        /* --- 分類篩選按鈕 (彩色線框風格) --- */
-        .filter-section {
-            display: flex; flex-wrap: wrap; gap: 6px;
-            margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
-        }
-        
-        .filter-btn {
-            background-color: #fff;
-            border: 2px solid var(--btn-color, #333); /* CSS變數控制顏色 */
-            color: var(--btn-color, #333);
-            padding: 4px 10px; 
-            font-size: 0.95rem; 
-            border-radius: 4px;
-            cursor: pointer; 
-            transition: all 0.2s;
-            font-family: inherit;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        /* 分類篩選 */
+        .filter-section { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #ccc; }
+        .filter-btn { background-color: #fff; border: 2px solid var(--btn-color, #333); color: var(--btn-color, #333); padding: 4px 10px; font-size: 0.95rem; border-radius: 4px; cursor: pointer; transition: all 0.2s; font-family: inherit; font-weight: bold; display: inline-flex; align-items: center; gap: 6px; }
         .filter-btn:hover { background-color: rgba(0,0,0,0.05); }
+        .filter-btn.active { background-color: var(--btn-color, #333); color: #fff; }
+        .count-badge { background-color: #eee; color: #555; font-size: 0.85em; padding: 1px 6px; border-radius: 4px; min-width: 20px; text-align: center; }
+        .filter-btn.active .count-badge { color: #333; background-color: rgba(255,255,255,0.8); }
 
-        .filter-btn.active {
-            background-color: var(--btn-color, #333);
-            color: #fff;
-        }
-
-        .count-badge {
-            background-color: #eee; color: #555; 
-            font-size: 0.85em; padding: 1px 6px; border-radius: 4px; 
-            min-width: 20px; text-align: center;
-        }
-        
-        .filter-btn.active .count-badge {
-            color: #333; background-color: rgba(255,255,255,0.8);
-        }
-
-        /* --- 列表樣式 --- */
+        /* 列表 */
         .announcement-list { list-style: none; padding: 0; margin: 0; }
         .list-item { border-bottom: 1px solid #eee; padding: 0.6rem 0.4rem; display: flex; align-items: center; gap: 0.8rem; }
         .list-item:hover { background-color: rgba(0,0,0,0.03); }
-        
         .list-date { font-family: var(--main-font); font-size: 1rem; color: #555; flex-shrink: 0; width: 11ch; }
         .list-tags { display: flex; gap: 4px; flex-wrap: wrap; min-width: 80px; max-width: 25%; }
-        
-        /* 標籤樣式 */
-        .tag-badge { 
-            padding: 0.2rem 0.5rem; border-radius: 4px; 
-            font-size: 0.9rem; white-space: nowrap; 
-            display: inline-block; cursor: default; 
-        }
+        .tag-badge { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem; white-space: nowrap; display: inline-block; cursor: default; }
         .tag-dept { background-color: #f0f0f0; color: #333; }
-
-        /* 須登入按鈕 */
-        .login-badge {
-            background-color: #ccc; color: #fff; padding: 1px 8px; border-radius: 4px;
-            font-size: 0.9rem; margin-left: 8px; text-decoration: none;
-            display: inline-block; vertical-align: middle; transition: background-color 0.2s;
-            cursor: pointer; border: 1px solid #bbb;
-        }
+        .login-badge { background-color: #ccc; color: #fff; padding: 1px 8px; border-radius: 4px; font-size: 0.9rem; margin-left: 8px; text-decoration: none; display: inline-block; vertical-align: middle; transition: background-color 0.2s; cursor: pointer; border: 1px solid #bbb; }
         .login-badge:hover { background-color: #999; }
-
-        /* 標題與連結 */
         .list-title { flex-grow: 1; min-width: 0; }
-        .title-btn {
-            background: none; border: none; padding: 0; font-size: 1.1rem;
-            color: var(--link-color); text-decoration: none; cursor: pointer;
-            text-align: left; font-weight: normal; font-family: inherit;
-            line-height: 1.5; display: inline-block; word-wrap: break-word; 
-        }
+        .title-btn { background: none; border: none; padding: 0; font-size: 1.1rem; color: var(--link-color); text-decoration: none; cursor: pointer; text-align: left; font-weight: normal; font-family: inherit; line-height: 1.5; display: inline-block; word-wrap: break-word; }
         .title-btn:hover { color: #002266; text-decoration: underline; }
         .title-btn:focus { outline: var(--focus-outline); background-color: #000; color: #ffcc00; }
 
@@ -125,23 +55,18 @@
         .page-btn.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); }
         .page-btn:disabled { color: #ccc; cursor: not-allowed; }
 
-        /* --- Modal 彈出視窗 --- */
+        /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-content { background: #fff; width: 90%; max-width: 70ch; max-height: 90vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #000; border-radius: 0.5rem; position: relative; }
         .modal-body { white-space: pre-wrap; line-height: 1.8; font-size: 1.05rem; }
         .modal-body * { color: #000 !important; background: transparent !important; font-size: inherit !important; font-family: inherit !important; }
-        
-        /* 關閉按鈕 (Flexbox置中) */
-        .close-btn {
-            position: absolute; top: 15px; right: 15px; background: #d32f2f; color: #fff; border: none;
-            width: 32px; height: 32px; border-radius: 4px; font-size: 1.5rem; padding: 0;
-            text-align: center; cursor: pointer; font-family: Arial, sans-serif; transition: background 0.2s;
-            display: flex; align-items: center; justify-content: center; line-height: 1; 
-        }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: #d32f2f; color: #fff; border: none; width: 32px; height: 32px; border-radius: 4px; font-size: 1.5rem; padding: 0; text-align: center; cursor: pointer; font-family: Arial, sans-serif; transition: background 0.2s; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .close-btn:hover { background: #b71c1c; }
-
+        
         .attachments-area { background: #f4f4f4; padding: 1rem; border: 1px dashed #666; margin-top: 1rem; }
+        .attachments-area h3 { margin: 0 0 0.5rem 0; font-size: 1rem; color: #333; }
         .attachments-area a { color: var(--link-color); font-weight: bold; display: inline-block; padding: 0.3rem; }
+        
         #loading { font-size: 1rem; color: #666; padding: 1rem; text-align: center; }
 
         @media (max-width: 600px) {
@@ -182,28 +107,29 @@
             <div id="modal-period" style="color:#777; font-size: 0.9rem; margin-top: 5px;"></div>
         </div>
         <div id="modal-body" class="modal-body"></div>
+        
+        <div id="modal-links" class="attachments-area" style="display:none; background-color:#eefcfc; border-color:#008080;">
+            <h3 title="相關參考連結">🔗 參考網址：</h3>
+            <ul id="link-list" style="padding-left:1.5rem; margin:0;"></ul>
+        </div>
+
         <div id="modal-attachments" class="attachments-area" style="display:none;">
             <h3 title="附件下載區域">📎 附件下載：</h3>
-            <ul id="attachment-list" style="padding-left:1.5rem;"></ul>
+            <ul id="attachment-list" style="padding-left:1.5rem; margin:0;"></ul>
         </div>
     </div>
 </div>
 
 <script>
-    // --- ★ 設定區域 ★ ---
-    const DATA_URL = "https://script.google.com/macros/s/AKfycbzi78xIRNyvvd0BAIp7NFzLejLTzNe1mGO4_d1Zc7ZvBN_0FA9fE3z1G0byEkyUFpAv/exec";
-    
-    // ★ 顯示全部模式 (設為 null 即可啟用上方篩選按鈕) ★
+    const DATA_URL = "https://script.google.com/macros/s/AKfycbwpj87uChIU27uvVX_ssWMBRxrreL8OzGp5i3W5GoUdpThqQukqvrpajAsazAM9dC9C/exec";
     const LOCKED_CATEGORY_ID = null; 
-
     const ITEMS_PER_PAGE = 15; 
-    const NEW_DAYS_LIMIT = 4; // NEW 標籤顯示天數
+    const NEW_DAYS_LIMIT = 4; 
 
-    // --- 圖示與設定 ---
+    // SVG
     const SVG_TOP = `<svg role="img" aria-label="置頂" class="icon-svg icon-top" viewBox="0 0 24 24" fill="currentColor"><title>置頂</title><path d="M16 9V4l1 0c0.55 0 1-0.45 1-1s-0.45-1-1-1H7C6.45 2 6 2.45 6 3s0.45 1 1 1l1 0v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z"></path></svg>`;
     const SVG_NEW = `<svg role="img" aria-label="最新" class="icon-svg icon-new" viewBox="0 0 34 16"><title>最新</title><rect width="34" height="16" rx="3" fill="#d32f2f"/><text x="17" y="12" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="10">NEW</text></svg>`;
 
-    // 正確的分類 ID 對照表
     const CATEGORY_MAP = {
         "2": "行政公告", "28": "補助及獎助學金", "29": "人事室公告", "30": "會計室公告",
         "31": "家長專區", "35": "性別平等", "36": "人權二公約", "37": "校內公告",
@@ -211,7 +137,6 @@
         "168": "安全棒球", "7": "研習公告", "34": "防疫專區"
     };
 
-    // 分類樣式 (含顏色)
     const CATEGORY_CONFIG = {
         "2": { name: "行政公告", color: "#8B4513" },   
         "28": { name: "補助及獎助學金", color: "#0056b3" }, 
@@ -230,7 +155,6 @@
         "34": { name: "防疫專區", color: "#e65100" }    
     };
 
-    // ★ 移除已停用的 ID (34 防疫專區)，不會出現在篩選列 ★
     const CATEGORY_ORDER = [
         "2", "28", "29", "30", "31", "35", "36", "37", "38", "39", "48", "156", "168", "7"
     ];
@@ -245,11 +169,15 @@
     const loadingDiv = document.getElementById('loading');
     const paginationDiv = document.getElementById('pagination');
     const filterContainer = document.getElementById('filter-container');
+    
+    // Modal Elements (Get once)
     const modal = document.getElementById('detail-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalDept = document.getElementById('modal-dept');
-    const modalPeriod = document.getElementById('modal-period');
+    const modalPeriod = document.getElementById('modal-period'); // New
     const modalBody = document.getElementById('modal-body');
+    const modalLinks = document.getElementById('modal-links');   // New
+    const linkList = document.getElementById('link-list');       // New
     const modalAttachments = document.getElementById('modal-attachments');
     const attachmentList = document.getElementById('attachment-list');
     const closeBtn = document.getElementById('modal-close-btn');
@@ -279,11 +207,15 @@
             }
             allData = json.data;
             
-            // 初始化：顯示全部，並產生篩選按鈕
-            filterContainer.style.display = 'flex';
-            initFilters();
-            filteredData = allData;
-            renderPage(1);
+            if (LOCKED_CATEGORY_ID) {
+                filterContainer.style.display = 'none';
+                applyFilter(LOCKED_CATEGORY_ID);
+            } else {
+                filterContainer.style.display = 'flex';
+                initFilters();
+                filteredData = allData;
+                renderPage(1);
+            }
         })
         .catch(err => {
             console.error(err);
@@ -307,7 +239,6 @@
             if (CATEGORY_MAP[catId]) {
                 const name = CATEGORY_MAP[catId];
                 const count = counts[catId] || 0;
-                // 產生按鈕
                 createFilterBtn(catId, count);
             }
         });
@@ -354,7 +285,8 @@
         listContainer.innerHTML = "";
         
         if (filteredData.length === 0) {
-            listContainer.innerHTML = `<li style='padding:20px; text-align:center; color:#666;'>此分類沒有公告。</li>`;
+            const emptyMsg = LOCKED_CATEGORY_ID ? "目前尚無此專區的公告。" : "此分類沒有公告。";
+            listContainer.innerHTML = `<li style='padding:20px; text-align:center; color:#666;'>${emptyMsg}</li>`;
             paginationDiv.innerHTML = "";
             return;
         }
@@ -368,7 +300,6 @@
             li.className = 'list-item';
             const simpleDate = item.date ? item.date.split(' ')[0] : '-';
             
-            // --- 標籤 AAA 修正 (含 title 與 sr-only) ---
             let tagsHtml = '';
             if (item.category_ids && Array.isArray(item.category_ids) && item.category_ids.length > 0) {
                 item.category_ids.forEach((id, i) => {
@@ -391,19 +322,16 @@
                 newHtml = SVG_NEW;
             }
 
-            // --- 需登入/公開 邏輯 ---
             let titleActionHtml = "";
             let loginBadgeHtml = "";
 
             if (item.pub_view == "2") {
-                // 需登入 -> 標題變外連，且顯示標籤
                 titleActionHtml = `
                     <a href="https://esa.ntpc.edu.tw" target="_blank" class="title-btn" title="需登入系統觀看：${item.title}">
                         ${topHtml}${item.title}${newHtml}
                     </a>`;
                 loginBadgeHtml = `<a href="https://esa.ntpc.edu.tw" target="_blank" class="login-badge" title="需登入系統觀看">須登入系統</a>`;
             } else {
-                // 公開 -> 標題開彈窗
                 titleActionHtml = `
                     <button class="title-btn" onclick="openDetails(${start + index})" title="查看公告：${item.title}">
                         ${topHtml}${item.title}${newHtml}
@@ -487,34 +415,62 @@
         }
     }
 
+    // ★ 修改：加入防呆機制 ★
     window.openDetails = function(index) {
         const item = filteredData[index];
         lastFocusedElement = document.activeElement;
         
-        modalTitle.textContent = item.title;
-        modalTitle.setAttribute('title', `公告標題：${item.title}`);
-        
-        // 顯示：處室 / 職稱
-        const fullDept = item.job_title ? `${item.department} / ${item.job_title}` : item.department;
-        modalDept.innerHTML = `<span class="sr-only">發布單位：</span>${fullDept}`;
-        
-        // 顯示：公告期間
-        if (item.date_start && item.date_end) {
-            modalPeriod.innerHTML = `公告期間：${item.date_start} ~ ${item.date_end}`;
-        } else {
-            modalPeriod.innerHTML = "";
+        if(modalTitle) {
+            modalTitle.textContent = item.title;
+            modalTitle.setAttribute('title', `公告標題：${item.title}`);
         }
         
-        modalBody.innerHTML = item.content_html;
+        // 處室 / 職稱
+        if(modalDept) {
+            const fullDept = item.job_title ? `${item.department} / ${item.job_title}` : item.department;
+            modalDept.innerHTML = `<span class="sr-only">發布單位：</span>${fullDept}`;
+        }
         
+        // 公告期間 (防呆：檢查 modalPeriod 是否存在)
+        if(modalPeriod) {
+            if (item.date_start && item.date_end) {
+                modalPeriod.innerHTML = `公告期間：${item.date_start} ~ ${item.date_end}`;
+            } else {
+                modalPeriod.innerHTML = "";
+            }
+        }
+        
+        if(modalBody) modalBody.innerHTML = item.content_html;
+        
+        // 參考網址 (防呆：檢查 modalLinks 是否存在)
+        if (modalLinks) {
+            if (item.link_a || item.link_b) {
+                modalLinks.style.display = 'block';
+                let linksHtml = '';
+                if (item.link_a) {
+                    linksHtml += `<li><a href="${item.link_a}" target="_blank" title="參考網址1：${item.link_a}">參考網址1</a></li>`;
+                }
+                if (item.link_b) {
+                    linksHtml += `<li><a href="${item.link_b}" target="_blank" title="參考網址2：${item.link_b}">參考網址2</a></li>`;
+                }
+                if(linkList) linkList.innerHTML = linksHtml;
+            } else {
+                modalLinks.style.display = 'none';
+            }
+        }
+
+        // 附件 (防呆)
         if (item.attachments && item.attachments.length > 0) {
-            modalAttachments.style.display = 'block';
-            attachmentList.innerHTML = item.attachments.map(f => `
-                <li><a href="${f.url}" target="_blank" title="下載附件：${f.name}">下載：${f.name}</a></li>
-            `).join('');
+            if(modalAttachments) modalAttachments.style.display = 'block';
+            if(attachmentList) {
+                attachmentList.innerHTML = item.attachments.map(f => `
+                    <li><a href="${f.url}" target="_blank" title="下載附件：${f.name}">下載：${f.name}</a></li>
+                `).join('');
+            }
         } else {
-            modalAttachments.style.display = 'none';
+            if(modalAttachments) modalAttachments.style.display = 'none';
         }
+        
         modal.style.display = 'flex';
         closeBtn.focus();
         document.body.style.overflow = 'hidden';
