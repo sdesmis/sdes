@@ -62,9 +62,9 @@
         .count-badge { background-color: #eee; color: #555; font-size: 0.85em; padding: 1px 6px; border-radius: 4px; min-width: 20px; text-align: center; }
         .filter-btn.active .count-badge { color: #333; background-color: rgba(255,255,255,0.8); }
 
-        /* ★ 修改：為符合 AAA 對比度，按鈕顏色加深 ★ */
+        /* 按鈕顏色加深 (AAA 對比度) */
         .search-toggle-btn {
-            background-color: #005A8C; /* 深海藍，對比度 > 7:1 */
+            background-color: #005A8C; 
             color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;
             font-size: 1rem; font-family: inherit; display: flex; align-items: center; gap: 5px;
             transition: background 0.2s; font-weight: bold;
@@ -80,13 +80,12 @@
         .search-item { display: flex; align-items: center; gap: 5px; }
         .search-item label { font-weight: bold; color: #333; white-space: nowrap; }
         .form-control {
-            padding: 6px 8px; border: 1px solid #777; /* 加深輸入框邊線以符合對比度 */
+            padding: 6px 8px; border: 1px solid #777; 
             border-radius: 4px; font-size: 0.95rem; font-family: inherit; color: #222;
         }
         
-        /* ★ 修改：為符合 AAA 對比度，按鈕顏色加深 ★ */
         .btn-submit { 
-            background-color: #A30000; /* 深磚紅，對比度 > 7:1 */
+            background-color: #A30000; 
             color: #fff; border: none; padding: 6px 15px; border-radius: 4px; 
             cursor: pointer; font-family: inherit; font-weight: bold;
         }
@@ -154,7 +153,9 @@
     <div id="loading" role="status">↻ 資料載入中...</div>
     
     <div id="toolbar" class="toolbar-section">
-        <nav id="filter-group" class="filter-group" aria-label="公告分類快速篩選"></nav>
+        <nav id="filter-group" class="filter-group" aria-label="公告分類快速篩選">
+            <span class="sr-only">載入分類中...</span>
+        </nav>
         
         <button id="toggle-search-btn" class="search-toggle-btn" title="開啟或關閉資料檢索面板" aria-expanded="false" aria-controls="search-panel">
             <svg aria-hidden="true" focusable="false" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -200,7 +201,9 @@
     <ul id="announcement-list" class="announcement-list" aria-live="polite"></ul>
     
     <nav aria-label="分頁導航">
-        <div id="pagination" class="pagination"></div>
+        <div id="pagination" class="pagination">
+            <span class="sr-only">載入分頁中...</span>
+        </div>
     </nav>
 </div>
 
@@ -229,6 +232,7 @@
 </div>
 
 <script>
+    // ★ 您的 GAS 網址 ★
     const DATA_URL = "https://script.google.com/macros/s/AKfycbwpj87uChIU27uvVX_ssWMBRxrreL8OzGp5i3W5GoUdpThqQukqvrpajAsazAM9dC9C/exec";
     const LOCKED_CATEGORY_ID = null; 
     const ITEMS_PER_PAGE = 14; 
@@ -412,8 +416,7 @@
         
         btn.addEventListener('click', () => {
             searchPanel.style.display = 'none';
-            toggleSearchBtn.setAttribute('aria-expanded', 'false'); // ★ AAA 狀態更新
-            
+            toggleSearchBtn.setAttribute('aria-expanded', 'false'); 
             applyFilter(catId);
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -467,7 +470,6 @@
         renderPage(1);
     }
 
-    // ★ 修改：加入 aria-expanded 狀態連動
     toggleSearchBtn.addEventListener('click', () => {
         const isHidden = searchPanel.style.display === 'none' || searchPanel.style.display === '';
         if (isHidden) {
