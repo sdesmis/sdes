@@ -3,401 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>榮譽榜</title>
+    <title>學校榮譽榜</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
 
     <style>
+        /* --- 基礎設定 --- */
         :root {
-            --bg-color: transparent;
-            --text-color: #333;
-            --title-color: #333;
-            --meta-color: #999;
-            --link-color: #337ab7;
-            --border-color: #eee;
-            
-            /* 彈窗專用顏色 */
+            --bg-color: transparent; 
+            --text-color: #222222;
+            --link-color: #0044cc;
+            --focus-outline: 0.25rem solid #ffcc00;
             --modal-overlay: rgba(0, 0, 0, 0.7);
-            --badge-bg: #fff9c4;
+            --badge-bg: #fff9c4; 
             --badge-text: #8d6e63;
+            --tag-bg-dept: #f0f0f0;
             
             /* 字體設定 */
             --main-font: "Iansui", "Microsoft JhengHei", "Heiti TC", sans-serif;
-
-            /* 分類標籤顏色 */
-            --cat-all-bg: #3498db;      
-            --cat-intl-bg: #8bc34a;     
-            --cat-nat-bg: #2ecc71;      
-            --cat-city-bg: #f39c12;     
-            --cat-dist-bg: #4fc3f7;     
-            --cat-school-bg: #9b59b6;   
-            --cat-grade-bg: #e91e63;    
-            --cat-private-bg: #81c784;  
         }
 
-        /* 全域 Box Sizing */
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; }
 
-        /* Body 歸零並隱藏捲軸 */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
+        body {
             font-family: var(--main-font);
             background-color: var(--bg-color);
             color: var(--text-color);
+            line-height: 1.5;
+            margin: 0; padding: 0;
+            font-size: 1rem;
+            width: 100%; overflow-x: hidden;
         }
 
-        /* 容器控制邊距 */
-        .main-wrapper {
-            padding: 10px;
-            width: 100%;
-            max-width: 100vw;
-        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+        .container { width: 100%; max-width: 100vw; margin: 0; padding: 0 5px; }
 
-        /* 無障礙專用隱藏類別 */
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-        }
-
-        /* --- 分類篩選區塊樣式 --- */
+        /* --- 分類篩選按鈕 (與公告樣式統一：彩色線框) --- */
         .filter-section {
-            display: flex; flex-wrap: wrap; gap: 8px;
-            margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
+            display: flex; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
         }
+        
         .filter-btn {
-            border: none; border-radius: 4px; color: #fff;
-            padding: 6px 10px; font-size: 1rem; cursor: pointer;
-            display: inline-flex; align-items: center; gap: 6px;
-            transition: opacity 0.2s, transform 0.1s;
+            background-color: #fff;
+            border: 2px solid var(--btn-color, #333); /* 使用 CSS 變數 */
+            color: var(--btn-color, #333);
+            padding: 4px 10px; 
+            font-size: 0.95rem; 
+            border-radius: 4px;
+            cursor: pointer; 
+            transition: all 0.2s;
             font-family: inherit;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .filter-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .filter-btn:active { transform: translateY(0); }
-        .filter-btn.inactive { opacity: 0.4; background-color: #999 !important; }
 
-        .count-pill {
-            background-color: rgba(0, 0, 0, 0.25);
-            border-radius: 10px; padding: 0 8px; font-size: 0.9rem;
-            min-width: 24px; text-align: center;
+        .filter-btn:hover { background-color: rgba(0,0,0,0.05); }
+
+        /* 激活狀態：實心背景 */
+        .filter-btn.active {
+            background-color: var(--btn-color, #333);
+            color: #fff;
+        }
+
+        .count-badge {
+            background-color: #eee; color: #555; 
+            font-size: 0.85em; padding: 1px 6px; border-radius: 4px; 
+            min-width: 20px; text-align: center;
+        }
+        
+        .filter-btn.active .count-badge {
+            color: #333; background-color: rgba(255,255,255,0.8);
         }
 
         /* --- 列表樣式 --- */
-        .honor-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-        }
-
-        .honor-item {
-            display: flex;
-            gap: 20px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-color);
-            width: 100%;
-        }
-
-        /* 左側圖片區 (電腦版) */
-        .honor-img-box {
-            flex-shrink: 0;
-            width: 240px; 
-            height: 160px;
-            position: relative; /* 為了讓內部絕對定位生效 */
-        }
-
-        /* 讓按鈕填滿容器 */
-        .honor-img-box button.title-btn {
-            width: 100% !important;
-            height: 100% !important;
-            display: block;
-            padding: 0;
-            border: none;
-        }
-
-        .honor-thumb {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 關鍵：裁切填滿，不變形 */
-            border: 1px solid #ddd;
-            padding: 3px;
-            background: #fff;
-            display: block; 
-        }
-
-        /* 右側內容區 */
-        .honor-content-box {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
-
-        h2.honor-title {
-            margin: 0 0 10px 0;
-            line-height: 1.5;
-        }
-
-        .title-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            font-size: 1.25rem;
-            font-weight: normal;
-            color: var(--title-color);
-            text-align: left;
-            cursor: pointer;
-            font-family: inherit;
-            line-height: 1.5;
-            text-decoration: none;
-            word-wrap: break-word;
-        }
-        .title-btn:hover {
-            color: var(--link-color);
-            text-decoration: underline;
-        }
-
-        .honor-desc {
-            font-size: 1.05rem;
-            color: #444;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            white-space: pre-wrap;
-            word-break: break-word; 
-            overflow-wrap: break-word;
-        }
-
-        .desc-truncated {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        .honor-list { list-style: none; padding: 0; margin: 0; width: 100%; }
+        .honor-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; width: 100%; }
         
-        .show-more-btn {
-            color: var(--link-color);
-            cursor: pointer;
-            font-size: 0.95rem;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 10px;
-            background: none;
-            border: none;
-            padding: 0;
-            font-family: inherit;
-            text-align: left;
+        /* 圖片區 */
+        .honor-img-box { flex-shrink: 0; width: 200px; height: 135px; position: relative; }
+        .honor-img-box button { width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: pointer; }
+        .honor-thumb { width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; padding: 3px; background: #fff; display: block; }
+        
+        /* 內容區 */
+        .honor-content-box { flex-grow: 1; display: flex; flex-direction: column; min-width: 0; }
+        
+        .honor-title-row { margin-bottom: 8px; }
+        .title-btn {
+            background: none; border: none; padding: 0; font-size: 1.2rem;
+            color: #333; text-align: left; cursor: pointer; font-family: inherit;
+            line-height: 1.4; text-decoration: none; font-weight: bold;
         }
-        .show-more-btn:hover { text-decoration: underline; }
+        .title-btn:hover { color: var(--link-color); text-decoration: underline; }
+        
+        .honor-desc { font-size: 1rem; color: #555; line-height: 1.6; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        /* 底部資訊列 */
+        .honor-meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.9rem; color: #666; }
+        
+        /* 列表內的標籤 (實心色塊) */
+        .tag-badge { 
+            padding: 0.2rem 0.5rem; border-radius: 4px; 
+            font-size: 0.85rem; white-space: nowrap; 
+            display: inline-block; cursor: default; 
+        }
+        .tag-dept { background-color: var(--tag-bg-dept); color: #333; }
 
-        .honor-meta {
-            margin-top: auto;
-            text-align: right;
-            font-size: 0.9rem;
-            color: var(--meta-color);
-            display: flex;
-            flex-wrap: wrap; 
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        .cat-tag {
-            color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem;
-        }
-
-        /* 分頁樣式 */
-        .pagination {
-            display: flex; justify-content: center; align-items: center;
-            gap: 5px; margin-top: 30px; margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .page-btn {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            background: #fff;
-            color: var(--link-color);
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 1rem;
-            border-radius: 4px;
-            min-width: 35px;
-            font-family: inherit;
-        }
+        /* 分頁 */
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+        .page-btn { padding: 8px 12px; border: 1px solid #ddd; background: #fff; color: var(--link-color); cursor: pointer; text-decoration: none; font-size: 1rem; border-radius: 4px; min-width: 35px; font-family: inherit; }
         .page-btn:hover { background-color: #eee; }
         .page-btn.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); }
         .page-btn:disabled { color: #ccc; cursor: not-allowed; }
 
-        #loading { text-align: center; color: #666; padding: 20px; }
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .modal-content { background: #fff; width: 95%; max-width: 60rem; max-height: 90vh; overflow-y: auto; padding: 2rem; border-radius: 4px; position: relative; border: 2px solid #000; }
+        
+        /* 關閉按鈕 (統一) */
+        .close-btn { position: absolute; top: 15px; right: 15px; background: #d32f2f; color: #fff; border: none; width: 32px; height: 32px; border-radius: 4px; font-size: 1.5rem; padding: 0; text-align: center; cursor: pointer; font-family: Arial, sans-serif; transition: background 0.2s; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        .close-btn:hover { background: #b71c1c; }
 
-        /* --- 彈出視窗 (Modal) 樣式 --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--modal-overlay); display: none;
-            justify-content: center; align-items: center; z-index: 9999;
-        }
-        .modal-content {
-            background: #fff; 
-            width: 95%; 
-            max-width: 60rem; 
-            max-height: 90vh;
-            overflow-y: auto; padding: 2rem; border-radius: 4px; position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;
-            flex-wrap: wrap; gap: 10px;
-        }
-        
-        .header-left { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
-        
-        .honor-badge {
-            display: inline-flex; align-items: center; gap: 5px;
-            background-color: var(--badge-bg); color: var(--badge-text);
-            padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 1rem;
-        }
+        .modal-header-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .honor-badge { display: inline-flex; align-items: center; gap: 5px; background-color: var(--badge-bg); color: var(--badge-text); padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 1rem; }
         .badge-icon { width: 18px; height: 18px; fill: currentColor; }
+        
+        .modal-title-text { font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; line-height: 1.4; }
+        .modal-body-text { font-size: 1.1rem; line-height: 1.8; color: #333; white-space: pre-wrap; margin-bottom: 30px; }
+        
+        .photo-list { list-style: none; padding: 0; margin: 15px 0 0 0; display: flex; flex-wrap: wrap; gap: 15px; }
+        .photo-item img { height: 150px; width: auto; max-width: 100%; border: 1px solid #ddd; padding: 3px; object-fit: contain; background: #fff; transition: transform 0.2s; }
+        .photo-item img:hover { transform: scale(1.05); border-color: var(--link-color); cursor: pointer; }
 
-        .header-meta { color: #666; font-size: 0.95rem; }
+        #loading { font-size: 1rem; color: #666; padding: 20px; text-align: center; }
 
-        .close-btn {
-            background: #fff; border: 1px solid #ccc; color: #333;
-            padding: 5px 15px; border-radius: 4px; cursor: pointer;
-            font-family: inherit; font-size: 0.95rem;
-        }
-        .close-btn:hover { background-color: #f0f0f0; }
-
-        .modal-title-text {
-            font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; line-height: 1.4;
-        }
-        .modal-body-text {
-            font-size: 1.1rem; line-height: 1.8; color: #333; white-space: pre-wrap; margin-bottom: 30px;
-            max-width: 100%;
-        }
-
-        .modal-photos-section { margin-top: 20px; }
-        .photo-list { 
-            list-style: none; padding: 0; margin: 15px 0 0 0; 
-            display: flex; flex-wrap: wrap; gap: 15px;
-        }
-        .photo-item img {
-            height: 150px; 
-            width: auto; 
-            max-width: 100%;
-            border: 1px solid #ddd; 
-            padding: 3px;
-            object-fit: contain;
-            transition: transform 0.2s, border-color 0.2s;
-            background: #fff;
-        }
-        .photo-item img:hover {
-            transform: scale(1.05); 
-            border-color: var(--link-color);
-            cursor: pointer;
-        }
-
-        /* ★★★ RWD 設定修正 (修復 iPad/手機 比例問題) ★★★ */
         @media (max-width: 768px) {
             .honor-item { flex-direction: column; }
-            
-            .honor-img-box {
-                width: 100%; 
-                height: auto; /* 高度自動，由 aspect-ratio 控制 */
-                /* ★ 關鍵：使用 aspect-ratio 固定比例，iPad 上就不會變形 */
-                aspect-ratio: 4 / 3; 
-                margin-bottom: 10px; 
-            }
-            
-            /* 確保按鈕和圖片都填滿這個 4:3 的框框 */
-            .honor-img-box button.title-btn,
-            .honor-thumb {
-                width: 100%;
-                height: 100%;
-                object-fit: cover; /* 裁切多餘部分，確保填滿且不變形 */
-                object-position: center top; /* 重點通常在上面 (人臉) */
-                display: block;
-            }
-            
-            .honor-meta { text-align: left; justify-content: flex-start; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #eee; }
-            .title-btn { font-size: 1.15rem; }
-            
+            .honor-img-box { width: 100%; height: auto; aspect-ratio: 4 / 3; margin-bottom: 10px; }
+            .honor-thumb { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
             .modal-content { padding: 1rem; }
-            .modal-header { flex-direction: column; align-items: flex-start; }
-            .header-left { width: 100%; flex-wrap: wrap; }
-            .close-btn { align-self: flex-end; margin-top: -40px; } 
+            .modal-header-row { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <h1 class="sr-only">學校榮譽榜列表</h1>
+<div class="container">
+    <h1 class="sr-only">學校榮譽榜列表</h1>
+    <div id="loading" role="status">↻ 榮譽榜載入中...</div>
+    
+    <nav id="filter-section" class="filter-section" aria-label="榮譽榜分類篩選">
+        <button class="filter-btn active" data-cat="all" style="--btn-color: #337ab7;">全部榮譽</button>
+    </nav>
+    
+    <ul id="honor-list" class="honor-list" aria-live="polite"></ul>
+    
+    <nav aria-label="分頁導航">
+        <div id="pagination" class="pagination"></div>
+    </nav>
+</div>
 
-        <div id="loading" role="status">↻ 榮譽榜載入中...</div>
-        
-        <nav id="filter-section" class="filter-section" aria-label="榮譽榜分類篩選">
-            <span class="sr-only">分類選單載入中...</span>
-        </nav>
+<div id="detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+    <div class="modal-content">
+        <button id="modal-close-btn" class="close-btn" title="關閉">&times;</button>
 
-        <nav aria-label="榮譽榜列表">
-            <ul id="honor-list" class="honor-list"></ul>
-        </nav>
-
-        <nav aria-label="分頁導航">
-            <div id="pagination" class="pagination"></div>
-        </nav>
-    </div>
-
-    <div id="detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="header-left">
-                    <span class="honor-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24"><path d="M20.2 2H3.8C2.8 2 2 2.8 2 3.8V5c0 1.1.9 2 2 2h.2c.5 3 2.5 5.4 5.3 6.4C10.2 16.2 12 17 12 17s1.8-.8 2.5-3.6c2.8-1 4.8-3.4 5.3-6.4h.2c1.1 0 2-.9 2-2V3.8c0-1-.8-1.8-1.8-1.8zM4 5V4h2v2c-1.1 0-2-.9-2-1zm14.2 8.4c-2.3.8-4 2.8-4.2 5.2h-4c-.2-2.4-1.9-4.4-4.2-5.2-.6-3.7-3.8-6.4-3.8-6.4V4h12v3c0 .1-3.2 2.8-3.8 6.4zM20 5c0 1.1-.9 2-2 2V4h2v1z"></path><path d="M6 19h12v2H6z"></path></svg>
-                        榮譽榜公告
-                    </span>
-                    <div class="header-meta">
-                        <span id="modal-dept"></span>
-                        <span id="modal-date" style="margin-left: 10px;"></span>
-                    </div>
-                </div>
-                <button id="modal-close-btn" class="close-btn" title="關閉視窗">關閉</button>
-            </div>
-
-            <h2 id="modal-title-text" class="modal-title-text">公告詳細內容</h2>
-            
-            <div id="modal-body-text" class="modal-body-text"></div>
-
-            <div id="modal-photos" class="modal-photos-section" style="display:none;">
+        <div class="modal-header-row">
+            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
                 <span class="honor-badge">
-                    <svg class="badge-icon" viewBox="0 0 24 24"><path d="M20.2 2H3.8C2.8 2 2 2.8 2 3.8V5c0 1.1.9 2 2 2h.2c.5 3 2.5 5.4 5.3 6.4C10.2 16.2 12 17 12 17s1.8-.8 2.5-3.6c2.8-1 4.8-3.4 5.3-6.4h.2c1.1 0 2-.9 2-2V3.8c0-1-.8-1.8-1.8-1.8zM4 5V4h2v2c-1.1 0-2-.9-2-1zm14.2 8.4c-2.3.8-4 2.8-4.2 5.2h-4c-.2-2.4-1.9-4.4-4.2-5.2-.6-3.7-3.8-6.4-3.8-6.4V4h12v3c0 .1-3.2 2.8-3.8 6.4zM20 5c0 1.1-.9 2-2 2V4h2v1z"></path><path d="M6 19h12v2H6z"></path></svg>
-                    競賽照片
+                    <svg class="badge-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    榮譽榜
                 </span>
-                <ul id="photo-list" class="photo-list"></ul>
+                <div style="color:#666; font-size:0.95rem;">
+                    <span id="modal-dept"></span> | <span id="modal-date"></span>
+                </div>
             </div>
         </div>
+
+        <h2 id="modal-title-text" class="modal-title-text"></h2>
+        <div id="modal-body-text" class="modal-body-text"></div>
+
+        <div id="modal-photos" style="display:none; margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 15px;">
+            <h3 style="font-size:1rem; margin:0 0 10px 0; color:#555;">📸 活動照片</h3>
+            <ul id="photo-list" class="photo-list"></ul>
+        </div>
     </div>
+</div>
 
 <script>
-    const DATA_URL = "https://script.google.com/macros/s/AKfycbxlLrGfUegvnoHz7fyBSiytGI9LHF8e7NN9t9grpGV1j0hcRNhkLnMh4lLLRFAzFdv-9Q/exec"; // 請確認您的網址
+    // ★ 請確認您的 榮譽榜 GAS 網址 ★
+    const DATA_URL = "https://script.google.com/macros/s/AKfycbxlLrGfUegvnoHz7fyBSiytGI9LHF8e7NN9t9grpGV1j0hcRNhkLnMh4lLLRFAzFdv-9Q/exec"; 
     const ITEMS_PER_PAGE = 3; 
 
-    // 分類設定
-    const CAT_CONFIG = {
-        "all": { name: "全部", color: "var(--cat-all-bg)" },
-        "10": { name: "國際", color: "var(--cat-intl-bg)" }, 
-        "20": { name: "全國", color: "var(--cat-nat-bg)" },
-        "40": { name: "縣市", color: "var(--cat-city-bg)" },
-        "50": { name: "區域", color: "var(--cat-dist-bg)" },
-        "60": { name: "全校", color: "var(--cat-school-bg)" },
-        "70": { name: "年級", color: "var(--cat-grade-bg)" },
-        "99": { name: "民間", color: "var(--cat-private-bg)" }
+    // ★ 榮譽榜分類設定 (依照截圖還原原始顏色) ★
+    const HONOR_CAT_CONFIG = {
+        "all": { name: "全部", color: "#337ab7" },    // 藍
+        "10": { name: "國際", color: "#f39c12" },     // 橘
+        "20": { name: "全國", color: "#00c0ef" },     // 天藍
+        "40": { name: "縣市", color: "#9358ac" },     // 紫
+        "50": { name: "區域", color: "#e91e63" },     // 粉紅
+        "60": { name: "全校", color: "#8dc153" },     // 淺綠
+        "70": { name: "年級", color: "#00a65a" },     // 深綠
+        "99": { name: "民間", color: "#e67e22" }      // 深橘
     };
+
+    // 顯示順序
+    const HONOR_CAT_ORDER = ["all", "10", "20", "40", "50", "60", "70", "99"];
 
     let allData = [];
     let filteredData = [];
@@ -424,7 +238,7 @@
         .then(json => {
             loadingDiv.style.display = 'none';
             if (json.status !== "success" || !json.data || json.data.length === 0) {
-                listContainer.innerHTML = "<div style='text-align:center; padding:20px'>無資料</div>";
+                listContainer.innerHTML = "<div style='text-align:center; padding:20px'>目前沒有榮譽榜資料。</div>";
                 return;
             }
             allData = json.data;
@@ -435,7 +249,7 @@
         })
         .catch(err => {
             console.error(err);
-            loadingDiv.innerHTML = "載入失敗";
+            loadingDiv.innerHTML = "<span style='color:red;'>載入失敗，請稍後再試。</span>";
         });
 
     function initFilters() {
@@ -447,31 +261,31 @@
             }
         });
 
-        // 清空預設內容
         filterSection.innerHTML = "";
 
-        createFilterBtn("all", counts["all"]);
-
-        Object.keys(counts).forEach(catId => {
-            if (catId !== "all" && CAT_CONFIG[catId]) {
-                createFilterBtn(catId, counts[catId]);
+        HONOR_CAT_ORDER.forEach(catId => {
+            if (HONOR_CAT_CONFIG[catId]) {
+                createFilterBtn(catId, counts[catId] || 0);
             }
         });
     }
 
     function createFilterBtn(catId, count) {
-        const config = CAT_CONFIG[catId] || { name: "其他", color: "#999" };
+        const config = HONOR_CAT_CONFIG[catId] || { name: "其他", color: "#999" };
         const btn = document.createElement('button');
-        btn.className = `filter-btn ${catId === 'all' ? '' : 'inactive'}`; 
-        btn.style.backgroundColor = config.color;
+        
+        btn.className = `filter-btn ${catId === 'all' ? 'active' : ''}`;
+        
+        // ★ 設定 CSS 變數控制顏色 (未選中空心、選中實心) ★
+        btn.style.setProperty('--btn-color', config.color);
+        
         btn.title = `篩選分類：${config.name}`;
         btn.dataset.id = catId;
-        
-        btn.innerHTML = `${config.name} <span class="count-pill">${count}</span>`;
+        btn.innerHTML = `${config.name} <span class="count-badge">${count}</span>`;
         
         btn.onclick = () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('inactive'));
-            btn.classList.remove('inactive');
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             applyFilter(catId);
         };
         
@@ -485,6 +299,7 @@
         } else {
             filteredData = allData.filter(item => item.category_id == catId);
         }
+        currentPage = 1;
         renderPage(1);
     }
 
@@ -493,7 +308,7 @@
         listContainer.innerHTML = "";
         
         if (filteredData.length === 0) {
-            listContainer.innerHTML = "<div style='text-align:center; padding:20px'>此分類無資料</div>";
+            listContainer.innerHTML = "<div style='text-align:center; padding:20px; color:#666;'>此分類無資料</div>";
             paginationDiv.innerHTML = "";
             return;
         }
@@ -507,18 +322,15 @@
             li.className = 'honor-item';
             
             const d = item.date;
-            const dateStr = d ? `${d.substring(0,4)}-${d.substring(4,6)}-${d.substring(6,8)}` : '';
-            const docNo = item.doc_no ? `文號: ${item.doc_no}` : '';
+            const dateStr = d ? (d.length === 8 ? `${d.substring(0,4)}-${d.substring(4,6)}-${d.substring(6,8)}` : d) : '';
             
-            const catConfig = CAT_CONFIG[item.category_id] || { name: item.category_name, color: "#999" };
-            const catBadgeHtml = `<span class="cat-tag" style="background-color:${catConfig.color}; margin-right:5px;">${catConfig.name}</span>`;
-
+            const catConfig = HONOR_CAT_CONFIG[item.category_id] || { name: item.category_name || "榮譽", color: "#999" };
+            
             let imgHtml = '';
             if (item.images && item.images.length > 0) {
-                // 按鈕點擊觸發彈窗
                 imgHtml = `
                     <div class="honor-img-box">
-                        <button class="title-btn" onclick="openDetails(${start + index})" title="查看詳情：${item.title}">
+                        <button onclick="openDetails(${start + index})" title="查看詳情：${item.title}">
                             <img src="${item.images[0].url}" class="honor-thumb" alt="${item.title} 的活動照片">
                         </button>
                     </div>`;
@@ -529,26 +341,25 @@
                     </div>`;
             }
 
-            const contentId = `desc-${item.id}`;
-            const btnId = `btn-${item.id}`;
-            let descHtml = `<div id="${contentId}" class="honor-desc desc-truncated">${item.content}</div>`;
-            let moreBtnHtml = `<button id="${btnId}" class="show-more-btn" onclick="toggleMore('${contentId}', '${btnId}')" aria-expanded="false" aria-controls="${contentId}" title="在列表中展開：${item.title}">顯示更多內容...</button>`;
-
             li.innerHTML = `
                 ${imgHtml}
                 <div class="honor-content-box">
-                    <h2 class="honor-title">
+                    <div class="honor-title-row">
                         <button class="title-btn" onclick="openDetails(${start + index})" title="查看詳情：${item.title}">
                             ${item.title}
                         </button>
-                    </h2>
-                    ${descHtml}
-                    ${moreBtnHtml}
+                    </div>
+                    <div class="honor-desc">${item.content}</div>
                     <div class="honor-meta">
-                        ${catBadgeHtml}
-                        <span class="meta-tag"><span class="sr-only">文號：</span>${docNo}</span>
-                        <span class="meta-tag"><span class="sr-only">發布單位：</span>${item.dept}</span>
-                        <span class="meta-tag"><span class="sr-only">發布日期：</span>${dateStr}</span>
+                        <span class="tag-badge" style="background-color:${catConfig.color}; color:#fff;" title="分類：${catConfig.name}">
+                            <span class="sr-only">分類：</span>${catConfig.name}
+                        </span>
+                        
+                        <span class="tag-badge tag-dept" title="發布單位：${item.dept}">
+                            <span class="sr-only">發布單位：</span>${item.dept}
+                        </span>
+                        
+                        <span style="margin-left:auto;">${dateStr}</span>
                     </div>
                 </div>
             `;
@@ -559,16 +370,6 @@
         window.scrollTo(0, 0);
     }
 
-    function toggleMore(contentId, btnId) {
-        const content = document.getElementById(contentId);
-        const btn = document.getElementById(btnId);
-        if (content.classList.contains('desc-truncated')) {
-            content.classList.remove('desc-truncated');
-            btn.style.display = 'none';
-            btn.setAttribute('aria-expanded', 'true');
-        }
-    }
-
     window.openDetails = function(index) {
         const item = filteredData[index];
         lastFocusedElement = document.activeElement;
@@ -577,7 +378,7 @@
         modalBodyText.textContent = item.content;
         
         const d = item.date;
-        const dateStr = d ? `${d.substring(0,4)}-${d.substring(4,6)}-${d.substring(6,8)}` : '';
+        const dateStr = d ? (d.length === 8 ? `${d.substring(0,4)}-${d.substring(4,6)}-${d.substring(6,8)}` : d) : '';
         modalDate.textContent = dateStr;
         modalDept.textContent = item.dept;
 
@@ -625,7 +426,6 @@
              prevGroupBtn.className = 'page-btn';
              prevGroupBtn.innerText = "<<"; 
              prevGroupBtn.title = "上10頁";
-             prevGroupBtn.setAttribute('aria-label', '上10頁');
              prevGroupBtn.onclick = () => renderPage(startPage - 1); 
              paginationDiv.appendChild(prevGroupBtn);
         }
@@ -635,7 +435,6 @@
         prevBtn.innerText = "<";
         prevBtn.title = "上一頁";
         prevBtn.disabled = currentPage === 1;
-        prevBtn.setAttribute('aria-label', '上一頁');
         prevBtn.onclick = () => renderPage(currentPage - 1);
         paginationDiv.appendChild(prevBtn);
 
@@ -644,7 +443,6 @@
             btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
             btn.innerText = i;
             btn.title = `前往第 ${i} 頁`;
-            btn.setAttribute('aria-label', `第 ${i} 頁`);
             if(i === currentPage) btn.setAttribute('aria-current', 'page');
             btn.onclick = () => renderPage(i);
             paginationDiv.appendChild(btn);
@@ -655,7 +453,6 @@
         nextBtn.innerText = ">";
         nextBtn.title = "下一頁";
         nextBtn.disabled = currentPage === totalPages;
-        nextBtn.setAttribute('aria-label', '下一頁');
         nextBtn.onclick = () => renderPage(currentPage + 1);
         paginationDiv.appendChild(nextBtn);
 
@@ -664,7 +461,6 @@
              nextGroupBtn.className = 'page-btn';
              nextGroupBtn.innerText = ">>"; 
              nextGroupBtn.title = "下10頁";
-             nextGroupBtn.setAttribute('aria-label', '下10頁');
              nextGroupBtn.onclick = () => renderPage(endPage + 1); 
              paginationDiv.appendChild(nextGroupBtn);
         }
