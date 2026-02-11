@@ -38,10 +38,10 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         .container { width: 100%; max-width: 100vw; margin: 0; padding: 0 5px; }
 
-        /* --- 分類篩選按鈕 (彩色線框) --- */
+        /* --- 分類篩選按鈕 --- */
         .filter-section {
             display: flex; flex-wrap: wrap; gap: 6px;
-            margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
+            margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
         }
         
         .filter-btn {
@@ -79,10 +79,21 @@
 
         /* --- 列表樣式 --- */
         .honor-list { list-style: none; padding: 0; margin: 0; width: 100%; }
-        .honor-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee; width: 100%; }
         
-        /* 圖片區 */
-        .honor-img-box { flex-shrink: 0; width: 200px; height: 135px; position: relative; }
+        /* ★ 修改：增加上下 padding 為 20px (原本15px) ★ */
+        .honor-item { 
+            display: flex; gap: 20px; 
+            padding: 20px 0; /* 讓每一則的高度變高 */
+            border-bottom: 1px solid #eee; width: 100%; 
+        }
+        
+        /* ★ 修改：圖片區加大為 220x155 (原本 200x135) ★ */
+        .honor-img-box { 
+            flex-shrink: 0; 
+            width: 220px; height: 155px; 
+            position: relative; 
+        }
+        
         .honor-img-box button { width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: pointer; }
         .honor-thumb { width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; padding: 3px; background: #fff; display: block; }
         
@@ -91,15 +102,15 @@
         
         .honor-title-row { margin-bottom: 8px; }
         .title-btn {
-            background: none; border: none; padding: 0; font-size: 1.2rem;
+            background: none; border: none; padding: 0; font-size: 1.25rem; /* 標題稍微加大一點點 */
             color: #333; text-align: left; cursor: pointer; font-family: inherit;
             line-height: 1.4; text-decoration: none; font-weight: bold;
         }
         .title-btn:hover { color: var(--link-color); text-decoration: underline; }
         
-        /* 內容截斷樣式 */
+        /* 內容截斷 */
         .honor-desc { 
-            font-size: 1rem; color: #555; line-height: 1.6; margin-bottom: 5px; 
+            font-size: 1rem; color: #555; line-height: 1.6; margin-bottom: 8px; 
             white-space: pre-wrap; word-break: break-word; 
         }
         .desc-truncated { 
@@ -124,7 +135,7 @@
         .tag-dept { background-color: var(--tag-bg-dept); color: #333; }
 
         /* 分頁 */
-        .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 5px; margin-top: 25px; margin-bottom: 20px; flex-wrap: wrap; }
         .page-btn { padding: 8px 12px; border: 1px solid #ddd; background: #fff; color: var(--link-color); cursor: pointer; text-decoration: none; font-size: 1rem; border-radius: 4px; min-width: 35px; font-family: inherit; }
         .page-btn:hover { background-color: #eee; }
         .page-btn.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); }
@@ -134,7 +145,6 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-content { background: #fff; width: 95%; max-width: 60rem; max-height: 90vh; overflow-y: auto; padding: 2rem; border-radius: 4px; position: relative; border: 2px solid #000; }
         
-        /* 關閉按鈕 */
         .close-btn { 
             position: absolute; top: 15px; right: 15px; 
             background: #d32f2f; color: #fff; border: none; 
@@ -143,15 +153,15 @@
             cursor: pointer; font-family: Arial, sans-serif; 
             transition: background 0.2s; 
             display: flex; align-items: center; justify-content: center; line-height: 1; 
-            z-index: 10; /* 確保在最上層 */
+            z-index: 10;
         }
         .close-btn:hover { background: #b71c1c; }
 
-        /* ★ 修改：加入 padding-right: 40px 防止標題文字與關閉按鈕重疊 ★ */
+        /* 避免標題與關閉按鈕重疊 */
         .modal-header-row { 
             display: flex; justify-content: space-between; align-items: center; 
             border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;
-            padding-right: 40px; /* 這裡留出空間給關閉按鈕 */
+            padding-right: 40px; 
         }
         
         .honor-badge { display: inline-flex; align-items: center; gap: 5px; background-color: var(--badge-bg); color: var(--badge-text); padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 1rem; }
@@ -213,7 +223,7 @@
         <div id="modal-body-text" class="modal-body-text"></div>
 
         <div id="modal-photos" style="display:none; margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 15px;">
-            <h3 style="font-size:1rem; margin:0 0 10px 0; color:#555;">📸 競賽照片</h3>
+            <h3 style="font-size:1rem; margin:0 0 10px 0; color:#555;">📸 活動照片</h3>
             <ul id="photo-list" class="photo-list"></ul>
         </div>
     </div>
@@ -226,14 +236,14 @@
 
     // 分類設定 (顏色)
     const HONOR_CAT_CONFIG = {
-        "all": { name: "全部", color: "#337ab7" },    // 藍
-        "10": { name: "國際", color: "#f39c12" },     // 橘
-        "20": { name: "全國", color: "#00c0ef" },     // 天藍
-        "40": { name: "縣市", color: "#9358ac" },     // 紫
-        "50": { name: "區域", color: "#e91e63" },     // 粉紅
-        "60": { name: "全校", color: "#8dc153" },     // 淺綠
-        "70": { name: "年級", color: "#00a65a" },     // 深綠
-        "99": { name: "民間", color: "#e67e22" }      // 深橘
+        "all": { name: "全部", color: "#337ab7" },
+        "10": { name: "國際", color: "#f39c12" },
+        "20": { name: "全國", color: "#00c0ef" },
+        "40": { name: "縣市", color: "#9358ac" },
+        "50": { name: "區域", color: "#e91e63" },
+        "60": { name: "全校", color: "#8dc153" },
+        "70": { name: "年級", color: "#00a65a" },
+        "99": { name: "民間", color: "#e67e22" }
     };
 
     const HONOR_CAT_ORDER = ["all", "10", "20", "40", "50", "60", "70", "99"];
@@ -340,7 +350,6 @@
             
             const d = item.date;
             const dateStr = d ? (d.length === 8 ? `${d.substring(0,4)}-${d.substring(4,6)}-${d.substring(6,8)}` : d) : '';
-            
             const catConfig = HONOR_CAT_CONFIG[item.category_id] || { name: item.category_name || "榮譽", color: "#999" };
             
             let imgHtml = '';
@@ -348,7 +357,7 @@
                 imgHtml = `
                     <div class="honor-img-box">
                         <button onclick="openDetails(${start + index})" title="查看詳情：${item.title}">
-                            <img src="${item.images[0].url}" class="honor-thumb" alt="${item.title} 的競賽照片">
+                            <img src="${item.images[0].url}" class="honor-thumb" alt="${item.title} 的活動照片">
                         </button>
                     </div>`;
             } else {
@@ -361,7 +370,7 @@
             const contentId = `desc-${item.id}`;
             const btnId = `btn-${item.id}`;
             
-            // ★ 修改：限制字數改為 70 ★
+            // ★ 字數限制改為 70 字 ★
             const maxChars = 70; 
 
             let descHtml = '';
@@ -511,6 +520,4 @@
 </script>
 
 </body>
-
 </html>
-
