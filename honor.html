@@ -20,8 +20,6 @@
             --badge-bg: #fff9c4; 
             --badge-text: #8d6e63;
             --tag-bg-dept: #f0f0f0;
-            
-            /* 字體設定 */
             --main-font: "Iansui", "Microsoft JhengHei", "Heiti TC", sans-serif;
         }
 
@@ -40,7 +38,7 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         .container { width: 100%; max-width: 100vw; margin: 0; padding: 0 5px; }
 
-        /* --- 分類篩選按鈕 --- */
+        /* --- 分類篩選按鈕 (彩色線框) --- */
         .filter-section {
             display: flex; flex-wrap: wrap; gap: 6px;
             margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
@@ -99,7 +97,7 @@
         }
         .title-btn:hover { color: var(--link-color); text-decoration: underline; }
         
-        /* ★ 恢復：內容截斷樣式 ★ */
+        /* 內容截斷樣式 */
         .honor-desc { 
             font-size: 1rem; color: #555; line-height: 1.6; margin-bottom: 5px; 
             white-space: pre-wrap; word-break: break-word; 
@@ -136,10 +134,26 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-content { background: #fff; width: 95%; max-width: 60rem; max-height: 90vh; overflow-y: auto; padding: 2rem; border-radius: 4px; position: relative; border: 2px solid #000; }
         
-        .close-btn { position: absolute; top: 15px; right: 15px; background: #d32f2f; color: #fff; border: none; width: 32px; height: 32px; border-radius: 4px; font-size: 1.5rem; padding: 0; text-align: center; cursor: pointer; font-family: Arial, sans-serif; transition: background 0.2s; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        /* 關閉按鈕 */
+        .close-btn { 
+            position: absolute; top: 15px; right: 15px; 
+            background: #d32f2f; color: #fff; border: none; 
+            width: 32px; height: 32px; border-radius: 4px; 
+            font-size: 1.5rem; padding: 0; text-align: center; 
+            cursor: pointer; font-family: Arial, sans-serif; 
+            transition: background 0.2s; 
+            display: flex; align-items: center; justify-content: center; line-height: 1; 
+            z-index: 10; /* 確保在最上層 */
+        }
         .close-btn:hover { background: #b71c1c; }
 
-        .modal-header-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        /* ★ 修改：加入 padding-right: 40px 防止標題文字與關閉按鈕重疊 ★ */
+        .modal-header-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;
+            padding-right: 40px; /* 這裡留出空間給關閉按鈕 */
+        }
+        
         .honor-badge { display: inline-flex; align-items: center; gap: 5px; background-color: var(--badge-bg); color: var(--badge-text); padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 1rem; }
         .badge-icon { width: 18px; height: 18px; fill: currentColor; }
         
@@ -199,7 +213,7 @@
         <div id="modal-body-text" class="modal-body-text"></div>
 
         <div id="modal-photos" style="display:none; margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 15px;">
-            <h3 style="font-size:1rem; margin:0 0 10px 0; color:#555;">📸 活動照片</h3>
+            <h3 style="font-size:1rem; margin:0 0 10px 0; color:#555;">📸 競賽照片</h3>
             <ul id="photo-list" class="photo-list"></ul>
         </div>
     </div>
@@ -210,6 +224,7 @@
     const DATA_URL = "https://script.google.com/macros/s/AKfycbxlLrGfUegvnoHz7fyBSiytGI9LHF8e7NN9t9grpGV1j0hcRNhkLnMh4lLLRFAzFdv-9Q/exec"; 
     const ITEMS_PER_PAGE = 3; 
 
+    // 分類設定 (顏色)
     const HONOR_CAT_CONFIG = {
         "all": { name: "全部", color: "#337ab7" },    // 藍
         "10": { name: "國際", color: "#f39c12" },     // 橘
@@ -325,15 +340,15 @@
             
             const d = item.date;
             const dateStr = d ? (d.length === 8 ? `${d.substring(0,4)}-${d.substring(4,6)}-${d.substring(6,8)}` : d) : '';
+            
             const catConfig = HONOR_CAT_CONFIG[item.category_id] || { name: item.category_name || "榮譽", color: "#999" };
             
-            // 圖片
             let imgHtml = '';
             if (item.images && item.images.length > 0) {
                 imgHtml = `
                     <div class="honor-img-box">
                         <button onclick="openDetails(${start + index})" title="查看詳情：${item.title}">
-                            <img src="${item.images[0].url}" class="honor-thumb" alt="${item.title} 的活動照片">
+                            <img src="${item.images[0].url}" class="honor-thumb" alt="${item.title} 的競賽照片">
                         </button>
                     </div>`;
             } else {
@@ -343,18 +358,14 @@
                     </div>`;
             }
 
-            // ★ 恢復：顯示更多按鈕邏輯 ★
             const contentId = `desc-${item.id}`;
             const btnId = `btn-${item.id}`;
             
-            // 判斷是否需要截斷：這裡用字數簡單判斷，也可以CSS截斷
-            // 為了配合 CSS line-clamp，我們先預設加上 truncated class
-            // 然後如果內容其實很短，按鈕會在視覺上多餘，所以通常這需要 JS 判斷高度，
-            // 但為了簡單起見，我們如果字數 > 70 字才顯示按鈕
-            
+            // ★ 修改：限制字數改為 70 ★
+            const maxChars = 70; 
+
             let descHtml = '';
             let moreBtnHtml = '';
-            const maxChars = 70; // 字數閾值
 
             if (item.content && item.content.length > maxChars) {
                 descHtml = `<div id="${contentId}" class="honor-desc desc-truncated">${item.content}</div>`;
@@ -393,13 +404,12 @@
         window.scrollTo(0, 0);
     }
 
-    // ★ 恢復：切換顯示更多功能 ★
     window.toggleMore = function(contentId, btnId) {
         const content = document.getElementById(contentId);
         const btn = document.getElementById(btnId);
         if (content.classList.contains('desc-truncated')) {
             content.classList.remove('desc-truncated');
-            btn.style.display = 'none'; // 展開後隱藏按鈕
+            btn.style.display = 'none';
         }
     };
 
