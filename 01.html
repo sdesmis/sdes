@@ -85,6 +85,7 @@
     }
     .footer-badge { margin-top: 15px; }
     .footer-badge img { max-height: 50px; width: auto; }
+    .footer-badge-wrap { text-align: right; min-width: 150px; padding-right: 50px; }
     
 
     /* 頁尾獨立版權條 */
@@ -179,7 +180,8 @@
         .col-left, .col-center, .col-right { width: 100%; order: 0; flex: 1 1 100%; }
         .container-top > .block-card, .container-bottom > .block-card { width: 100%; }
         .sitemap-list { flex-direction: column; }
-        .top-nav { display: none; } 
+        .top-nav { display: none; }
+        .footer-badge-wrap { text-align: left !important; padding-right: 0 !important; }
     }
     /* 減少動態：尊重使用者「減少動態」系統設定 (CS3230300E AAA) */
     @media (prefers-reduced-motion: reduce) {
@@ -567,7 +569,7 @@
                     </div>
                 </div>
                 
-                <div style="text-align: right; min-width: 150px; padding-right: 50px;">
+                <div class="footer-badge-wrap">
                     <a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20251229072914" target="_blank" title="無障礙標章 AAA (另開新視窗)">
                             <img src="images/A.png" border="0" width="88" height="31" alt="通過A無障礙網頁檢測" style="vertical-align: bottom;">
                         </a>
