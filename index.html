@@ -353,13 +353,13 @@
 
                         <style>
                         .crs-btn { background: rgba(0,0,0,0.5); color:#fff; border:none; padding:10px 12px; font-weight:bold; cursor:pointer; transition: 0.2s; font-size:0.9em; display:flex; align-items:center; justify-content:center; }
-                        .crs-arrow { position:absolute; z-index:10; top:50%; transform:translateY(-50%); height: 50px; background: rgba(0,0,0,0.3) !important; }
+                        .crs-arrow { position:absolute; z-index:10; top:50%; transform:translateY(-50%); height: 50px; width: 36px; background: rgba(0,0,0,0.3) !important; }
                         .crs-arrow:hover, .crs-arrow:focus-visible { background: rgba(0,0,0,0.7) !important; color:#fff !important; }
                         .crs-btn:hover, .crs-btn:focus-visible { background:#FFBF47 !important; color:#000 !important; }
                         .crs-btn:focus-visible { outline: 3px solid #000 !important; box-shadow: inset 0 0 0 3px #fff !important; }
                         .crs-dot:hover { background:#FFBF47 !important; }
                         .crs-dot:focus-visible { outline: 3px solid #000 !important; box-shadow: inset 0 0 0 3px #fff; border-radius:50%; background:#FFBF47 !important; }
-                        .crs-photo-link:focus-visible { outline: 3px solid #000 !important; box-shadow: inset 0 0 0 3px #fff !important; }
+                        .crs-photo-link:focus-visible { outline: 6px solid #FFBF47 !important; outline-offset: -6px; border-radius: 4px; }
                         </style>
                         <div id="crs-wrap-center-0" style="width:100%; border-radius:8px; overflow:hidden; border:1px solid #ddd; position:relative; background:#fff;">
                           <!-- pause first in DOM = Tab order #1, absolute-positioned to bottom-right visually in control bar -->
@@ -387,7 +387,7 @@
                             
                               </div>
                             </div>
-                            <button id="next-center-0" aria-label="下一張圖片" title="下一張圖片" class="crs-btn crs-arrow" style="right:0; border-radius:5px 0 0 5px;">&#9654;</button>
+                            <button id="next-center-0" aria-label="下一張圖片" title="下一張圖片" class="crs-btn crs-arrow" style="right:0; border-radius:4px 0 0 4px;">&#10095;</button>
                           </div>
                           <div style="display:flex; align-items:center; justify-content:center; padding:5px 10px; background:#e8e8e8; border-top:1px solid #ccc; position:relative; min-height:32px;">
                             <div id="dots-center-0" style="display:flex; gap:8px; align-items:center;">
