@@ -203,6 +203,11 @@
         /* 修正手機版標題過長問題 */
         .block-card { padding: 10px 10px 5px 10px !important; }
         .block-title { padding: 8px 10px !important; font-size: 1.25em !important; }
+        
+        /* 手機版頁尾置中疊加 */
+        .footer-container { flex-direction: column !important; text-align: center !important; padding: 1.5em 10px !important; }
+        .footer-info { text-align: center !important; margin-bottom: 10px; }
+        .footer-badge { justify-content: center !important; }
     }
 </style>
 </head><body>
@@ -232,6 +237,8 @@
 </div>
 
 <nav class="navbar"><div class="nav-container"><ul class="nav-menu" id="nav-menu">
+<li class="nav-item mobile-only"><a href="./" class="nav-link" title="返回首頁">首頁</a></li>
+<li class="nav-item mobile-only"><a href="sitemap.html" class="nav-link" title="網站導覽">網站導覽</a></li>
 <li class="nav-item"><a href="#" class="nav-link" aria-haspopup="true" title="移至 認識三多">認識三多 ▾</a>
 <div class="dropdown-content">
 <a href="./01.html" title="移至 學校簡介">學校簡介</a>
