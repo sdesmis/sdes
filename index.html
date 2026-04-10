@@ -369,8 +369,8 @@
                         .crs-photo-link:focus-visible { outline: 6px solid #FFBF47 !important; outline-offset: -6px; border-radius: 4px; }
                         </style>
                         <div id="crs-wrap-center-0" style="width:100%; border-radius:8px; overflow:hidden; border:1px solid #ddd; position:relative; background:#fff;">
-                          <!-- pause first in DOM = Tab order #1, absolute-positioned to bottom-right visually in control bar -->
-                          <button id="pause-center-0" aria-label="暫停輪播" title="暫停輪播" class="crs-btn" style="position:absolute; bottom:5px; right:8px; z-index:20; border-radius:4px; padding:2px 8px; font-size:0.75em; background:rgba(0,0,0,0.6); color:#fff; border:none; cursor:pointer;">|| 暫停</button>
+                          <!-- pause first in DOM = Tab order #1, absolute-positioned to top-left visually -->
+                          <button id="pause-center-0" aria-label="暫停輪播" title="暫停輪播" class="crs-btn" style="position:absolute; top:10px; left:10px; z-index:20; width:32px; height:32px; border-radius:50%; background:rgba(0,0,0,0.6); color:#fff; border:none; cursor:pointer; padding:0; line-height:32px; text-align:center; font-size:1.1em;">⏸</button>
                           <div class="carousel-container" id="carousel-center-0" role="region" aria-roledescription="carousel" aria-label="三多願景" style="position:relative; width:100%; overflow:hidden;">
                             <button id="prev-center-0" aria-label="上一張圖片" title="上一張圖片" class="crs-btn crs-arrow" style="left:0; border-radius:0 4px 4px 0;">&#10094;</button>
                             <div aria-live="polite" style="overflow:hidden;">
@@ -437,8 +437,8 @@
                             function prev() { current = (current - 1 + count) % count; update(); }
                             function play() { if(!isPaused) timer = setInterval(next, 3500); }
                             function stop() { clearInterval(timer); }
-                            function pause() { stop(); isPaused = true; btnPause.innerHTML = "&#9654; 播放"; btnPause.setAttribute("aria-label","播放輪播"); btnPause.setAttribute("title","播放輪播"); }
-                            function resume() { isPaused = false; btnPause.innerHTML = "|| 暫停"; btnPause.setAttribute("aria-label","暫停輪播"); btnPause.setAttribute("title","暫停輪播"); play(); }
+                            function pause() { stop(); isPaused = true; btnPause.innerHTML = "▶"; btnPause.setAttribute("aria-label","播放輪播"); btnPause.setAttribute("title","播放輪播"); }
+                            function resume() { isPaused = false; btnPause.innerHTML = "⏸"; btnPause.setAttribute("aria-label","暫停輪播"); btnPause.setAttribute("title","暫停輪播"); play(); }
 
                             /* dots click + keyboard */
                             for(let i=0; i<count; i++) {
@@ -453,7 +453,7 @@
                                     if(!isPaused) {
                                         stop();
                                         focusPaused = true;
-                                        btnPause.innerHTML = "&#9654; 播放";
+                                        btnPause.innerHTML = "▶";
                                         btnPause.setAttribute("aria-label","播放輪播");
                                         btnPause.setAttribute("title","播放輪播");
                                     }
@@ -463,7 +463,7 @@
                                     var stillOnPhoto = newFocus && newFocus.classList.contains("crs-photo-link");
                                     if(!stillOnPhoto && focusPaused) {
                                         focusPaused = false;
-                                        btnPause.innerHTML = "|| 暫停";
+                                        btnPause.innerHTML = "⏸";
                                         btnPause.setAttribute("aria-label","暫停輪播");
                                         btnPause.setAttribute("title","暫停輪播");
                                         if(!isPaused) play();
