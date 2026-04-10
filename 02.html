@@ -663,38 +663,59 @@ function showDept(id, btn) {
     window.onscroll = function() { if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) mybutton.style.display = "block"; else mybutton.style.display = "none"; };
     mybutton.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); var skipLink = document.querySelector('.skip-link'); if (skipLink) skipLink.focus(); else { document.body.tabIndex = -1; document.body.focus(); } });
     
-    // 排程顯示邏輯
+    // 排程顯示邏輯 (伺服器同步版)
     (function() {
-        // 支援民國年 (如 115-03-27) 或 西元年 (如 2026-03-27)
         function parseDateString(s) {
             if (!s) return null;
-            var parts = s.split(/[-/]/); // 支援 - 或 / 分隔
+            var parts = s.split(/[-/]/);
             if(parts.length !== 3) return null;
             var y = parseInt(parts[0], 10);
-            if (y < 1000) y += 1911; // 視為民國年
+            if (y < 1000) y += 1911;
             var m = parseInt(parts[1], 10) - 1;
             var d = parseInt(parts[2], 10);
             return new Date(y, m, d);
         }
-        var now = new Date();
-        document.querySelectorAll('.schedulable-block').forEach(function(el) {
-            var pubStr = el.getAttribute('data-publish');
-            var expStr = el.getAttribute('data-expire');
-            var show = true;
-            if (pubStr) {
-                var pDate = parseDateString(pubStr);
-                if (pDate && now < pDate) show = false;
+
+        async function getRefDate() {
+            try {
+                // 向伺服器發送 HEAD 請求以獲取準確的 Date 標頭
+                const resp = await fetch(window.location.href, { method: 'HEAD', cache: 'no-cache' });
+                const serverDateStr = resp.headers.get('Date');
+                if (serverDateStr) return new Date(serverDateStr);
+            } catch (e) {
+                console.warn("無法取得伺服器時間，將使用電腦本地時間。");
             }
-            if (expStr && show) {
-                var eDate = parseDateString(expStr);
-                // 設定為隔天的午夜以涵蓋整個到期日
-                if (eDate) {
-                    eDate.setDate(eDate.getDate() + 1);
-                    if (now >= eDate) show = false;
+            return new Date();
+        }
+
+        async function initScheduling() {
+            const now = await getRefDate();
+            // 統一換算為台灣時間 (UTC+8) 進行比對
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const twTime = new Date(utc + (3600000 * 8));
+
+            document.querySelectorAll('.schedulable-block').forEach(function(el) {
+                var pubStr = el.getAttribute('data-publish');
+                var expStr = el.getAttribute('data-expire');
+                var show = true;
+                if (pubStr) {
+                    var pDate = parseDateString(pubStr);
+                    if (pDate && twTime < pDate) show = false;
                 }
-            }
-            if (!show) el.style.display = 'none';
-        });
+                if (expStr && show) {
+                    var eDate = parseDateString(expStr);
+                    if (eDate) {
+                        eDate.setDate(eDate.getDate() + 1);
+                        if (twTime >= eDate) show = false;
+                    }
+                }
+                if (!show) {
+                    el.style.display = 'none';
+                    if (el.tagName === 'DETAILS') el.open = false;
+                }
+            });
+        }
+        initScheduling();
     })();
 </script>
 <script>window.addEventListener('DOMContentLoaded', function() { var el = document.getElementById('main_content'); if(el) { el.focus(); } });</script>
