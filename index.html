@@ -479,10 +479,6 @@
                             btnNext.addEventListener("click", function() { stop(); next(); if(!isPaused) play(); });
                             btnPrev.addEventListener("click", function() { stop(); prev(); if(!isPaused) play(); });
 
-                            /* Mouse hover pauses */
-                            wrapDiv.addEventListener("mouseover", stop);
-                            wrapDiv.addEventListener("mouseout", function() { if(!isPaused) play(); });
-
                             /* prefers-reduced-motion */
                             if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) { pause(); }
                             else { play(); }
