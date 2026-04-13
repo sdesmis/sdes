@@ -29,6 +29,14 @@
     .logo-link { display: flex; align-items: center; text-decoration: none; color: inherit; flex-wrap: wrap; position: relative; padding: 5px; border-radius: 8px; transition: all 0.2s; }
     .phone-link:hover, .phone-link:focus { background-color: #FFBF47; color: #000 !important; cursor: pointer; outline: none; }
     .pending-schedule { display: none !important; }
+    
+    .inner-nav-buttons { display: flex; justify-content: center; gap: 20px; margin-top: 40px; padding: 25px 0; border-top: 1px solid #eee; flex-wrap: wrap; }
+    .nav-btn { display: flex; align-items: center; gap: 10px; padding: 10px 30px; background: #f8f9fa; color: #333; text-decoration: none; border-radius: 50px; font-weight: bold; border: 1px solid #ccc; transition: all 0.2s; font-size: 1.1em; cursor: pointer; }
+    .nav-btn:hover, .nav-btn:focus { background: #FFBF47; color: #000; border-color: #000; outline: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .nav-icon-circle { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #555; color: #fff; border-radius: 50%; transition: background 0.2s; }
+    .nav-btn:hover .nav-icon-circle, .nav-btn:focus .nav-icon-circle { background: #000; }
+    .nav-icon-circle svg { width: 20px; height: 20px; }
+
     .logo-link:hover, .logo-link:focus-visible { background-color: #FFBF47; }
     .logo-link:focus-visible { outline: 3px solid #000 !important; box-shadow: inset 0 0 0 3px #fff !important; }
     .school-logo { height: 80px; width: auto; margin-right: 15px; }
@@ -276,7 +284,7 @@
 <aside class="col-left">
 <a href="#al" id="al" accesskey="L" title="左側區塊" class="access-key">:::</a>
 
-<div id="left-0" class="block-card schedulable-block pending-schedule" style="overflow: hidden; margin-bottom: 15px; border: none; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;" data-publish="" data-expire="115-04-10">
+<div id="left-0" class="block-card schedulable-block pending-schedule" style="overflow: hidden; margin-bottom: 15px; border: none; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;" data-publish="" data-expire="115-04-14">
 <div style="text-align: center;"><h2 class="block-title" style="color: #FFFFFF; background: #397DB3; padding: 10px 25px; border-radius: 100px; text-align: center; display: block; width: 100%; box-sizing: border-box; line-height: 1.4; margin: 0;" tabindex="-1">TIMSS 2027</h2></div>
 <div class="block-content-area" style="padding: 12px 0;">
 <div class="link-list-container " style="display:flex; flex-direction:column; gap:6px;">
