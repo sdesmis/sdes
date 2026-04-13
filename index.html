@@ -453,7 +453,7 @@
                             }
                             function next() { current = (current + 1) % count; update(); }
                             function prev() { current = (current - 1 + count) % count; update(); }
-                            function play() { if(!isPaused) timer = setInterval(next, 3500); }
+                            function play() { if(!isPaused) timer = setInterval(next, 5000); }
                             function stop() { clearInterval(timer); }
                             function pause() { stop(); isPaused = true; btnPause.innerHTML = "▶"; btnPause.setAttribute("aria-label","播放輪播"); btnPause.setAttribute("title","播放輪播"); }
                             function resume() { isPaused = false; btnPause.innerHTML = "⏸"; btnPause.setAttribute("aria-label","暫停輪播"); btnPause.setAttribute("title","暫停輪播"); play(); }
