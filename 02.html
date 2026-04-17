@@ -224,103 +224,6 @@
         .footer-badge { justify-content: flex-start !important; }
     }
 </style>
-<script>
-
-        function initLogoSlider(id) {
-            const track = document.getElementById('logo-track-' + id);
-            const container = document.getElementById('logo-slider-' + id);
-            const dotsContainer = document.getElementById('logo-dots-' + id);
-            if (!track || !container) return;
-            
-            const items = track.children;
-            const itemCount = items.length;
-            let currentIndex = 0;
-            const GAP = 16;
-            const BTN_W = 44 + 8; // button width + gap between button and viewport
-            
-            function getViewportWidth() {
-                // Read from stable outer container, subtract two buttons
-                const w = container.offsetWidth - BTN_W * 2;
-                return w > 0 ? w : 200;
-            }
-            
-            function getVisibleCount(vpWidth) {
-                if (vpWidth > 900) return 5;
-                if (vpWidth > 700) return 4;
-                if (vpWidth > 450) return 3;
-                if (vpWidth > 260) return 2;
-                return 1;
-            }
-            
-            function updateSlider() {
-                const vpWidth = getViewportWidth();
-                const visible = getVisibleCount(vpWidth);
-                const maxIndex = Math.max(0, itemCount - visible);
-                if (currentIndex > maxIndex) currentIndex = maxIndex;
-                
-                // Item width fills viewport exactly — computed once from stable outer container
-                const itemWidth = Math.floor((vpWidth - GAP * (visible - 1)) / visible);
-                
-                for (let i = 0; i < items.length; i++) {
-                    items[i].style.flex = '0 0 ' + itemWidth + 'px';
-                    items[i].style.maxWidth = itemWidth + 'px';
-                }
-                
-                const btns = container.querySelectorAll('.logo-btn-' + id);
-                if (itemCount <= visible) {
-                    track.style.justifyContent = 'center';
-                    btns.forEach(btn => btn.style.display = 'none');
-                    if (dotsContainer) dotsContainer.style.display = 'none';
-                    currentIndex = 0;
-                } else {
-                    track.style.justifyContent = 'flex-start';
-                    btns.forEach(btn => btn.style.display = 'flex');
-                    if (dotsContainer) dotsContainer.style.display = 'flex';
-                }
-
-                // Force reflow and read actual rendered width (includes any border/padding)
-                const actualW = items[0] ? items[0].offsetWidth : itemWidth;
-                const offset = currentIndex * (actualW + GAP);
-                track.style.transform = 'translateX(-' + offset + 'px)';
-                
-                // Update dots
-                if (dotsContainer) {
-                    const pageCount = Math.ceil(itemCount / visible);
-                    const activePage = Math.floor(currentIndex / visible);
-                    dotsContainer.innerHTML = '';
-                    for (let i = 0; i < pageCount; i++) {
-                        const dot = document.createElement('button');
-                        dot.className = 'logo-dot-' + id + (i === activePage ? ' active' : '');
-                        dot.setAttribute('aria-label', '移至第 ' + (i+1) + ' 頁標誌');
-                        dot.onclick = (function(page) { return function() { currentIndex = page * visible; updateSlider(); }; })(i);
-                        dotsContainer.appendChild(dot);
-                    }
-                }
-            }
-            
-            window.addEventListener('resize', updateSlider);
-            // Use requestAnimationFrame to ensure layout is complete before first measure
-            requestAnimationFrame(updateSlider);
-            
-            window['moveLogoSlider' + id] = function(dir) {
-                const vpWidth = getViewportWidth();
-                const visible = getVisibleCount(vpWidth);
-                currentIndex += dir * visible;
-                if (currentIndex < 0) currentIndex = 0;
-                const max = Math.max(0, itemCount - visible);
-                if (currentIndex > max) currentIndex = 0;
-                updateSlider();
-            };
-        }
-        
-        // Handle global click for moveButtons
-        function moveLogoSlider(id, dir) {
-            if (window['moveLogoSlider' + id]) {
-                window['moveLogoSlider' + id](dir);
-            }
-        }
-        
-</script>
 </head><body>
 <a href="#main_content" class="skip-link">跳到主要內容區塊</a>
 <div class="top-nav">
@@ -393,29 +296,9 @@
 <div id="left-1" class="block-card schedulable-block pending-schedule" style="overflow: hidden; margin-bottom: 15px; border: none; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;" data-publish="" data-expire="115-05-08">
 <div style="text-align: center;"><h2 class="block-title" style="color: #FFFFFF; background: #397DB3; padding: 10px 25px; border-radius: 100px; text-align: center; display: block; width: 100%; box-sizing: border-box; line-height: 1.4; margin: 0;" tabindex="-1">新北市教育報告與創新支持系統問卷填答專區</h2></div>
 <div class="block-content-area" style="padding: 12px 0;">
-<style>
-.logo-slider-left-1 { display: flex; flex-direction: column; margin: 10px 0; } .logo-slider-row-left-1 { display: flex; align-items: center; gap: 8px; } .logo-viewport-left-1 { overflow: hidden; flex: 1; min-width: 0; } .logo-track-left-1 { display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); gap: 16px; } .logo-item-left-1 { box-sizing: border-box; flex: 0 0 160px; display: flex; flex-direction: column; align-items: center; text-decoration: none; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #eee; transition: background 0.2s; } .logo-item-left-1:hover, .logo-item-left-1:focus { background: #f9f9f9; border-color: #397DB3; outline: 3px solid #FFBF47; } .logo-item-left-1 img { max-width: 100%; height: auto; max-height: 70px; object-fit: contain; } .logo-item-left-1 span { margin-top: 10px; color: #333; font-weight: bold; font-size: 0.9em; text-align: center; } .logo-btn-left-1 { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid #ddd; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1em; transition: all 0.2s; } .logo-btn-left-1:hover, .logo-btn-left-1:focus { border-color: #397DB3; background: #397DB3; color: #fff; outline: 3px solid #FFBF47; } .logo-dots-left-1 { display: flex; justify-content: center; gap: 15px; margin-top: 15px; } .logo-dot-left-1 { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 2px solid transparent; border-radius: 6px; background: none; cursor: pointer; transition: 0.2s; } .logo-dot-left-1::after { content: ""; width: 8px; height: 8px; background: #ccc; border-radius: 50%; display: block; } .logo-dot-left-1.active { border-color: #397DB3; } .logo-dot-left-1.active::after { background: #397DB3; } .logo-dot-left-1:focus { outline: 3px solid #FFBF47; outline-offset: 2px; } </style>
-<div class="logo-slider-left-1" id="logo-slider-left-1" aria-label="新北市教育報告與創新支持系統問卷填答專區 標誌輪播">
-<div class="logo-slider-row-left-1">
-<button class="logo-btn-left-1" aria-label="前一個標誌" onclick="moveLogoSlider('left-1', -1)">&#10094;</button>
-<div class="logo-viewport-left-1">
-<div class="logo-track-left-1" id="logo-track-left-1">
-<a href="https://myschool-ntpc.epa.ntnu.edu.tw/ques/114myschool_par" target="_blank" rel="noopener noreferrer" aria-label="移至 家長問卷 (另開新視窗)" title="移至 家長問卷 (另開新視窗)" class="logo-item-left-1"><img src="https://myschool-ntpc.epa.ntnu.edu.tw/packages/ntse/web/images/banner/par.png" alt="家長問卷"><span>家長問卷</span></a>
-<a href="https://myschool-ntpc.epa.ntnu.edu.tw/ques/114myschool_stu" target="_blank" rel="noopener noreferrer" aria-label="移至 學生問卷 (另開新視窗)" title="移至 學生問卷 (另開新視窗)" class="logo-item-left-1"><img src="https://myschool-ntpc.epa.ntnu.edu.tw/packages/ntse/web/images/banner/stu.png" alt="學生問卷"><span>學生問卷</span></a>
-<a href="https://myschool-ntpc.epa.ntnu.edu.tw/ques/114myschool_tea" target="_blank" rel="noopener noreferrer" aria-label="移至 教師問卷 (另開新視窗)" title="移至 教師問卷 (另開新視窗)" class="logo-item-left-1"><img src="https://myschool-ntpc.epa.ntnu.edu.tw/packages/ntse/web/images/banner/tea.png" alt="教師問卷"><span>教師問卷</span></a>
-<a href="https://myschool-ntpc.epa.ntnu.edu.tw/ques/114myschool_sta" target="_blank" rel="noopener noreferrer" aria-label="移至 職員問卷 (另開新視窗)" title="移至 職員問卷 (另開新視窗)" class="logo-item-left-1"><img src="https://myschool-ntpc.epa.ntnu.edu.tw/packages/ntse/web/images/banner/sta.png" alt="職員問卷"><span>職員問卷</span></a>
-<a href="https://myschool-ntpc.epa.ntnu.edu.tw/ques/114myschool_pri" target="_blank" rel="noopener noreferrer" aria-label="移至 校長問卷 (另開新視窗)" title="移至 校長問卷 (另開新視窗)" class="logo-item-left-1"><img src="https://myschool-ntpc.epa.ntnu.edu.tw/packages/ntse/web/images/banner/pri.png" alt="校長問卷"><span>校長問卷</span></a>
+<div class="link-list-container " style="display:flex; flex-direction:column; gap:6px;">
+<a href="https://sites.google.com/member.sdes.ntpc.edu.tw/myschool" target="_blank" rel="noopener noreferrer" aria-label="移至 新北市教育報告與創新支持系統問卷 (另開新視窗)" title="移至 新北市教育報告與創新支持系統問卷 (另開新視窗)" class="single-link" style="display:block; padding:10px 15px; border:1px solid #ddd; border-radius:4px; color:#333; text-decoration:none; background:#fff;"><span>新北市教育報告與創新支持系統問卷</span></a>
 </div>
-</div>
-<button class="logo-btn-left-1" aria-label="下一個標誌" onclick="moveLogoSlider('left-1', 1)">&#10095;</button>
-</div>
-<div class="logo-dots-left-1" id="logo-dots-left-1"></div>
-</div>
-<script>
-window.addEventListener("DOMContentLoaded", function() {
-    initLogoSlider('left-1');
-});
-</script>
 </div>
 </div>
 <div id="left-2" class="block-card" style="overflow: hidden; margin-bottom: 15px; border: none; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;">
