@@ -224,6 +224,103 @@
         .footer-badge { justify-content: flex-start !important; }
     }
 </style>
+<script>
+
+        function initLogoSlider(id) {
+            const track = document.getElementById('logo-track-' + id);
+            const container = document.getElementById('logo-slider-' + id);
+            const dotsContainer = document.getElementById('logo-dots-' + id);
+            if (!track || !container) return;
+            
+            const items = track.children;
+            const itemCount = items.length;
+            let currentIndex = 0;
+            const GAP = 16;
+            const BTN_W = 44 + 8; // button width + gap between button and viewport
+            
+            function getViewportWidth() {
+                // Read from stable outer container, subtract two buttons
+                const w = container.offsetWidth - BTN_W * 2;
+                return w > 0 ? w : 200;
+            }
+            
+            function getVisibleCount(vpWidth) {
+                if (vpWidth > 900) return 5;
+                if (vpWidth > 700) return 4;
+                if (vpWidth > 450) return 3;
+                if (vpWidth > 260) return 2;
+                return 1;
+            }
+            
+            function updateSlider() {
+                const vpWidth = getViewportWidth();
+                const visible = getVisibleCount(vpWidth);
+                const maxIndex = Math.max(0, itemCount - visible);
+                if (currentIndex > maxIndex) currentIndex = maxIndex;
+                
+                // Item width fills viewport exactly — computed once from stable outer container
+                const itemWidth = Math.floor((vpWidth - GAP * (visible - 1)) / visible);
+                
+                for (let i = 0; i < items.length; i++) {
+                    items[i].style.flex = '0 0 ' + itemWidth + 'px';
+                    items[i].style.maxWidth = itemWidth + 'px';
+                }
+                
+                const btns = container.querySelectorAll('.logo-btn-' + id);
+                if (itemCount <= visible) {
+                    track.style.justifyContent = 'center';
+                    btns.forEach(btn => btn.style.display = 'none');
+                    if (dotsContainer) dotsContainer.style.display = 'none';
+                    currentIndex = 0;
+                } else {
+                    track.style.justifyContent = 'flex-start';
+                    btns.forEach(btn => btn.style.display = 'flex');
+                    if (dotsContainer) dotsContainer.style.display = 'flex';
+                }
+
+                // Force reflow and read actual rendered width (includes any border/padding)
+                const actualW = items[0] ? items[0].offsetWidth : itemWidth;
+                const offset = currentIndex * (actualW + GAP);
+                track.style.transform = 'translateX(-' + offset + 'px)';
+                
+                // Update dots
+                if (dotsContainer) {
+                    const pageCount = Math.ceil(itemCount / visible);
+                    const activePage = Math.floor(currentIndex / visible);
+                    dotsContainer.innerHTML = '';
+                    for (let i = 0; i < pageCount; i++) {
+                        const dot = document.createElement('button');
+                        dot.className = 'logo-dot-' + id + (i === activePage ? ' active' : '');
+                        dot.setAttribute('aria-label', '移至第 ' + (i+1) + ' 頁標誌');
+                        dot.onclick = (function(page) { return function() { currentIndex = page * visible; updateSlider(); }; })(i);
+                        dotsContainer.appendChild(dot);
+                    }
+                }
+            }
+            
+            window.addEventListener('resize', updateSlider);
+            // Use requestAnimationFrame to ensure layout is complete before first measure
+            requestAnimationFrame(updateSlider);
+            
+            window['moveLogoSlider' + id] = function(dir) {
+                const vpWidth = getViewportWidth();
+                const visible = getVisibleCount(vpWidth);
+                currentIndex += dir * visible;
+                if (currentIndex < 0) currentIndex = 0;
+                const max = Math.max(0, itemCount - visible);
+                if (currentIndex > max) currentIndex = 0;
+                updateSlider();
+            };
+        }
+        
+        // Handle global click for moveButtons
+        function moveLogoSlider(id, dir) {
+            if (window['moveLogoSlider' + id]) {
+                window['moveLogoSlider' + id](dir);
+            }
+        }
+        
+</script>
 </head><body>
 <a href="#main_content" class="skip-link">跳到主要內容區塊</a>
 <div class="top-nav">
@@ -284,12 +381,12 @@
 <aside class="col-left">
 <a href="#al" id="al" accesskey="L" title="左側區塊" class="access-key">:::</a>
 
-<div id="left-0" class="block-card schedulable-block pending-schedule" style="overflow: hidden; margin-bottom: 15px; border: none; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;" data-publish="" data-expire="115-04-14">
-<div style="text-align: center;"><h2 class="block-title" style="color: #FFFFFF; background: #397DB3; padding: 10px 25px; border-radius: 100px; text-align: center; display: block; width: 100%; box-sizing: border-box; line-height: 1.4; margin: 0;" tabindex="-1">TIMSS 2027</h2></div>
+<div id="left-0" class="block-card schedulable-block pending-schedule" style="overflow: hidden; margin-bottom: 15px; border: none; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px;" data-publish="115-04-30" data-expire="115-04-30">
+<div style="text-align: center;"><h2 class="block-title" style="color: #FFFFFF; background: #397DB3; padding: 10px 25px; border-radius: 100px; text-align: center; display: block; width: 100%; box-sizing: border-box; line-height: 1.4; margin: 0;" tabindex="-1">PIRLS 2026 </h2></div>
 <div class="block-content-area" style="padding: 12px 0;">
 <div class="link-list-container " style="display:flex; flex-direction:column; gap:6px;">
-<a href="https://timss.am.rm.com/examiner/timss2027ft_g4_twn_zh" target="_blank" rel="noopener noreferrer" aria-label="移至 TIMSS Player (另開新視窗)" title="移至 TIMSS Player (另開新視窗)" class="single-link" style="display:block; padding:10px 15px; border:1px solid #ddd; border-radius:4px; color:#333; text-decoration:none; background:#fff;"><span>TIMSS Player</span></a>
-<a href="https://timss.iea-online.net/T4FT-SQ-zh-TW" target="_blank" rel="noopener noreferrer" aria-label="移至 學生問卷 (另開新視窗)" title="移至 學生問卷 (另開新視窗)" class="single-link" style="display:block; padding:10px 15px; border:1px solid #ddd; border-radius:4px; color:#333; text-decoration:none; background:#fff;"><span>學生問卷</span></a>
+<a href="https://pirls.am.rm.com/engine/index.php/lms/login/path/pirls2026dc_twn_zh" target="_blank" rel="noopener noreferrer" aria-label="移至 PIRLS 2026 (另開新視窗)" title="移至 PIRLS 2026 (另開新視窗)" class="single-link" style="display:block; padding:10px 15px; border:1px solid #ddd; border-radius:4px; color:#333; text-decoration:none; background:#fff;"><span>PIRLS 2026</span></a>
+<a href="https://pirls.iea-online.net/PDC-SQ-zh-TW/" target="_blank" rel="noopener noreferrer" aria-label="移至 學生問卷 (另開新視窗)" title="移至 學生問卷 (另開新視窗)" class="single-link" style="display:block; padding:10px 15px; border:1px solid #ddd; border-radius:4px; color:#333; text-decoration:none; background:#fff;"><span>學生問卷</span></a>
 </div>
 </div>
 </div>
